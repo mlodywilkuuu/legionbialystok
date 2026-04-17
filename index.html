@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona w budowie</title>
+    <style>
+        /* Stylizacja ogólna */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a; /* Ciemne tło */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+        }
+
+        /* Stylizacja logo */
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        /* Animacja pulsowania dla logo */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: #f3f3f3;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* Pasek postępu (opcjonalny detal) */
+        .loader {
+            width: 100%;
+            background-color: #333;
+            height: 4px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .loader-bar {
+            width: 40%;
+            height: 100%;
+            background-color: #007bff; /* Kolor akcentu - możesz zmienić na barwy klubowe */
+            position: absolute;
+            animation: move 2s infinite linear;
+        }
+
+        @keyframes move {
+            0% { left: -40%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="logo.png" alt="Logo Drużyny" class="logo">
+        
+        <h1>Strona w budowie</h1>
+        <p class="subtitle">Pracujemy nad czymś wyjątkowym. Wrócimy wkrótce!</p>
+
+        <div class="loader">
+            <div class="loader-bar"></div>
+        </div>
+    </div>
+
+</body>
+</html>
