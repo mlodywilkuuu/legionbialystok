@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok - Strona w budowie</title>
+    <title>Legion Białystok</title>
     <style>
         :root {
-            --main-red: #cc0000; /* Dopasuj do barw Legionu */
+            --main-red: #cc0000;
             --accent-gold: #ffd700;
+            --dark-bg: #121212;
         }
 
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #121212;
+            background-color: var(--dark-bg);
             color: white;
-            overflow: hidden; /* Blokujemy przewijanie, póki jest plansza */
+            overflow: hidden;
         }
 
-        /* PLANSZA W BUDOWIE */
+        /* PLANSZA OVERLAY */
         #under-construction-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #121212;
+            background-color: var(--dark-bg);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -34,14 +35,10 @@
             transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        .construction-content {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .logo {
+        .construction-content { text-align: center; }
+        
+        .big-logo {
             max-width: 250px;
-            height: auto;
             margin-bottom: 2rem;
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
             animation: float 4s ease-in-out infinite;
@@ -52,107 +49,154 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* PRZYCISK WEJŚCIA (LEWY GÓRNY RÓG) */
+        /* PRZYCISK WEJŚCIA */
         .enter-btn {
             position: fixed;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             z-index: 10000;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 10px 20px;
+            padding: 8px 15px;
             cursor: pointer;
-            border-radius: 5px;
-            font-size: 0.8rem;
             text-transform: uppercase;
+            font-size: 11px;
             transition: 0.3s;
         }
 
-        .enter-btn:hover {
-            background: var(--main-red);
-            border-color: var(--main-red);
+        .enter-btn:hover { background: var(--main-red); }
+
+        /* NAWIGACJA */
+        .navbar {
+            height: 70px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Logo/Przyciski po lewej, Języki po prawej */
+            padding: 0 30px;
+            border-bottom: 2px solid var(--main-red);
         }
 
-        /* MENU (STYLE DYNAMO) */
-        .navbar {
-            padding: 20px 50px;
+        .nav-left {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.8);
+            gap: 40px;
+        }
+
+        .nav-logo-img {
+            height: 50px;
+            width: auto;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             text-transform: uppercase;
+            font-size: 14px;
             transition: 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--main-red);
+        .nav-links a:hover { color: var(--main-red); }
+
+        /* MENU JĘZYKÓW (DROPDOWN) */
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
         }
 
-        /* TREŚĆ STRONY GŁÓWNEJ */
-        .main-page {
-            padding: 100px 50px;
-            text-align: center;
+        .lang-btn {
+            background: none;
+            border: 1px solid #444;
+            color: white;
+            padding: 5px 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        /* KLASA DO UKRYWANIA PLANSZY */
-        .hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+        .lang-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #1a1a1a;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+            z-index: 1;
         }
+
+        .lang-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 13px;
+        }
+
+        .lang-content a:hover { background-color: var(--main-red); }
+        .lang-dropdown:hover .lang-content { display: block; }
+        .lang-dropdown:hover .lang-btn { background: #333; }
+
+        .hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <button class="enter-btn" onclick="enterSite()">Wejdź do serwisu</button>
+    <button class="enter-btn" onclick="enterSite()">Pomiń ekran</button>
 
     <div id="under-construction-overlay">
         <div class="construction-content">
-            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo Legion" class="logo">
+            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="big-logo">
             <h1>STRONA W BUDOWIE</h1>
-            <p style="color: #666;">Pracujemy nad nowym serwisem Legionu Białystok.</p>
         </div>
     </div>
 
     <nav class="navbar">
-        <div class="nav-logo" style="font-weight: bold; font-size: 1.5rem;">LEGION</div>
-        <ul class="nav-links">
-            <li><a href="#">Start</a></li>
-            <li><a href="#">Drużyna</a></li>
-            <li><a href="#">Terminarz</a></li>
-            <li><a href="#">Kontakt</a></li>
-        </ul>
+        <div class="nav-left">
+            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
+            
+            <ul class="nav-links">
+                <li><a href="#">Start</a></li>
+                <li><a href="#">Drużyna</a></li>
+                <li><a href="#">Mecze</a></li>
+                <li><a href="#">Klub</a></li>
+            </ul>
+        </div>
+
+        <div class="lang-dropdown">
+            <button class="lang-btn">PL ▼</button>
+            <div class="lang-content">
+                <a href="#">Polski</a>
+                <a href="#">English</a>
+                <a href="#">Deutsch</a>
+            </div>
+        </div>
     </nav>
 
-    <div class="main-page">
-        <h2>Witaj na oficjalnej stronie Legionu!</h2>
-        <p>Tutaj wkrótce znajdą się aktualności, wyniki i statystyki.</p>
+    <div style="padding: 100px; text-align: center;">
+        <h2>Oficjalny serwis Legion Białystok</h2>
+        <p>Treść strony głównej w przygotowaniu.</p>
     </div>
 
     <script>
         function enterSite() {
-            // Ukrywa planszę "w budowie"
             document.getElementById('under-construction-overlay').classList.add('hidden');
-            // Przywraca przewijanie strony
             document.body.style.overflow = 'auto';
-            // Zmienia tekst przycisku
             document.querySelector('.enter-btn').style.display = 'none';
         }
     </script>
 
 </body>
-</html>
 </html>
