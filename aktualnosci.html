@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aktualności - Legion Białystok</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         :root {
             --gold: #C5A059;
@@ -13,47 +12,53 @@
             --dark: #1a1a1a;
         }
 
-        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
 
-        /* NAVBAR (Identyczny jak wcześniej) */
+        /* NAVBAR */
         .navbar { height: 90px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 4px solid var(--gold); background: var(--white); position: sticky; top: 0; z-index: 1000; }
         .nav-logo-img { height: 75px; }
-        .nav-links { list-style: none; display: flex; gap: 20px; text-transform: uppercase; font-size: 14px; }
-        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; }
+        .nav-links { list-style: none; display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; }
+
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .separator { width: 1px; height: 30px; background-color: #ddd; }
+        
+        /* JĘZYKI */
+        .lang-dropdown { position: relative; }
+        .lang-btn { background: white; border: 2px solid var(--gold); padding: 8px 12px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        .lang-content { display: none; position: absolute; right: 0; background: white; min-width: 150px; border: 2px solid var(--gold); }
+        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .lang-dropdown:hover .lang-content { display: block; }
+        .flag-img { width: 20px; height: 14px; object-fit: cover; }
 
         /* GRID AKTUALNOŚCI */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
+        .section-title { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; font-size: 2rem; }
         
-        .news-card { background: #f4f4f4; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; margin-top: 30px; }
+        .news-card { background: #f4f4f4; cursor: pointer; transition: 0.3s; }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .news-img { width: 100%; height: 250px; background-size: cover; background-position: center; }
         .news-info { padding: 20px; }
-        .news-date { color: var(--gold); font-size: 12px; margin-bottom: 10px; }
+        .news-date { color: var(--gold); font-size: 12px; font-weight: bold; margin-bottom: 10px; }
+        .news-info h3 { margin: 0; font-size: 1.2rem; text-transform: uppercase; line-height: 1.2; }
 
-        /* OKNO ARTYKUŁU (MODAL) - Styl z obrazka */
+        /* MODAL ARTYKUŁU (ZGODNY Z OBRAZKIEM) */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        .modal-content { width: 90%; max-width: 1000px; max-height: 90vh; background: #1a1a1a; color: white; overflow-y: auto; border-radius: 5px; position: relative; }
-        .close-btn { position: absolute; right: 20px; top: 20px; font-size: 30px; color: white; cursor: pointer; z-index: 10; }
+        .modal-content { width: 95%; max-width: 1000px; max-height: 90vh; background: #0b0c10; color: white; overflow-y: auto; position: relative; border-radius: 4px; }
+        .close-btn { position: absolute; right: 20px; top: 20px; font-size: 35px; color: white; cursor: pointer; z-index: 100; font-family: sans-serif; }
         
-        .article-hero { width: 100%; height: 500px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
-        .article-hero::after { content: ''; position: absolute; width: 100%; height: 100%; background: linear-gradient(to top, #1a1a1a, transparent); }
-        .article-header-text { position: relative; z-index: 2; padding: 40px; }
-        .article-header-text h2 { font-size: 3rem; text-transform: uppercase; margin: 0; line-height: 1.1; }
-        .article-body { padding: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8; color: #ccc; }
+        .article-hero { width: 100%; height: 550px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
+        .article-hero::after { content: ''; position: absolute; width: 100%; height: 100%; background: linear-gradient(to top, #0b0c10 10%, transparent 90%); }
+        
+        .article-header-text { position: relative; z-index: 2; padding: 40px; width: 100%; }
+        .article-header-text h2 { font-size: 3.2rem; text-transform: uppercase; margin: 0; line-height: 1; font-style: italic; }
+        .article-header-text .pub-date { color: #888; font-size: 14px; margin-bottom: 20px; font-family: sans-serif; font-weight: normal; }
+
+        .article-body { padding: 0 40px 40px 40px; font-family: sans-serif; line-height: 1.7; color: #ccc; font-size: 1.1rem; }
 
         /* PANEL ADMINA */
-        .admin-trigger { position: fixed; bottom: 10px; right: 10px; opacity: 0.2; cursor: pointer; color: var(--gold); font-size: 12px; }
-        .admin-trigger:hover { opacity: 1; }
-        
-        #adminPanel { display: none; background: white; color: black; padding: 30px; border-top: 5px solid var(--gold); }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 10px; border: 1px solid #ddd; }
-        
-        /* Styl edytora Quill */
-        #editor-container { height: 300px; margin-bottom: 20px; }
-        .btn-save { background: var(--gold); color: white; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .admin-trigger { position: fixed; bottom: 10px; right: 10px; opacity: 0.3; cursor: pointer; color: #888; font-size: 11px; }
     </style>
 </head>
 <body>
@@ -62,26 +67,37 @@
         <div class="nav-left">
             <a href="index.html"><img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" class="nav-logo-img"></a>
             <ul class="nav-links">
-                <li><a href="aktualnosci.html" style="color:var(--gold)">Aktualności</a></li>
-                <li><a href="druzyna.html">Drużyna</a></li>
-                <li><a href="terminarz.html">Terminarz</a></li>
-                <li><a href="kontakt.html">Kontakt</a></li>
+                <li><a href="aktualnosci.html" id="link-news" style="color:var(--gold)">Aktualności</a></li>
+                <li><a href="#" id="link-team">Drużyna</a></li>
+                <li><a href="#" id="link-schedule">Terminarz</a></li>
+                <li><a href="#" id="link-contact">Kontakt</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href="https://www.instagram.com/legionbialystok/" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/legionbialystok/" class="social-link" target="_blank"><i class="fab fa-instagram" style="color: #1a1a1a; font-size: 20px;"></i></a>
             <div class="separator"></div>
+            <div class="lang-dropdown">
+                <button class="lang-btn">
+                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> <span id="current-lang">PL</span> ▼
+                </button>
+                <div class="lang-content">
+                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
+                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
+                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
+                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
+                </div>
             </div>
+        </div>
     </nav>
 
     <div class="container">
-        <h2 style="border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase;">Ostatnie wiadomości</h2>
-        <div class="news-grid" id="newsGrid">
-            <div class="news-card" onclick="openArticle('[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD', 'Przed nami 4. kolejka Czwartej Ligi PRO Ligi. Na boisku przy ul. Lotniczej dojdzie do starcia drużyn...', 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000', '2026-04-16')">
+        <h2 id="section-title" class="section-title">Ostatnie wiadomości</h2>
+        <div class="news-grid">
+            <div class="news-card" onclick="openArticle('match_preview')">
                 <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');"></div>
                 <div class="news-info">
-                    <div class="news-date">DATA PUBLIKACJI: 2026-04-16</div>
-                    <h3>[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
+                    <div class="news-date" id="card-date-1">DATA PUBLIKACJI: 2026-04-16</div>
+                    <h3 id="card-title-1">[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
                 </div>
             </div>
         </div>
@@ -90,102 +106,109 @@
     <div id="articleModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeArticle()">&times;</span>
-            <div id="artHero" class="article-hero">
+            <div id="artHero" class="article-hero" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');">
                 <div class="article-header-text">
-                    <div id="artDate" style="color: var(--gold); font-weight: bold; margin-bottom: 10px;"></div>
-                    <h2 id="artTitle"></h2>
+                    <div id="modalPubDate" class="pub-date"></div>
+                    <h2 id="modalTitle"></h2>
                 </div>
             </div>
-            <div id="artBody" class="article-body"></div>
+            <div id="modalBody" class="article-body"></div>
         </div>
     </div>
 
-    <div class="admin-trigger" onclick="checkPass()">Panel Admina</div>
-    
-    <div id="adminPanel" class="modal">
-        <div class="modal-content" style="background: white; color: black; padding: 30px;">
-            <span class="close-btn" onclick="document.getElementById('adminPanel').style.display='none'" style="color: black;">&times;</span>
-            <h2 style="color: var(--gold)">DODAJ NOWY ARTYKUŁ</h2>
-            
-            <div class="input-group">
-                <label>Tytuł artykułu</label>
-                <input type="text" id="postTitle" placeholder="Np. [MATCH PREVIEW]...">
-            </div>
-            
-            <div class="input-group">
-                <label>Link do zdjęcia (URL)</label>
-                <input type="text" id="postImg" placeholder="Wklej link do zdjęcia...">
-            </div>
+    <div class="admin-trigger">Panel Admina</div>
 
-            <label>Treść artykułu (Pełne formatowanie)</label>
-            <div id="editor-container"></div>
-            
-            <button class="btn-save" onclick="savePost()">Opublikuj artykuł</button>
-        </div>
-    </div>
-
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        // Inicjalizacja profesjonalnego edytora
-        var quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                ]
+        // System tłumaczeń dla menu i konkretnych artykułów
+        const translations = {
+            pl: {
+                news: "Aktualności", team: "Drużyna", schedule: "Terminarz", contact: "Kontakt",
+                section: "Ostatnie wiadomości", pubDate: "DATA PUBLIKACJI",
+                articles: {
+                    match_preview: {
+                        title: "[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD",
+                        date: "2026-04-16 20:56",
+                        content: "Przed nami 4. kolejka Czwartej Ligi PRO Ligi. Na boisku przy ul. Lotniczej dojdzie do starcia drużyn, które po wymagającym starcie sezonu wiosennego szukają punktów, by odwrócić losy tabeli. To mecz o wysokim ciężarze gatunkowym!"
+                    }
+                }
+            },
+            en: {
+                news: "News", team: "Team", schedule: "Schedule", contact: "Contact",
+                section: "Latest News", pubDate: "PUBLICATION DATE",
+                articles: {
+                    match_preview: {
+                        title: "[MATCH PREVIEW] FC DINAMO WROCLAW - RUNNERSHOOD",
+                        date: "2026-04-16 20:56",
+                        content: "Ahead of us is the 4th round of the Fourth PRO League. On the field at Lotnicza Street, teams looking for points to reverse the table's fate after a demanding start to the spring season will clash. This is a high-stakes match!"
+                    }
+                }
+            },
+            es: {
+                news: "Noticias", team: "Equipo", schedule: "Calendario", contact: "Contacto",
+                section: "Últimas noticias", pubDate: "FECHA DE PUBLICACIÓN",
+                articles: {
+                    match_preview: {
+                        title: "[PREVIA] FC DINAMO WROCŁAW - RUNNERSHOOD",
+                        date: "2026-04-16 20:56",
+                        content: "Nos espera la 4ª jornada de la Cuarta Liga PRO Liga. En el campo de la calle Lotnicza se enfrentarán equipos que buscan puntos para revertir su suerte en la tabla tras un exigente inicio de temporada de primavera."
+                    }
+                }
+            },
+            ru: {
+                news: "Новости", team: "Команда", schedule: "Расписание", contact: "Контакты",
+                section: "Последние новости", pubDate: "ДАТА ПУБЛИКАЦИИ",
+                articles: {
+                    match_preview: {
+                        title: "[ПРЕВЬЮ МАТЧА] ФК ДИНАМО ВРОЦЛАВ - RUNNERSHOOD",
+                        date: "2026-04-16 20:56",
+                        content: "Впереди 4-й тур Четвертой лиги PRO лиги. На поле по ул. Лотничей сойдутся команды, которые после непростого старта весеннего сезона ищут очки, чтобы изменить положение в таблице."
+                    }
+                }
             }
-        });
+        };
 
-        function openArticle(title, body, img, date) {
-            document.getElementById('artTitle').innerText = title;
-            document.getElementById('artBody').innerHTML = body;
-            document.getElementById('artHero').style.backgroundImage = `url('${img}')`;
-            document.getElementById('artDate').innerText = `DATA PUBLIKACJI: ${date}`;
+        let currentLang = 'pl';
+
+        function changeLang(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+
+            // Tłumaczenie menu
+            document.getElementById('link-news').innerText = t.news;
+            document.getElementById('link-team').innerText = t.team;
+            document.getElementById('link-schedule').innerText = t.schedule;
+            document.getElementById('link-contact').innerText = t.contact;
+            document.getElementById('section-title').innerText = t.section;
+
+            // Tłumaczenie kart na stronie głównej
+            document.getElementById('card-title-1').innerText = t.articles.match_preview.title;
+            document.getElementById('card-date-1').innerText = `${t.pubDate}: 2026-04-16`;
+
+            // Flaga i napisy
+            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru' };
+            document.getElementById('current-flag').src = `https://flagcdn.com/w40/${flags[lang]}.png`;
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+        }
+
+        function openArticle(articleId) {
+            const t = translations[currentLang];
+            const art = t.articles[articleId];
+
+            document.getElementById('modalTitle').innerText = art.title;
+            document.getElementById('modalPubDate').innerText = `${t.pubDate}: ${art.date}`;
+            document.getElementById('modalBody').innerHTML = `<p>${art.content}</p>`;
+            
             document.getElementById('articleModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
 
         function closeArticle() {
             document.getElementById('articleModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
-        function checkPass() {
-            let pass = prompt("Podaj hasło do panelu:");
-            if(pass === "admin123") { // Tu ustaw swoje hasło
-                document.getElementById('adminPanel').style.display = 'flex';
-            } else {
-                alert("Błędne hasło!");
-            }
-        }
-
-        function savePost() {
-            const title = document.getElementById('postTitle').value;
-            const img = document.getElementById('postImg').value;
-            const body = quill.root.innerHTML; // Pobiera treść z edytora
-            const date = new Date().toISOString().split('T')[0];
-
-            if(!title || !img) return alert("Uzupełnij tytuł i zdjęcie!");
-
-            // Tworzenie nowej karty
-            const grid = document.getElementById('newsGrid');
-            const newCard = document.createElement('div');
-            newCard.className = 'news-card';
-            newCard.onclick = () => openArticle(title, body, img, date);
-            newCard.innerHTML = `
-                <div class="news-img" style="background-image: url('${img}');"></div>
-                <div class="news-info">
-                    <div class="news-date">DATA PUBLIKACJI: ${date}</div>
-                    <h3>${title}</h3>
-                </div>
-            `;
-            
-            grid.prepend(newCard); // Dodaje na początku listy
-            document.getElementById('adminPanel').style.display = 'none';
-            alert("Artykuł dodany!");
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('articleModal')) closeArticle();
         }
     </script>
 </body>
