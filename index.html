@@ -3,93 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona w budowie</title>
+    <title>Strona w budowie - Drużyna</title>
     <style>
         /* Stylizacja ogólna */
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a; /* Ciemne tło */
-            color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212; /* Bardzo ciemne, nowoczesne tło */
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
         }
 
-        .container {
-            padding: 20px;
-            max-width: 600px;
+        .content-box {
+            padding: 40px;
+            max-width: 800px;
+            width: 90%;
         }
 
         /* Stylizacja logo */
         .logo {
-            max-width: 200px;
+            max-width: 250px;
             height: auto;
-            margin-bottom: 30px;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-            animation: pulse 3s infinite ease-in-out;
+            margin-bottom: 2rem;
+            /* Delikatna poświata wokół logo */
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* Animacja pulsowania dla logo */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        /* Efekt lekkiego unoszenia się logo */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3.5rem);
             margin: 0;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            color: #f3f3f3;
+            letter-spacing: 4px;
+            font-weight: 800;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: #888;
-            margin-top: 10px;
+        .status-text {
+            font-size: 1.1rem;
+            color: #aaaaaa;
+            margin: 20px 0 40px 0;
+            line-height: 1.6;
         }
 
-        /* Pasek postępu (opcjonalny detal) */
-        .loader {
+        /* Animowany pasek postępu */
+        .progress-container {
             width: 100%;
-            background-color: #333;
-            height: 4px;
-            margin-top: 30px;
-            position: relative;
+            max-width: 400px;
+            background-color: #2a2a2a;
+            height: 6px;
+            margin: 0 auto;
+            border-radius: 10px;
             overflow: hidden;
-            border-radius: 2px;
+            position: relative;
         }
 
-        .loader-bar {
-            width: 40%;
+        .progress-bar {
+            width: 100%;
             height: 100%;
-            background-color: #007bff; /* Kolor akcentu - możesz zmienić na barwy klubowe */
-            position: absolute;
-            animation: move 2s infinite linear;
+            background: linear-gradient(90deg, #555, #fff, #555);
+            background-size: 200% 100%;
+            animation: loading 2s infinite linear;
         }
 
-        @keyframes move {
-            0% { left: -40%; }
-            100% { left: 100%; }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+            color: #555;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="logo.png" alt="Logo Drużyny" class="logo">
+    <div class="content-box">
+        <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" 
+             alt="Logo Drużyny" 
+             class="logo">
         
         <h1>Strona w budowie</h1>
-        <p class="subtitle">Pracujemy nad czymś wyjątkowym. Wrócimy wkrótce!</p>
+        <p class="status-text">
+            Szykujemy coś specjalnego dla naszych kibiców.<br>
+            Zapraszamy wkrótce!
+        </p>
 
-        <div class="loader">
-            <div class="loader-bar"></div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
         </div>
     </div>
+
+    <footer>
+        &copy; 2026 Wszystkie prawa zastrzeżone.
+    </footer>
 
 </body>
 </html>
