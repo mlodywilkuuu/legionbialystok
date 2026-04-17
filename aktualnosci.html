@@ -16,7 +16,7 @@
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
 
-        /* NAVBAR - WSZYSTKO W JEDNEJ LINII */
+        /* NAVBAR - NAPRAWIONY UKŁAD W LINII */
         .navbar { 
             height: 90px; display: flex; align-items: center; justify-content: space-between; 
             padding: 0 25px; border-bottom: 4px solid var(--gold); background: var(--white); 
@@ -50,9 +50,8 @@
         .news-date { color: var(--gold); font-size: 12px; font-weight: bold; margin-bottom: 10px; }
 
         /* PRZYCISKI ADMINA NA KARCIE */
-        .admin-card-tools { position: absolute; top: 10px; right: 10px; display: none; gap: 5px; z-index: 10; }
-        .news-card:hover .admin-card-tools { display: flex; }
-        .tool-btn { background: rgba(0,0,0,0.7); color: white; border: none; padding: 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .admin-card-tools { position: absolute; top: 10px; right: 10px; display: flex; gap: 5px; z-index: 10; }
+        .tool-btn { background: rgba(0,0,0,0.8); color: white; border: none; padding: 8px; cursor: pointer; border-radius: 4px; }
         .tool-btn:hover { background: var(--gold); }
 
         /* MODAL ARTYKUŁU */
@@ -66,11 +65,15 @@
         .article-header-text h2 { font-size: 3rem; text-transform: uppercase; margin: 0; font-style: italic; line-height: 1; }
         .article-body { padding: 40px; line-height: 1.8; color: #ccc; }
 
+        /* STOPKA ADMINA */
+        .admin-footer { position: fixed; bottom: 15px; right: 15px; display: flex; gap: 10px; z-index: 5000; }
+        .admin-link { opacity: 0.2; cursor: pointer; font-size: 12px; font-weight: bold; transition: 0.3s; }
+        .admin-link:hover { opacity: 1; color: var(--gold); }
+        .logout-btn { display: none; color: red; cursor: pointer; font-size: 12px; font-weight: bold; }
+
         /* PANEL ADMINA */
-        .admin-trigger { position: fixed; bottom: 15px; right: 15px; opacity: 0.2; cursor: pointer; z-index: 5000; font-size: 12px; }
-        .admin-trigger:hover { opacity: 1; color: var(--gold); }
         .admin-box { background: white !important; color: black !important; padding: 30px; border-radius: 8px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; }
-        .admin-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; box-sizing: border-box; font-family: sans-serif; }
+        .admin-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; box-sizing: border-box; }
         #editor-container { height: 300px; margin-bottom: 20px; }
     </style>
 </head>
@@ -91,11 +94,11 @@
             <div class="separator"></div>
             <div class="lang-dropdown">
                 <button class="lang-btn">
-                    <img src="https://flagcdn.com/w40/pl.png" width="20" id="curFlag"> <span id="curLang">PL</span> ▼
+                    <img src="https://flagcdn.com/w40/pl.png" width="20"> PL ▼
                 </button>
                 <div class="lang-content">
-                    <a onclick="setLang('pl')"><img src="https://flagcdn.com/w40/pl.png" width="20"> PL</a>
-                    <a onclick="setLang('en')"><img src="https://flagcdn.com/w40/gb.png" width="20"> EN</a>
+                    <a onclick="setLang('pl')">PL</a>
+                    <a onclick="setLang('en')">EN</a>
                 </div>
             </div>
         </div>
@@ -119,116 +122,102 @@
         </div>
     </div>
 
-    <div class="admin-trigger" onclick="checkPass()">Panel Admina</div>
+    <div class="admin-footer">
+        <div id="adminTrigger" class="admin-link" onclick="loginAdmin()">Panel Admina</div>
+        <div id="logoutBtn" class="logout-btn" onclick="logoutAdmin()">WYLOGUJ</div>
+    </div>
+
     <div id="adminPanel" class="modal">
         <div class="admin-box">
             <span class="close-btn" onclick="closeModal('adminPanel')" style="color:black">&times;</span>
-            <h2 style="color:var(--gold); margin-top:0;">ZARZĄDZAJ ARTYKUŁAMI</h2>
+            <h2 style="color:var(--gold); margin-top:0;">EDYCJA ARTYKUŁU</h2>
             <input type="hidden" id="editIndex">
             <input type="text" id="postTitle" class="admin-input" placeholder="Tytuł...">
             <input type="text" id="postImg" class="admin-input" placeholder="Link do zdjęcia...">
             <input type="datetime-local" id="postDate" class="admin-input">
-            
             <div id="editor-container"></div>
-            
-            <button class="tool-btn" style="width:100%; padding:15px; background:var(--gold); font-weight:bold;" onclick="savePost()">ZAPISZ ARTYKUŁ</button>
+            <button class="tool-btn" style="width:100%; padding:15px; background:var(--gold); font-weight:bold;" onclick="savePost()">ZAPISZ</button>
         </div>
     </div>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        // Inicjalizacja Edytora z pełnym formatowaniem
-        var quill = new Quill('#editor-container', {
-            theme: 'snow',
-            modules: { toolbar: [
-                [{ 'header': [1, 2, 3, false] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'color': [] }, { 'background': [] }],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-                ['link', 'image', 'video'],
-                ['clean']
-            ]}
-        });
-
-        // Baza artykułów w localStorage (aby nie znikały po odświeżeniu)
-        let articles = JSON.parse(localStorage.getItem('legion_news')) || [
-            { id: 1, title: "[MATCH PREVIEW] FC DINAMO WROCŁAW", date: "2026-04-16T20:56", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000", content: "Treść testowa..." }
-        ];
+        var quill = new Quill('#editor-container', { theme: 'snow', modules: { toolbar: [[{header:[1,2,false]}],['bold','italic','underline'],['link','image','video'],['clean']] }});
+        
+        let articles = JSON.parse(localStorage.getItem('legion_news')) || [];
+        let isAdmin = false;
 
         function renderArticles() {
             const grid = document.getElementById('newsGrid');
             grid.innerHTML = '';
-            
-            // SORTOWANIE: Najnowsza data pierwsza
             articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             articles.forEach((art, index) => {
                 const card = document.createElement('div');
                 card.className = 'news-card';
-                card.innerHTML = `
+                let tools = isAdmin ? `
                     <div class="admin-card-tools">
                         <button class="tool-btn" onclick="editPost(${index}); event.stopPropagation();"><i class="fas fa-edit"></i></button>
                         <button class="tool-btn" onclick="deletePost(${index}); event.stopPropagation();"><i class="fas fa-trash"></i></button>
-                    </div>
+                    </div>` : '';
+                
+                card.innerHTML = `${tools}
                     <div class="news-img" style="background-image: url('${art.img}')" onclick="viewArticle(${index})"></div>
                     <div class="news-info" onclick="viewArticle(${index})">
                         <div class="news-date">DATA: ${art.date.replace('T', ' ')}</div>
                         <h3>${art.title}</h3>
-                    </div>
-                `;
+                    </div>`;
                 grid.appendChild(card);
             });
             localStorage.setItem('legion_news', JSON.stringify(articles));
         }
 
-        function checkPass() { if(prompt("Hasło:") === "admin123") document.getElementById('adminPanel').style.display = 'flex'; }
-        
-        function savePost() {
-            const index = document.getElementById('editIndex').value;
-            const newArt = {
-                title: document.getElementById('postTitle').value,
-                img: document.getElementById('postImg').value,
-                date: document.getElementById('postDate').value,
-                content: quill.root.innerHTML
-            };
+        function loginAdmin() {
+            if(prompt("Hasło:") === "admin123") {
+                isAdmin = true;
+                document.getElementById('logoutBtn').style.display = 'block';
+                document.getElementById('adminTrigger').innerText = "DODAJ NOWY +";
+                document.getElementById('adminTrigger').style.opacity = "1";
+                document.getElementById('adminTrigger').onclick = () => { clearForm(); document.getElementById('adminPanel').style.display = 'flex'; };
+                renderArticles();
+            }
+        }
 
-            if(index === "") articles.push(newArt);
-            else articles[index] = newArt;
-
-            closeModal('adminPanel');
-            clearAdminForm();
+        function logoutAdmin() {
+            isAdmin = false;
+            document.getElementById('logoutBtn').style.display = 'none';
+            document.getElementById('adminTrigger').innerText = "Panel Admina";
+            document.getElementById('adminTrigger').style.opacity = "0.2";
+            document.getElementById('adminTrigger').onclick = loginAdmin;
             renderArticles();
         }
 
-        function deletePost(index) { if(confirm("Usunąć?")) { articles.splice(index, 1); renderArticles(); } }
+        function savePost() {
+            const index = document.getElementById('editIndex').value;
+            const newArt = { title: document.getElementById('postTitle').value, img: document.getElementById('postImg').value, date: document.getElementById('postDate').value, content: quill.root.innerHTML };
+            if(index === "") articles.push(newArt); else articles[index] = newArt;
+            closeModal('adminPanel');
+            renderArticles();
+        }
 
-        function editPost(index) {
-            const art = articles[index];
-            document.getElementById('editIndex').value = index;
-            document.getElementById('postTitle').value = art.title;
-            document.getElementById('postImg').value = art.img;
-            document.getElementById('postDate').value = art.date;
-            quill.root.innerHTML = art.content;
+        function deletePost(i) { if(confirm("Usunąć?")) { articles.splice(i,1); renderArticles(); } }
+        function editPost(i) {
+            const a = articles[i]; document.getElementById('editIndex').value = i;
+            document.getElementById('postTitle').value = a.title; document.getElementById('postImg').value = a.img;
+            document.getElementById('postDate').value = a.date; quill.root.innerHTML = a.content;
             document.getElementById('adminPanel').style.display = 'flex';
         }
 
-        function viewArticle(index) {
-            const art = articles[index];
-            document.getElementById('modalTitle').innerText = art.title;
-            document.getElementById('modalDate').innerText = `DATA PUBLIKACJI: ${art.date.replace('T', ' ')}`;
-            document.getElementById('modalBody').innerHTML = art.content;
-            document.getElementById('modalHero').style.backgroundImage = `url('${art.img}')`;
+        function viewArticle(i) {
+            const a = articles[i]; document.getElementById('modalTitle').innerText = a.title;
+            document.getElementById('modalDate').innerText = `DATA: ${a.date.replace('T',' ')}`;
+            document.getElementById('modalBody').innerHTML = a.content;
+            document.getElementById('modalHero').style.backgroundImage = `url('${a.img}')`;
             document.getElementById('artModal').style.display = 'flex';
         }
 
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-        function clearAdminForm() {
-            document.getElementById('editIndex').value = "";
-            document.getElementById('postTitle').value = "";
-            document.getElementById('postImg').value = "";
-            document.getElementById('postDate').value = "";
-            quill.setContents([]);
-        }
+        function clearForm() { document.getElementById('editIndex').value = ""; document.getElementById('postTitle').value = ""; document.getElementById('postImg').value = ""; document.getElementById('postDate').value = ""; quill.setContents([]); }
 
         renderArticles();
     </script>
