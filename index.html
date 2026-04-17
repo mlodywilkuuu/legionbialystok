@@ -8,19 +8,18 @@
         :root {
             --gold: #C5A059;
             --white: #ffffff;
-            --bg-light: #fdfdfd;
         }
 
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Arial Black', Gadget, sans-serif;
+            font-family: 'Arial Black', sans-serif;
             background-color: var(--white);
             color: #333;
             overflow: hidden;
         }
 
-        /* PLANSZA OVERLAY - BIAŁO ZŁOTA */
+        /* PLANSZA OVERLAY */
         #under-construction-overlay {
             position: fixed;
             top: 0;
@@ -37,7 +36,6 @@
 
         .big-logo {
             max-width: 300px;
-            filter: drop-shadow(0 10px 15px rgba(197, 160, 89, 0.2));
             animation: float 4s ease-in-out infinite;
         }
 
@@ -46,7 +44,6 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* PRZYCISK WEJŚCIA */
         .enter-btn {
             position: fixed;
             top: 20px;
@@ -59,38 +56,22 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* NAWIGACJA - LOGO I PRZYCISKI MAX DO LEWEJ */
+        /* NAWIGACJA */
         .navbar {
             height: 80px;
-            background: var(--white);
             display: flex;
             align-items: center;
-            justify-content: space-between; /* To rozpycha lewą stronę i prawą */
-            padding: 0 10px; /* Minimalny margines od krawędzi ekranu */
+            justify-content: space-between;
+            padding: 0 10px;
             border-bottom: 4px solid var(--gold);
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            /* Usunięto duże przerwy, żeby wszystko było max do lewej */
-        }
+        .nav-left { display: flex; align-items: center; }
+        .nav-logo-img { height: 65px; margin-right: 15px; }
 
-        .nav-logo-img {
-            height: 65px;
-            margin-right: 15px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-
+        .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
         .nav-links a {
             color: #1a1a1a;
             text-decoration: none;
@@ -98,19 +79,10 @@
             text-transform: uppercase;
             font-size: 14px;
             padding: 10px 15px;
-            transition: 0.2s;
         }
 
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        /* JĘZYKI - MAX DO PRAWEJ */
-        .lang-dropdown {
-            position: relative;
-            margin-right: 10px;
-        }
-
+        /* JĘZYKI */
+        .lang-dropdown { position: relative; margin-right: 10px; }
         .lang-btn {
             background: white;
             border: 2px solid var(--gold);
@@ -120,18 +92,15 @@
             align-items: center;
             gap: 8px;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
         .lang-content {
             display: none;
             position: absolute;
             right: 0;
-            top: 100%;
             background: white;
             min-width: 180px;
             border: 2px solid var(--gold);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
             z-index: 101;
         }
 
@@ -142,43 +111,25 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 13px;
-            border-bottom: 1px solid #eee;
+            cursor: pointer;
         }
 
-        .lang-content a:hover {
-            background: #fdf6e7;
-            color: var(--gold);
-        }
+        .lang-content a:hover { background: #fdf6e7; }
+        .lang-dropdown:hover .lang-content { display: block; }
 
-        .lang-dropdown:hover .lang-content {
-            display: block;
-        }
-
-        .flag-img {
-            width: 22px;
-            height: 15px;
-            display: block;
-            object-fit: cover;
-            border: 1px solid #ddd;
-        }
-
+        .flag-img { width: 22px; height: 15px; object-fit: cover; }
         .hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-        .main-content {
-            text-align: center;
-            padding: 100px 20px;
-        }
+        .main-content { text-align: center; padding: 100px 20px; }
     </style>
 </head>
 <body>
 
-    <button class="enter-btn" onclick="enterSite()">WEJDŹ</button>
+    <button class="enter-btn" onclick="enterSite()" id="btn-enter">WEJDŹ</button>
 
     <div id="under-construction-overlay">
         <div style="text-align: center;">
             <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="big-logo">
-            <h1 style="color: var(--gold); font-size: 3rem; margin-top: 20px;">STRONA W BUDOWIE</h1>
+            <h1 id="const-title" style="color: var(--gold); font-size: 3rem;">STRONA W BUDOWIE</h1>
         </div>
     </div>
 
@@ -186,38 +137,121 @@
         <div class="nav-left">
             <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
             <ul class="nav-links">
-                <li><a href="#">Start</a></li>
-                <li><a href="#">O Klubie</a></li>
-                <li><a href="#">Drużyna</a></li>
-                <li><a href="#">Kontakt</a></li>
+                <li><a href="#" id="link-start">Start</a></li>
+                <li><a href="#" id="link-about">O Klubie</a></li>
+                <li><a href="#" id="link-team">Drużyna</a></li>
+                <li><a href="#" id="link-contact">Kontakt</a></li>
             </ul>
         </div>
 
         <div class="lang-dropdown">
             <button class="lang-btn">
-                <img src="https://flagcdn.com/w40/pl.png" class="flag-img"> PL ▼
+                <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> <span id="current-lang">PL</span> ▼
             </button>
             <div class="lang-content">
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/ua.png" class="flag-img"> Українська</a>
-                <a href="javascript:void(0)"><img src="https://flagcdn.com/w40/by.png" class="flag-img"> Беларуская</a>
+                <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
+                <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
+                <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
+                <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
+                <a onclick="changeLang('ua')"><img src="https://flagcdn.com/w40/ua.png" class="flag-img"> Українська</a>
+                <a onclick="changeLang('by')"><img src="https://flagcdn.com/w40/by.png" class="flag-img"> Беларуская</a>
             </div>
         </div>
     </nav>
 
     <div class="main-content">
-        <h2 style="font-size: 3.5rem; color: var(--gold);">LEGION BIAŁYSTOK</h2>
-        <p style="font-size: 1.5rem; font-weight: bold;">Oficjalny serwis klubu.</p>
+        <h2 id="main-title" style="font-size: 3.5rem; color: var(--gold);">LEGION BIAŁYSTOK</h2>
+        <p id="main-desc" style="font-size: 1.5rem; font-weight: bold;">Oficjalny serwis klubu.</p>
     </div>
 
     <script>
+        // Baza tłumaczeń
+        const translations = {
+            pl: {
+                enter: "WEJDŹ",
+                const: "STRONA W BUDOWIE",
+                start: "Start",
+                about: "O Klubie",
+                team: "Drużyna",
+                contact: "Kontakt",
+                title: "LEGION BIAŁYSTOK",
+                desc: "Oficjalny serwis klubu."
+            },
+            en: {
+                enter: "ENTER",
+                const: "SITE UNDER CONSTRUCTION",
+                start: "Home",
+                about: "About Us",
+                team: "Team",
+                contact: "Contact",
+                title: "LEGION BIALYSTOK",
+                desc: "Official club website."
+            },
+            es: {
+                enter: "ENTRAR",
+                const: "SITIO EN CONSTRUCCIÓN",
+                start: "Inicio",
+                about: "Sobre el Club",
+                team: "Equipo",
+                contact: "Contacto",
+                title: "LEGION BIALYSTOK",
+                desc: "Sitio oficial del club."
+            },
+            ru: {
+                enter: "ВОЙТИ",
+                const: "САЙТ В РАЗРАБОТКЕ",
+                start: "Главная",
+                about: "О клубе",
+                team: "Команда",
+                contact: "Контакты",
+                title: "ЛЕГИОН БЕЛОСТОК",
+                desc: "Официальный сайт клуба."
+            },
+            ua: {
+                enter: "УВІЙТИ",
+                const: "САЙТ У РОЗРОБЦІ",
+                start: "Головна",
+                about: "Про клуб",
+                team: "Команда",
+                contact: "Контакти",
+                title: "ЛЕГІОН БІЛОСТОК",
+                desc: "Офіційний сайт клубу."
+            },
+            by: {
+                enter: "УВАЙСЦІ",
+                const: "САЙТ У РАСПРАЦОЎЦЫ",
+                start: "Галоўная",
+                about: "Пра клуб",
+                team: "Каманда",
+                contact: "Кантакты",
+                title: "ЛЕГІЁН БЕЛАСТОК",
+                desc: "Афіцыйны сайт клуба."
+            }
+        };
+
+        function changeLang(lang) {
+            const t = translations[lang];
+            
+            // Podmiana tekstów na stronie
+            document.getElementById('btn-enter').innerText = t.enter;
+            document.getElementById('const-title').innerText = t.const;
+            document.getElementById('link-start').innerText = t.start;
+            document.getElementById('link-about').innerText = t.about;
+            document.getElementById('link-team').innerText = t.team;
+            document.getElementById('link-contact').innerText = t.contact;
+            document.getElementById('main-title').innerText = t.title;
+            document.getElementById('main-desc').innerText = t.desc;
+
+            // Aktualizacja przycisku wyboru (flaga i skrót)
+            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru', ua: 'ua', by: 'by' };
+            document.getElementById('current-flag').src = `https://flagcdn.com/w40/${flags[lang]}.png`;
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+        }
+
         function enterSite() {
             document.getElementById('under-construction-overlay').classList.add('hidden');
             document.body.style.overflow = 'auto';
-            document.querySelector('.enter-btn').style.display = 'none';
+            document.getElementById('btn-enter').style.display = 'none';
         }
     </script>
 
