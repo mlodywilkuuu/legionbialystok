@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legion Białystok</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --gold: #C5A059;
             --white: #ffffff;
+            --light-gray: #f4f4f4;
         }
 
         body, html {
@@ -15,11 +17,11 @@
             margin: 0;
             font-family: 'Arial Black', sans-serif;
             background-color: var(--white);
-            color: #333;
-            overflow: hidden; /* Blokada przewijania podczas ładowania */
+            color: #1a1a1a;
+            overflow: hidden;
         }
 
-        /* EKRAN ŁADOWANIA (PRELOADER) */
+        /* PRELOADER */
         #loader {
             position: fixed;
             top: 0;
@@ -32,58 +34,59 @@
             justify-content: center;
             align-items: center;
             z-index: 99999;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.6s ease, visibility 0.6s;
         }
 
         .loader-logo {
-            max-width: 200px;
+            max-width: 220px;
             animation: pulse-gold 2s infinite ease-in-out;
         }
 
-        /* Animacja pulsowania loga */
         @keyframes pulse-gold {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.4)); }
-            100% { transform: scale(0.95); opacity: 0.7; }
+            0%, 100% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3)); }
         }
 
-        .loader-bar {
-            width: 150px;
-            height: 3px;
-            background: #eee;
-            margin-top: 20px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .loader-progress {
-            width: 50%;
-            height: 100%;
-            background: var(--gold);
-            position: absolute;
-            animation: loading-line 1.5s infinite ease-in-out;
-        }
-
-        @keyframes loading-line {
-            0% { left: -50%; }
-            100% { left: 100%; }
-        }
-
-        /* NAWIGACJA - LOGO I PRZYCISKI MAX DO LEWEJ */
+        /* NAWIGACJA */
         .navbar {
-            height: 80px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 10px;
+            padding: 0 15px;
             border-bottom: 4px solid var(--gold);
+            background: var(--white);
         }
 
-        .nav-left { display: flex; align-items: center; }
-        .nav-logo-img { height: 65px; margin-right: 15px; }
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
 
-        .nav-links { list-style: none; display: flex; margin: 0; padding: 0; }
+        /* Logo jako przycisk Home */
+        .nav-logo-link {
+            display: block;
+            line-height: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo-link:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-logo-img {
+            height: 75px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
         .nav-links a {
             color: #1a1a1a;
             text-decoration: none;
@@ -91,12 +94,41 @@
             text-transform: uppercase;
             font-size: 14px;
             padding: 10px 15px;
+            transition: 0.2s;
         }
 
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* PRAWA STRONA NAVBARA */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .social-link {
+            color: #1a1a1a;
+            font-size: 24px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--gold);
+        }
+
+        .separator {
+            width: 1px;
+            height: 30px;
+            background-color: #ddd;
+            margin: 0 5px;
+        }
 
         /* JĘZYKI */
-        .lang-dropdown { position: relative; margin-right: 10px; }
+        .lang-dropdown { position: relative; }
+
         .lang-btn {
             background: white;
             border: 2px solid var(--gold);
@@ -106,16 +138,19 @@
             align-items: center;
             gap: 8px;
             font-weight: bold;
+            font-size: 13px;
         }
 
         .lang-content {
             display: none;
             position: absolute;
             right: 0;
+            top: 100%;
             background: white;
-            min-width: 180px;
+            min-width: 170px;
             border: 2px solid var(--gold);
             z-index: 101;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .lang-content a {
@@ -124,17 +159,18 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
+            gap: 10px;
+            font-size: 13px;
+            font-family: sans-serif;
+            font-weight: bold;
         }
 
-        .lang-content a:hover { background: #fdf6e7; }
+        .lang-content a:hover { background: #fdf6e7; color: var(--gold); }
         .lang-dropdown:hover .lang-content { display: block; }
 
         .flag-img { width: 22px; height: 15px; object-fit: cover; }
 
-        .main-content { text-align: center; padding: 100px 20px; }
-        
+        .main-content { text-align: center; padding: 120px 20px; }
         .fade-out { opacity: 0; visibility: hidden; }
     </style>
 </head>
@@ -142,68 +178,74 @@
 
     <div id="loader">
         <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Legion Logo" class="loader-logo">
-        <div class="loader-bar">
-            <div class="loader-progress"></div>
-        </div>
     </div>
 
     <nav class="navbar">
         <div class="nav-left">
-            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
+            <a href="index.html" class="nav-logo-link">
+                <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
+            </a>
+            
             <ul class="nav-links">
-                <li><a href="#" id="link-start">Start</a></li>
-                <li><a href="#" id="link-about">O Klubie</a></li>
+                <li><a href="#" id="link-news">Aktualności</a></li>
                 <li><a href="#" id="link-team">Drużyna</a></li>
+                <li><a href="#" id="link-schedule">Terminarz</a></li>
                 <li><a href="#" id="link-contact">Kontakt</a></li>
             </ul>
         </div>
 
-        <div class="lang-dropdown">
-            <button class="lang-btn">
-                <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> <span id="current-lang">PL</span> ▼
-            </button>
-            <div class="lang-content">
-                <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
-                <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
-                <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
-                <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
-                <a onclick="changeLang('ua')"><img src="https://flagcdn.com/w40/ua.png" class="flag-img"> Українська</a>
-                <a onclick="changeLang('by')"><img src="https://flagcdn.com/w40/by.png" class="flag-img"> Беларуская</a>
+        <div class="nav-right">
+            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <div class="separator"></div>
+
+            <div class="lang-dropdown">
+                <button class="lang-btn">
+                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> <span id="current-lang">PL</span> ▼
+                </button>
+                <div class="lang-content">
+                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
+                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
+                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
+                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
+                    <a onclick="changeLang('ua')"><img src="https://flagcdn.com/w40/ua.png" class="flag-img"> Українська</a>
+                    <a onclick="changeLang('by')"><img src="https://flagcdn.com/w40/by.png" class="flag-img"> Беларуская</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <div class="main-content">
-        <h2 id="main-title" style="font-size: 3.5rem; color: var(--gold);">LEGION BIAŁYSTOK</h2>
-        <p id="main-desc" style="font-size: 1.5rem; font-weight: bold;">Oficjalny serwis klubu.</p>
+        <h2 id="main-title" style="font-size: 3.5rem; color: var(--gold); margin: 0;">LEGION BIAŁYSTOK</h2>
+        <p id="main-desc" style="font-size: 1.5rem; font-weight: bold; margin-top: 10px;">Oficjalny serwis klubu.</p>
     </div>
 
     <script>
-        // Automatyczne wyłączenie loadera po załadowaniu strony
+        // Loader logic
         window.addEventListener('load', function() {
-            const loader = document.getElementById('loader');
-            // Dodajemy małe opóźnienie (np. 1.5 sekundy), żeby użytkownik zdążył zobaczyć logo
             setTimeout(() => {
-                loader.classList.add('fade-out');
-                document.body.style.overflow = 'auto'; // Przywraca przewijanie
-            }, 1500); 
+                document.getElementById('loader').classList.add('fade-out');
+                document.body.style.overflow = 'auto';
+            }, 1200); 
         });
 
-        // Baza tłumaczeń
+        // Tłumaczenia
         const translations = {
-            pl: { start: "Start", about: "O Klubie", team: "Drużyna", contact: "Kontakt", title: "LEGION BIAŁYSTOK", desc: "Oficjalny serwis klubu." },
-            en: { start: "Home", about: "About Us", team: "Team", contact: "Contact", title: "LEGION BIALYSTOK", desc: "Official club website." },
-            es: { start: "Inicio", about: "Club", team: "Equipo", contact: "Contacto", title: "LEGION BIALYSTOK", desc: "Sitio oficial." },
-            ru: { start: "Главная", about: "О клубе", team: "Команда", contact: "Контакт", title: "ЛЕГИОН БЕЛОСТОК", desc: "Официальный сайт." },
-            ua: { start: "Головна", about: "Про клуб", team: "Команда", contact: "Контакт", title: "ЛЕГІОН БІЛОСТОК", desc: "Офіційний сайт." },
-            by: { start: "Галоўная", about: "Пра клуб", team: "Каманда", contact: "Кантакт", title: "ЛЕГІЁН БЕЛАСТОК", desc: "Афіцыйны сайт." }
+            pl: { news: "Aktualności", team: "Drużyna", schedule: "Terminarz", contact: "Kontakt", title: "LEGION BIAŁYSTOK", desc: "Oficjalny serwis klubu." },
+            en: { news: "News", team: "Team", schedule: "Schedule", contact: "Contact", title: "LEGION BIALYSTOK", desc: "Official club website." },
+            es: { news: "Noticias", team: "Equipo", schedule: "Calendario", contact: "Contacto", title: "LEGION BIALYSTOK", desc: "Sitio oficial." },
+            ru: { news: "Новости", team: "Команда", schedule: "Расписание", contact: "Контакты", title: "ЛЕГИОН БЕЛОСТОК", desc: "Официальный сайт." },
+            ua: { news: "Новини", team: "Команда", schedule: "Розклад", contact: "Контакти", title: "ЛЕГІОН БІЛОСТОК", desc: "Офіційний сайт." },
+            by: { news: "Навіны", team: "Каманда", schedule: "Расклад", contact: "Кантакты", title: "ЛЕГІЁН БЕЛАСТОК", desc: "Афіцыйны сайт." }
         };
 
         function changeLang(lang) {
             const t = translations[lang];
-            document.getElementById('link-start').innerText = t.start;
-            document.getElementById('link-about').innerText = t.about;
+            document.getElementById('link-news').innerText = t.news;
             document.getElementById('link-team').innerText = t.team;
+            document.getElementById('link-schedule').innerText = t.schedule;
             document.getElementById('link-contact').innerText = t.contact;
             document.getElementById('main-title').innerText = t.title;
             document.getElementById('main-desc').innerText = t.desc;
