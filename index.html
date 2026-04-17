@@ -3,258 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok</title>
+    <title>Aktualności - Legion Białystok</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <style>
         :root {
             --gold: #C5A059;
             --white: #ffffff;
-            --light-gray: #f4f4f4;
+            --dark: #1a1a1a;
         }
 
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Arial Black', sans-serif;
-            background-color: var(--white);
-            color: #1a1a1a;
-            overflow: hidden;
-        }
+        body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
 
-        /* PRELOADER */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--white);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 99999;
-            transition: opacity 0.6s ease, visibility 0.6s;
-        }
+        /* NAVBAR - NAPRAWIONE LOGO I PRZYCISKI */
+        .navbar { height: 90px; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; border-bottom: 4px solid var(--gold); background: var(--white); position: sticky; top: 0; z-index: 1000; }
+        .nav-left { display: flex; align-items: center; }
+        .nav-logo-link { display: block; line-height: 0; transition: 0.3s; }
+        .nav-logo-link:hover { transform: scale(1.05); }
+        .nav-logo-img { height: 75px; width: auto; margin-right: 15px; }
 
-        .loader-logo {
-            max-width: 220px;
-            animation: pulse-gold 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse-gold {
-            0%, 100% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 15px rgba(197, 160, 89, 0.3)); }
-        }
-
-        /* NAWIGACJA */
-        .navbar {
-            height: 90px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 15px;
-            border-bottom: 4px solid var(--gold);
-            background: var(--white);
-        }
-
-        .nav-left {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-logo-link {
-            display: block;
-            line-height: 0;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-logo-link:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-logo-img {
-            height: 75px;
-            width: auto;
-            margin-right: 15px;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links a {
-            color: #1a1a1a;
-            text-decoration: none;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 14px;
-            padding: 10px 15px;
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        /* PRAWA STRONA NAVBARA */
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .social-link {
-            color: #1a1a1a;
-            font-size: 24px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .social-link:hover {
-            color: var(--gold);
-        }
-
-        .separator {
-            width: 1px;
-            height: 30px;
-            background-color: #ddd;
-            margin: 0 5px;
-        }
+        .nav-links { list-style: none; display: flex; gap: 15px; margin: 0; padding: 0; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
+        .nav-links a:hover { color: var(--gold); }
 
         /* JĘZYKI */
         .lang-dropdown { position: relative; }
-
-        .lang-btn {
-            background: white;
-            border: 2px solid var(--gold);
-            padding: 8px 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
-            font-size: 13px;
-        }
-
-        .lang-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background: white;
-            min-width: 170px;
-            border: 2px solid var(--gold);
-            z-index: 101;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .lang-content a {
-            color: #333;
-            padding: 12px 15px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-family: sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .lang-content a:hover { background: #fdf6e7; color: var(--gold); }
+        .lang-btn { background: white; border: 2px solid var(--gold); padding: 8px 12px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        .lang-content { display: none; position: absolute; right: 0; background: white; min-width: 150px; border: 2px solid var(--gold); z-index: 101; }
+        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; }
         .lang-dropdown:hover .lang-content { display: block; }
+        .flag-img { width: 20px; height: 14px; object-fit: cover; }
 
-        .flag-img { width: 22px; height: 15px; object-fit: cover; }
+        /* GRID AKTUALNOŚCI */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .section-title { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; font-size: 2rem; margin-bottom: 30px; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
+        
+        .news-card { background: #f4f4f4; cursor: pointer; transition: 0.3s; border-bottom: 3px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); }
+        .news-img { width: 100%; height: 250px; background-size: cover; background-position: center; }
+        .news-info { padding: 20px; }
+        .news-date { color: var(--gold); font-size: 12px; font-weight: bold; margin-bottom: 10px; }
 
-        .main-content { text-align: center; padding: 120px 20px; }
-        .fade-out { opacity: 0; visibility: hidden; }
+        /* MODAL ARTYKUŁU */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
+        .modal-content { width: 95%; max-width: 1000px; max-height: 90vh; background: #0b0c10; color: white; overflow-y: auto; position: relative; }
+        .close-btn { position: absolute; right: 20px; top: 20px; font-size: 35px; color: white; cursor: pointer; z-index: 100; }
+        
+        .article-hero { width: 100%; height: 500px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
+        .article-hero::after { content: ''; position: absolute; width: 100%; height: 100%; background: linear-gradient(to top, #0b0c10, transparent); }
+        .article-header-text { position: relative; z-index: 2; padding: 40px; }
+        .article-header-text h2 { font-size: 3rem; text-transform: uppercase; margin: 0; font-style: italic; }
+        .pub-info { color: #888; font-size: 14px; margin-bottom: 15px; }
+
+        /* PANEL ADMINA */
+        .admin-trigger { position: fixed; bottom: 15px; right: 15px; opacity: 0.3; cursor: pointer; color: #888; font-size: 12px; font-weight: bold; transition: 0.3s; z-index: 5000; }
+        .admin-trigger:hover { opacity: 1; color: var(--gold); }
+        
+        .admin-panel-content { background: white !important; color: black !important; padding: 30px; border-radius: 8px; width: 90%; max-width: 700px; }
+        .admin-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; box-sizing: border-box; }
+        #editor-container { height: 250px; margin-bottom: 20px; }
+        .btn-pub { background: var(--gold); color: white; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; width: 100%; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Legion Logo" class="loader-logo">
-    </div>
-
     <nav class="navbar">
         <div class="nav-left">
             <a href="index.html" class="nav-logo-link">
-                <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
+                <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Legion Logo" class="nav-logo-img">
             </a>
-            
             <ul class="nav-links">
-                <li><a href="aktualnosci.html" id="link-news">Aktualności</a></li>
+                <li><a href="aktualnosci.html" id="link-news" style="color:var(--gold)">Aktualności</a></li>
                 <li><a href="druzyna.html" id="link-team">Drużyna</a></li>
                 <li><a href="terminarz.html" id="link-schedule">Terminarz</a></li>
                 <li><a href="kontakt.html" id="link-contact">Kontakt</a></li>
             </ul>
         </div>
-
         <div class="nav-right">
-            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link">
-                <i class="fab fa-instagram"></i>
-            </a>
-
-            <div class="separator"></div>
-
-            <div class="lang-dropdown">
+            <a href="https://www.instagram.com/legionbialystok/" target="_blank"><i class="fab fa-instagram" style="color:#1a1a1a; font-size: 22px;"></i></a>
+            <div class="lang-dropdown" style="margin-left: 15px;">
                 <button class="lang-btn">
                     <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> <span id="current-lang">PL</span> ▼
                 </button>
                 <div class="lang-content">
                     <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
                     <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
-                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
-                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
-                    <a onclick="changeLang('ua')"><img src="https://flagcdn.com/w40/ua.png" class="flag-img"> Українська</a>
-                    <a onclick="changeLang('by')"><img src="https://flagcdn.com/w40/by.png" class="flag-img"> Беларуская</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="main-content">
-        <h2 id="main-title" style="font-size: 3.5rem; color: var(--gold); margin: 0;">LEGION BIAŁYSTOK</h2>
-        <p id="main-desc" style="font-size: 1.5rem; font-weight: bold; margin-top: 10px;">Oficjalny serwis klubu.</p>
+    <div class="container">
+        <h2 id="section-title" class="section-title">Ostatnie wiadomości</h2>
+        <div class="news-grid" id="newsGrid">
+            <div class="news-card" onclick="openArticle('match_1')">
+                <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');"></div>
+                <div class="news-info">
+                    <div class="news-date">DATA PUBLIKACJI: 2026-04-16 20:56</div>
+                    <h3>[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeArticle()">&times;</span>
+            <div id="artHero" class="article-hero">
+                <div class="article-header-text">
+                    <div id="modalPubInfo" class="pub-info"></div>
+                    <h2 id="modalTitle"></h2>
+                </div>
+            </div>
+            <div id="modalBody" style="padding: 40px; line-height: 1.8; color: #ccc;"></div>
+        </div>
+    </div>
+
+    <div class="admin-trigger" onclick="openAdmin()">Panel Admina</div>
+    
+    <div id="adminPanel" class="modal">
+        <div class="admin-panel-content">
+            <span class="close-btn" onclick="document.getElementById('adminPanel').style.display='none'" style="color:black">&times;</span>
+            <h2 style="color:var(--gold); margin-top:0;">DODAJ ARTYKUŁ</h2>
+            <input type="text" id="postTitle" class="admin-input" placeholder="Tytuł artykułu...">
+            <input type="text" id="postImg" class="admin-input" placeholder="Link do zdjęcia...">
+            
+            <div style="margin: 10px 0;">
+                <label style="font-size: 12px; font-weight: bold;">PLANOWANIE PUBLIKACJI (Data i Godzina):</label>
+                <input type="datetime-local" id="postDateTime" class="admin-input">
+            </div>
+
+            <div id="editor-container"></div>
+            <button class="btn-pub" onclick="saveNewPost()">Opublikuj / Zaplanuj</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        // Loader logic
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('fade-out');
-                document.body.style.overflow = 'auto';
-            }, 1200); 
+        // Inicjalizacja Edytora
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            modules: { toolbar: [['bold', 'italic', 'underline'], [{ 'color': [] }], ['link', 'image']] }
         });
 
-        // Tłumaczenia
+        // Dane startowe (tłumaczenia)
         const translations = {
-            pl: { news: "Aktualności", team: "Drużyna", schedule: "Terminarz", contact: "Kontakt", title: "LEGION BIAŁYSTOK", desc: "Oficjalny serwis klubu." },
-            en: { news: "News", team: "Team", schedule: "Schedule", contact: "Contact", title: "LEGION BIALYSTOK", desc: "Official club website." },
-            es: { news: "Noticias", team: "Equipo", schedule: "Calendario", contact: "Contacto", title: "LEGION BIALYSTOK", desc: "Sitio oficial." },
-            ru: { news: "Новости", team: "Команда", schedule: "Расписание", contact: "Контакты", title: "ЛЕГИОН БЕЛОСТОК", desc: "Официальный сайт." },
-            ua: { news: "Новини", team: "Команда", schedule: "Розклад", contact: "Контакти", title: "ЛЕГІОН БІЛОСТОК", desc: "Офіційний сайт." },
-            by: { news: "Навіны", team: "Каманда", schedule: "Расклад", contact: "Канtakty", title: "ЛЕГІЁН БЕЛАСТОК", desc: "Афіцыйны сайт." }
+            pl: { pubText: "DATA PUBLIKACJI", articles: { match_1: { title: "[MATCH PREVIEW] FC DINAMO WROCŁAW", date: "2026-04-16 20:56", content: "Treść meczu..." } } },
+            en: { pubText: "PUBLICATION DATE", articles: { match_1: { title: "[MATCH PREVIEW] FC DINAMO WROCLAW", date: "2026-04-16 20:56", content: "Match content..." } } }
         };
 
-        function changeLang(lang) {
-            const t = translations[lang];
-            document.getElementById('link-news').innerText = t.news;
-            document.getElementById('link-team').innerText = t.team;
-            document.getElementById('link-schedule').innerText = t.schedule;
-            document.getElementById('link-contact').innerText = t.contact;
-            document.getElementById('main-title').innerText = t.title;
-            document.getElementById('main-desc').innerText = t.desc;
+        let currentLang = 'pl';
 
-            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru', ua: 'ua', by: 'by' };
-            document.getElementById('current-flag').src = `https://flagcdn.com/w40/${flags[lang]}.png`;
-            document.getElementById('current-lang').innerText = lang.toUpperCase();
+        function openAdmin() {
+            let p = prompt("Hasło:");
+            if(p === "admin123") document.getElementById('adminPanel').style.display = 'flex';
         }
-    </script>
 
-</body>
-</html>
+        function saveNewPost() {
+            const title = document.getElementById('postTitle').value;
+            const img = document.getElementById('postImg').value;
+            const dateTime = document.getElementById('postDateTime').value;
+            const body = quill.root.innerHTML;
+
+            if(!title || !dateTime) return alert("Uzupełnij tytuł i datę!");
+
+            const formattedDate = dateTime.replace('T', ' ');
+            
+            // Logika dodawania do listy
+            const grid = document.getElementById('newsGrid');
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-img" style="background-image: url('${img}');"></div>
+                <div class="news-info">
+                    <div class="news-date">DATA PUBLIKACJI:
