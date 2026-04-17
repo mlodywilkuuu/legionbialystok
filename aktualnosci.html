@@ -18,132 +18,100 @@
 
         /* NAVBAR - WSZYSTKO W JEDNEJ LINII */
         .navbar { 
-            height: 90px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 25px; 
-            border-bottom: 4px solid var(--gold); 
-            background: var(--white); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+            height: 90px; display: flex; align-items: center; justify-content: space-between; 
+            padding: 0 25px; border-bottom: 4px solid var(--gold); background: var(--white); 
+            position: sticky; top: 0; z-index: 1000; 
         }
-
         .nav-left { display: flex; align-items: center; gap: 20px; }
-        .nav-logo-link { display: flex; align-items: center; transition: 0.3s; }
-        .nav-logo-link:hover { transform: scale(1.05); }
-        .nav-logo-img { height: 70px; width: auto; }
-
+        .nav-logo-img { height: 70px; width: auto; cursor: pointer; }
         .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
-        .nav-links a:hover { color: var(--gold); }
-
-        .nav-right { display: flex; align-items: center; gap: 20px; }
-        .social-link { display: flex; align-items: center; color: var(--dark); font-size: 22px; text-decoration: none; transition: 0.3s; }
-        .social-link:hover { color: var(--gold); }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; }
+        
+        .nav-right { display: flex; align-items: center; gap: 15px; }
         .separator { width: 1px; height: 30px; background-color: #ccc; }
+        .social-link { color: var(--dark); font-size: 22px; text-decoration: none; display: flex; align-items: center; }
 
         /* JĘZYKI */
-        .lang-dropdown { position: relative; display: flex; align-items: center; }
-        .lang-btn { 
-            background: white; border: 2px solid var(--gold); padding: 6px 10px; 
-            cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .lang-content { 
-            display: none; position: absolute; right: 0; top: 100%; background: white; 
-            min-width: 150px; border: 2px solid var(--gold); z-index: 101; 
-        }
-        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; }
-        .lang-content a:hover { background: #f9f9f9; }
+        .lang-dropdown { position: relative; }
+        .lang-btn { background: white; border: 2px solid var(--gold); padding: 6px 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .lang-content { display: none; position: absolute; right: 0; background: white; min-width: 150px; border: 2px solid var(--gold); z-index: 101; }
+        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .lang-dropdown:hover .lang-content { display: block; }
-        .flag-img { width: 20px; height: 14px; object-fit: cover; }
 
         /* GRID AKTUALNOŚCI */
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
         .section-title { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; font-size: 2rem; margin-bottom: 30px; }
         .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; }
         
-        .news-card { background: #f4f4f4; cursor: pointer; transition: 0.3s; border-bottom: 3px solid transparent; overflow: hidden; }
-        .news-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .news-card { background: #f4f4f4; cursor: pointer; transition: 0.3s; position: relative; border-bottom: 3px solid transparent; }
+        .news-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); }
         .news-img { width: 100%; height: 250px; background-size: cover; background-position: center; }
         .news-info { padding: 20px; }
         .news-date { color: var(--gold); font-size: 12px; font-weight: bold; margin-bottom: 10px; }
-        .news-info h3 { margin: 0; font-size: 1.2rem; text-transform: uppercase; line-height: 1.2; }
 
-        /* MODAL ARTYKUŁU - STYL MATCH PREVIEW */
+        /* PRZYCISKI ADMINA NA KARCIE */
+        .admin-card-tools { position: absolute; top: 10px; right: 10px; display: none; gap: 5px; z-index: 10; }
+        .news-card:hover .admin-card-tools { display: flex; }
+        .tool-btn { background: rgba(0,0,0,0.7); color: white; border: none; padding: 8px; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        .tool-btn:hover { background: var(--gold); }
+
+        /* MODAL ARTYKUŁU */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
-        .modal-content { width: 95%; max-width: 1000px; max-height: 90vh; background: var(--black-bg); color: white; overflow-y: auto; position: relative; border-radius: 4px; }
+        .modal-content { width: 95%; max-width: 1000px; max-height: 90vh; background: var(--black-bg); color: white; overflow-y: auto; position: relative; }
         .close-btn { position: absolute; right: 20px; top: 20px; font-size: 35px; color: white; cursor: pointer; z-index: 100; }
         
-        .article-hero { width: 100%; height: 500px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
-        .article-hero::after { content: ''; position: absolute; width: 100%; height: 100%; background: linear-gradient(to top, var(--black-bg) 5%, transparent 90%); }
-        .article-header-text { position: relative; z-index: 2; padding: 40px; width: 100%; }
-        .article-header-text h2 { font-size: 3.2rem; text-transform: uppercase; margin: 0; line-height: 1; font-style: italic; }
-        .pub-info { color: #888; font-size: 14px; margin-bottom: 15px; font-family: sans-serif; }
-        .article-body { padding: 0 40px 40px 40px; font-family: sans-serif; line-height: 1.8; color: #ccc; font-size: 1.1rem; }
+        .article-hero { width: 100%; height: 450px; background-size: cover; background-position: center; position: relative; display: flex; align-items: flex-end; }
+        .article-hero::after { content: ''; position: absolute; width: 100%; height: 100%; background: linear-gradient(to top, var(--black-bg), transparent); }
+        .article-header-text { position: relative; z-index: 2; padding: 40px; }
+        .article-header-text h2 { font-size: 3rem; text-transform: uppercase; margin: 0; font-style: italic; line-height: 1; }
+        .article-body { padding: 40px; line-height: 1.8; color: #ccc; }
 
         /* PANEL ADMINA */
-        .admin-trigger { position: fixed; bottom: 15px; right: 15px; opacity: 0.3; cursor: pointer; color: #888; font-size: 12px; font-weight: bold; transition: 0.3s; z-index: 5000; }
+        .admin-trigger { position: fixed; bottom: 15px; right: 15px; opacity: 0.2; cursor: pointer; z-index: 5000; font-size: 12px; }
         .admin-trigger:hover { opacity: 1; color: var(--gold); }
-        .admin-modal-content { background: white !important; color: black !important; padding: 30px; border-radius: 8px; width: 90%; max-width: 700px; position: relative; }
-        .admin-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        #editor-container { height: 250px; margin-bottom: 20px; background: white; }
-        .btn-pub { background: var(--gold); color: white; border: none; padding: 15px 30px; cursor: pointer; font-weight: bold; width: 100%; text-transform: uppercase; transition: 0.3s; }
-        .btn-pub:hover { background: #a6864a; }
+        .admin-box { background: white !important; color: black !important; padding: 30px; border-radius: 8px; width: 90%; max-width: 800px; max-height: 90vh; overflow-y: auto; }
+        .admin-input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; box-sizing: border-box; font-family: sans-serif; }
+        #editor-container { height: 300px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-left">
-            <a href="index.html" class="nav-logo-link">
-                <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Logo" class="nav-logo-img">
-            </a>
+            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" class="nav-logo-img" onclick="location.href='index.html'">
             <ul class="nav-links">
-                <li><a href="aktualnosci.html" id="link-news" style="color:var(--gold)">Aktualności</a></li>
-                <li><a href="#" id="link-team">Drużyna</a></li>
-                <li><a href="#" id="link-schedule">Terminarz</a></li>
-                <li><a href="#" id="link-contact">Kontakt</a></li>
+                <li><a href="aktualnosci.html" style="color:var(--gold)">Aktualności</a></li>
+                <li><a href="#">Drużyna</a></li>
+                <li><a href="#">Terminarz</a></li>
+                <li><a href="#">Kontakt</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
             <div class="separator"></div>
             <div class="lang-dropdown">
                 <button class="lang-btn">
-                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> 
-                    <span id="current-lang">PL</span> ▼
+                    <img src="https://flagcdn.com/w40/pl.png" width="20" id="curFlag"> <span id="curLang">PL</span> ▼
                 </button>
                 <div class="lang-content">
-                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
-                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
-                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
-                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
+                    <a onclick="setLang('pl')"><img src="https://flagcdn.com/w40/pl.png" width="20"> PL</a>
+                    <a onclick="setLang('en')"><img src="https://flagcdn.com/w40/gb.png" width="20"> EN</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <h2 id="section-title" class="section-title">Ostatnie wiadomości</h2>
-        <div class="news-grid" id="newsGrid">
-            <div class="news-card" onclick="openArticle('match_preview')">
-                <div class="news-img" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');"></div>
-                <div class="news-info">
-                    <div class="news-date" id="card-date-1">DATA PUBLIKACJI: 2026-04-16 20:56</div>
-                    <h3 id="card-title-1">[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
-                </div>
-            </div>
-        </div>
+        <h2 class="section-title">Ostatnie wiadomości</h2>
+        <div class="news-grid" id="newsGrid"></div>
     </div>
 
-    <div id="articleModal" class="modal">
+    <div id="artModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeArticle()">&times;</span>
-            <div id="artHero" class="article-hero">
+            <span class="close-btn" onclick="closeModal('artModal')">&times;</span>
+            <div id="modalHero" class="article-hero">
                 <div class="article-header-text">
-                    <div id="modalPubInfo" class="pub-info"></div>
+                    <div id="modalDate" style="color: var(--gold); font-weight: bold; margin-bottom: 10px;"></div>
                     <h2 id="modalTitle"></h2>
                 </div>
             </div>
@@ -151,111 +119,118 @@
         </div>
     </div>
 
-    <div class="admin-trigger" onclick="openAdmin()">Panel Admina</div>
-    
+    <div class="admin-trigger" onclick="checkPass()">Panel Admina</div>
     <div id="adminPanel" class="modal">
-        <div class="admin-modal-content">
-            <span class="close-btn" onclick="document.getElementById('adminPanel').style.display='none'" style="color:black">&times;</span>
-            <h2 style="color:var(--gold); margin-top:0;">DODAJ ARTYKUŁ</h2>
-            <input type="text" id="postTitle" class="admin-input" placeholder="Tytuł artykułu...">
-            <input type="text" id="postImg" class="admin-input" placeholder="Link do zdjęcia (URL)...">
+        <div class="admin-box">
+            <span class="close-btn" onclick="closeModal('adminPanel')" style="color:black">&times;</span>
+            <h2 style="color:var(--gold); margin-top:0;">ZARZĄDZAJ ARTYKUŁAMI</h2>
+            <input type="hidden" id="editIndex">
+            <input type="text" id="postTitle" class="admin-input" placeholder="Tytuł...">
+            <input type="text" id="postImg" class="admin-input" placeholder="Link do zdjęcia...">
+            <input type="datetime-local" id="postDate" class="admin-input">
             
-            <div style="margin: 10px 0;">
-                <label style="font-size: 12px; font-weight: bold;">PLANOWANIE PUBLIKACJI (Data i Godzina):</label>
-                <input type="datetime-local" id="postDateTime" class="admin-input">
-            </div>
-
             <div id="editor-container"></div>
-            <button class="btn-pub" onclick="saveNewPost()">Opublikuj / Zaplanuj</button>
+            
+            <button class="tool-btn" style="width:100%; padding:15px; background:var(--gold); font-weight:bold;" onclick="savePost()">ZAPISZ ARTYKUŁ</button>
         </div>
     </div>
 
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
+        // Inicjalizacja Edytora z pełnym formatowaniem
         var quill = new Quill('#editor-container', {
             theme: 'snow',
-            modules: { toolbar: [['bold', 'italic', 'underline'], [{ 'color': [] }], ['link', 'image', 'video'], ['clean']] }
+            modules: { toolbar: [
+                [{ 'header': [1, 2, 3, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                ['link', 'image', 'video'],
+                ['clean']
+            ]}
         });
 
-        // Tłumaczenia i Treści
-        const translations = {
-            pl: {
-                news: "Aktualności", team: "Drużyna", schedule: "Terminarz", contact: "Kontakt", section: "Ostatnie wiadomości", pubText: "DATA PUBLIKACJI",
-                articles: {
-                    match_preview: {
-                        title: "[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD",
-                        date: "2026-04-16 20:56",
-                        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000",
-                        content: "Przed nami 4. kolejka Czwartej Ligi PRO Ligi. Na boisku przy ul. Lotniczej dojdzie do starcia drużyn..."
-                    }
-                }
-            },
-            en: {
-                news: "News", team: "Team", schedule: "Schedule", contact: "Contact", section: "Latest News", pubText: "PUBLICATION DATE",
-                articles: {
-                    match_preview: {
-                        title: "[MATCH PREVIEW] FC DINAMO WROCLAW - RUNNERSHOOD",
-                        date: "2026-04-16 20:56",
-                        img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000",
-                        content: "Ahead of us is the 4th round of the Fourth PRO League. On the field at Lotnicza Street..."
-                    }
-                }
-            }
-        };
+        // Baza artykułów w localStorage (aby nie znikały po odświeżeniu)
+        let articles = JSON.parse(localStorage.getItem('legion_news')) || [
+            { id: 1, title: "[MATCH PREVIEW] FC DINAMO WROCŁAW", date: "2026-04-16T20:56", img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000", content: "Treść testowa..." }
+        ];
 
-        let currentLang = 'pl';
-
-        function changeLang(lang) {
-            currentLang = lang;
-            const t = translations[lang];
-            document.getElementById('link-news').innerText = t.news;
-            document.getElementById('section-title').innerText = t.section;
-            document.getElementById('card-title-1').innerText = t.articles.match_preview.title;
-            document.getElementById('card-date-1').innerText = `${t.pubText}: ${t.articles.match_preview.date}`;
-
-            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru' };
-            document.getElementById('current-flag').src = `https://flagcdn.com/w40/${flags[lang]}.png`;
-            document.getElementById('current-lang').innerText = lang.toUpperCase();
-        }
-
-        function openAdmin() {
-            if(prompt("Hasło:") === "admin123") document.getElementById('adminPanel').style.display = 'flex';
-        }
-
-        function saveNewPost() {
-            const title = document.getElementById('postTitle').value;
-            const img = document.getElementById('postImg').value;
-            const dateTime = document.getElementById('postDateTime').value.replace('T', ' ');
-            const body = quill.root.innerHTML;
-
-            if(!title || !dateTime) return alert("Uzupełnij dane!");
-
+        function renderArticles() {
             const grid = document.getElementById('newsGrid');
-            const card = document.createElement('div');
-            card.className = 'news-card';
-            card.onclick = () => {
-                document.getElementById('modalTitle').innerText = title;
-                document.getElementById('modalPubInfo').innerText = `${translations[currentLang].pubText}: ${dateTime}`;
-                document.getElementById('modalBody').innerHTML = body;
-                document.getElementById('artHero').style.backgroundImage = `url('${img}')`;
-                document.getElementById('articleModal').style.display = 'flex';
+            grid.innerHTML = '';
+            
+            // SORTOWANIE: Najnowsza data pierwsza
+            articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            articles.forEach((art, index) => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <div class="admin-card-tools">
+                        <button class="tool-btn" onclick="editPost(${index}); event.stopPropagation();"><i class="fas fa-edit"></i></button>
+                        <button class="tool-btn" onclick="deletePost(${index}); event.stopPropagation();"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <div class="news-img" style="background-image: url('${art.img}')" onclick="viewArticle(${index})"></div>
+                    <div class="news-info" onclick="viewArticle(${index})">
+                        <div class="news-date">DATA: ${art.date.replace('T', ' ')}</div>
+                        <h3>${art.title}</h3>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            localStorage.setItem('legion_news', JSON.stringify(articles));
+        }
+
+        function checkPass() { if(prompt("Hasło:") === "admin123") document.getElementById('adminPanel').style.display = 'flex'; }
+        
+        function savePost() {
+            const index = document.getElementById('editIndex').value;
+            const newArt = {
+                title: document.getElementById('postTitle').value,
+                img: document.getElementById('postImg').value,
+                date: document.getElementById('postDate').value,
+                content: quill.root.innerHTML
             };
-            card.innerHTML = `<div class="news-img" style="background-image: url('${img}')"></div><div class="news-info"><div class="news-date">${translations[currentLang].pubText}: ${dateTime}</div><h3>${title}</h3></div>`;
-            grid.prepend(card);
-            document.getElementById('adminPanel').style.display = 'none';
+
+            if(index === "") articles.push(newArt);
+            else articles[index] = newArt;
+
+            closeModal('adminPanel');
+            clearAdminForm();
+            renderArticles();
         }
 
-        function openArticle(id) {
-            const art = translations[currentLang].articles[id];
+        function deletePost(index) { if(confirm("Usunąć?")) { articles.splice(index, 1); renderArticles(); } }
+
+        function editPost(index) {
+            const art = articles[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('postTitle').value = art.title;
+            document.getElementById('postImg').value = art.img;
+            document.getElementById('postDate').value = art.date;
+            quill.root.innerHTML = art.content;
+            document.getElementById('adminPanel').style.display = 'flex';
+        }
+
+        function viewArticle(index) {
+            const art = articles[index];
             document.getElementById('modalTitle').innerText = art.title;
-            document.getElementById('modalPubInfo').innerText = `${translations[currentLang].pubText}: ${art.date}`;
+            document.getElementById('modalDate').innerText = `DATA PUBLIKACJI: ${art.date.replace('T', ' ')}`;
             document.getElementById('modalBody').innerHTML = art.content;
-            document.getElementById('artHero').style.backgroundImage = `url('${art.img}')`;
-            document.getElementById('articleModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            document.getElementById('modalHero').style.backgroundImage = `url('${art.img}')`;
+            document.getElementById('artModal').style.display = 'flex';
         }
 
-        function closeArticle() { document.getElementById('articleModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        function clearAdminForm() {
+            document.getElementById('editIndex').value = "";
+            document.getElementById('postTitle').value = "";
+            document.getElementById('postImg').value = "";
+            document.getElementById('postDate').value = "";
+            quill.setContents([]);
+        }
+
+        renderArticles();
     </script>
 </body>
 </html>
