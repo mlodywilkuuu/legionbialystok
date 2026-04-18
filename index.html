@@ -3,66 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KS Legion Białystok - Oficjalna Strona</title>
+    <title>Legion Białystok - Powrót</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
-    <nav class="bg-gray-800 border-b border-gray-700">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center">
-            
-            <div class="flex items-center mr-10">
-                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center font-bold text-2xl shadow-lg border-2 border-white/10">
-                    L
-                </div>
-                <div class="ml-3">
-                    <span class="block font-black text-xl uppercase tracking-tighter leading-none">Legion</span>
-                    <span class="text-[10px] font-bold text-red-500 uppercase tracking-[0.2em] leading-none">Białystok</span>
-                </div>
-            </div>
-
-            <div class="flex space-x-8 text-sm font-bold uppercase tracking-widest">
-                <a href="#" class="text-gray-300 hover:text-red-500 transition duration-300">Aktualności</a>
-                <a href="#" class="text-gray-300 hover:text-red-500 transition duration-300">Drużyna</a>
-                <a href="#" class="text-gray-300 hover:text-red-500 transition duration-300">Terminarz</a>
-                <a href="#" class="text-gray-300 hover:text-red-500 transition duration-300">Kontakt</a>
-            </div>
-
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute z-10 text-center">
+            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4">
+                Legion <span class="text-red-600">Białystok</span>
+            </h1>
+            <p class="text-xl md:text-2xl font-light tracking-widest mb-8">WRACAMY DO GRY!</p>
+            <a href="#article" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full font-bold transition duration-300">
+                PRZECZYTAJ WIĘCEJ
+            </a>
         </div>
-    </nav>
+        <div class="absolute inset-0 bg-black opacity-60"></div>
+        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=1920" 
+             alt="Stadion" class="absolute inset-0 w-full h-full object-cover">
+    </header>
 
-    <main class="max-w-4xl mx-auto py-16 px-6">
-        <article>
-            <header class="mb-10">
-                <h1 class="text-5xl font-black uppercase italic tracking-tighter mb-4">
-                    Legion Białystok <span class="text-red-600">wraca do gry!</span>
-                </h1>
-                <div class="h-1 w-20 bg-red-600"></div>
-            </header>
-
-            <div class="text-gray-300 text-lg leading-relaxed space-y-6">
-                <p class="text-white font-semibold text-xl">
-                    To moment, na który czekali kibice i zawodnicy. Z dumą ogłaszamy: Legion Białystok reaktywuje swoją działalność!
-                </p>
-                <p>
-                    Po przerwie, która była czasem intensywnej pracy za kulisami, klub staje na progu nowego otwarcia. Wracamy z nową energią, jasną wizją przyszłości i tym samym, niezmiennym duchem walki, który od zawsze definiował nasze barwy.
-                </p>
-                <p>
-                    Naszym celem jest odbudowa społeczności, która przez lata tworzyła unikalną atmosferę wokół klubu. Już niebawem przedstawimy szczegółowy terminarz oraz informacje o oficjalnej prezentacji drużyny.
-                </p>
-            </div>
-
-            <footer class="mt-12">
-                <button class="border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold py-3 px-10 transition duration-300 uppercase tracking-widest text-sm">
-                    Udostępnij
-                </button>
-            </footer>
-        </article>
+    <main id="article" class="max-w-4xl mx-auto py-20 px-6">
+        <article class="prose prose-invert lg:prose-xl">
+            <h2 class="text-4xl font-bold mb-6 border-b-2 border-red-600 pb-2">Reaktywacja stała się faktem</h2>
+            <p class="text-gray-300 leading-relaxed mb-6">
+                To nie jest tylko informacja o wznowieniu treningów – to oficjalny sygnał, 
+                że KS Legion Białystok wraca tam, gdzie jego miejsce.
+            </p>
+            </article>
     </main>
-
-    <footer class="border-t border-gray-800 mt-20 py-10 text-center text-gray-600 text-xs uppercase tracking-[0.3em]">
-        &copy; 2026 Legion Białystok // Wszystkie prawa zastrzeżone
-    </footer>
 
 </body>
 </html>
