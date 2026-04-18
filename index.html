@@ -1,37 +1,84 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok - Powrót</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-white font-sans">
+<style>
+    :root {
+        --gold: #C5A059;
+        --white: #ffffff;
+        --dark: #1a1a1a;
+    }
 
-    <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute z-10 text-center">
-            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-4">
-                Legion <span class="text-red-600">Białystok</span>
-            </h1>
-            <p class="text-xl md:text-2xl font-light tracking-widest mb-8">WRACAMY DO GRY!</p>
-            <a href="#article" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-full font-bold transition duration-300">
-                PRZECZYTAJ WIĘCEJ
-            </a>
+    .navbar { 
+        height: 90px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        padding: 0 25px; 
+        border-bottom: 4px solid var(--gold); 
+        background: var(--white); 
+        position: sticky; 
+        top: 0; 
+        z-index: 1000; 
+        font-family: 'Arial Black', sans-serif;
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 20px; }
+    .nav-logo-link { display: flex; align-items: center; transition: 0.3s; }
+    .nav-logo-link:hover { transform: scale(1.05); }
+    .nav-logo-img { height: 70px; width: auto; }
+
+    .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+    .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .social-link { display: flex; align-items: center; color: var(--dark); font-size: 22px; text-decoration: none; transition: 0.3s; }
+    .social-link:hover { color: var(--gold); }
+    .separator { width: 1px; height: 30px; background-color: #ccc; }
+
+    /* JĘZYKI */
+    .lang-dropdown { position: relative; display: flex; align-items: center; }
+    .lang-btn { 
+        background: white; border: 2px solid var(--gold); padding: 6px 10px; 
+        cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 14px;
+    }
+    .lang-content { 
+        display: none; position: absolute; right: 0; top: 100%; background: white; 
+        min-width: 150px; border: 2px solid var(--gold); z-index: 101; 
+    }
+    .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; font-family: sans-serif; }
+    .lang-content a:hover { background: #f9f9f9; }
+    .lang-dropdown:hover .lang-content { display: block; }
+    .flag-img { width: 20px; height: 14px; object-fit: cover; }
+</style>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="index.html" class="nav-logo-link">
+            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Legion Logo" class="nav-logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html" style="color: var(--gold);">Home</a></li>
+            <li><a href="aktualnosci.html">Aktualności</a></li>
+            <li><a href="druzyna.html">Drużyna</a></li>
+            <li><a href="terminarz.html">Terminarz</a></li>
+            <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+    </div>
+
+    <div class="nav-right">
+        <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+        </a>
+        
+        <div class="separator"></div>
+        
+        <div class="lang-dropdown">
+            <button class="lang-btn">
+                <img src="https://flagcdn.com/w40/pl.png" class="flag-img"> 
+                <span>PL</span> ▼
+            </button>
+            <div class="lang-content">
+                <a onclick="setLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
+                <a onclick="setLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
+            </div>
         </div>
-        <div class="absolute inset-0 bg-black opacity-60"></div>
-        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=1920" 
-             alt="Stadion" class="absolute inset-0 w-full h-full object-cover">
-    </header>
-
-    <main id="article" class="max-w-4xl mx-auto py-20 px-6">
-        <article class="prose prose-invert lg:prose-xl">
-            <h2 class="text-4xl font-bold mb-6 border-b-2 border-red-600 pb-2">Reaktywacja stała się faktem</h2>
-            <p class="text-gray-300 leading-relaxed mb-6">
-                To nie jest tylko informacja o wznowieniu treningów – to oficjalny sygnał, 
-                że KS Legion Białystok wraca tam, gdzie jego miejsce.
-            </p>
-            </article>
-    </main>
-
-</body>
-</html>
+    </div>
+</nav>
