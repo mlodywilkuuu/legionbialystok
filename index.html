@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok - Strona Oficjalna</title>
+    <title>Legion Białystok - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -21,17 +21,17 @@
             padding: 0 25px; border-bottom: 4px solid var(--gold); background: var(--white); 
             position: sticky; top: 0; z-index: 1000; 
         }
-        .nav-left { display: flex; align-items: center; gap: 20px; position: relative; }
+        .nav-left { display: flex; align-items: center; gap: 10px; }
         
-        /* NAPRAWIONY PRZYCISK ADMINA - przed logo */
+        /* PRZYCISK ADMINA - Widoczny dla Ciebie przed logo */
         .admin-trigger {
-            width: 20px; height: 20px; background: transparent; 
-            cursor: pointer; position: relative; z-index: 1001;
+            width: 40px; height: 40px; background: transparent; 
+            cursor: pointer; z-index: 1100; border: 1px dashed transparent;
         }
-        .admin-trigger:hover { background: rgba(197, 160, 89, 0.1); }
+        .admin-trigger:hover { border-color: var(--gold); }
 
         .nav-logo-img { height: 70px; width: auto; cursor: pointer; }
-        .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
+        .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; margin-left: 15px; }
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; }
 
         /* JĘZYKI */
@@ -42,7 +42,7 @@
         .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: sans-serif; }
         .lang-dropdown:hover .lang-content { display: block; }
 
-        /* HERO & SLIDER */
+        /* ARTYKUŁY NA ZDJĘCIACH (STYL Z PODSTRONY AKTUALNOŚCI) */
         .hero { height: 50vh; background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2000') center/cover; position: relative; }
         
         .news-slider-wrap { margin-top: -150px; padding: 0 50px; position: relative; z-index: 10; }
@@ -52,26 +52,28 @@
         .news-card { 
             min-width: 350px; height: 450px; background: var(--black-bg); border-radius: 10px; 
             overflow: hidden; position: relative; flex-shrink: 0; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .news-card:hover { transform: translateY(-10px); }
-        .news-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.7; }
-        .news-card-info { position: absolute; bottom: 0; padding: 25px; color: white; width: 100%; box-sizing: border-box; background: linear-gradient(transparent, rgba(0,0,0,0.9)); }
+        .news-card-img { width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0.7; transition: 0.5s; }
+        .news-card-info { position: absolute; bottom: 0; padding: 25px; color: white; width: 100%; box-sizing: border-box; background: linear-gradient(transparent, rgba(0,0,0,0.95)); }
+        .news-card-date { color: var(--gold); font-size: 13px; font-weight: bold; margin-bottom: 5px; display: block; }
         .news-card-title { font-size: 1.4rem; margin: 0; text-transform: uppercase; font-style: italic; }
 
         /* TERMINARZ */
         .matches-section { max-width: 1300px; margin: 60px auto; padding: 0 50px; }
-        .match-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
-        .match-card { background: #f8f8f8; border-top: 4px solid var(--gold); padding: 25px; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; }
+        .match-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .match-card { background: #f9f9f9; border-top: 5px solid var(--gold); padding: 20px; border-radius: 5px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
         /* PANEL ADMINA */
-        #adminPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; color: white; padding: 40px; overflow-y: auto; }
-        .admin-container { max-width: 600px; margin: 0 auto; background: #222; padding: 30px; border-radius: 8px; border: 1px solid var(--gold); }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; background: #333; color: white; border: 1px solid #444; border-radius: 4px; box-sizing: border-box; }
-        .btn-gold { background: var(--gold); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        #adminPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 5000; color: white; padding: 40px; }
+        .admin-box { max-width: 600px; margin: 0 auto; background: #222; padding: 30px; border-radius: 8px; border: 1px solid var(--gold); }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; background: #333; color: white; border: 1px solid #444; border-radius: 4px; box-sizing: border-box; }
+        .btn-gold { background: var(--gold); color: white; border: none; padding: 15px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; text-transform: uppercase; }
 
         /* MODAL */
         .modal { display: none; position: fixed; z-index: 4000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); }
-        .modal-box { background: white; margin: 5vh auto; width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; border-radius: 8px; position: relative; color: #333; }
+        .modal-inner { background: white; margin: 5vh auto; width: 90%; max-width: 800px; max-height: 85vh; overflow-y: auto; border-radius: 8px; position: relative; color: #333; }
         .close-btn { position: absolute; right: 20px; top: 10px; font-size: 40px; color: white; cursor: pointer; z-index: 4100; }
     </style>
 </head>
@@ -79,13 +81,13 @@
 
     <nav class="navbar">
         <div class="nav-left">
-            <div class="admin-trigger" onclick="checkAdminPassword()"></div>
+            <div class="admin-trigger" onclick="loginAdmin()"></div>
             <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" class="nav-logo-img" onclick="location.href='index.html'">
             <ul class="nav-links">
-                <li><a href="#" id="ui-news">Aktualności</a></li>
-                <li><a href="#" id="ui-team">Drużyna</a></li>
-                <li><a href="#" id="ui-sched">Terminarz</a></li>
-                <li><a href="#" id="ui-cont">Kontakt</a></li>
+                <li><a href="aktualnosci.html" id="l-news">Aktualności</a></li>
+                <li><a href="#" id="l-team">Drużyna</a></li>
+                <li><a href="#" id="l-sched">Terminarz</a></li>
+                <li><a href="#" id="l-cont">Kontakt</a></li>
             </ul>
         </div>
         <div class="nav-right">
@@ -94,11 +96,11 @@
                     <img src="https://flagcdn.com/w40/pl.png" width="20" id="cur-flag"> <span id="cur-txt">PL</span>
                 </button>
                 <div class="lang-content">
-                    <a onclick="updateLanguage('pl')"><img src="https://flagcdn.com/w40/pl.png" width="18"> POLSKI</a>
-                    <a onclick="updateLanguage('en')"><img src="https://flagcdn.com/w40/gb.png" width="18"> ENGLISH</a>
-                    <a onclick="updateLanguage('es')"><img src="https://flagcdn.com/w40/es.png" width="18"> ESPAÑOL</a>
-                    <a onclick="updateLanguage('ru')"><img src="https://flagcdn.com/w40/ru.png" width="18"> РУССКИЙ</a>
-                    <a onclick="updateLanguage('fr')"><img src="https://flagcdn.com/w40/fr.png" width="18"> FRANÇAIS</a>
+                    <a onclick="changeLanguage('pl')"><img src="https://flagcdn.com/w40/pl.png" width="18"> POLSKI</a>
+                    <a onclick="changeLanguage('en')"><img src="https://flagcdn.com/w40/gb.png" width="18"> ENGLISH</a>
+                    <a onclick="changeLanguage('es')"><img src="https://flagcdn.com/w40/es.png" width="18"> ESPAÑOL</a>
+                    <a onclick="changeLanguage('ru')"><img src="https://flagcdn.com/w40/ru.png" width="18"> РУССКИЙ</a>
+                    <a onclick="changeLanguage('fr')"><img src="https://flagcdn.com/w40/fr.png" width="18"> FRANÇAIS</a>
                 </div>
             </div>
         </div>
@@ -107,39 +109,35 @@
     <header class="hero"></header>
 
     <div class="news-slider-wrap">
-        <div class="news-slider" id="newsFeed"></div>
+        <div class="news-slider" id="homeNewsFeed"></div>
     </div>
 
     <section class="matches-section">
-        <h2 id="ui-match-title" style="font-style: italic; text-transform: uppercase;">TERMINARZ MECZY</h2>
-        <div class="match-grid" id="matchFeed"></div>
+        <h2 id="l-match-title" style="font-style: italic; text-transform: uppercase;">Terminarz Rozgrywek</h2>
+        <div class="match-grid" id="homeMatchFeed"></div>
     </section>
 
     <div id="adminPanel">
-        <div class="admin-container">
-            <h2 style="color:var(--gold)">PANEL ZARZĄDZANIA</h2>
-            <div style="display:flex; gap:10px;">
-                <button class="btn-gold" onclick="switchTab('n')">NEWSY</button>
-                <button class="btn-gold" onclick="switchTab('m')">MECZE</button>
+        <div class="admin-box">
+            <h2 style="color:var(--gold)">ZARZĄDZANIE</h2>
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <button class="btn-gold" onclick="switchTab('n')">Dodaj News</button>
+                <button class="btn-gold" onclick="switchTab('m')">Dodaj Mecz</button>
             </div>
 
             <div id="adm-n">
-                <h3>Dodaj Artykuł</h3>
-                <input type="text" id="in-title-pl" placeholder="Tytuł (PL)">
-                <input type="text" id="in-title-en" placeholder="Tytuł (EN)">
-                <input type="text" id="in-img" placeholder="Link do zdjęcia">
-                <input type="datetime-local" id="in-date">
-                <textarea id="in-text-pl" rows="3" placeholder="Treść (PL)"></textarea>
-                <textarea id="in-text-en" rows="3" placeholder="Treść (EN)"></textarea>
-                <button class="btn-gold" onclick="createNewPost()">OPUBLIKUJ</button>
+                <input type="text" id="n-title" placeholder="Tytuł artykułu">
+                <input type="text" id="n-img" placeholder="Link do zdjęcia (URL)">
+                <input type="datetime-local" id="n-date">
+                <textarea id="n-content" rows="4" placeholder="Treść posta..."></textarea>
+                <button class="btn-gold" onclick="addNews()">DODAJ ARTYKUŁ</button>
             </div>
 
             <div id="adm-m" style="display:none;">
-                <h3>Dodaj Mecz</h3>
-                <input type="text" id="m-opp" placeholder="Rywal">
-                <input type="datetime-local" id="m-date">
-                <input type="text" id="m-place" placeholder="Miejsce">
-                <button class="btn-gold" onclick="createNewMatch()">DODAJ MECZ</button>
+                <input type="text" id="m-rywal" placeholder="Przeciwnik">
+                <input type="datetime-local" id="m-kiedy">
+                <input type="text" id="m-miejsce" placeholder="Stadion / Miasto">
+                <button class="btn-gold" onclick="addMatch()">DODAJ MECZ</button>
             </div>
             
             <button onclick="document.getElementById('adminPanel').style.display='none'" class="btn-gold" style="background:#444">ZAMKNIJ</button>
@@ -148,104 +146,79 @@
 
     <div id="newsModal" class="modal">
         <span class="close-btn" onclick="document.getElementById('newsModal').style.display='none'">&times;</span>
-        <div class="modal-box" id="modalContent"></div>
+        <div class="modal-inner" id="modalBox"></div>
     </div>
 
     <script>
         let currentLang = 'pl';
-        let posts = JSON.parse(localStorage.getItem('legion_posts')) || [];
-        let matches = JSON.parse(localStorage.getItem('legion_matches')) || [];
-
-        const uiTranslations = {
-            pl: { news: "Aktualności", team: "Drużyna", sched: "Terminarz", cont: "Kontakt", mTitle: "TERMINARZ MECZY" },
-            en: { news: "News", team: "Team", sched: "Schedule", cont: "Contact", mTitle: "MATCH SCHEDULE" },
-            es: { news: "Noticias", team: "Equipo", sched: "Calendario", cont: "Contacto", mTitle: "CALENDARIO" },
-            ru: { news: "Новости", team: "Команда", sched: "Расписание", cont: "Контакт", mTitle: "РАСПИСАНИЕ" },
-            fr: { news: "Actualités", team: "Équipe", sched: "Calendrier", cont: "Contact", mTitle: "CALENDRIER" }
-        };
-
-        function refreshPage() {
-            // Newsy - na zdjęciach
-            const newsFeed = document.getElementById('newsFeed');
-            newsFeed.innerHTML = posts.map((p, idx) => {
-                const title = currentLang === 'pl' ? p.titlePl : (p.titleEn || p.titlePl);
-                return `
-                    <div class="news-card" onclick="openPost(${idx})">
-                        <div class="news-card-img" style="background-image:url('${p.img}')"></div>
-                        <div class="news-card-info">
-                            <span style="color:var(--gold); font-size:12px; font-weight:bold;">${p.date.replace('T',' ')}</span>
-                            <h3 class="news-card-title">${title}</h3>
-                        </div>
+        
+        // ŁADOWANIE DANYCH (Synchronizacja z kluczem dynamo_posts)
+        function loadData() {
+            const posts = JSON.parse(localStorage.getItem('dynamo_posts')) || [];
+            const matches = JSON.parse(localStorage.getItem('dynamo_matches')) || [];
+            
+            // Renderuj Newsy
+            const newsSlider = document.getElementById('homeNewsFeed');
+            newsSlider.innerHTML = posts.sort((a,b) => new Date(b.date) - new Date(a.date)).map((p, i) => `
+                <div class="news-card" onclick="openPost('${p.id || i}')">
+                    <div class="news-card-img" style="background-image:url('${p.image || p.img}')"></div>
+                    <div class="news-card-info">
+                        <span class="news-card-date">${p.date.replace('T',' ')}</span>
+                        <h3 class="news-card-title">${p.title}</h3>
                     </div>
-                `;
-            }).join('');
-
-            // Mecze - kafelki
-            const matchFeed = document.getElementById('matchFeed');
-            matchFeed.innerHTML = matches.map(m => `
-                <div class="match-card">
-                    <span style="color:var(--gold); font-weight:bold;">${m.date.replace('T',' ')}</span>
-                    <div style="font-style:italic; font-size:1.2rem; margin:10px 0;">LEGION vs ${m.opponent}</div>
-                    <small style="color:#666">${m.place}</small>
                 </div>
             `).join('');
 
-            // Tłumaczenie menu
-            const t = uiTranslations[currentLang];
-            document.getElementById('ui-news').innerText = t.news;
-            document.getElementById('ui-team').innerText = t.team;
-            document.getElementById('ui-sched').innerText = t.sched;
-            document.getElementById('ui-cont').innerText = t.cont;
-            document.getElementById('ui-match-title').innerText = t.mTitle;
+            // Renderuj Mecze
+            const matchFeed = document.getElementById('homeMatchFeed');
+            matchFeed.innerHTML = matches.map(m => `
+                <div class="match-card">
+                    <span style="color:var(--gold); font-weight:bold;">${m.date.replace('T',' ')}</span>
+                    <div style="font-weight:bold; margin:10px 0;">LEGION vs ${m.opponent}</div>
+                    <small style="color:#666">${m.place || m.location}</small>
+                </div>
+            `).join('');
         }
 
-        function updateLanguage(l) {
-            currentLang = l;
-            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru', fr: 'fr' };
-            document.getElementById('cur-flag').src = `https://flagcdn.com/w40/${flags[l]}.png`;
-            document.getElementById('cur-txt').innerText = l.toUpperCase();
-            refreshPage();
-        }
-
-        function checkAdminPassword() {
-            const p = prompt("Hasło:");
+        function loginAdmin() {
+            const p = prompt("Hasło administratora:");
             if(p === "admin123") document.getElementById('adminPanel').style.display = 'block';
         }
 
-        function createNewPost() {
+        function addNews() {
+            const posts = JSON.parse(localStorage.getItem('dynamo_posts')) || [];
             posts.push({
-                titlePl: document.getElementById('in-title-pl').value,
-                titleEn: document.getElementById('in-title-en').value,
-                textPl: document.getElementById('in-text-pl').value,
-                textEn: document.getElementById('in-text-en').value,
-                img: document.getElementById('in-img').value,
-                date: document.getElementById('in-date').value
+                id: Date.now().toString(),
+                title: document.getElementById('n-title').value,
+                image: document.getElementById('n-img').value,
+                date: document.getElementById('n-date').value,
+                content: document.getElementById('n-content').value
             });
-            localStorage.setItem('legion_posts', JSON.stringify(posts));
-            refreshPage();
-            alert("Dodano!");
+            localStorage.setItem('dynamo_posts', JSON.stringify(posts));
+            loadData();
+            alert("Dodano artykuł!");
         }
 
-        function createNewMatch() {
+        function addMatch() {
+            const matches = JSON.parse(localStorage.getItem('dynamo_matches')) || [];
             matches.push({
-                opponent: document.getElementById('m-opp').value,
-                date: document.getElementById('m-date').value,
-                place: document.getElementById('m-place').value
+                opponent: document.getElementById('m-rywal').value,
+                date: document.getElementById('m-kiedy').value,
+                place: document.getElementById('m-miejsce').value
             });
-            localStorage.setItem('legion_matches', JSON.stringify(matches));
-            refreshPage();
+            localStorage.setItem('dynamo_matches', JSON.stringify(matches));
+            loadData();
             alert("Mecz dodany!");
         }
 
-        function openPost(idx) {
-            const p = posts[idx];
-            const title = currentLang === 'pl' ? p.titlePl : (p.titleEn || p.titlePl);
-            const text = currentLang === 'pl' ? p.textPl : (p.textEn || p.textPl);
-            document.getElementById('modalContent').innerHTML = `
-                <div style="height:300px; background:url('${p.img}') center/cover"></div>
-                <div style="padding:30px">
-                    <h1 style="font-style:italic; text-transform:uppercase;">${title}</h1>
-                    <p style="line-height:1.6; font-family:sans-serif; color:#444;">${text}</p>
+        function openPost(id) {
+            const posts = JSON.parse(localStorage.getItem('dynamo_posts'));
+            const p = posts.find((item, index) => (item.id || index.toString()) === id);
+            document.getElementById('modalBox').innerHTML = `
+                <div style="height:350px; background:url('${p.image || p.img}') center/cover"></div>
+                <div style="padding:40px;">
+                    <h1 style="font-style:italic;">${p.title}</h1>
+                    <p style="line-height:1.7; font-family:sans-serif;">${p.content}</p>
                 </div>
             `;
             document.getElementById('newsModal').style.display = 'block';
@@ -256,7 +229,7 @@
             document.getElementById('adm-m').style.display = t === 'm' ? 'block' : 'none';
         }
 
-        window.onload = refreshPage;
+        window.onload = loadData;
     </script>
 </body>
 </html>
