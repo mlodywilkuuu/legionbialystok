@@ -10,7 +10,7 @@
             --gold: #C5A059;
             --white: #ffffff;
             --dark: #1a1a1a;
-            --light-gray: #f4f4f4;
+            --black-bg: #0b0c10;
         }
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
@@ -27,40 +27,107 @@
         .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; }
         .nav-links a:hover { color: var(--gold); }
 
-        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right { display: flex; align-items: center; gap: 15px; }
         .social-link { color: var(--dark); font-size: 22px; text-decoration: none; display: flex; align-items: center; }
         .separator { width: 1px; height: 30px; background-color: #ccc; }
 
         /* JĘZYKI */
         .lang-dropdown { position: relative; }
-        .lang-btn { background: white; border: 2px solid var(--gold); padding: 6px 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 14px; }
-        .lang-content { display: none; position: absolute; right: 0; top: 100%; background: white; min-width: 150px; border: 2px solid var(--gold); z-index: 101; }
-        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-family: sans-serif; font-size: 13px; }
+        .lang-btn { background: white; border: 2px solid var(--gold); padding: 6px 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .lang-content { display: none; position: absolute; right: 0; background: white; min-width: 150px; border: 2px solid var(--gold); z-index: 101; }
+        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .lang-dropdown:hover .lang-content { display: block; }
-        .flag-img { width: 20px; height: 14px; object-fit: cover; }
 
-        /* HERO SECTION */
+        /* HERO SECTION - OCZYSZCZONY */
         .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2000');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: white; text-align: center;
+            height: 60vh;
+            background: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            position: relative;
         }
-        .hero h1 { font-size: 5rem; text-transform: uppercase; margin: 0; font-style: italic; }
-        .hero p { font-size: 1.5rem; margin: 20px 0; color: var(--gold); text-transform: uppercase; }
-        .btn-main { padding: 15px 40px; background: var(--gold); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; transition: 0.3s; border: none; cursor: pointer; }
-        .btn-main:hover { background: var(--white); color: var(--dark); }
 
-        /* SEKCJA WIADOMOŚCI */
-        .quick-news { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .section-header h2 { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; margin: 0; }
-        .news-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .preview-card { background: var(--light-gray); text-decoration: none; color: inherit; transition: 0.3s; border-bottom: 3px solid transparent; }
-        .preview-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); }
-        .preview-img { height: 200px; background-size: cover; background-position: center; }
-        .preview-info { padding: 20px; }
+        /* SLIDER ARTYKUŁÓW NACHODZĄCY NA ZDJĘCIE */
+        .news-slider-container {
+            margin-top: -150px; /* Nachodzenie na zdjęcie */
+            padding-bottom: 50px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .news-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 50px;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Ukrycie scrollbara Firefox */
+        }
+        .news-slider::-webkit-scrollbar { display: none; } /* Ukrycie scrollbara Chrome/Safari */
+
+        .news-card {
+            min-width: 350px;
+            height: 450px;
+            background: var(--black-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .news-card:hover { transform: scale(1.02); }
+
+        .news-card-img {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+            transition: 0.5s;
+        }
+        .news-card:hover .news-card-img { opacity: 0.4; }
+
+        .news-card-info {
+            position: absolute;
+            bottom: 0;
+            padding: 30px;
+            color: white;
+            width: 100%;
+            box-sizing: border-box;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+        }
+
+        .news-card-info h3 { 
+            font-size: 1.4rem; 
+            margin: 10px 0; 
+            text-transform: uppercase; 
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        .news-card-date { color: var(--gold); font-size: 14px; font-weight: bold; }
+
+        /* PRZYCISKI PRZESUWANIA */
+        .slider-nav {
+            position: absolute;
+            right: 50px;
+            top: -40px;
+            display: flex;
+            gap: 10px;
+        }
+        .nav-btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -69,92 +136,74 @@
         <div class="nav-left">
             <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" class="nav-logo-img" onclick="location.href='index.html'">
             <ul class="nav-links">
-                <li><a href="aktualnosci.html" id="nav-news">Aktualności</a></li>
-                <li><a href="#" id="nav-team">Drużyna</a></li>
-                <li><a href="#" id="nav-schedule">Terminarz</a></li>
-                <li><a href="#" id="nav-contact">Kontakt</a></li>
+                <li><a href="aktualnosci.html">Aktualności</a></li>
+                <li><a href="#">Drużyna</a></li>
+                <li><a href="#">Terminarz</a></li>
+                <li><a href="#">Kontakt</a></li>
             </ul>
         </div>
         <div class="nav-right">
-            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
             <div class="separator"></div>
             <div class="lang-dropdown">
                 <button class="lang-btn">
-                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="cur-flag"> <span id="cur-txt">PL</span> ▼
+                    <img src="https://flagcdn.com/w40/pl.png" width="20"> PL ▼
                 </button>
                 <div class="lang-content">
-                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> PL</a>
-                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> EN</a>
-                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> ES</a>
-                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> RU</a>
+                    <a href="#">PL</a>
+                    <a href="#">EN</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1 id="hero-h1">LEGION BIAŁYSTOK</h1>
-        <p id="hero-p">Siła, Honor, Walka</p>
-        <a href="aktualnosci.html" class="btn-main" id="hero-btn">Sprawdź aktualności</a>
-    </header>
+    <header class="hero"></header>
 
-    <section class="quick-news">
-        <div class="section-header">
-            <h2 id="sect-title">Najnowsze wieści</h2>
-            <a href="aktualnosci.html" id="view-all" style="color: var(--gold); text-decoration: none; font-weight: bold;">Zobacz wszystkie ></a>
+    <div class="news-slider-container">
+        <div class="slider-nav">
+            <button class="nav-btn" onclick="scrollSlider(-400)"><i class="fas fa-chevron-left"></i></button>
+            <button class="nav-btn" onclick="scrollSlider(400)"><i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="news-preview-grid">
-            <a href="aktualnosci.html" class="preview-card">
-                <div class="preview-img" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');"></div>
-                <div class="preview-info">
-                    <small style="color: var(--gold); font-weight: bold;">2026-04-16</small>
-                    <h3 id="news-sample-title">[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
-                </div>
-            </a>
-        </div>
-    </section>
+        <div class="news-slider" id="newsSlider">
+            </div>
+    </div>
 
     <script>
-        const langData = {
-            pl: {
-                news: "Aktualności", team: "Drużyna", sched: "Terminarz", cont: "Kontakt",
-                h1: "LEGION BIAŁYSTOK", hp: "Siła, Honor, Walka", hb: "Sprawdź aktualności",
-                st: "Najnowsze wieści", all: "Zobacz wszystkie >", nst: "[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD"
-            },
-            en: {
-                news: "News", team: "Team", sched: "Schedule", cont: "Contact",
-                h1: "LEGION BIALYSTOK", hp: "Strength, Honor, Fight", hb: "Check Latest News",
-                st: "Latest News", all: "View all >", nst: "[MATCH PREVIEW] FC DINAMO WROCLAW - RUNNERSHOOD"
-            },
-            es: {
-                news: "Noticias", team: "Equipo", sched: "Calendario", cont: "Contacto",
-                h1: "LEGION BIALYSTOK", hp: "Fuerza, Honor, Lucha", hb: "Ver noticias",
-                st: "Últimas noticias", all: "Ver todo >", nst: "[PREVIA] FC DINAMO WROCLAW - RUNNERSHOOD"
-            },
-            ru: {
-                news: "Новости", team: "Команда", sched: "Расписание", cont: "Контакт",
-                h1: "ЛЕГИОН БЕЛОСТОК", hp: "Сила, Честь, Борьба", hb: "Читать новости",
-                st: "Последние новости", all: "Смотреть все >", nst: "[ПРЕВЬЮ] ФК ДИНАМО ВРОЦЛАВ - RUNNERSHOOD"
-            }
-        };
+        // Dane artykułów (pobierane z localStorage lub wpisane na stałe)
+        let articles = JSON.parse(localStorage.getItem('legion_news')) || [
+            { title: "GWIAZDA RYWALA: SEBASTIAN KERK", date: "2026-04-17 15:45", img: "https://via.placeholder.com/400x600" },
+            { title: "ROMANCZUK: MUSIMY PODNIEŚĆ NASZ MENTAL", date: "2026-04-17 12:01", img: "https://via.placeholder.com/400x600" },
+            { title: "SIEMIENIEC: CHCĘ WRÓCIĆ DO FUNDAMENTÓW", date: "2026-04-17 11:54", img: "https://via.placeholder.com/400x600" }
+        ];
 
-        function changeLang(l) {
-            const d = langData[l];
-            document.getElementById('nav-news').innerText = d.news;
-            document.getElementById('nav-team').innerText = d.team;
-            document.getElementById('nav-schedule').innerText = d.sched;
-            document.getElementById('nav-contact').innerText = d.cont;
-            document.getElementById('hero-h1').innerText = d.h1;
-            document.getElementById('hero-p').innerText = d.hp;
-            document.getElementById('hero-btn').innerText = d.hb;
-            document.getElementById('sect-title').innerText = d.st;
-            document.getElementById('view-all').innerText = d.all;
-            document.getElementById('news-sample-title').innerText = d.nst;
+        function renderSlider() {
+            const slider = document.getElementById('newsSlider');
+            slider.innerHTML = '';
+            
+            // Sortowanie datą od najnowszych
+            articles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-            const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru' };
-            document.getElementById('cur-flag').src = `https://flagcdn.com/w40/${flags[l]}.png`;
-            document.getElementById('cur-txt').innerText = l.toUpperCase();
+            articles.forEach(art => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.onclick = () => window.location.href = 'aktualnosci.html';
+                
+                card.innerHTML = `
+                    <div class="news-card-img" style="background-image: url('${art.img}')"></div>
+                    <div class="news-card-info">
+                        <div class="news-card-date">${art.date}</div>
+                        <h3>${art.title}</h3>
+                    </div>
+                `;
+                slider.appendChild(card);
+            });
         }
+
+        function scrollSlider(amount) {
+            document.getElementById('newsSlider').scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        window.onload = renderSlider;
     </script>
 </body>
 </html>
