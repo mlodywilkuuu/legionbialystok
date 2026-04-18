@@ -15,46 +15,27 @@
 
         body { margin: 0; font-family: 'Arial Black', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; }
 
-        /* NAVBAR - WSZYSTKO W LINII, BEZ PRZYCISKU HOME */
+        /* NAVBAR */
         .navbar { 
-            height: 90px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 0 25px; 
-            border-bottom: 4px solid var(--gold); 
-            background: var(--white); 
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
+            height: 90px; display: flex; align-items: center; justify-content: space-between; 
+            padding: 0 25px; border-bottom: 4px solid var(--gold); background: var(--white); 
+            position: sticky; top: 0; z-index: 1000; 
         }
-
         .nav-left { display: flex; align-items: center; gap: 20px; }
-        .nav-logo-link { display: flex; align-items: center; transition: 0.3s; }
-        .nav-logo-link:hover { transform: scale(1.05); }
-        .nav-logo-img { height: 70px; width: auto; }
-
+        .nav-logo-img { height: 70px; width: auto; cursor: pointer; }
         .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; padding: 0; }
-        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; transition: 0.2s; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-weight: 900; text-transform: uppercase; font-size: 14px; }
         .nav-links a:hover { color: var(--gold); }
 
         .nav-right { display: flex; align-items: center; gap: 20px; }
-        .social-link { display: flex; align-items: center; color: var(--dark); font-size: 22px; text-decoration: none; transition: 0.3s; }
-        .social-link:hover { color: var(--gold); }
+        .social-link { color: var(--dark); font-size: 22px; text-decoration: none; display: flex; align-items: center; }
         .separator { width: 1px; height: 30px; background-color: #ccc; }
 
-        /* MENU JĘZYKÓW */
-        .lang-dropdown { position: relative; display: flex; align-items: center; }
-        .lang-btn { 
-            background: white; border: 2px solid var(--gold); padding: 6px 10px; 
-            cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 14px;
-        }
-        .lang-content { 
-            display: none; position: absolute; right: 0; top: 100%; background: white; 
-            min-width: 150px; border: 2px solid var(--gold); z-index: 101; 
-        }
-        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 13px; font-family: sans-serif; }
-        .lang-content a:hover { background: #f9f9f9; }
+        /* JĘZYKI */
+        .lang-dropdown { position: relative; }
+        .lang-btn { background: white; border: 2px solid var(--gold); padding: 6px 10px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .lang-content { display: none; position: absolute; right: 0; top: 100%; background: white; min-width: 150px; border: 2px solid var(--gold); z-index: 101; }
+        .lang-content a { color: #333; padding: 10px; text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; font-family: sans-serif; font-size: 13px; }
         .lang-dropdown:hover .lang-content { display: block; }
         .flag-img { width: 20px; height: 14px; object-fit: cover; }
 
@@ -68,22 +49,16 @@
         }
         .hero h1 { font-size: 5rem; text-transform: uppercase; margin: 0; font-style: italic; }
         .hero p { font-size: 1.5rem; margin: 20px 0; color: var(--gold); text-transform: uppercase; }
-        
-        .btn-main {
-            padding: 15px 40px; background: var(--gold); color: white;
-            text-decoration: none; font-weight: 900; text-transform: uppercase;
-            transition: 0.3s; cursor: pointer; border: none;
-        }
+        .btn-main { padding: 15px 40px; background: var(--gold); color: white; text-decoration: none; font-weight: 900; text-transform: uppercase; transition: 0.3s; border: none; cursor: pointer; }
         .btn-main:hover { background: var(--white); color: var(--dark); }
 
-        /* PODGLĄD AKTUALNOŚCI */
+        /* SEKCJA WIADOMOŚCI */
         .quick-news { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-        .section-header h2 { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; }
-        
+        .section-header h2 { border-left: 5px solid var(--gold); padding-left: 15px; text-transform: uppercase; margin: 0; }
         .news-preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .preview-card { background: var(--light-gray); text-decoration: none; color: inherit; transition: 0.3s; }
-        .preview-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .preview-card { background: var(--light-gray); text-decoration: none; color: inherit; transition: 0.3s; border-bottom: 3px solid transparent; }
+        .preview-card:hover { transform: translateY(-5px); border-bottom-color: var(--gold); }
         .preview-img { height: 200px; background-size: cover; background-position: center; }
         .preview-info { padding: 20px; }
     </style>
@@ -92,95 +67,93 @@
 
     <nav class="navbar">
         <div class="nav-left">
-            <a href="index.html" class="nav-logo-link">
-                <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" alt="Legion Logo" class="nav-logo-img">
-            </a>
+            <img src="cbaa852c-dc69-4d31-8000-26ea13757afc-removebg-preview.png" class="nav-logo-img" onclick="location.href='index.html'">
             <ul class="nav-links">
-                <li><a href="aktualnosci.html" id="link-news">Aktualności</a></li>
-                <li><a href="#" id="link-team">Drużyna</a></li>
-                <li><a href="#" id="link-schedule">Terminarz</a></li>
-                <li><a href="#" id="link-contact">Kontakt</a></li>
+                <li><a href="aktualnosci.html" id="nav-news">Aktualności</a></li>
+                <li><a href="#" id="nav-team">Drużyna</a></li>
+                <li><a href="#" id="nav-schedule">Terminarz</a></li>
+                <li><a href="#" id="nav-contact">Kontakt</a></li>
             </ul>
         </div>
-
         <div class="nav-right">
-            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link">
-                <i class="fab fa-instagram"></i>
-            </a>
-            
+            <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
             <div class="separator"></div>
-            
             <div class="lang-dropdown">
                 <button class="lang-btn">
-                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="current-flag"> 
-                    <span id="current-lang">PL</span> ▼
+                    <img src="https://flagcdn.com/w40/pl.png" class="flag-img" id="cur-flag"> <span id="cur-txt">PL</span> ▼
                 </button>
                 <div class="lang-content">
-                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> Polski</a>
-                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> English</a>
-                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> Español</a>
-                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> Русский</a>
+                    <a onclick="changeLang('pl')"><img src="https://flagcdn.com/w40/pl.png" class="flag-img"> PL</a>
+                    <a onclick="changeLang('en')"><img src="https://flagcdn.com/w40/gb.png" class="flag-img"> EN</a>
+                    <a onclick="changeLang('es')"><img src="https://flagcdn.com/w40/es.png" class="flag-img"> ES</a>
+                    <a onclick="changeLang('ru')"><img src="https://flagcdn.com/w40/ru.png" class="flag-img"> RU</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <header class="hero">
-        <h1 id="hero-title">LEGION BIAŁYSTOK</h1>
-        <p id="hero-sub">Siła, Honor, Walka</p>
+        <h1 id="hero-h1">LEGION BIAŁYSTOK</h1>
+        <p id="hero-p">Siła, Honor, Walka</p>
         <a href="aktualnosci.html" class="btn-main" id="hero-btn">Sprawdź aktualności</a>
     </header>
 
     <section class="quick-news">
         <div class="section-header">
-            <h2 id="section-title">Najnowsze wieści</h2>
-            <a href="aktualnosci.html" style="color: var(--gold); text-decoration: none; font-weight: bold;" id="view-all">Zobacz wszystkie ></a>
+            <h2 id="sect-title">Najnowsze wieści</h2>
+            <a href="aktualnosci.html" id="view-all" style="color: var(--gold); text-decoration: none; font-weight: bold;">Zobacz wszystkie ></a>
         </div>
-        
         <div class="news-preview-grid">
             <a href="aktualnosci.html" class="preview-card">
                 <div class="preview-img" style="background-image: url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000');"></div>
                 <div class="preview-info">
                     <small style="color: var(--gold); font-weight: bold;">2026-04-16</small>
-                    <h3 style="margin: 10px 0;">[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
+                    <h3 id="news-sample-title">[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD</h3>
                 </div>
             </a>
         </div>
     </section>
 
     <script>
-        const translations = {
+        const langData = {
             pl: {
-                news: "Aktualności", team: "Drużyna", schedule: "Terminarz", contact: "Kontakt",
-                heroT: "LEGION BIAŁYSTOK", heroS: "Siła, Honor, Walka", heroB: "Sprawdź aktualności",
-                sect: "Najnowsze wieści", all: "Zobacz wszystkie >"
+                news: "Aktualności", team: "Drużyna", sched: "Terminarz", cont: "Kontakt",
+                h1: "LEGION BIAŁYSTOK", hp: "Siła, Honor, Walka", hb: "Sprawdź aktualności",
+                st: "Najnowsze wieści", all: "Zobacz wszystkie >", nst: "[MATCH PREVIEW] FC DINAMO WROCŁAW - RUNNERSHOOD"
             },
             en: {
-                news: "News", team: "Team", schedule: "Schedule", contact: "Contact",
-                heroT: "LEGION BIALYSTOK", heroS: "Strength, Honor, Fight", heroB: "Check latest news",
-                sect: "Latest News", all: "View all >"
+                news: "News", team: "Team", sched: "Schedule", cont: "Contact",
+                h1: "LEGION BIALYSTOK", hp: "Strength, Honor, Fight", hb: "Check Latest News",
+                st: "Latest News", all: "View all >", nst: "[MATCH PREVIEW] FC DINAMO WROCLAW - RUNNERSHOOD"
+            },
+            es: {
+                news: "Noticias", team: "Equipo", sched: "Calendario", cont: "Contacto",
+                h1: "LEGION BIALYSTOK", hp: "Fuerza, Honor, Lucha", hb: "Ver noticias",
+                st: "Últimas noticias", all: "Ver todo >", nst: "[PREVIA] FC DINAMO WROCLAW - RUNNERSHOOD"
+            },
+            ru: {
+                news: "Новости", team: "Команда", sched: "Расписание", cont: "Контакт",
+                h1: "ЛЕГИОН БЕЛОСТОК", hp: "Сила, Честь, Борьба", hb: "Читать новости",
+                st: "Последние новости", all: "Смотреть все >", nst: "[ПРЕВЬЮ] ФК ДИНАМО ВРОЦЛАВ - RUNNERSHOOD"
             }
         };
 
-        function changeLang(lang) {
-            const t = translations[lang] || translations['pl'];
-            
-            // Tłumaczenie menu i treści
-            if(document.getElementById('link-news')) document.getElementById('link-news').innerText = t.news;
-            if(document.getElementById('link-team')) document.getElementById('link-team').innerText = t.team;
-            if(document.getElementById('link-schedule')) document.getElementById('link-schedule').innerText = t.schedule;
-            if(document.getElementById('link-contact')) document.getElementById('link-contact').innerText = t.contact;
-            
-            document.getElementById('hero-title').innerText = t.heroT;
-            document.getElementById('hero-sub').innerText = t.heroS;
-            document.getElementById('hero-btn').innerText = t.heroB;
-            document.getElementById('section-title').innerText = t.sect;
-            document.getElementById('view-all').innerText = t.all;
+        function changeLang(l) {
+            const d = langData[l];
+            document.getElementById('nav-news').innerText = d.news;
+            document.getElementById('nav-team').innerText = d.team;
+            document.getElementById('nav-schedule').innerText = d.sched;
+            document.getElementById('nav-contact').innerText = d.cont;
+            document.getElementById('hero-h1').innerText = d.h1;
+            document.getElementById('hero-p').innerText = d.hp;
+            document.getElementById('hero-btn').innerText = d.hb;
+            document.getElementById('sect-title').innerText = d.st;
+            document.getElementById('view-all').innerText = d.all;
+            document.getElementById('news-sample-title').innerText = d.nst;
 
-            // Zmiana flagi i etykiety
             const flags = { pl: 'pl', en: 'gb', es: 'es', ru: 'ru' };
-            document.getElementById('current-flag').src = `https://flagcdn.com/w40/${flags[lang]}.png`;
-            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            document.getElementById('cur-flag').src = `https://flagcdn.com/w40/${flags[l]}.png`;
+            document.getElementById('cur-txt').innerText = l.toUpperCase();
         }
     </script>
 </body>
