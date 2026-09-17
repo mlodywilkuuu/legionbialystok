@@ -129,7 +129,7 @@
     <!-- GŁÓWNA SEKCJA ZAWODNIKÓW -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
         
-        <!-- NAGłÓWEK ORAZ TAGI PO PRAWEJ STRONIE -->
+        <!-- NAGŁÓWEK ORAZ TAGI PO PRAWEJ STRONIE -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-juve-border pb-6">
             <h1 id="txt-main-title" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white">Pierwsza Drużyna</h1>
 
@@ -196,8 +196,13 @@
         let currentFilter = 'all';
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Bezpieczna zmiana adresu na /zespol (działa idealnie bez błędu 404)
             if (window.location.protocol !== 'file:') {
-                window.history.replaceState({}, '', '/kadra');
+                try {
+                    window.history.replaceState({}, '', '/zespol');
+                } catch (e) {
+                    console.log(e);
+                }
             }
 
             loadPlayers();
