@@ -41,6 +41,15 @@
             background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.4) 50%, rgba(11,11,11,0.7) 100%), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
 
+        /* Efekt szkła (Glassmorphism) dla okna artykułu */
+        .glass-modal {
+            background: rgba(18, 18, 18, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+        }
+
         .dropdown-container {
             position: relative;
         }
@@ -156,36 +165,35 @@
         </div>
     </main>
 
-    <!-- MODAL (OKNO) ARTYKUŁU W STYLU FORTNITE / EPIC GAMES -->
-    <div id="article-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-[#141414] border border-gold/50 rounded-3xl max-w-3xl w-full p-8 md:p-10 shadow-2xl relative space-y-6 max-h-[95vh] overflow-y-auto text-white">
-            <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-juve-border hover:bg-gold text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center font-black transition-all cursor-pointer">✕</button>
+    <!-- MODAL (OKNO) ARTYKUŁU Z EFEKTEM SZKŁA -->
+    <div id="article-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-modal rounded-3xl max-w-3xl w-full p-8 md:p-10 relative space-y-6 max-h-[95vh] overflow-y-auto text-white">
+            <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-black/40 hover:bg-gold text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center font-black transition-all cursor-pointer border border-white/20">✕</button>
             
-            <!-- NAGŁÓWEK ARTYKUŁU JAK NA SCREENIE -->
-            <div class="space-y-4 border-b border-juve-border pb-6">
+            <!-- NAGŁÓWEK ARTYKUŁU -->
+            <div class="space-y-4 border-b border-white/10 pb-6">
                 <h2 id="modal-article-title" class="text-3xl md:text-4xl font-black uppercase tracking-wide text-white leading-tight">Tytuł artykułu</h2>
                 
-                <!-- Opublikowano w: Aktualności + Wiele tagów -->
+                <!-- Opublikowano w -->
                 <div class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider">
-                    <span class="text-slate-400">Opublikowano w</span>
-                    <span class="bg-gold/20 text-gold border border-gold/40 px-3 py-1 rounded-lg">Aktualności</span>
+                    <span id="txt-published-in" class="text-slate-400">Opublikowano w</span>
+                    <span class="bg-gold/20 text-gold border border-gold/40 px-3 py-1 rounded-lg" id="txt-news-tag">Aktualności</span>
                     <span class="text-slate-500">w</span>
                     <div id="modal-article-tags" class="flex flex-wrap gap-1.5">
-                        <!-- Wiele tagów wstrzykiwanych dynamicznie -->
+                        <!-- Tagi -->
                     </div>
                 </div>
 
-                <!-- AUTOR (BEZ KÓŁKA Z LOGO) + DATA -->
-                <div class="flex items-center space-x-3 pt-2">
-                    <div class="space-y-0.5">
-                        <div id="modal-article-author" class="text-sm font-black text-white uppercase tracking-wider">Mateusz Administrator</div>
-                        <div id="modal-article-date" class="text-xs text-slate-400 font-medium">17 wrz 2026</div>
-                    </div>
+                <!-- AUTOR I DATA -->
+                <div class="flex items-center space-x-2 pt-2 text-xs font-bold uppercase tracking-wider">
+                    <span id="modal-article-author" class="text-white">Mateusz Administrator</span>
+                    <span class="text-slate-500">•</span>
+                    <span id="modal-article-date" class="text-slate-400 font-medium">17 wrz 2026</span>
                 </div>
             </div>
 
             <!-- TREŚĆ ARTYKUŁU -->
-            <div id="modal-article-content" class="text-sm text-slate-300 leading-relaxed space-y-4 pt-2">
+            <div id="modal-article-content" class="text-sm text-slate-200 leading-relaxed space-y-4 pt-2">
                 Treść artykułu...
             </div>
         </div>
@@ -219,7 +227,6 @@
             changeLanguage(savedLang);
         });
 
-        // Pobieranie zawsze najnowszego artykułu z panelu
         function loadLatestArticle() {
             let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
                 { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Aktualności", tags: ["Aktualności", "I Drużyna"], author: "Mateusz Administrator", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." }
@@ -235,18 +242,116 @@
                 content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..."
             };
 
+            updateArticleDisplay();
+        }
+
+        // Tłumaczenia interfejsu i artykułów
+        const translations = {
+            pl: {
+                home: "Strona główna",
+                team: "Pierwsza drużyna",
+                academy: "Akademia",
+                table: "Tabela",
+                history: "Historia",
+                club: "Klub",
+                about: "O klubie",
+                people: "Ludzie Legionu",
+                contact: "Kontakt",
+                badge: "Aktualności",
+                readMore: "Czytaj więcej",
+                publishedIn: "Opublikowano w",
+                rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
+                label: "PL",
+                defaultTitle: "Wielki powrót Legionu do rozgrywek!",
+                defaultContent: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..."
+            },
+            en: {
+                home: "Home",
+                team: "First Team",
+                academy: "Academy",
+                table: "Standings",
+                history: "History",
+                club: "Club",
+                about: "About Club",
+                people: "Legion People",
+                contact: "Contact",
+                badge: "News",
+                readMore: "Read More",
+                publishedIn: "Published in",
+                rights: "All rights reserved. Official club service.",
+                label: "EN",
+                defaultTitle: "The grand return of Legion to competitions!",
+                defaultContent: "After an intensive preparation period, our team returns to fight for the highest goals in the upcoming season..."
+            },
+            es: {
+                home: "Inicio",
+                team: "Primer Equipo",
+                academy: "Academia",
+                table: "Clasificación",
+                history: "Historia",
+                club: "Club",
+                about: "Sobre el club",
+                people: "Gente del Legion",
+                contact: "Contacto",
+                badge: "Noticias",
+                readMore: "Leer Más",
+                publishedIn: "Publicado en",
+                rights: "Todos los derechos reservados. Servicio oficial del club.",
+                label: "ES",
+                defaultTitle: "¡El gran regreso del Legion a las competiciones!",
+                defaultContent: "Tras un intenso periodo de preparación, nuestro equipo regresa para luchar por los máximos objetivos en la próxima temporada..."
+            },
+            ru: {
+                home: "Главная",
+                team: "Первая команда",
+                academy: "Академия",
+                table: "Таблица",
+                history: "История",
+                club: "Клуб",
+                about: "О клубе",
+                people: "Люди Легиона",
+                contact: "Контакты",
+                badge: "Новости",
+                readMore: "Читать далее",
+                publishedIn: "Опубликовано в",
+                rights: "Все права защищены. Официальный клубный сервис.",
+                label: "RU",
+                defaultTitle: "Великое возвращение Легиона в соревнования!",
+                defaultContent: "После интенсивного периода подготовки наша команда возвращается к борьбе за самые высокие цели в предстоящем сезоне..."
+            }
+        };
+
+        function updateArticleDisplay() {
+            const currentLang = localStorage.getItem('legion_lang') || 'pl';
+            let title = latestArticle.title;
+            let content = latestArticle.content;
+
+            // Jeśli język nie jest polski i jest to domyślny artykuł, podmień na wersję przetłumaczoną
+            if (currentLang !== 'pl' && latestArticle.id === 1) {
+                title = translations[currentLang].defaultTitle;
+                content = translations[currentLang].defaultContent;
+            }
+
             document.getElementById('hero-date').innerText = latestArticle.date;
-            document.getElementById('hero-title').innerText = latestArticle.title;
-            document.getElementById('hero-snippet').innerText = latestArticle.content.replace(/<[^>]*>?/gm, '');
+            document.getElementById('hero-title').innerText = title;
+            document.getElementById('hero-snippet').innerText = content.replace(/<[^>]*>?/gm, '');
         }
 
         function openLatestArticleModal() {
-            document.getElementById('modal-article-title').innerText = latestArticle.title;
+            const currentLang = localStorage.getItem('legion_lang') || 'pl';
+            let title = latestArticle.title;
+            let content = latestArticle.content;
+
+            if (currentLang !== 'pl' && latestArticle.id === 1) {
+                title = translations[currentLang].defaultTitle;
+                content = translations[currentLang].defaultContent;
+            }
+
+            document.getElementById('modal-article-title').innerText = title;
             document.getElementById('modal-article-author').innerText = latestArticle.author || "Mateusz Administrator";
             document.getElementById('modal-article-date').innerText = latestArticle.date;
-            document.getElementById('modal-article-content').innerHTML = latestArticle.content;
+            document.getElementById('modal-article-content').innerHTML = content;
 
-            // Obsługa wielu tagów (np. Aktualności, I Drużyna)
             const tagsContainer = document.getElementById('modal-article-tags');
             tagsContainer.innerHTML = '';
             
@@ -256,7 +361,7 @@
             }
 
             tagsList.forEach(tag => {
-                tagsContainer.innerHTML += `<span class="bg-indigo-950/80 text-indigo-300 border border-indigo-700/50 px-3 py-1 rounded-lg">${tag}</span>`;
+                tagsContainer.innerHTML += `<span class="bg-white/10 text-gold border border-gold/30 px-3 py-1 rounded-lg">${tag}</span>`;
             });
 
             document.getElementById('article-modal').classList.remove('hidden');
@@ -272,70 +377,6 @@
                 closeArticleModal();
             }
         }
-
-        // Tłumaczenia
-        const translations = {
-            pl: {
-                home: "Strona główna",
-                team: "Pierwsza drużyna",
-                academy: "Akademia",
-                table: "Tabela",
-                history: "Historia",
-                club: "Klub",
-                about: "O klubie",
-                people: "Ludzie Legionu",
-                contact: "Kontakt",
-                badge: "Aktualności",
-                readMore: "Czytaj więcej",
-                rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
-                label: "PL"
-            },
-            en: {
-                home: "Home",
-                team: "First Team",
-                academy: "Academy",
-                table: "Standings",
-                history: "History",
-                club: "Club",
-                about: "About Club",
-                people: "Legion People",
-                contact: "Contact",
-                badge: "News",
-                readMore: "Read More",
-                rights: "All rights reserved. Official club service.",
-                label: "EN"
-            },
-            es: {
-                home: "Inicio",
-                team: "Primer Equipo",
-                academy: "Academia",
-                table: "Clasificación",
-                history: "Historia",
-                club: "Club",
-                about: "Sobre el club",
-                people: "Gente del Legion",
-                contact: "Contacto",
-                badge: "Noticias",
-                readMore: "Leer Más",
-                rights: "Todos los derechos reservados. Servicio oficial del club.",
-                label: "ES"
-            },
-            ru: {
-                home: "Главная",
-                team: "Первая команда",
-                academy: "Академия",
-                table: "Таблица",
-                history: "История",
-                club: "Клуб",
-                about: "О клубе",
-                people: "Люди Легиона",
-                contact: "Контакты",
-                badge: "Новости",
-                readMore: "Читать далее",
-                rights: "Все права защищены. Официальный клубный сервис.",
-                label: "RU"
-            }
-        };
 
         function changeLanguage(lang) {
             localStorage.setItem('legion_lang', lang);
@@ -353,9 +394,13 @@
             
             document.getElementById('hero-badge').innerText = t.badge;
             document.getElementById('btn-read-more').innerText = t.readMore;
+            document.getElementById('txt-published-in').innerText = t.publishedIn;
+            document.getElementById('txt-news-tag').innerText = t.badge;
 
             document.getElementById('footer-rights').innerText = t.rights;
             document.getElementById('current-lang-label').innerText = t.label;
+
+            updateArticleDisplay();
         }
     </script>
 </body>
