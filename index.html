@@ -189,18 +189,18 @@
         </div>
     </section>
 
-    <!-- SEKCJA: LATEST NEWS (W STYLU ZE ZDJĘCIA: TYTUŁ | ZOBACZ WSZYSTKIE) -->
+    <!-- SEKCJA: LATEST NEWS (Z LINKIEM DO STRONY Z ARTYKUŁAMI) -->
     <section class="w-full bg-[#0b0b0b] pb-20 px-6 md:px-16 pt-12">
         <div class="max-w-7xl mx-auto space-y-8">
             
-            <!-- NAGŁÓWEK W STYLU LATEST NEWS | SEE ALL -->
+            <!-- NAGŁÓWEK Z LINKIEM DO STRONY AKTUALNOŚCI -->
             <div class="flex items-center space-x-6">
                 <h2 id="txt-latest-news" class="text-2xl md:text-3xl font-black uppercase tracking-wider text-white">Najnowsze aktualności</h2>
                 <div class="h-6 w-[2px] bg-red-600/70"></div>
-                <a href="#" id="txt-see-all" class="text-xs font-black uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors">Zobacz wszystkie</a>
+                <a href="aktualnosci/index.html" id="txt-see-all" class="text-xs font-black uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors">Zobacz wszystkie</a>
             </div>
 
-            <!-- SIATKA ARTYKUŁÓW (POŁĄCZONA Z PANELEM, BEZ DUPLIKATÓW) -->
+            <!-- SIATKA ARTYKUŁÓW -->
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Wstrzykiwane przez JS -->
             </div>
@@ -502,7 +502,7 @@
                             <p class="text-xs text-slate-400 line-clamp-2">${artContent}</p>
                         </div>
                         <div class="pt-4 border-t border-juve-border flex items-center justify-between text-xs font-bold uppercase tracking-widest text-gold">
-                            <span id="card-read-more-${art.id}">Czytaj więcej</span> &rarr;
+                            <span>Czytaj więcej</span> &rarr;
                         </div>
                     </div>
                 `;
