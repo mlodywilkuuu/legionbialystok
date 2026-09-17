@@ -92,8 +92,8 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WYŚRODKOWANYMI WIDŻETAMI MECZOWYMI -->
-    <main class="hero-bg flex-1 px-6 py-16 space-y-12">
+    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WIDŻETAMI MECZOWYMI -->
+    <main class="hero-bg flex-1 px-6 py-16 space-y-16">
         
         <!-- NAGŁÓWEK -->
         <div class="text-center max-w-4xl mx-auto">
@@ -107,7 +107,7 @@
         <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ ODLICZANIE -->
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             
-            <!-- 1. OSTATNIE MECZE (ODSU NIĘTE NAZWY OD WYNIKÓW) -->
+            <!-- 1. OSTATNIE MECZE -->
             <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-t-gold">
                 <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/30 pb-2 text-center">Ostatnie mecze</h3>
                 <div id="home-last-matches-container" class="space-y-3.5 my-auto">
@@ -159,10 +159,21 @@
 
         </div>
 
+        <!-- SEKCJA 3 NAJNOWSZYCH ARTYKUŁÓW -->
+        <div class="max-w-7xl mx-auto space-y-6">
+            <div class="flex items-center justify-between border-b border-gold/30 pb-4">
+                <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-slate-900">Najnowsze Aktualności</h2>
+            </div>
+            
+            <div id="home-articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Dynamicznie ładowane 3 najnowsze artykuły z localStorage -->
+            </div>
+        </div>
+
     </main>
 
     <!-- STOPKA -->
-    <footer class="w-full bg-white border-t border-gold/30 py-12 px-6">
+    <footer class="w-full bg-white border-t border-gold/30 py-12 px-6 mt-16">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex items-center space-x-3">
                 <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-10 w-auto object-contain">
@@ -174,15 +185,16 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU ORAZ ODLICZANIE -->
+    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadHomeLastMatches();
             loadHomeNextMatch();
             initCountdown();
+            loadHomeArticles();
         });
 
-        // 1. Ostatnie mecze z większymi odstępami między nazwami a wynikiem
+        // 1. Ostatnie mecze
         function loadHomeLastMatches() {
             let matches = JSON.parse(localStorage.getItem('legion_last_matches')) || [
                 { id: 1, date: "13 Wrz", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
@@ -195,7 +207,7 @@
                 container.innerHTML += `
                     <div class="bg-white border border-gold/30 rounded-2xl p-4 space-y-2.5 text-center shadow-sm">
                         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${m.comp} • ${m.date}</div>
-                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-4 pt-1">
+                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-2 pt-1">
                             <span class="w-4/12 text-right truncate pr-2">${m.home}</span>
                             <span class="w-4/12 text-center text-gold text-xs bg-slate-900 rounded-lg py-1.5 px-2 font-mono tracking-widest">${m.homeGoals}:${m.awayGoals}</span>
                             <span class="w-4/12 text-left truncate pl-2">${m.away}</span>
@@ -273,6 +285,39 @@
                     secsEl.innerText = "00";
                 }
             }, 1000);
+        }
+
+        // 4. Ładowanie 3 najnowszych artykułów z panelu (localStorage)
+        function loadHomeArticles() {
+            let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
+                { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Klub", slug: "powrot-do-rozgrywek", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." },
+                { id: 2, title: "Nowy sponsor strategiczny w klubie", date: "14 Wrzesień 2026", category: "Biznes", slug: "nowy-sponsor", content: "Z przyjemnością ogłaszamy nawiązanie współpracy z nowym partnerem, który wesprze rozwój naszego zespołu..." },
+                { id: 3, title: "Rekrutacja do akademii rusza pełną parą", date: "10 Wrzesień 2026", category: "Akademia", slug: "rekrutacja-akademia", content: "Zapraszamy wszystkich młodych utalentowanych piłkarzy na testy do naszych zespołów młodzieżowych..." }
+            ];
+
+            const grid = document.getElementById('home-articles-grid');
+            grid.innerHTML = '';
+
+            // Bierzemy maksymalnie 3 najnowsze artykuły
+            arts.slice(0, 3).forEach(art => {
+                grid.innerHTML += `
+                    <div class="glass-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-sm flex flex-col justify-between border-t-4 border-t-gold">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
+                                <span class="text-gold-dark">${art.category || 'Klub'}</span>
+                                <span class="text-slate-400">${art.date}</span>
+                            </div>
+                            <h3 class="text-lg font-black uppercase tracking-wide text-slate-900 leading-snug">${art.title}</h3>
+                            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${art.content.replace(/<[^>]*>?/gm, '')}</p>
+                        </div>
+                        <div class="pt-4 border-t border-gold/20">
+                            <a href="artykul.html?slug=${art.slug || art.id}" class="text-xs font-black uppercase tracking-wider text-gold-dark hover:text-slate-900 transition-colors flex items-center gap-1">
+                                Czytaj więcej &rarr;
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
         }
     </script>
 </body>
