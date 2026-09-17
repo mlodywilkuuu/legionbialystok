@@ -184,6 +184,12 @@
                     </div>
                 </div>
 
+                <!-- OFICJALNY LINK Z ID W FORMACIE legionbialystok.pl/numer -->
+                <div class="bg-black/50 border border-white/10 px-4 py-2 rounded-xl flex items-center justify-between text-xs text-slate-400 font-mono">
+                    <span id="modal-article-custom-link">legionbialystok.pl/1</span>
+                    <span class="text-gold font-bold uppercase text-[10px]">ID Artykułu</span>
+                </div>
+
                 <!-- AUTOR I DATA -->
                 <div class="flex items-center space-x-2 pt-2 text-xs font-bold uppercase tracking-wider">
                     <span id="modal-article-author" class="text-white">Mateusz Administrator</span>
@@ -245,7 +251,6 @@
             updateArticleDisplay();
         }
 
-        // Tłumaczenia interfejsu i artykułów
         const translations = {
             pl: {
                 home: "Strona główna",
@@ -263,7 +268,9 @@
                 rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
                 label: "PL",
                 defaultTitle: "Wielki powrót Legionu do rozgrywek!",
-                defaultContent: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..."
+                defaultContent: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie...",
+                defaultDate: "17 Wrzesień 2026",
+                tagMap: { "Aktualności": "Aktualności", "I Drużyna": "I Drużyna" }
             },
             en: {
                 home: "Home",
@@ -281,7 +288,9 @@
                 rights: "All rights reserved. Official club service.",
                 label: "EN",
                 defaultTitle: "The grand return of Legion to competitions!",
-                defaultContent: "After an intensive preparation period, our team returns to fight for the highest goals in the upcoming season..."
+                defaultContent: "After an intensive preparation period, our team returns to fight for the highest goals in the upcoming season...",
+                defaultDate: "September 17, 2026",
+                tagMap: { "Aktualności": "News", "I Drużyna": "First Team" }
             },
             es: {
                 home: "Inicio",
@@ -299,7 +308,9 @@
                 rights: "Todos los derechos reservados. Servicio oficial del club.",
                 label: "ES",
                 defaultTitle: "¡El gran regreso del Legion a las competiciones!",
-                defaultContent: "Tras un intenso periodo de preparación, nuestro equipo regresa para luchar por los máximos objetivos en la próxima temporada..."
+                defaultContent: "Tras un intenso periodo de preparación, nuestro equipo regresa para luchar por los máximos objetivos en la próxima temporada...",
+                defaultDate: "17 de septiembre de 2026",
+                tagMap: { "Aktualności": "Noticias", "I Drużyna": "Primer Equipo" }
             },
             ru: {
                 home: "Главная",
@@ -317,51 +328,63 @@
                 rights: "Все права защищены. Официальный клубный сервис.",
                 label: "RU",
                 defaultTitle: "Великое возвращение Легиона в соревнования!",
-                defaultContent: "После интенсивного периода подготовки наша команда возвращается к борьбе за самые высокие цели в предстоящем сезоне..."
+                defaultContent: "После интенсивного периода подготовки наша команда возвращается к борьбе за самые высокие цели в предстоящем сезоне...",
+                defaultDate: "17 сентября 2026 г.",
+                tagMap: { "Aktualności": "Новости", "I Drużyna": "Первая команда" }
             }
         };
 
         function updateArticleDisplay() {
             const currentLang = localStorage.getItem('legion_lang') || 'pl';
+            const t = translations[currentLang] || translations['pl'];
+
             let title = latestArticle.title;
             let content = latestArticle.content;
+            let dateStr = latestArticle.date;
 
-            // Jeśli język nie jest polski i jest to domyślny artykuł, podmień na wersję przetłumaczoną
-            if (currentLang !== 'pl' && latestArticle.id === 1) {
-                title = translations[currentLang].defaultTitle;
-                content = translations[currentLang].defaultContent;
+            if (latestArticle.id === 1) {
+                title = t.defaultTitle;
+                content = t.defaultContent;
+                dateStr = t.defaultDate;
             }
 
-            document.getElementById('hero-date').innerText = latestArticle.date;
+            document.getElementById('hero-date').innerText = dateStr;
             document.getElementById('hero-title').innerText = title;
             document.getElementById('hero-snippet').innerText = content.replace(/<[^>]*>?/gm, '');
         }
 
         function openLatestArticleModal() {
             const currentLang = localStorage.getItem('legion_lang') || 'pl';
+            const t = translations[currentLang] || translations['pl'];
+
             let title = latestArticle.title;
             let content = latestArticle.content;
+            let dateStr = latestArticle.date;
+            const articleId = latestArticle.id || 1;
 
-            if (currentLang !== 'pl' && latestArticle.id === 1) {
-                title = translations[currentLang].defaultTitle;
-                content = translations[currentLang].defaultContent;
+            if (latestArticle.id === 1) {
+                title = t.defaultTitle;
+                content = t.defaultContent;
+                dateStr = t.defaultDate;
             }
 
             document.getElementById('modal-article-title').innerText = title;
             document.getElementById('modal-article-author').innerText = latestArticle.author || "Mateusz Administrator";
-            document.getElementById('modal-article-date').innerText = latestArticle.date;
+            document.getElementById('modal-article-date').innerText = dateStr;
             document.getElementById('modal-article-content').innerHTML = content;
+            document.getElementById('modal-article-custom-link').innerText = `legionbialystok.pl/${articleId}`;
 
             const tagsContainer = document.getElementById('modal-article-tags');
             tagsContainer.innerHTML = '';
             
             let tagsList = latestArticle.tags || [latestArticle.category || "Aktualności"];
             if (typeof tagsList === 'string') {
-                tagsList = tagsList.split(',').map(t => t.trim());
+                tagsList = tagsList.split(',').map(tag => tag.trim());
             }
 
             tagsList.forEach(tag => {
-                tagsContainer.innerHTML += `<span class="bg-white/10 text-gold border border-gold/30 px-3 py-1 rounded-lg">${tag}</span>`;
+                let translatedTag = t.tagMap[tag] || tag;
+                tagsContainer.innerHTML += `<span class="bg-white/10 text-gold border border-gold/30 px-3 py-1 rounded-lg">${translatedTag}</span>`;
             });
 
             document.getElementById('article-modal').classList.remove('hidden');
