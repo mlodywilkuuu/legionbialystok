@@ -37,12 +37,10 @@
         }
     </script>
     <style>
-        /* Przezroczyste tło ze zdjęciem i ciemnym gradientem na dole jak na screenie */
         .hero-banner {
             background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.4) 50%, rgba(11,11,11,0.7) 100%), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
 
-        /* Płynne, stabilne menu z opóźnieniem chowania */
         .dropdown-container {
             position: relative;
         }
@@ -68,7 +66,6 @@
             transform: translateY(0);
         }
 
-        /* Jednolite tło dla rozwijanej sekcji Klub */
         .sub-dropdown-container {
             position: relative;
         }
@@ -86,12 +83,11 @@
 </head>
 <body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- GÓRNY PASEK / NAWIGACJA (PRZEZROCZYSTY, BEZ DOLNEGO PASKA) -->
+    <!-- GÓRNY PASEK / NAWIGACJA -->
     <header class="w-full bg-transparent absolute top-0 left-0 px-6 py-4 flex items-center justify-between z-50">
         
-        <!-- LEWA STRONA: ROZWIJANE MENU GŁÓWNE + LOGO -->
+        <!-- LEWA STRONA: ROZWIJANE MENU + LOGO -->
         <div class="flex items-center space-x-5">
-            <!-- ROZWIJANE MENU GŁÓWNE -->
             <div class="dropdown-container">
                 <button class="bg-black/40 border border-white/20 text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer backdrop-blur-md">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -103,7 +99,6 @@
                     <a href="tabela/index.html" id="nav-table" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
                     <a href="historia/index.html" id="nav-history" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
                     
-                    <!-- ROZWIJANA SEKCJA KLUB -->
                     <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
                         <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
                             <span id="nav-club">Klub</span>
@@ -118,13 +113,12 @@
                 </div>
             </div>
 
-            <!-- LOGO -->
             <a href="index.html" class="flex items-center">
                 <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer filter drop-shadow">
             </a>
         </div>
 
-        <!-- PRAWA STRONA: ODDZIELNE MENU TŁUMACZENIA -->
+        <!-- PRAWA STRONA: TŁUMACZENIA -->
         <div class="dropdown-container">
             <button class="bg-black/40 border border-white/20 text-gold hover:bg-gold hover:text-black px-4 h-12 rounded-xl flex items-center space-x-2 transition-all shadow-md focus:outline-none cursor-pointer text-xs font-black uppercase tracking-wider backdrop-blur-md">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
@@ -141,11 +135,11 @@
 
     </header>
 
-    <!-- GŁÓWNA SEKCJA HERO Z NAJNOWSZYM ARTYKUŁEM NACHODZĄCYM NA TŁO -->
+    <!-- GŁÓWNA SEKCJA HERO Z NAJNOWSZYM ARTYKUŁEM -->
     <main class="hero-banner flex-1 flex flex-col justify-end px-6 md:px-16 pb-16 pt-32 min-h-screen">
         <div class="max-w-4xl space-y-4">
             <div class="flex items-center space-x-3">
-                <span id="hero-badge" class="bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md">Najnowszy artykuł</span>
+                <span id="hero-badge" class="bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md">Aktualności</span>
                 <span id="hero-date" class="text-xs font-bold text-slate-300">17 Wrzesień 2026</span>
             </div>
             <h1 id="hero-title" class="text-3xl md:text-6xl font-black uppercase tracking-wider text-white leading-none drop-shadow-lg">
@@ -162,25 +156,36 @@
         </div>
     </main>
 
-    <!-- MODAL (OKNO) DO WYŚWIETLANIA NAJNOWSZEGO ARTYKUŁU -->
+    <!-- MODAL (OKNO) ARTYKUŁU W STYLU FORTNITE / EPIC GAMES -->
     <div id="article-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-[#141414] border border-gold/50 rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto text-white">
+        <div class="bg-[#141414] border border-gold/50 rounded-3xl max-w-3xl w-full p-8 md:p-10 shadow-2xl relative space-y-6 max-h-[95vh] overflow-y-auto text-white">
             <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-juve-border hover:bg-gold text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center font-black transition-all cursor-pointer">✕</button>
-            <div class="space-y-2">
-                <div class="flex items-center space-x-3 text-xs font-bold uppercase tracking-wider text-gold">
-                    <span id="modal-article-category">Klub</span>
-                    <span>•</span>
-                    <span id="modal-article-date" class="text-slate-400">17 Wrzesień 2026</span>
-                </div>
-                <h2 id="modal-article-title" class="text-2xl font-black uppercase tracking-wide text-white">Tytuł artykułu</h2>
-            </div>
             
-            <div class="bg-black/50 border border-juve-border px-4 py-2 rounded-xl flex items-center justify-between text-xs text-slate-400 font-mono">
-                <span id="modal-article-custom-link">legionbialystok.pl/1</span>
-                <span class="text-gold font-bold uppercase text-[10px]">Oficjalny link</span>
+            <!-- NAGŁÓWEK ARTYKUŁU JAK NA SCREENIE -->
+            <div class="space-y-4 border-b border-juve-border pb-6">
+                <h2 id="modal-article-title" class="text-3xl md:text-4xl font-black uppercase tracking-wide text-white leading-tight">Tytuł artykułu</h2>
+                
+                <!-- Opublikowano w: Aktualności + Wiele tagów -->
+                <div class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider">
+                    <span class="text-slate-400">Opublikowano w</span>
+                    <span class="bg-gold/20 text-gold border border-gold/40 px-3 py-1 rounded-lg">Aktualności</span>
+                    <span class="text-slate-500">w</span>
+                    <div id="modal-article-tags" class="flex flex-wrap gap-1.5">
+                        <!-- Wiele tagów wstrzykiwanych dynamicznie -->
+                    </div>
+                </div>
+
+                <!-- AUTOR (BEZ KÓŁKA Z LOGO) + DATA -->
+                <div class="flex items-center space-x-3 pt-2">
+                    <div class="space-y-0.5">
+                        <div id="modal-article-author" class="text-sm font-black text-white uppercase tracking-wider">Mateusz Administrator</div>
+                        <div id="modal-article-date" class="text-xs text-slate-400 font-medium">17 wrz 2026</div>
+                    </div>
+                </div>
             </div>
 
-            <div id="modal-article-content" class="text-sm text-slate-300 leading-relaxed space-y-4">
+            <!-- TREŚĆ ARTYKUŁU -->
+            <div id="modal-article-content" class="text-sm text-slate-300 leading-relaxed space-y-4 pt-2">
                 Treść artykułu...
             </div>
         </div>
@@ -214,18 +219,19 @@
             changeLanguage(savedLang);
         });
 
-        // Pobieranie zawsze najnowszego artykułu z panelu (z localStorage)
+        // Pobieranie zawsze najnowszego artykułu z panelu
         function loadLatestArticle() {
             let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
-                { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Klub", slug: "powrot-do-rozgrywek", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." }
+                { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Aktualności", tags: ["Aktualności", "I Drużyna"], author: "Mateusz Administrator", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." }
             ];
 
-            // Najnowszy to pierwszy element w tablicy z panelu
             latestArticle = arts[0] || {
                 id: 1,
                 title: "Wielki powrót Legionu do rozgrywek!",
                 date: "17 Wrzesień 2026",
-                category: "Klub",
+                category: "Aktualności",
+                tags: ["Aktualności", "I Drużyna"],
+                author: "Mateusz Administrator",
                 content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..."
             };
 
@@ -235,13 +241,23 @@
         }
 
         function openLatestArticleModal() {
-            const articleId = latestArticle.id || 1;
-
-            document.getElementById('modal-article-category').innerText = latestArticle.category || 'Klub';
-            document.getElementById('modal-article-date').innerText = latestArticle.date;
             document.getElementById('modal-article-title').innerText = latestArticle.title;
+            document.getElementById('modal-article-author').innerText = latestArticle.author || "Mateusz Administrator";
+            document.getElementById('modal-article-date').innerText = latestArticle.date;
             document.getElementById('modal-article-content').innerHTML = latestArticle.content;
-            document.getElementById('modal-article-custom-link').innerText = `legionbialystok.pl/${articleId}`;
+
+            // Obsługa wielu tagów (np. Aktualności, I Drużyna)
+            const tagsContainer = document.getElementById('modal-article-tags');
+            tagsContainer.innerHTML = '';
+            
+            let tagsList = latestArticle.tags || [latestArticle.category || "Aktualności"];
+            if (typeof tagsList === 'string') {
+                tagsList = tagsList.split(',').map(t => t.trim());
+            }
+
+            tagsList.forEach(tag => {
+                tagsContainer.innerHTML += `<span class="bg-indigo-950/80 text-indigo-300 border border-indigo-700/50 px-3 py-1 rounded-lg">${tag}</span>`;
+            });
 
             document.getElementById('article-modal').classList.remove('hidden');
         }
@@ -269,7 +285,7 @@
                 about: "O klubie",
                 people: "Ludzie Legionu",
                 contact: "Kontakt",
-                badge: "Najnowszy artykuł",
+                badge: "Aktualności",
                 readMore: "Czytaj więcej",
                 rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
                 label: "PL"
@@ -284,7 +300,7 @@
                 about: "About Club",
                 people: "Legion People",
                 contact: "Contact",
-                badge: "Latest Article",
+                badge: "News",
                 readMore: "Read More",
                 rights: "All rights reserved. Official club service.",
                 label: "EN"
@@ -299,7 +315,7 @@
                 about: "Sobre el club",
                 people: "Gente del Legion",
                 contact: "Contacto",
-                badge: "Último Artículo",
+                badge: "Noticias",
                 readMore: "Leer Más",
                 rights: "Todos los derechos reservados. Servicio oficial del club.",
                 label: "ES"
@@ -314,7 +330,7 @@
                 about: "О клубе",
                 people: "Люди Легиона",
                 contact: "Контакты",
-                badge: "Последняя статья",
+                badge: "Новости",
                 readMore: "Читать далее",
                 rights: "Все права защищены. Официальный клубный сервис.",
                 label: "RU"
