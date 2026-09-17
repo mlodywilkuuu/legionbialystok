@@ -96,22 +96,22 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
                 <div class="dropdown-menu left-0 w-64 space-y-1">
-                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Strona główna</a>
-                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
-                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
-                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
-                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
+                    <a href="index.html" id="nav-home" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Strona główna</a>
+                    <a href="druzyna/index.html" id="nav-team" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
+                    <a href="akademia/index.html" id="nav-academy" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
+                    <a href="tabela/index.html" id="nav-table" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
+                    <a href="historia/index.html" id="nav-history" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
                     
-                    <!-- ROZWIJANA SEKCJA KLUB Z JEDNOLITYM TŁEM -->
+                    <!-- ROZWIJANA SEKCJA KLUB -->
                     <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
                         <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
-                            <span>Klub</span>
+                            <span id="nav-club">Klub</span>
                             <span class="text-[10px]">▼</span>
                         </div>
                         <div class="sub-dropdown-menu space-y-1 py-1">
-                            <a href="o-klubie/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
+                            <a href="o-klubie/index.html" id="nav-about" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
+                            <a href="ludzie-legionu/index.html" id="nav-people" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
+                            <a href="kontakt/index.html" id="nav-contact" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY -->
+    <!-- SKRYPTY TŁUMACZEŃ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.protocol !== 'file:') {
@@ -173,18 +173,54 @@
 
         const translations = {
             pl: {
+                home: "Strona główna",
+                team: "Pierwsza drużyna",
+                academy: "Akademia",
+                table: "Tabela",
+                history: "Historia",
+                club: "Klub",
+                about: "O klubie",
+                people: "Ludzie Legionu",
+                contact: "Kontakt",
                 rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
                 label: "PL"
             },
             en: {
+                home: "Home",
+                team: "First Team",
+                academy: "Academy",
+                table: "Standings",
+                history: "History",
+                club: "Club",
+                about: "About Club",
+                people: "Legion People",
+                contact: "Contact",
                 rights: "All rights reserved. Official club service.",
                 label: "EN"
             },
             es: {
+                home: "Inicio",
+                team: "Primer Equipo",
+                academy: "Academia",
+                table: "Clasificación",
+                history: "Historia",
+                club: "Club",
+                about: "Sobre el club",
+                people: "Gente del Legion",
+                contact: "Contacto",
                 rights: "Todos los derechos reservados. Servicio oficial del club.",
                 label: "ES"
             },
             ru: {
+                home: "Главная",
+                team: "Первая команда",
+                academy: "Академия",
+                table: "Таблица",
+                history: "История",
+                club: "Клуб",
+                about: "О клубе",
+                people: "Люди Легиона",
+                contact: "Контакты",
                 rights: "Все права защищены. Официальный клубный сервис.",
                 label: "RU"
             }
@@ -194,11 +230,18 @@
             localStorage.setItem('legion_lang', lang);
             const t = translations[lang] || translations['pl'];
 
-            const rightsEl = document.getElementById('footer-rights');
-            const labelEl = document.getElementById('current-lang-label');
-
-            if(rightsEl) rightsEl.innerText = t.rights;
-            if(labelEl) labelEl.innerText = t.label;
+            document.getElementById('nav-home').innerText = t.home;
+            document.getElementById('nav-team').innerText = t.team;
+            document.getElementById('nav-academy').innerText = t.academy;
+            document.getElementById('nav-table').innerText = t.table;
+            document.getElementById('nav-history').innerText = t.history;
+            document.getElementById('nav-club').innerText = t.club;
+            document.getElementById('nav-about').innerText = t.about;
+            document.getElementById('nav-people').innerText = t.people;
+            document.getElementById('nav-contact').innerText = t.contact;
+            
+            document.getElementById('footer-rights').innerText = t.rights;
+            document.getElementById('current-lang-label').innerText = t.label;
         }
     </script>
 </body>
