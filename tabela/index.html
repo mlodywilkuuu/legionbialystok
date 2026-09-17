@@ -211,8 +211,6 @@
 
     <!-- SKRYPTY -->
     <script>
-        let currentSeason = '2026';
-
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.protocol !== 'file:') {
                 window.history.replaceState({}, '', '/tabela');
@@ -224,12 +222,14 @@
         });
 
         function changeSeason(season) {
-            currentSeason = season;
             loadTable();
         }
 
         function loadTable() {
-            // Słownik tabel dla poszczególnych sezonów (może być pobierany z localStorage lub domyślny)
+            // Pobieramy sezon bezpośrednio z elementu select na stronie
+            const seasonSelect = document.getElementById('season-select');
+            const currentSeason = seasonSelect ? seasonSelect.value : '2026';
+
             let allTablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || {
                 "2026": [
                     { pos: 1, team: "LEGION BIAŁYSTOK", m: 3, pkt: 9, z: 3, r: 0, p: 0, goals: "12:2" },
