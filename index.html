@@ -172,6 +172,24 @@
 
     </main>
 
+    <!-- MODAL (OKNO) DO WYŚWIETLANIA ARTYKUŁU -->
+    <div id="article-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border border-gold/40 rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-slate-100 hover:bg-gold text-slate-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center font-black transition-all">✕</button>
+            <div class="space-y-2">
+                <div class="flex items-center space-x-3 text-xs font-bold uppercase tracking-wider text-gold-dark">
+                    <span id="modal-article-category">Klub</span>
+                    <span>•</span>
+                    <span id="modal-article-date" class="text-slate-400">17 Wrzesień 2026</span>
+                </div>
+                <h2 id="modal-article-title" class="text-2xl font-black uppercase tracking-wide text-slate-900">Tytuł artykułu</h2>
+            </div>
+            <div id="modal-article-content" class="text-sm text-slate-700 leading-relaxed space-y-4">
+                Treść artykułu...
+            </div>
+        </div>
+    </div>
+
     <!-- STOPKA -->
     <footer class="w-full bg-white border-t border-gold/30 py-12 px-6 mt-16">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
@@ -185,7 +203,7 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU -->
+    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU ORAZ OBSŁUGA OKNA MODAL -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadHomeLastMatches();
@@ -287,9 +305,11 @@
             }, 1000);
         }
 
-        // 4. Ładowanie 3 najnowszych artykułów z panelu (localStorage)
+        // 4. Ładowanie 3 najnowszych artykułów z panelu do okna (Modal)
+        let allArticles = [];
+
         function loadHomeArticles() {
-            let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
+            allArticles = JSON.parse(localStorage.getItem('legion_articles')) || [
                 { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Klub", slug: "powrot-do-rozgrywek", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." },
                 { id: 2, title: "Nowy sponsor strategiczny w klubie", date: "14 Wrzesień 2026", category: "Biznes", slug: "nowy-sponsor", content: "Z przyjemnością ogłaszamy nawiązanie współpracy z nowym partnerem, który wesprze rozwój naszego zespołu..." },
                 { id: 3, title: "Rekrutacja do akademii rusza pełną parą", date: "10 Wrzesień 2026", category: "Akademia", slug: "rekrutacja-akademia", content: "Zapraszamy wszystkich młodych utalentowanych piłkarzy na testy do naszych zespołów młodzieżowych..." }
@@ -298,10 +318,9 @@
             const grid = document.getElementById('home-articles-grid');
             grid.innerHTML = '';
 
-            // Bierzemy maksymalnie 3 najnowsze artykuły
-            arts.slice(0, 3).forEach(art => {
+            allArticles.slice(0, 3).forEach((art, index) => {
                 grid.innerHTML += `
-                    <div class="glass-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-sm flex flex-col justify-between border-t-4 border-t-gold">
+                    <div class="glass-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-sm flex flex-col justify-between border-t-4 border-t-gold cursor-pointer" onclick="openArticleModal(${index})">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
                                 <span class="text-gold-dark">${art.category || 'Klub'}</span>
@@ -311,13 +330,37 @@
                             <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${art.content.replace(/<[^>]*>?/gm, '')}</p>
                         </div>
                         <div class="pt-4 border-t border-gold/20">
-                            <a href="artykul.html?slug=${art.slug || art.id}" class="text-xs font-black uppercase tracking-wider text-gold-dark hover:text-slate-900 transition-colors flex items-center gap-1">
+                            <span class="text-xs font-black uppercase tracking-wider text-gold-dark hover:text-slate-900 transition-colors flex items-center gap-1">
                                 Czytaj więcej &rarr;
-                            </a>
+                            </span>
                         </div>
                     </div>
                 `;
             });
+        }
+
+        function openArticleModal(index) {
+            const art = allArticles[index];
+            if(!art) return;
+
+            document.getElementById('modal-article-category').innerText = art.category || 'Klub';
+            document.getElementById('modal-article-date').innerText = art.date;
+            document.getElementById('modal-article-title').innerText = art.title;
+            document.getElementById('modal-article-content').innerHTML = art.content;
+
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('article-modal').classList.add('hidden');
+        }
+
+        // Zamknięcie modala po kliknięciu poza nim
+        window.onclick = function(event) {
+            const modal = document.getElementById('article-modal');
+            if (event.target == modal) {
+                closeArticleModal();
+            }
         }
     </script>
 </body>
