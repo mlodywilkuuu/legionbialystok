@@ -31,19 +31,17 @@
         }
     </script>
     <style>
-        /* Efekt szkła (Glassmorphism) z eleganckim gradientem tekstowym */
         .glass-gold-text {
             background: linear-gradient(135deg, #997a38 0%, #ffd700 50%, #b8860b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            /* Efekt subtelnej poświaty szklanej */
             filter: drop-shadow(0 4px 12px rgba(197, 160, 89, 0.25));
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(197, 160, 89, 0.3);
@@ -94,15 +92,57 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z EFEKTEM SZKŁA I GRADIENTEM -->
-    <main class="hero-bg flex-1 flex flex-col items-center justify-center text-center px-6 py-28 border-b border-slate-200">
-        <div class="max-w-4xl space-y-4">
+    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WIDŻETAMI MECZOWYMI -->
+    <main class="hero-bg flex-1 px-6 py-16 space-y-12">
+        
+        <!-- NAGŁÓWEK -->
+        <div class="text-center max-w-4xl mx-auto">
             <div class="glass-card inline-block px-8 py-6 rounded-3xl">
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-wider leading-tight">
+                <h1 class="text-3xl md:text-5xl font-black uppercase tracking-wider leading-tight">
                     <span class="glass-gold-text">Razem Tworzymy Historię</span>
                 </h1>
             </div>
         </div>
+
+        <!-- WIDŻETY: LAST MATCHES, NEXT MATCH ORAZ ZEGAR (STYL LEGION) -->
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- 1. LAST MATCHES (Pobierane z panelu) -->
+            <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Last Matches:</h3>
+                    <div id="home-last-matches-container" class="space-y-4">
+                        <!-- Wstrzykiwane przez JS z panelu -->
+                    </div>
+                </div>
+                <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Matchroom</a>
+            </div>
+
+            <!-- 2. NEXT MATCH (Pobierane z panelu) -->
+            <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
+                <div>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Next Match:</h3>
+                    <div id="home-next-match-container" class="space-y-3">
+                        <!-- Wstrzykiwane przez JS z panelu -->
+                    </div>
+                </div>
+                <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Standings</a>
+            </div>
+
+            <!-- 3. LIVE CLOCK & DATE (Zegar stylizowany na wzór projektu) -->
+            <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between border border-gold/30 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gold/10 rounded-full blur-2xl"></div>
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-gold">Czas lokalny</span>
+                    <div id="live-clock" class="text-4xl md:text-5xl font-black tracking-wider mt-2 font-mono text-gold-light">00:00:00</div>
+                </div>
+                <div class="pt-6 border-t border-white/10">
+                    <div id="live-date" class="text-xs font-bold uppercase tracking-widest text-slate-300">CZWARTEK, 17 WRZEŚNIA</div>
+                </div>
+            </div>
+
+        </div>
+
     </main>
 
     <!-- STOPKA -->
@@ -118,5 +158,114 @@
         </div>
     </footer>
 
+    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU ORAZ ZEGAR -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHomeLastMatches();
+            loadHomeNextMatch();
+            initLiveClock();
+        });
+
+        // 1. Ładowanie ostatnich meczów z localStorage (Panel Administratora)
+        function loadHomeLastMatches() {
+            let matches = JSON.parse(localStorage.getItem('legion_last_matches')) || [
+                { id: 1, date: "13 Sep", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
+                { id: 2, date: "17 Sep", comp: "PUCHAR POLSKI - 21:00", home: "LEGION BIAŁYSTOK", away: "JAGIELLONIA", homeGoals: 1, awayGoals: 0 }
+            ];
+            const container = document.getElementById('home-last-matches-container');
+            container.innerHTML = '';
+
+            // Bierzemy maksymalnie 2 ostatnie mecze
+            matches.slice(0, 2).forEach(m => {
+                container.innerHTML += `
+                    <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-3">
+                        <div class="bg-slate-900 text-white text-center px-3 py-2 rounded-xl min-w-[50px]">
+                            <span class="block text-sm font-black text-gold">${m.date.split(' ')[0] || '13'}</span>
+                            <span class="block text-[9px] uppercase tracking-wider text-slate-400">${m.date.split(' ')[1] || 'Sep'}</span>
+                        </div>
+                        <div class="flex-1 space-y-1">
+                            <span class="block text-[10px] font-bold text-slate-400 uppercase">${m.comp}</span>
+                            <div class="flex justify-between items-center text-xs font-black uppercase text-slate-900">
+                                <span>${m.home}</span>
+                                <span class="bg-slate-900 text-gold px-2 py-0.5 rounded text-xs">${m.homeGoals}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-black uppercase text-slate-900">
+                                <span>${m.away}</span>
+                                <span class="bg-slate-900 text-gold px-2 py-0.5 rounded text-xs">${m.awayGoals}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // 2. Ładowanie najbliższego meczu z localStorage (Panel Administratora)
+        function loadHomeNextMatch() {
+            let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
+                dateLabel: "20 Sep",
+                info: "KLASA A - 18:00",
+                team1: "LEGION BIAŁYSTOK",
+                team2: "ATALANTA"
+            };
+
+            const container = document.getElementById('home-next-match-container');
+            container.innerHTML = `
+                <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-4">
+                    <div class="bg-slate-900 text-white text-center px-3 py-3 rounded-xl min-w-[50px]">
+                        <span class="block text-sm font-black text-gold">${nm.dateLabel ? nm.dateLabel.split(' ')[0] : '20'}</span>
+                        <span class="block text-[9px] uppercase tracking-wider text-slate-400">${nm.dateLabel ? nm.dateLabel.split(' ')[1] : 'Sep'}</span>
+                    </div>
+                    <div class="flex-1 space-y-2">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">${nm.info}</span>
+                        <div class="text-sm font-black uppercase text-slate-900 leading-tight">
+                            <div>${nm.team1}</div>
+                            <div class="text-gold-dark mt-0.5">${nm.team2}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center pt-2">
+                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
+                        <span class="block text-[10px] text-slate-400 uppercase font-bold">BILANS</span>
+                        <span class="text-xs font-black text-slate-900">32 W</span>
+                    </div>
+                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
+                        <span class="block text-[10px] text-slate-400 uppercase font-bold">FORMA</span>
+                        <span class="text-xs font-black text-gold-dark">59%</span>
+                    </div>
+                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
+                        <span class="block text-[10px] text-slate-400 uppercase font-bold">BRAMKI</span>
+                        <span class="text-xs font-black text-slate-900">102</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 3. Żywy zegar i data
+        function initLiveClock() {
+            const clockEl = document.getElementById('live-clock');
+            const dateEl = document.getElementById('live-date');
+
+            const daysMap = ['NIEDZIELA', 'PONIEDZIAŁEK', 'WTOREK', 'ŚRODA', 'CZWARTEK', 'PIĄTEK', 'SOBOTA'];
+            const monthsMap = ['STYCZNIA', 'LUTEGO', 'MARCA', 'KWIETNIA', 'MAJA', 'CZERWCA', 'LIPCA', 'SIERPNIA', 'WRZEŚNIA', 'PAŹDZIERNIKA', 'LISTOPADA', 'GRUDNIA'];
+
+            function update() {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                
+                clockEl.innerText = `${h}:${m}:${s}`;
+
+                const dayName = daysMap[now.getDay()];
+                const dayNum = now.getDate();
+                const monthName = monthsMap[now.getMonth()];
+
+                dateEl.innerText = `${dayName}, ${dayNum} ${monthName}`;
+            }
+
+            update();
+            setInterval(update, 1000);
+        }
+    </script>
 </body>
 </html>
