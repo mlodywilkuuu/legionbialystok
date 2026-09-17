@@ -20,10 +20,16 @@
                     },
                     colors: {
                         gold: {
-                            DEFAULT: '#c5a059',
-                            light: '#e6ca87',
-                            dark: '#997a38',
-                            accent: '#d4af37'
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c',
+                            accent: '#ffd700'
+                        },
+                        juve: {
+                            black: '#0b0b0b',
+                            dark: '#121212',
+                            card: '#181818',
+                            border: '#2a2a2a'
                         }
                     }
                 }
@@ -31,55 +37,56 @@
         }
     </script>
     <style>
-        .glass-gold-text {
-            background: linear-gradient(135deg, #997a38 0%, #ffd700 50%, #b8860b 100%);
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #aa8c2c 0%, #ffd700 50%, #d4af37 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            filter: drop-shadow(0 4px 12px rgba(197, 160, 89, 0.25));
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.08);
+        .juve-card {
+            background: #181818;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        .juve-card:hover {
+            border-color: #d4af37;
         }
 
-        .hero-bg {
-            background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(252,251,250,0.98)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+        .hero-juve {
+            background: linear-gradient(to bottom, rgba(11,11,11,0.85), rgba(11,11,11,0.98)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
     </style>
 </head>
-<body class="bg-[#fcfbfa] text-slate-900 font-sans antialiased selection:bg-gold selection:text-white min-h-screen flex flex-col justify-between">
+<body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- GÓRNY PASEK / NAWIGACJA -->
-    <header class="w-full bg-white/90 backdrop-blur-md border-b border-gold/30 px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm">
-        <div class="flex items-center space-x-5">
+    <!-- GÓRNY PASEK / NAWIGACJA (STYL JUVE) -->
+    <header class="w-full bg-[#0b0b0b]/95 backdrop-blur-md border-b border-juve-border px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center space-x-6">
             <!-- MENU ROZWIJANE (HAMBURGER) -->
             <div class="relative group">
-                <button class="bg-white border border-gold/30 text-slate-800 hover:bg-gold/10 w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-sm focus:outline-none cursor-pointer">
+                <button class="bg-[#181818] border border-juve-border text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
-                <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-gold/30 rounded-2xl shadow-xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
-                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 hover:text-gold-dark">Strona główna</a>
-                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 hover:text-gold-dark">Pierwsza drużyna</a>
-                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 hover:text-gold-dark">Akademia</a>
-                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 hover:text-gold-dark">Tabela</a>
-                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 hover:text-gold-dark">Historia</a>
+                <div class="absolute left-0 top-full mt-2 w-64 bg-[#141414] border border-juve-border rounded-2xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
+                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Strona główna</a>
+                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Pierwsza drużyna</a>
+                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Akademia</a>
+                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Tabela</a>
+                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Historia</a>
                     
                     <!-- ROZWIJANA SEKCJA KLUB -->
-                    <div class="relative group/sub border-t border-slate-100 my-1 pt-1">
-                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-gold/10 flex justify-between items-center cursor-pointer">
+                    <div class="relative group/sub border-t border-juve-border my-1 pt-1">
+                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
                             <span>Klub</span>
                             <span class="text-[10px]">▼</span>
                         </div>
-                        <div class="hidden group-hover/sub:block pl-4 space-y-1 bg-slate-50/50 py-1">
-                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-gold/10 hover:text-gold-dark">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-gold/10 hover:text-gold-dark">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-gold/10 hover:text-gold-dark">Kontakt</a>
+                        <div class="hidden group-hover/sub:block pl-4 space-y-1 bg-black/50 py-1">
+                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">O klubie</a>
+                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Ludzie Legionu</a>
+                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Kontakt</a>
                         </div>
                     </div>
                 </div>
@@ -87,29 +94,27 @@
 
             <!-- LOGO -->
             <a href="index.html" class="flex items-center">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer">
+                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer filter drop-shadow">
             </a>
         </div>
     </header>
 
-    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WIDŻETAMI MECZOWYMI -->
-    <main class="hero-bg flex-1 px-6 py-16 space-y-16">
+    <!-- HERO SECTION (STYL JUVE - POTĘŻNA TYPOGRAFIA) -->
+    <main class="hero-juve flex-1 px-6 py-20 space-y-16">
         
-        <!-- NAGŁÓWEK -->
-        <div class="text-center max-w-4xl mx-auto">
-            <div class="glass-card inline-block px-8 py-6 rounded-3xl border-2 border-gold/40 shadow-xl">
-                <h1 class="text-3xl md:text-5xl font-black uppercase tracking-wider leading-tight">
-                    <span class="glass-gold-text">Razem Tworzymy Historię</span>
-                </h1>
-            </div>
+        <div class="text-center max-w-5xl mx-auto space-y-6">
+            <span class="bg-gold/10 border border-gold/30 text-gold text-xs font-black uppercase tracking-widest px-4 py-2 rounded-full">Oficjalny Serwis Klubu</span>
+            <h1 class="text-4xl md:text-7xl font-black uppercase tracking-wider leading-none">
+                Razem Tworzymy <span class="gold-gradient-text">Historię</span>
+            </h1>
         </div>
 
-        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ ODLICZANIE -->
+        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ ODLICZANIE (STYL JUVE) -->
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
             
             <!-- 1. OSTATNIE MECZE -->
-            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-t-gold">
-                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/30 pb-2 text-center">Ostatnie mecze</h3>
+            <div class="juve-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-t-gold">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold mb-4 border-b border-juve-border pb-3 text-center">Ostatnie mecze</h3>
                 <div id="home-last-matches-container" class="space-y-3.5 my-auto">
                     <!-- Wstrzykiwane przez JS -->
                 </div>
@@ -117,8 +122,8 @@
             </div>
 
             <!-- 2. NAJBLIŻSZY MECZ -->
-            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-t-gold">
-                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/30 pb-2 text-center">Najbliższy mecz</h3>
+            <div class="juve-card rounded-3xl p-6 flex flex-col justify-between border-t-4 border-t-gold">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold mb-4 border-b border-juve-border pb-3 text-center">Najbliższy mecz</h3>
                 <div id="home-next-match-container" class="space-y-3 my-auto">
                     <!-- Wstrzykiwane przez JS -->
                 </div>
@@ -126,76 +131,76 @@
             </div>
 
             <!-- 3. ODLICZANIE DO MECZU -->
-            <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between items-center text-center border-2 border-gold/50 relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gold/15 rounded-full blur-3xl"></div>
+            <div class="bg-gradient-to-br from-[#121212] to-black text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between items-center text-center border-2 border-gold/40 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl"></div>
                 
                 <div class="w-full pt-2">
                     <span class="text-xs font-black uppercase tracking-widest text-gold block mb-1">Odliczanie do meczu</span>
-                    <div id="countdown-date-label" class="text-xs font-bold uppercase tracking-wider text-slate-300">Niedziela, 20 września</div>
+                    <div id="countdown-date-label" class="text-xs font-bold uppercase tracking-wider text-slate-400">Niedziela, 20 września</div>
                 </div>
 
                 <!-- ODLICZANIE -->
                 <div class="w-full py-4 my-auto">
                     <div id="countdown-grid" class="grid grid-cols-3 gap-3 max-w-sm mx-auto">
-                        <div class="bg-white/5 border border-gold/40 p-3 rounded-2xl shadow-inner">
-                            <span id="cd-days" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">02</span>
+                        <div class="bg-black/60 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-days" class="text-2xl md:text-3xl font-black text-gold block font-mono">02</span>
                             <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Dni</span>
                         </div>
-                        <div class="bg-white/5 border border-gold/40 p-3 rounded-2xl shadow-inner">
-                            <span id="cd-mins" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">31</span>
+                        <div class="bg-black/60 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-mins" class="text-2xl md:text-3xl font-black text-gold block font-mono">31</span>
                             <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Minuty</span>
                         </div>
-                        <div class="bg-white/5 border border-gold/40 p-3 rounded-2xl shadow-inner">
-                            <span id="cd-secs" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">44</span>
+                        <div class="bg-black/60 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-secs" class="text-2xl md:text-3xl font-black text-gold block font-mono">44</span>
                             <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Sekundy</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="w-full pb-2">
-                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Czas do pierwszego gwizdka</span>
+                    <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Czas do pierwszego gwizdka</span>
                 </div>
             </div>
 
         </div>
 
-        <!-- SEKCJA 3 NAJNOWSZYCH ARTYKUŁÓW -->
-        <div class="max-w-7xl mx-auto space-y-6">
-            <div class="flex items-center justify-between border-b border-gold/30 pb-4">
-                <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-slate-900">Najnowsze Aktualności</h2>
+        <!-- SEKCJA 3 NAJNOWSZYCH ARTYKUŁÓW (STYL JUVE) -->
+        <div class="max-w-7xl mx-auto space-y-6 pt-6">
+            <div class="flex items-center justify-between border-b border-juve-border pb-4">
+                <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najnowsze Aktualności</h2>
             </div>
             
             <div id="home-articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Dynamicznie ładowane 3 najnowsze artykuły z localStorage -->
+                <!-- Dynamicznie ładowane artykuły -->
             </div>
         </div>
 
     </main>
 
     <!-- MODAL (OKNO) DO WYŚWIETLANIA ARTYKUŁU -->
-    <div id="article-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white border border-gold/40 rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto">
-            <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-slate-100 hover:bg-gold text-slate-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center font-black transition-all">✕</button>
+    <div id="article-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-[#141414] border border-gold/50 rounded-3xl max-w-2xl w-full p-8 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto text-white">
+            <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-juve-border hover:bg-gold text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center font-black transition-all">✕</button>
             <div class="space-y-2">
-                <div class="flex items-center space-x-3 text-xs font-bold uppercase tracking-wider text-gold-dark">
+                <div class="flex items-center space-x-3 text-xs font-bold uppercase tracking-wider text-gold">
                     <span id="modal-article-category">Klub</span>
                     <span>•</span>
                     <span id="modal-article-date" class="text-slate-400">17 Wrzesień 2026</span>
                 </div>
-                <h2 id="modal-article-title" class="text-2xl font-black uppercase tracking-wide text-slate-900">Tytuł artykułu</h2>
+                <h2 id="modal-article-title" class="text-2xl font-black uppercase tracking-wide text-white">Tytuł artykułu</h2>
             </div>
-            <div id="modal-article-content" class="text-sm text-slate-700 leading-relaxed space-y-4">
+            <div id="modal-article-content" class="text-sm text-slate-300 leading-relaxed space-y-4">
                 Treść artykułu...
             </div>
         </div>
     </div>
 
     <!-- STOPKA -->
-    <footer class="w-full bg-white border-t border-gold/30 py-12 px-6 mt-16">
+    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-12 px-6 mt-16">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex items-center space-x-3">
                 <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-10 w-auto object-contain">
-                <span class="text-xs font-black uppercase tracking-widest text-slate-700">Legion Białystok &copy; 2026</span>
+                <span class="text-xs font-black uppercase tracking-widest text-slate-400">Legion Białystok &copy; 2026</span>
             </div>
             <div class="text-xs text-slate-500">
                 Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.
@@ -203,7 +208,7 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU ORAZ OBSŁUGA OKNA MODAL -->
+    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadHomeLastMatches();
@@ -223,11 +228,11 @@
 
             matches.slice(0, 2).forEach(m => {
                 container.innerHTML += `
-                    <div class="bg-white border border-gold/30 rounded-2xl p-4 space-y-2.5 text-center shadow-sm">
+                    <div class="bg-[#121212] border border-juve-border rounded-2xl p-4 space-y-2.5 text-center shadow-inner">
                         <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${m.comp} • ${m.date}</div>
-                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-2 pt-1">
+                        <div class="flex items-center justify-between font-black text-xs uppercase text-white px-2 pt-1">
                             <span class="w-4/12 text-right truncate pr-2">${m.home}</span>
-                            <span class="w-4/12 text-center text-gold text-xs bg-slate-900 rounded-lg py-1.5 px-2 font-mono tracking-widest">${m.homeGoals}:${m.awayGoals}</span>
+                            <span class="w-4/12 text-center text-gold text-xs bg-black rounded-lg py-1.5 px-2 font-mono tracking-widest border border-gold/30">${m.homeGoals}:${m.awayGoals}</span>
                             <span class="w-4/12 text-left truncate pl-2">${m.away}</span>
                         </div>
                     </div>
@@ -249,14 +254,14 @@
             const container = document.getElementById('home-next-match-container');
             
             let statusBadge = nm.customStatus && nm.customStatus.trim() !== "" 
-                ? `<div class="bg-gold/20 border border-gold text-gold-dark text-center font-black text-xs py-1.5 rounded-xl uppercase tracking-wider mb-2">${nm.customStatus}</div>` 
+                ? `<div class="bg-gold/20 border border-gold text-gold text-center font-black text-xs py-1.5 rounded-xl uppercase tracking-wider mb-2">${nm.customStatus}</div>` 
                 : '';
 
             container.innerHTML = `
-                <div class="bg-white border border-gold/30 rounded-2xl p-5 space-y-2.5 text-center shadow-sm">
+                <div class="bg-[#121212] border border-juve-border rounded-2xl p-5 space-y-2.5 text-center shadow-inner">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${nm.info} • ${nm.dateLabel}</div>
                     ${statusBadge}
-                    <div class="space-y-2 font-black text-xs md:text-sm uppercase text-slate-900 pt-2">
+                    <div class="space-y-2 font-black text-xs md:text-sm uppercase text-white pt-2">
                         <div class="truncate px-2">${nm.team1}</div>
                         <div class="text-[10px] text-gold font-black tracking-widest my-0.5">VS</div>
                         <div class="truncate px-2">${nm.team2}</div>
@@ -305,7 +310,7 @@
             }, 1000);
         }
 
-        // 4. Ładowanie 3 najnowszych artykułów z panelu do okna (Modal)
+        // 4. Artykuły (modal)
         let allArticles = [];
 
         function loadHomeArticles() {
@@ -320,17 +325,17 @@
 
             allArticles.slice(0, 3).forEach((art, index) => {
                 grid.innerHTML += `
-                    <div class="glass-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-sm flex flex-col justify-between border-t-4 border-t-gold cursor-pointer" onclick="openArticleModal(${index})">
+                    <div class="juve-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-md flex flex-col justify-between border-t-4 border-t-gold cursor-pointer" onclick="openArticleModal(${index})">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider">
-                                <span class="text-gold-dark">${art.category || 'Klub'}</span>
+                                <span class="text-gold">${art.category || 'Klub'}</span>
                                 <span class="text-slate-400">${art.date}</span>
                             </div>
-                            <h3 class="text-lg font-black uppercase tracking-wide text-slate-900 leading-snug">${art.title}</h3>
-                            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">${art.content.replace(/<[^>]*>?/gm, '')}</p>
+                            <h3 class="text-lg font-black uppercase tracking-wide text-white leading-snug">${art.title}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${art.content.replace(/<[^>]*>?/gm, '')}</p>
                         </div>
-                        <div class="pt-4 border-t border-gold/20">
-                            <span class="text-xs font-black uppercase tracking-wider text-gold-dark hover:text-slate-900 transition-colors flex items-center gap-1">
+                        <div class="pt-4 border-t border-juve-border">
+                            <span class="text-xs font-black uppercase tracking-wider text-gold hover:text-white transition-colors flex items-center gap-1">
                                 Czytaj więcej &rarr;
                             </span>
                         </div>
@@ -355,7 +360,6 @@
             document.getElementById('article-modal').classList.add('hidden');
         }
 
-        // Zamknięcie modala po kliknięciu poza nim
         window.onclick = function(event) {
             const modal = document.getElementById('article-modal');
             if (event.target == modal) {
