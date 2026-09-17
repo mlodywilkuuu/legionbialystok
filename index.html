@@ -204,18 +204,18 @@
         </div>
     </section>
 
-    <!-- SEKCJA: KLUBOWA SALA TROFEÓW (BEZ RAMKI PO PRAWEJ) -->
+    <!-- SEKCJA: SALA TROFEÓW -->
     <section class="w-full bg-[#0b0b0b] py-20 px-6 md:px-16 border-t border-juve-border">
         <div class="max-w-7xl mx-auto space-y-10">
             
             <div class="flex items-center justify-between">
-                <h2 id="txt-trophies-title" class="text-2xl md:text-4xl font-black uppercase tracking-wider text-white">Klubowa Sala Trofeów</h2>
+                <h2 id="txt-trophies-title" class="text-2xl md:text-4xl font-black uppercase tracking-wider text-white">Sala trofeów</h2>
             </div>
 
             <!-- UKŁAD TROFEÓW -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 
-                <!-- LEWA STRONA: ZDJĘCIE ORAZ SUWAK ROKU NA DOLE -->
+                <!-- LEWA STRONA: ZDJĘCIE ORAZ SUWAK ROKU -->
                 <div class="lg:col-span-8 bg-[#141414] border border-juve-border rounded-3xl overflow-hidden shadow-2xl relative flex flex-col justify-between">
                     <div class="relative w-full h-[380px] md:h-[430px] overflow-hidden">
                         <img src="360_F_784360842_WTRUBSXmseH26SNN1790YJSbQwnch5Qt.jpg" alt="Sala Trofeów Legion" class="w-full h-full object-cover filter brightness-90">
@@ -238,13 +238,10 @@
                     </div>
                 </div>
 
-                <!-- PRAWA STRONA: TROFEA BEZ ŻADNEJ RAMKI -->
-                <div class="lg:col-span-4 p-4 md:p-6 space-y-6 min-h-[480px] flex flex-col justify-between">
+                <!-- PRAWA STRONA: TROFEA DYNAMICZNE (BEZ RAMKI) -->
+                <div class="lg:col-span-4 p-4 md:p-6 space-y-6 min-h-[480px] flex flex-col justify-center">
                     <div id="trophies-list" class="space-y-6">
-                        <!-- Wstrzykiwane przez JS zależnie od roku -->
-                    </div>
-                    <div class="pt-4 border-t border-juve-border/40 text-right">
-                        <span id="txt-season-label" class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Sezon / Rok historyczny</span>
+                        <!-- Wstrzykiwane przez JS -->
                     </div>
                 </div>
 
@@ -281,16 +278,53 @@
         </div>
     </div>
 
-    <!-- STOPKA -->
-    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-8 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-            <div class="flex items-center space-x-3">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-10 w-auto object-contain">
-                <span class="text-xs font-black uppercase tracking-widest text-slate-400">Legion Białystok &copy; 2026</span>
+    <!-- ELEGANCKA STOPKA Z LINKAMI DO WSZYSTKICH STRON -->
+    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-12 px-6 md:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-juve-border">
+            
+            <!-- Kolumna 1: Logo i opis -->
+            <div class="space-y-4">
+                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain">
+                <p id="footer-desc" class="text-xs text-slate-400 leading-relaxed">Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone &copy; 2026.</p>
             </div>
-            <div id="footer-rights" class="text-xs text-slate-500">
-                Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.
+
+            <!-- Kolumna 2: Szybka nawigacja -->
+            <div class="space-y-3">
+                <h4 id="footer-nav-title" class="text-xs font-black uppercase tracking-widest text-gold">Nawigacja</h4>
+                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
+                    <li><a href="index.html" id="foot-home" class="text-slate-400 hover:text-gold transition-colors">Strona główna</a></li>
+                    <li><a href="druzyna/index.html" id="foot-team" class="text-slate-400 hover:text-gold transition-colors">Pierwsza drużyna</a></li>
+                    <li><a href="akademia/index.html" id="foot-academy" class="text-slate-400 hover:text-gold transition-colors">Akademia</a></li>
+                    <li><a href="tabela/index.html" id="foot-table" class="text-slate-400 hover:text-gold transition-colors">Tabela</a></li>
+                </ul>
             </div>
+
+            <!-- Kolumna 3: Klub -->
+            <div class="space-y-3">
+                <h4 id="footer-club-title" class="text-xs font-black uppercase tracking-widest text-gold">Klub</h4>
+                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
+                    <li><a href="historia/index.html" id="foot-history" class="text-slate-400 hover:text-gold transition-colors">Historia</a></li>
+                    <li><a href="o-klubie/index.html" id="foot-about" class="text-slate-400 hover:text-gold transition-colors">O klubie</a></li>
+                    <li><a href="ludzie-legionu/index.html" id="foot-people" class="text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a></li>
+                    <li><a href="kontakt/index.html" id="foot-contact" class="text-slate-400 hover:text-gold transition-colors">Kontakt</a></li>
+                </ul>
+            </div>
+
+            <!-- Kolumna 4: Social / Info -->
+            <div class="space-y-3">
+                <h4 id="footer-social-title" class="text-xs font-black uppercase tracking-widest text-gold">Social Media</h4>
+                <div class="flex space-x-3 pt-1">
+                    <a href="https://facebook.com" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all">FB</a>
+                    <a href="https://instagram.com" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all">IG</a>
+                    <a href="https://tiktok.com" target="_blank" class="w-9 h-9 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all">TT</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
+            <span id="footer-rights">Legion Białystok &copy; 2026. Wszelkie prawa zastrzeżone.</span>
+            <span class="text-[10px] text-slate-600 mt-2 md:mt-0">Design & Code for Legion Białystok</span>
         </div>
     </footer>
 
@@ -458,11 +492,14 @@
                 tabReserves: "Rezerwy",
                 latestNews: "Najnowsze aktualności",
                 seeAll: "Zobacz wszystkie",
-                trophiesTitle: "Klubowa Sala Trofeów",
+                trophiesTitle: "Sala trofeów",
                 trophySubtitle: "Osiągnięcia Klubu",
                 trophyHeaderDesc: "Tradycja i sukcesy Legionu Białystok",
-                seasonLabel: "Sezon / Rok historyczny",
-                rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
+                footerDesc: "Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone © 2026.",
+                footerNavTitle: "Nawigacja",
+                footerClubTitle: "Klub",
+                footerSocialTitle: "Social Media",
+                footerRights: "Legion Białystok © 2026. Wszelkie prawa zastrzeżone.",
                 label: "PL",
                 defaultTitle: "Wielki powrót Legionu do rozgrywek!",
                 defaultContent: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie...",
@@ -489,11 +526,14 @@
                 tabReserves: "Reserves",
                 latestNews: "Latest News",
                 seeAll: "See all",
-                trophiesTitle: "Club Trophy Room",
+                trophiesTitle: "Trophy room",
                 trophySubtitle: "Club Achievements",
                 trophyHeaderDesc: "Tradition and successes of Legion Białystok",
-                seasonLabel: "Season / Historical Year",
-                rights: "All rights reserved. Official club service.",
+                footerDesc: "Official website of Legion Białystok club. All rights reserved © 2026.",
+                footerNavTitle: "Navigation",
+                footerClubTitle: "Club",
+                footerSocialTitle: "Social Media",
+                footerRights: "Legion Białystok © 2026. All rights reserved.",
                 label: "EN",
                 defaultTitle: "The grand return of Legion to competitions!",
                 defaultContent: "After an intensive preparation period, our team returns to fight for the highest goals in the upcoming season...",
@@ -520,11 +560,14 @@
                 tabReserves: "Reservas",
                 latestNews: "Últimas Noticias",
                 seeAll: "Ver todos",
-                trophiesTitle: "Sala de Trofeos del Club",
+                trophiesTitle: "Sala de trofeos",
                 trophySubtitle: "Logros del Club",
                 trophyHeaderDesc: "Tradición y éxitos del Legion Białystok",
-                seasonLabel: "Temporada / Año histórico",
-                rights: "Todos los derechos reservados. Servicio oficial del club.",
+                footerDesc: "Sitio web oficial del club Legion Białystok. Todos los derechos reservados © 2026.",
+                footerNavTitle: "Navegación",
+                footerClubTitle: "Club",
+                footerSocialTitle: "Redes Sociales",
+                footerRights: "Legion Białystok © 2026. Todos los derechos reservados.",
                 label: "ES",
                 defaultTitle: "¡El gran regreso del Legion a las competiciones!",
                 defaultContent: "Tras un intenso periodo de preparación, nuestro equipo regresa para luchar por los máximos objetivos en la próxima temporada...",
@@ -551,11 +594,14 @@
                 tabReserves: "Резерв",
                 latestNews: "Последние новости",
                 seeAll: "Смотреть все",
-                trophiesTitle: "Зал Трофеев Клуба",
+                trophiesTitle: "Зал трофеев",
                 trophySubtitle: "Достижения Клуба",
                 trophyHeaderDesc: "Традиции и успехи Легиона Белосток",
-                seasonLabel: "Сезон / Исторический год",
-                rights: "Все права защищены. Официальный клубный сервис.",
+                footerDesc: "Официальный сайт клуба Легион Белосток. Все права защищены © 2026.",
+                footerNavTitle: "Навигация",
+                footerClubTitle: "Клуб",
+                footerSocialTitle: "Соцсети",
+                footerRights: "Легион Белосток © 2026. Все права защищены.",
                 label: "RU",
                 defaultTitle: "Великое возвращение Легиона в соревнования!",
                 defaultContent: "После интенсивного периода подготовки наша команда возвращается к борьбе за самые высокие цели в предстоящем сезоне...",
@@ -689,13 +735,27 @@
             document.getElementById('txt-trophies-title').innerText = t.trophiesTitle;
             document.getElementById('txt-trophy-subtitle').innerText = t.trophySubtitle;
             document.getElementById('txt-trophy-header-desc').innerText = t.trophyHeaderDesc;
-            document.getElementById('txt-season-label').innerText = t.seasonLabel;
 
             document.getElementById('tab-first').innerText = t.tabFirst;
             document.getElementById('tab-academy').innerText = t.tabAcademy;
             document.getElementById('tab-reserves').innerText = t.tabReserves;
 
-            document.getElementById('footer-rights').innerText = t.rights;
+            // Tłumaczenia stopki
+            document.getElementById('footer-desc').innerText = t.footerDesc;
+            document.getElementById('footer-nav-title').innerText = t.footerNavTitle;
+            document.getElementById('footer-club-title').innerText = t.footerClubTitle;
+            document.getElementById('footer-social-title').innerText = t.footerSocialTitle;
+            document.getElementById('footer-rights').innerText = t.footerRights;
+
+            document.getElementById('foot-home').innerText = t.home;
+            document.getElementById('foot-team').innerText = t.team;
+            document.getElementById('foot-academy').innerText = t.academy;
+            document.getElementById('foot-table').innerText = t.table;
+            document.getElementById('foot-history').innerText = t.history;
+            document.getElementById('foot-about').innerText = t.about;
+            document.getElementById('foot-people').innerText = t.people;
+            document.getElementById('foot-contact').innerText = t.contact;
+
             document.getElementById('current-lang-label').innerText = t.label;
 
             updateUI();
