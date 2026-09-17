@@ -25,28 +25,25 @@
                             dark: '#997a38',
                             accent: '#d4af37'
                         }
-                    },
-                    keyframes: {
-                        gradientText: {
-                            '0%': { backgroundPosition: '0% 50%' },
-                            '50%': { backgroundPosition: '100% 50%' },
-                            '100%': { backgroundPosition: '0% 50%' }
-                        }
-                    },
-                    animation: {
-                        'gradient-text': 'gradientText 4s ease infinite',
                     }
                 }
             }
         }
     </script>
     <style>
+        @keyframes colorShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         .animated-text-gradient {
-            background: linear-gradient(270deg, #997a38, #d4af37, #e6ca87, #c5a059, #997a38);
+            background: linear-gradient(270deg, #997a38, #d4af37, #f3e5ab, #ffffff, #d4af37, #997a38);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradientText 4s ease infinite;
+            background-clip: text;
+            color: transparent;
+            animation: colorShift 5s ease infinite;
         }
         .hero-bg {
             background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(252,251,250,0.98)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
@@ -60,7 +57,7 @@
         <div class="flex items-center space-x-5">
             <!-- MENU ROZWIJANE (HAMBURGER) -->
             <div class="relative group">
-                <button class="bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-sm focus:outline-none">
+                <button class="bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-sm focus:outline-none cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
                 <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
@@ -85,9 +82,9 @@
                 </div>
             </div>
 
-            <!-- WIĘKSZE LOGO BEZ NAPISU OBOK -->
+            <!-- WIĘKSZE LOGO Z POPRAWIONYM ODNOŚNIKIEM -->
             <a href="index.html" class="flex items-center">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain">
+                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer">
             </a>
         </div>
     </header>
