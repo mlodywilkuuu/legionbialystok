@@ -184,12 +184,6 @@
                     </div>
                 </div>
 
-                <!-- OFICJALNY LINK Z ID W FORMACIE legionbialystok.pl/numer -->
-                <div class="bg-black/50 border border-white/10 px-4 py-2 rounded-xl flex items-center justify-between text-xs text-slate-400 font-mono">
-                    <span id="modal-article-custom-link">legionbialystok.pl/1</span>
-                    <span class="text-gold font-bold uppercase text-[10px]">ID Artykułu</span>
-                </div>
-
                 <!-- AUTOR I DATA -->
                 <div class="flex items-center space-x-2 pt-2 text-xs font-bold uppercase tracking-wider">
                     <span id="modal-article-author" class="text-white">Mateusz Administrator</span>
@@ -360,7 +354,6 @@
             let title = latestArticle.title;
             let content = latestArticle.content;
             let dateStr = latestArticle.date;
-            const articleId = latestArticle.id || 1;
 
             if (latestArticle.id === 1) {
                 title = t.defaultTitle;
@@ -372,7 +365,6 @@
             document.getElementById('modal-article-author').innerText = latestArticle.author || "Mateusz Administrator";
             document.getElementById('modal-article-date').innerText = dateStr;
             document.getElementById('modal-article-content').innerHTML = content;
-            document.getElementById('modal-article-custom-link').innerText = `legionbialystok.pl/${articleId}`;
 
             const tagsContainer = document.getElementById('modal-article-tags');
             tagsContainer.innerHTML = '';
