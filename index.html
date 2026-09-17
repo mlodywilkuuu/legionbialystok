@@ -37,7 +37,6 @@
         }
     </script>
     <style>
-        /* Płynny, dynamiczny gradient kolorów w tekście */
         @keyframes colorShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -107,7 +106,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z ANIMOWANYM GRADIENTEM TEKSTU -->
+    <!-- HERO SECTION -->
     <main class="hero-juve flex-1 px-6 py-20 space-y-16">
         
         <div class="text-center max-w-5xl mx-auto space-y-6">
@@ -196,6 +195,13 @@
                 </div>
                 <h2 id="modal-article-title" class="text-2xl font-black uppercase tracking-wide text-white">Tytuł artykułu</h2>
             </div>
+            
+            <!-- Link w formacie legionbialystok.pl/numer -->
+            <div class="bg-black/50 border border-juve-border px-4 py-2 rounded-xl flex items-center justify-between text-xs text-slate-400 font-mono">
+                <span id="modal-article-custom-link">legionbialystok.pl/1</span>
+                <span class="text-gold font-bold uppercase text-[10px]">Oficjalny link</span>
+            </div>
+
             <div id="modal-article-content" class="text-sm text-slate-300 leading-relaxed space-y-4">
                 Treść artykułu...
             </div>
@@ -215,9 +221,14 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU -->
+    <!-- SKRYPTY SYNCHRONIZACJI Z PANELU ORAZ BLOKADA URL -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Blokada paska adresu – wymuszenie czystego URL / domeny
+            if (window.location.protocol !== 'file:') {
+                window.history.replaceState({}, '', '/');
+            }
+
             loadHomeLastMatches();
             loadHomeNextMatch();
             initCountdown();
@@ -317,7 +328,7 @@
             }, 1000);
         }
 
-        // 4. Artykuły (modal)
+        // 4. Artykuły z custom linkiem legionbialystok.pl/numer (modal bez zmiany URL)
         let allArticles = [];
 
         function loadHomeArticles() {
@@ -331,6 +342,7 @@
             grid.innerHTML = '';
 
             allArticles.slice(0, 3).forEach((art, index) => {
+                const articleId = art.id || (index + 1);
                 grid.innerHTML += `
                     <div class="juve-card rounded-3xl p-6 space-y-4 hover:border-gold transition-all shadow-md flex flex-col justify-between border-t-4 border-t-gold cursor-pointer" onclick="openArticleModal(${index})">
                         <div class="space-y-3">
@@ -341,10 +353,11 @@
                             <h3 class="text-lg font-black uppercase tracking-wide text-white leading-snug">${art.title}</h3>
                             <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${art.content.replace(/<[^>]*>?/gm, '')}</p>
                         </div>
-                        <div class="pt-4 border-t border-juve-border">
+                        <div class="pt-4 border-t border-juve-border flex items-center justify-between">
                             <span class="text-xs font-black uppercase tracking-wider text-gold hover:text-white transition-colors flex items-center gap-1">
                                 Czytaj więcej &rarr;
                             </span>
+                            <span class="text-[10px] text-slate-500 font-mono">legionbialystok.pl/${articleId}</span>
                         </div>
                     </div>
                 `;
@@ -355,10 +368,13 @@
             const art = allArticles[index];
             if(!art) return;
 
+            const articleId = art.id || (index + 1);
+
             document.getElementById('modal-article-category').innerText = art.category || 'Klub';
             document.getElementById('modal-article-date').innerText = art.date;
             document.getElementById('modal-article-title').innerText = art.title;
             document.getElementById('modal-article-content').innerHTML = art.content;
+            document.getElementById('modal-article-custom-link').innerText = `legionbialystok.pl/${articleId}`;
 
             document.getElementById('article-modal').classList.remove('hidden');
         }
