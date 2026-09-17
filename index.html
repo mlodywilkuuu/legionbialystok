@@ -31,54 +31,53 @@
         }
     </script>
     <style>
-        @keyframes bwGoldShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Nowa, elegancka animacja świetlnego refleksu (shimmer) */
+        @keyframes shimmerEffect {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
-        .animated-bw-gold-text {
-            /* Płynny miks czerni, bieli i szlachetnego złota */
-            background: linear-gradient(270deg, #000000, #c5a059, #ffffff, #d4af37, #000000);
-            background-size: 300% auto;
+        .animated-shimmer-text {
+            background: linear-gradient(90deg, #997a38 0%, #ffd700 25%, #ffffff 50%, #ffd700 75%, #997a38 100%);
+            background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            animation: bwGoldShift 5s ease infinite;
+            animation: shimmerEffect 3.5s linear infinite;
             display: inline-block;
         }
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(0,0,0,0.99)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(252,251,250,0.99)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
     </style>
 </head>
-<body class="bg-[#0a0a0a] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+<body class="bg-[#fcfbfa] text-slate-900 font-sans antialiased selection:bg-gold selection:text-white min-h-screen flex flex-col justify-between">
 
     <!-- GÓRNY PASEK / NAWIGACJA -->
-    <header class="w-full bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+    <header class="w-full bg-white/90 backdrop-blur-md border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-50 shadow-sm">
         <div class="flex items-center space-x-5">
             <!-- MENU ROZWIJANE (HAMBURGER) -->
             <div class="relative group">
-                <button class="bg-[#141414] border border-white/10 text-white hover:bg-white/10 w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-sm focus:outline-none cursor-pointer">
+                <button class="bg-white border border-slate-200 text-slate-800 hover:bg-slate-50 w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-sm focus:outline-none cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
-                <div class="absolute left-0 top-full mt-2 w-64 bg-[#141414] border border-white/10 rounded-2xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
-                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 hover:text-gold">Strona główna</a>
-                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 hover:text-gold">Pierwsza drużyna</a>
-                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 hover:text-gold">Akademia</a>
-                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 hover:text-gold">Tabela</a>
-                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 hover:text-gold">Historia</a>
+                <div class="absolute left-0 top-full mt-2 w-64 bg-white border border-slate-200 rounded-2xl shadow-xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
+                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100">Strona główna</a>
+                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100">Pierwsza drużyna</a>
+                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100">Akademia</a>
+                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100">Tabela</a>
+                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100">Historia</a>
                     
                     <!-- ROZWIJANA SEKCJA KLUB -->
-                    <div class="relative group/sub border-t border-white/10 my-1 pt-1">
-                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-white/5 flex justify-between items-center cursor-pointer">
+                    <div class="relative group/sub border-t border-slate-100 my-1 pt-1">
+                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-800 hover:bg-slate-100 flex justify-between items-center cursor-pointer">
                             <span>Klub</span>
                             <span class="text-[10px]">▼</span>
                         </div>
-                        <div class="hidden group-hover/sub:block pl-4 space-y-1 bg-black/40 py-1">
-                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Kontakt</a>
+                        <div class="hidden group-hover/sub:block pl-4 space-y-1 bg-slate-50/50 py-1">
+                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-100">O klubie</a>
+                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-100">Ludzie Legionu</a>
+                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:bg-slate-100">Kontakt</a>
                         </div>
                     </div>
                 </div>
@@ -91,21 +90,21 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z CZARNO-BIAŁO-ZŁOTĄ ANIMACJĄ -->
-    <main class="hero-bg flex-1 flex flex-col items-center justify-center text-center px-6 py-28 border-b border-white/10">
+    <!-- HERO SECTION Z NOWĄ ANIMACJĄ ŚWIETLNĄ -->
+    <main class="hero-bg flex-1 flex flex-col items-center justify-center text-center px-6 py-28 border-b border-slate-200">
         <div class="max-w-4xl space-y-4">
             <h1 class="text-4xl md:text-6xl font-black uppercase tracking-wider leading-tight">
-                <span class="animated-bw-gold-text">Razem Tworzymy Historię</span>
+                <span class="animated-shimmer-text">Razem Tworzymy Historię</span>
             </h1>
         </div>
     </main>
 
     <!-- STOPKA -->
-    <footer class="w-full bg-[#0a0a0a] border-t border-white/10 py-12 px-6">
+    <footer class="w-full bg-white border-t border-slate-200 py-12 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex items-center space-x-3">
                 <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-10 w-auto object-contain">
-                <span class="text-xs font-black uppercase tracking-widest text-slate-400">Legion Białystok &copy; 2026</span>
+                <span class="text-xs font-black uppercase tracking-widest text-slate-700">Legion Białystok &copy; 2026</span>
             </div>
             <div class="text-xs text-slate-500">
                 Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.
