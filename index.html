@@ -31,23 +31,27 @@
         }
     </script>
     <style>
-        /* Nowa, elegancka animacja świetlnego refleksu (shimmer) */
-        @keyframes shimmerEffect {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-        }
-        .animated-shimmer-text {
-            background: linear-gradient(90deg, #997a38 0%, #ffd700 25%, #ffffff 50%, #ffd700 75%, #997a38 100%);
-            background-size: 200% auto;
+        /* Efekt szkła (Glassmorphism) z eleganckim gradientem tekstowym */
+        .glass-gold-text {
+            background: linear-gradient(135deg, #997a38 0%, #ffd700 50%, #b8860b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            animation: shimmerEffect 3.5s linear infinite;
-            display: inline-block;
+            /* Efekt subtelnej poświaty szklanej */
+            filter: drop-shadow(0 4px 12px rgba(197, 160, 89, 0.25));
         }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        }
+
         .hero-bg {
-            background: linear-gradient(to bottom, rgba(255,255,255,0.95), rgba(252,251,250,0.99)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(252,251,250,0.98)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
     </style>
 </head>
@@ -90,12 +94,14 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z NOWĄ ANIMACJĄ ŚWIETLNĄ -->
+    <!-- HERO SECTION Z EFEKTEM SZKŁA I GRADIENTEM -->
     <main class="hero-bg flex-1 flex flex-col items-center justify-center text-center px-6 py-28 border-b border-slate-200">
         <div class="max-w-4xl space-y-4">
-            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-wider leading-tight">
-                <span class="animated-shimmer-text">Razem Tworzymy Historię</span>
-            </h1>
+            <div class="glass-card inline-block px-8 py-6 rounded-3xl">
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-wider leading-tight">
+                    <span class="glass-gold-text">Razem Tworzymy Historię</span>
+                </h1>
+            </div>
         </div>
     </main>
 
