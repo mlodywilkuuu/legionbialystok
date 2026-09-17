@@ -158,25 +158,23 @@
                 Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie...
             </p>
             <div class="pt-2">
-                <button onclick="openLatestArticleModal()" class="bg-white/10 hover:bg-gold hover:text-black border border-white/30 text-white font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl backdrop-blur-md transition-all cursor-pointer flex items-center gap-2">
+                <button onclick="openArticleModal(latestArticle.id || 1)" class="bg-white/10 hover:bg-gold hover:text-black border border-white/30 text-white font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl backdrop-blur-md transition-all cursor-pointer flex items-center gap-2">
                     <span id="btn-read-more">Czytaj więcej</span> &rarr;
                 </button>
             </div>
         </div>
     </main>
 
-    <!-- SEKCJA: NEXT MATCHES (BEZ LINII, Z TŁUMACZENIEM I DZIAŁAJĄCYMI ZAKŁADKAMI) -->
+    <!-- SEKCJA: NEXT MATCHES (CENTRUM MECZOWE) -->
     <section class="w-full bg-[#0b0b0b] py-16 px-6 md:px-16">
         <div class="max-w-7xl mx-auto space-y-8">
             
-            <!-- NAGŁÓWEK SEKECJI (BEZ LINII) -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
                 <div class="flex items-center space-x-4">
                     <h2 id="txt-next-matches" class="text-2xl md:text-3xl font-black uppercase tracking-wider text-white">Next Matches</h2>
                     <a href="tabela/index.html" id="txt-see-schedule" class="text-xs font-bold uppercase tracking-widest text-gold hover:underline">See schedule</a>
                 </div>
 
-                <!-- FILTRY / ZAKŁADKI DRUŻYN (DZIAŁAJĄCE) -->
                 <div class="flex flex-wrap items-center gap-3">
                     <button id="tab-first" onclick="switchCategory('first')" class="bg-red-600 text-white text-xs font-black uppercase tracking-wider px-4 py-2 rounded-xl shadow-lg transition-all cursor-pointer">Men's First Team</button>
                     <button id="tab-academy" onclick="switchCategory('academy')" class="text-slate-400 hover:text-white text-xs font-black uppercase tracking-wider px-3 py-2 transition-colors cursor-pointer">Academy</button>
@@ -184,11 +182,23 @@
                 </div>
             </div>
 
-            <!-- KARTY MECZÓW (DYNAMICZNE) -->
             <div id="matches-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Wstrzykiwane przez JS -->
             </div>
 
+        </div>
+    </section>
+
+    <!-- SEKCJA: KOLEJNE ARTYKUŁY (SIATKA POD MATCH CENTER - BEZ POWTÓRZEŃ) -->
+    <section class="w-full bg-[#0b0b0b] pb-20 px-6 md:px-16 border-t border-juve-border pt-16">
+        <div class="max-w-7xl mx-auto space-y-8">
+            <div class="flex items-center justify-between">
+                <h2 id="txt-more-news" class="text-2xl md:text-3xl font-black uppercase tracking-wider text-white">Więcej aktualności</h2>
+            </div>
+
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Wstrzykiwane przez JS -->
+            </div>
         </div>
     </section>
 
@@ -235,6 +245,7 @@
 
     <!-- SKRYPTY -->
     <script>
+        let allArticles = [];
         let latestArticle = {};
         let currentCategory = 'first';
 
@@ -244,17 +255,14 @@
             }
 
             loadMatches();
-            loadLatestArticle();
+            loadArticles();
 
             const savedLang = localStorage.getItem('legion_lang') || 'pl';
             changeLanguage(savedLang);
         });
 
-        // Przełączanie zakładek drużyn
         function switchCategory(category) {
             currentCategory = category;
-            
-            // Stylizacja przycisków zakładek
             ['first', 'academy', 'reserves'].forEach(cat => {
                 const btn = document.getElementById(`tab-${cat}`);
                 if (cat === category) {
@@ -263,48 +271,36 @@
                     btn.className = "text-slate-400 hover:text-white text-xs font-black uppercase tracking-wider px-3 py-2 transition-colors cursor-pointer";
                 }
             });
-
             loadMatches();
         }
 
-        // Ładowanie i filtrowanie meczów z panelu (legion_next_matches)
         function loadMatches() {
             let allMatches = JSON.parse(localStorage.getItem('legion_next_matches')) || [
                 { category: "first", type: "HOME", date: "20 Sep.", stadium: "Stadion Miejski", team1: "LEGION BIAŁYSTOK", team2: "ATALANTA", time: "18:00", league: "KLASA A" },
                 { category: "first", type: "AWAY", date: "27 Sep.", stadium: "Stadion Wyjazdowy", team1: "ORLĘTA", team2: "LEGION BIAŁYSTOK", time: "15:30", league: "KLASA A" },
                 { category: "first", type: "HOME", date: "04 Oct.", stadium: "Stadion Miejski", team1: "LEGION BIAŁYSTOK", team2: "WIGRY", time: "17:00", league: "KLASA A" },
                 { category: "academy", type: "HOME", date: "21 Sep.", stadium: "Boisko Szkolne", team1: "AKADEMIA LEGION", team2: "JAGIELLONIA U19", time: "12:00", league: "LIGA JUNIORÓW" },
-                { category: "academy", type: "AWAY", date: "28 Sep.", stadium: "Arena Junior", team1: "TALENT BIAŁYSTOK", team2: "AKADEMIA LEGION", time: "14:00", league: "LIGA JUNIORÓW" },
                 { category: "reserves", type: "HOME", date: "22 Sep.", stadium: "Stadion B-Klasa", team1: "LEGION II", team2: "KRYPNIANKA", time: "16:00", league: "KLASA B" }
             ];
 
-            // Filtrowanie po kategorii
             let filteredMatches = allMatches.filter(m => (m.category || 'first') === currentCategory);
-
             const container = document.getElementById('matches-container');
             container.innerHTML = '';
 
             if (filteredMatches.length === 0) {
-                const currentLang = localStorage.getItem('legion_lang') || 'pl';
-                const noMatchesText = currentLang === 'en' ? 'No upcoming matches in this category.' : (currentLang === 'es' ? 'No hay partidos próximos en esta categoría.' : (currentLang === 'ru' ? 'Нет предстоящих матчей в этой категории.' : 'Brak nadchodzących meczów w tej kategorii.'));
-                container.innerHTML = `<div class="col-span-3 text-center py-10 text-slate-400 text-sm font-bold uppercase tracking-wider">${noMatchesText}</div>`;
+                container.innerHTML = `<div class="col-span-3 text-center py-10 text-slate-400 text-sm font-bold uppercase tracking-wider">Brak nadchodzących meczów.</div>`;
                 return;
             }
 
             const currentLang = localStorage.getItem('legion_lang') || 'pl';
 
             filteredMatches.forEach(m => {
-                // Tłumaczenie typu meczu HOME / AWAY
                 let typeText = m.type;
                 let badgeBg = m.type === 'HOME' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-slate-300 border border-zinc-700';
                 
-                if (currentLang === 'pl') {
-                    typeText = m.type === 'HOME' ? 'DOM' : 'WYJAZD';
-                } else if (currentLang === 'es') {
-                    typeText = m.type === 'HOME' ? 'CASA' : 'FUERA';
-                } else if (currentLang === 'ru') {
-                    typeText = m.type === 'HOME' ? 'ДОМА' : 'ГОСТИ';
-                }
+                if (currentLang === 'pl') typeText = m.type === 'HOME' ? 'DOM' : 'WYJAZD';
+                else if (currentLang === 'es') typeText = m.type === 'HOME' ? 'CASA' : 'FUERA';
+                else if (currentLang === 'ru') typeText = m.type === 'HOME' ? 'ДОМА' : 'ГОСТИ';
 
                 container.innerHTML += `
                     <div class="bg-[#141414] border border-juve-border rounded-2xl p-6 space-y-6 hover:border-gold/50 transition-all shadow-xl flex flex-col justify-between">
@@ -329,12 +325,12 @@
             });
         }
 
-        function loadLatestArticle() {
-            let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
+        function loadArticles() {
+            allArticles = JSON.parse(localStorage.getItem('legion_articles')) || [
                 { id: 1, title: "Wielki powrót Legionu do rozgrywek!", date: "17 Wrzesień 2026", category: "Aktualności", tags: ["Aktualności", "I Drużyna"], author: "Mateusz Administrator", content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..." }
             ];
 
-            latestArticle = arts[0] || {
+            latestArticle = allArticles[0] || {
                 id: 1,
                 title: "Wielki powrót Legionu do rozgrywek!",
                 date: "17 Wrzesień 2026",
@@ -344,10 +340,9 @@
                 content: "Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie..."
             };
 
-            updateArticleDisplay();
+            updateUI();
         }
 
-        // Słownik tłumaczeń pełnego serwisu oraz Match Center
         const translations = {
             pl: {
                 home: "Strona główna",
@@ -367,6 +362,7 @@
                 tabFirst: "Pierwsza drużyna",
                 tabAcademy: "Akademia",
                 tabReserves: "Rezerwy",
+                moreNews: "Więcej aktualności",
                 rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
                 label: "PL",
                 defaultTitle: "Wielki powrót Legionu do rozgrywek!",
@@ -392,6 +388,7 @@
                 tabFirst: "Men's First Team",
                 tabAcademy: "Academy",
                 tabReserves: "Reserves",
+                moreNews: "More News",
                 rights: "All rights reserved. Official club service.",
                 label: "EN",
                 defaultTitle: "The grand return of Legion to competitions!",
@@ -417,6 +414,7 @@
                 tabFirst: "Primer Equipo",
                 tabAcademy: "Academia",
                 tabReserves: "Reservas",
+                moreNews: "Más Noticias",
                 rights: "Todos los derechos reservados. Servicio oficial del club.",
                 label: "ES",
                 defaultTitle: "¡El gran regreso del Legion a las competiciones!",
@@ -442,6 +440,7 @@
                 tabFirst: "Первая команда",
                 tabAcademy: "Академия",
                 tabReserves: "Резерв",
+                moreNews: "Больше новостей",
                 rights: "Все права защищены. Официальный клубный сервис.",
                 label: "RU",
                 defaultTitle: "Великое возвращение Легиона в соревнования!",
@@ -451,7 +450,7 @@
             }
         };
 
-        function updateArticleDisplay() {
+        function updateUI() {
             const currentLang = localStorage.getItem('legion_lang') || 'pl';
             const t = translations[currentLang] || translations['pl'];
 
@@ -468,31 +467,65 @@
             document.getElementById('hero-date').innerText = dateStr;
             document.getElementById('hero-title').innerText = title;
             document.getElementById('hero-snippet').innerText = content.replace(/<[^>]*>?/gm, '');
+
+            // Renderowanie siatki kolejnych artykułów (pomijając pierwszy, najnowszy)
+            const gridContainer = document.getElementById('articles-grid');
+            gridContainer.innerHTML = '';
+
+            let otherArticles = allArticles.slice(1); // Wszystkie oprócz pierwszego
+
+            if (otherArticles.length === 0) {
+                gridContainer.innerHTML = `<div class="col-span-3 text-center py-6 text-slate-500 text-xs font-bold uppercase tracking-wider">Brak starszych aktualności.</div>`;
+                return;
+            }
+
+            otherArticles.forEach(art => {
+                let artTitle = art.title;
+                let artContent = art.content.replace(/<[^>]*>?/gm, '');
+
+                gridContainer.innerHTML += `
+                    <div onclick="openArticleModal(${art.id})" class="bg-[#141414] border border-juve-border rounded-2xl p-6 space-y-4 hover:border-gold/50 transition-all shadow-xl cursor-pointer flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-gold">
+                                <span>${art.category || 'Aktualności'}</span>
+                                <span class="text-slate-500">${art.date}</span>
+                            </div>
+                            <h3 class="text-lg font-black uppercase tracking-wide text-white leading-snug">${artTitle}</h3>
+                            <p class="text-xs text-slate-400 line-clamp-2">${artContent}</p>
+                        </div>
+                        <div class="pt-4 border-t border-juve-border flex items-center justify-between text-xs font-bold uppercase tracking-widest text-gold">
+                            <span>Czytaj więcej</span> &rarr;
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        function openLatestArticleModal() {
+        function openArticleModal(articleId) {
             const currentLang = localStorage.getItem('legion_lang') || 'pl';
             const t = translations[currentLang] || translations['pl'];
 
-            let title = latestArticle.title;
-            let content = latestArticle.content;
-            let dateStr = latestArticle.date;
+            let targetArt = allArticles.find(a => a.id === articleId) || latestArticle;
 
-            if (latestArticle.id === 1) {
+            let title = targetArt.title;
+            let content = targetArt.content;
+            let dateStr = targetArt.date;
+
+            if (targetArt.id === 1) {
                 title = t.defaultTitle;
                 content = t.defaultContent;
                 dateStr = t.defaultDate;
             }
 
             document.getElementById('modal-article-title').innerText = title;
-            document.getElementById('modal-article-author').innerText = latestArticle.author || "Mateusz Administrator";
+            document.getElementById('modal-article-author').innerText = targetArt.author || "Mateusz Administrator";
             document.getElementById('modal-article-date').innerText = dateStr;
             document.getElementById('modal-article-content').innerHTML = content;
 
             const tagsContainer = document.getElementById('modal-article-tags');
             tagsContainer.innerHTML = '';
             
-            let tagsList = latestArticle.tags || [latestArticle.category || "Aktualności"];
+            let tagsList = targetArt.tags || [targetArt.category || "Aktualności"];
             if (typeof tagsList === 'string') {
                 tagsList = tagsList.split(',').map(tag => tag.trim());
             }
@@ -536,6 +569,7 @@
             document.getElementById('txt-news-tag').innerText = t.badge;
             document.getElementById('txt-next-matches').innerText = t.nextMatches;
             document.getElementById('txt-see-schedule').innerText = t.seeSchedule;
+            document.getElementById('txt-more-news').innerText = t.moreNews;
 
             document.getElementById('tab-first').innerText = t.tabFirst;
             document.getElementById('tab-academy').innerText = t.tabAcademy;
@@ -544,7 +578,7 @@
             document.getElementById('footer-rights').innerText = t.rights;
             document.getElementById('current-lang-label').innerText = t.label;
 
-            updateArticleDisplay();
+            updateUI();
             loadMatches();
         }
     </script>
