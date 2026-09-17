@@ -52,13 +52,13 @@
             background: #141414;
             border: 1px solid #2a2a2a;
             border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             padding: 0.75rem 0;
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
-            transition: all 0.25s ease-in-out;
-            z-index: 50;
+            transition: all 0.2s ease-in-out;
+            z-index: 100;
         }
         .dropdown-container:hover .dropdown-menu,
         .dropdown-menu:hover {
@@ -130,20 +130,20 @@
                 <span id="current-lang-label">PL</span>
                 <span class="text-[10px]">▼</span>
             </button>
-            <div class="dropdown-menu right-0 w-40 space-y-1">
-                <button onclick="changeLanguage('pl')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Polski (PL)</button>
-                <button onclick="changeLanguage('en')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">English (EN)</button>
-                <button onclick="changeLanguage('es')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Español (ES)</button>
-                <button onclick="changeLanguage('ru')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Русский (RU)</button>
+            <div class="dropdown-menu right-0 w-44 space-y-1">
+                <button type="button" onclick="changeLanguage('pl')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇵🇱 Polski (PL)</button>
+                <button type="button" onclick="changeLanguage('en')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇬🇧 English (EN)</button>
+                <button type="button" onclick="changeLanguage('es')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇪🇸 Español (ES)</button>
+                <button type="button" onclick="changeLanguage('ru')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇷🇺 Русский (RU)</button>
             </div>
         </div>
 
     </header>
 
-    <!-- GŁÓWNA SEKCJA (CZYSTA) -->
+    <!-- GŁÓWNA SEKCJA -->
     <main class="hero-juve flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
         <div class="max-w-3xl space-y-6">
-            <!-- Czysta przestrzeń pod dalszą rozbudowę -->
+            <!-- Czysta przestrzeń -->
         </div>
     </main>
 
@@ -168,7 +168,7 @@
             }
 
             const savedLang = localStorage.getItem('legion_lang') || 'pl';
-            changeLanguage(savedLang, false);
+            changeLanguage(savedLang);
         });
 
         const translations = {
