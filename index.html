@@ -108,19 +108,21 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             <!-- 1. OSTATNIE MECZE (WYŚRODKOWANE) -->
-            <div class="glass-card rounded-3xl p-6 flex flex-col justify-center text-center">
-                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Ostatnie mecze</h3>
-                <div id="home-last-matches-container" class="space-y-4 my-auto">
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Ostatnie mecze</h3>
+                <div id="home-last-matches-container" class="space-y-3 my-auto">
                     <!-- Wstrzykiwane przez JS -->
                 </div>
+                <div></div> <!-- Spacer dla idealnego wyśrodkowania w pionie -->
             </div>
 
             <!-- 2. NAJBLIŻSZY MECZ (WYŚRODKOWANY) -->
-            <div class="glass-card rounded-3xl p-6 flex flex-col justify-center text-center">
-                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Najbliższy mecz</h3>
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-between">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Najbliższy mecz</h3>
                 <div id="home-next-match-container" class="space-y-3 my-auto">
                     <!-- Wstrzykiwane przez JS -->
                 </div>
+                <div></div> <!-- Spacer dla idealnego wyśrodkowania w pionie -->
             </div>
 
             <!-- 3. ODLICZANIE DO MECZU (WYŚRODKOWANE) -->
@@ -180,7 +182,7 @@
             initCountdown();
         });
 
-        // 1. Ładowanie ostatnich meczów (w pełni wyśrodkowane)
+        // 1. Ładowanie ostatnich meczów (czysty, wyśrodkowany układ)
         function loadHomeLastMatches() {
             let matches = JSON.parse(localStorage.getItem('legion_last_matches')) || [
                 { id: 1, date: "13 Wrz", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
@@ -191,11 +193,11 @@
 
             matches.slice(0, 2).forEach(m => {
                 container.innerHTML += `
-                    <div class="bg-white/60 border border-slate-200 rounded-2xl p-4 space-y-2 text-center">
-                        <div class="text-[10px] font-bold text-slate-400 uppercase">${m.comp} • ${m.date}</div>
-                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-2">
+                    <div class="bg-white/60 border border-slate-200 rounded-2xl p-3.5 space-y-2 text-center shadow-sm">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${m.comp} • ${m.date}</div>
+                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-3">
                             <span class="w-5/12 text-right truncate">${m.home}</span>
-                            <span class="w-2/12 text-center text-gold-dark text-sm bg-slate-900 text-white rounded py-0.5">${m.homeGoals}:${m.awayGoals}</span>
+                            <span class="w-2/12 text-center text-gold text-sm bg-slate-900 rounded py-1 px-1">${m.homeGoals}:${m.awayGoals}</span>
                             <span class="w-5/12 text-left truncate">${m.away}</span>
                         </div>
                     </div>
@@ -203,7 +205,7 @@
             });
         }
 
-        // 2. Ładowanie najbliższego meczu (w pełni wyśrodkowane, bez statystyk i przycisków)
+        // 2. Ładowanie najbliższego meczu (czysty, wyśrodkowany układ)
         function loadHomeNextMatch() {
             let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
                 dateLabel: "20 Wrz",
@@ -221,13 +223,13 @@
                 : '';
 
             container.innerHTML = `
-                <div class="bg-white/60 border border-slate-200 rounded-2xl p-5 space-y-3 text-center">
-                    <div class="text-[10px] font-bold text-slate-400 uppercase">${nm.info} • ${nm.dateLabel}</div>
+                <div class="bg-white/60 border border-slate-200 rounded-2xl p-5 space-y-2 text-center shadow-sm">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${nm.info} • ${nm.dateLabel}</div>
                     ${statusBadge}
-                    <div class="space-y-1 font-black text-sm uppercase text-slate-900">
-                        <div>${nm.team1}</div>
-                        <div class="text-xs text-slate-400 font-bold">VS</div>
-                        <div class="text-gold-dark">${nm.team2}</div>
+                    <div class="space-y-1 font-black text-sm uppercase text-slate-900 pt-1">
+                        <div class="truncate">${nm.team1}</div>
+                        <div class="text-[10px] text-gold-dark font-black tracking-widest my-0.5">VS</div>
+                        <div class="truncate">${nm.team2}</div>
                     </div>
                 </div>
             `;
