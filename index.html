@@ -67,16 +67,16 @@
             transform: translateY(0);
         }
 
-        /* Podmenu Klub */
+        /* Jednolite tło dla rozwijanej sekcji Klub */
         .sub-dropdown-container {
             position: relative;
         }
         .sub-dropdown-menu {
             display: none;
-            padding-left: 1rem;
-            background: rgba(0, 0, 0, 0.4);
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
+            padding-left: 0.5rem;
+            background: #141414;
+            margin-top: 0.1rem;
+            margin-bottom: 0.1rem;
         }
         .sub-dropdown-container:hover .sub-dropdown-menu {
             display: block;
@@ -90,7 +90,7 @@
         
         <!-- LEWA STRONA: ROZWIJANE MENU GŁÓWNE + LOGO -->
         <div class="flex items-center space-x-5">
-            <!-- ROZWIJANE MENU GŁÓWNE (Z STABILNYM HOVEREM) -->
+            <!-- ROZWIJANE MENU GŁÓWNE -->
             <div class="dropdown-container">
                 <button class="bg-[#181818] border border-juve-border text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -102,16 +102,16 @@
                     <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
                     <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
                     
-                    <!-- ROZWIJANA SEKCJA KLUB -->
+                    <!-- ROZWIJANA SEKCJA KLUB Z JEDNOLITYM TŁEM -->
                     <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
-                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
+                        <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
                             <span>Klub</span>
                             <span class="text-[10px]">▼</span>
                         </div>
                         <div class="sub-dropdown-menu space-y-1 py-1">
-                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Kontakt</a>
+                            <a href="o-klubie/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
+                            <a href="ludzie-legionu/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
+                            <a href="kontakt/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
             </a>
         </div>
 
-        <!-- PRAWA STRONA: ODDZIELNE MENU TŁUMACZENIA (Z STABILNYM HOVEREM) -->
+        <!-- PRAWA STRONA: ODDZIELNE MENU TŁUMACZENIA -->
         <div class="dropdown-container">
             <button class="bg-[#181818] border border-juve-border text-gold hover:bg-gold hover:text-black px-4 h-12 rounded-xl flex items-center space-x-2 transition-all shadow-md focus:outline-none cursor-pointer text-xs font-black uppercase tracking-wider">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
@@ -140,13 +140,10 @@
 
     </header>
 
-    <!-- GŁÓWNA SEKCJA -->
+    <!-- GŁÓWNA SEKCJA (CZYSTA) -->
     <main class="hero-juve flex-1 flex flex-col items-center justify-center text-center px-6 py-32">
         <div class="max-w-3xl space-y-6">
-            <span class="bg-gold/10 border border-gold/30 text-gold text-xs font-black uppercase tracking-widest px-4 py-2 rounded-full">Legion Białystok</span>
-            <h1 id="hero-welcome-text" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-slate-200">
-                Witaj w oficjalnym serwisie klubowym
-            </h1>
+            <!-- Czysta przestrzeń pod dalszą rozbudowę -->
         </div>
     </main>
 
@@ -176,22 +173,18 @@
 
         const translations = {
             pl: {
-                welcome: "Witaj w oficjalnym serwisie klubowym",
                 rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
                 label: "PL"
             },
             en: {
-                welcome: "Welcome to the official club website",
                 rights: "All rights reserved. Official club service.",
                 label: "EN"
             },
             es: {
-                welcome: "Bienvenido al sitio web oficial del club",
                 rights: "Todos los derechos reservados. Servicio oficial del club.",
                 label: "ES"
             },
             ru: {
-                welcome: "Добро пожаловать на официальный сайт клуба",
                 rights: "Все права защищены. Официальный клубный сервис.",
                 label: "RU"
             }
@@ -201,11 +194,9 @@
             localStorage.setItem('legion_lang', lang);
             const t = translations[lang] || translations['pl'];
 
-            const welcomeEl = document.getElementById('hero-welcome-text');
             const rightsEl = document.getElementById('footer-rights');
             const labelEl = document.getElementById('current-lang-label');
 
-            if(welcomeEl) welcomeEl.innerText = t.welcome;
             if(rightsEl) rightsEl.innerText = t.rights;
             if(labelEl) labelEl.innerText = t.label;
         }
