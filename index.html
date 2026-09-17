@@ -38,11 +38,11 @@
     </script>
     <style>
         .hero-banner {
-            background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.4) 50%, rgba(11,11,11,0.7) 100%), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+            background: linear-gradient(to top, rgba(11,11,11,0.98) 0%, rgba(11,11,11,0.5) 50%, rgba(11,11,11,0.8) 100%), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
 
-        /* Efekt szkła (Glassmorphism) dla okna artykułu */
-        .glass-modal {
+        /* Efekt szkła (Glassmorphism) */
+        .glass-panel {
             background: rgba(18, 18, 18, 0.75);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -144,30 +144,64 @@
 
     </header>
 
-    <!-- GŁÓWNA SEKCJA HERO Z NAJNOWSZYM ARTYKUŁEM -->
-    <main class="hero-banner flex-1 flex flex-col justify-end px-6 md:px-16 pb-16 pt-32 min-h-screen">
-        <div class="max-w-4xl space-y-4">
-            <div class="flex items-center space-x-3">
-                <span id="hero-badge" class="bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md">Aktualności</span>
-                <span id="hero-date" class="text-xs font-bold text-slate-300">17 Wrzesień 2026</span>
+    <!-- GŁÓWNA SEKCJA HERO / MATCH CENTER + ARTYKUŁ -->
+    <main class="hero-banner flex-1 flex flex-col justify-end px-6 md:px-16 pb-16 pt-32 min-h-screen relative overflow-hidden">
+        
+        <div class="max-w-5xl mx-auto w-full space-y-8 z-10">
+            
+            <!-- MATCH CENTER (NACHODZI NA TŁO I ARTYKUŁ DLA EFEKTU) -->
+            <div class="glass-panel rounded-3xl p-6 md:p-8 transform -translate-y-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    
+                    <!-- Info o meczu / Rozgrywki -->
+                    <div class="text-center md:text-left space-y-1">
+                        <span id="mc-info" class="text-[10px] font-black uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-3 py-1 rounded-full">KLASA A • 18:00</span>
+                        <div id="mc-date" class="text-xs font-bold text-slate-300 pt-1">Niedziela, 20 września</div>
+                        <div id="mc-status" class="text-[11px] font-bold text-slate-400"></div>
+                    </div>
+
+                    <!-- Drużyny i wynik -->
+                    <div class="flex items-center space-x-6">
+                        <span id="mc-team1" class="text-sm md:text-lg font-black uppercase tracking-wider text-white text-right w-36 truncate">LEGION BIAŁYSTOK</span>
+                        <div class="bg-black/60 border border-gold/40 px-4 py-2 rounded-2xl text-center shadow-inner">
+                            <span class="text-xs font-black uppercase tracking-widest text-gold block text-[9px]">VS</span>
+                        </div>
+                        <span id="mc-team2" class="text-sm md:text-lg font-black uppercase tracking-wider text-white text-left w-36 truncate">ATALANTA</span>
+                    </div>
+
+                    <!-- Przycisk / Odliczanie lub Status -->
+                    <div class="text-center md:text-right">
+                        <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider block">Centrum Meczowe</span>
+                        <span class="text-xs font-black text-gold uppercase tracking-widest">Nadchodzi</span>
+                    </div>
+                </div>
             </div>
-            <h1 id="hero-title" class="text-3xl md:text-6xl font-black uppercase tracking-wider text-white leading-none drop-shadow-lg">
-                Wielki powrót Legionu do rozgrywek!
-            </h1>
-            <p id="hero-snippet" class="text-sm md:text-base text-slate-200 line-clamp-2 max-w-2xl drop-shadow">
-                Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie...
-            </p>
-            <div class="pt-2">
-                <button onclick="openLatestArticleModal()" class="bg-white/10 hover:bg-gold hover:text-black border border-white/30 text-white font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl backdrop-blur-md transition-all cursor-pointer flex items-center gap-2">
-                    <span id="btn-read-more">Czytaj więcej</span> &rarr;
-                </button>
+
+            <!-- NAJNOWSZY ARTYKUŁ -->
+            <div class="space-y-4 pt-2">
+                <div class="flex items-center space-x-3">
+                    <span id="hero-badge" class="bg-gold text-black text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-md">Aktualności</span>
+                    <span id="hero-date" class="text-xs font-bold text-slate-300">17 Wrzesień 2026</span>
+                </div>
+                <h1 id="hero-title" class="text-3xl md:text-6xl font-black uppercase tracking-wider text-white leading-none drop-shadow-lg">
+                    Wielki powrót Legionu do rozgrywek!
+                </h1>
+                <p id="hero-snippet" class="text-sm md:text-base text-slate-200 line-clamp-2 max-w-2xl drop-shadow">
+                    Po intensywnym okresie przygotowawczym nasza drużyna wraca do walki o najwyższe cele w nadchodzącym sezonie...
+                </p>
+                <div class="pt-2">
+                    <button onclick="openLatestArticleModal()" class="bg-white/10 hover:bg-gold hover:text-black border border-white/30 text-white font-black text-xs uppercase tracking-widest py-3 px-6 rounded-xl backdrop-blur-md transition-all cursor-pointer flex items-center gap-2">
+                        <span id="btn-read-more">Czytaj więcej</span> &rarr;
+                    </button>
+                </div>
             </div>
+
         </div>
     </main>
 
     <!-- MODAL (OKNO) ARTYKUŁU Z EFEKTEM SZKŁA -->
     <div id="article-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-modal rounded-3xl max-w-3xl w-full p-8 md:p-10 relative space-y-6 max-h-[95vh] overflow-y-auto text-white">
+        <div class="glass-panel rounded-3xl max-w-3xl w-full p-8 md:p-10 relative space-y-6 max-h-[95vh] overflow-y-auto text-white">
             <button onclick="closeArticleModal()" class="absolute right-6 top-6 bg-black/40 hover:bg-gold text-white hover:text-black w-10 h-10 rounded-full flex items-center justify-center font-black transition-all cursor-pointer border border-white/20">✕</button>
             
             <!-- NAGŁÓWEK ARTYKUŁU -->
@@ -221,11 +255,37 @@
                 window.history.replaceState({}, '', '/');
             }
 
+            loadMatchCenter();
             loadLatestArticle();
 
             const savedLang = localStorage.getItem('legion_lang') || 'pl';
             changeLanguage(savedLang);
         });
+
+        // Ładowanie Match Center z panelu (legion_next_match)
+        function loadMatchCenter() {
+            let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
+                dateLabel: "20 Wrz",
+                info: "KLASA A - 18:00",
+                team1: "LEGION BIAŁYSTOK",
+                team2: "ATALANTA",
+                targetDate: "2026-09-20T18:00",
+                customStatus: "Nadchodzi"
+            };
+
+            document.getElementById('mc-info').innerText = nm.info || "KLASA A";
+            document.getElementById('mc-date').innerText = nm.dateLabel || "20 Wrz";
+            document.getElementById('mc-team1').innerText = nm.team1 || "LEGION BIAŁYSTOK";
+            document.getElementById('mc-team2').innerText = nm.team2 || "ATALANTA";
+            
+            const statusEl = document.getElementById('mc-status');
+            if (nm.customStatus && nm.customStatus.trim() !== "") {
+                statusEl.innerText = nm.customStatus;
+                statusEl.style.display = "block";
+            } else {
+                statusEl.style.display = "none";
+            }
+        }
 
         function loadLatestArticle() {
             let arts = JSON.parse(localStorage.getItem('legion_articles')) || [
