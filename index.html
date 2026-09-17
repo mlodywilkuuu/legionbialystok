@@ -92,7 +92,7 @@
         </div>
     </header>
 
-    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WIDŻETAMI MECZOWYMI -->
+    <!-- HERO SECTION Z NAGŁÓWKIEM ORAZ WYŚRODKOWANYMI WIDŻETAMI MECZOWYMI -->
     <main class="hero-bg flex-1 px-6 py-16 space-y-12">
         
         <!-- NAGŁÓWEK -->
@@ -104,32 +104,26 @@
             </div>
         </div>
 
-        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ NOWY STYL ODLICZANIA -->
+        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ ODLICZANIE -->
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <!-- 1. OSTATNIE MECZE (LAST MATCHES) -->
-            <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Ostatnie mecze</h3>
-                    <div id="home-last-matches-container" class="space-y-4">
-                        <!-- Wstrzykiwane przez JS z panelu -->
-                    </div>
+            <!-- 1. OSTATNIE MECZE (WYŚRODKOWANE) -->
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-center text-center">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Ostatnie mecze</h3>
+                <div id="home-last-matches-container" class="space-y-4 my-auto">
+                    <!-- Wstrzykiwane przez JS -->
                 </div>
-                <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Centrum Meczowe</a>
             </div>
 
-            <!-- 2. NAJBLIŻSZY MECZ (NEXT MATCH) - Z OBSŁUGĄ STATUSU PRZERWY / KOMUNIKATU -->
-            <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
-                <div>
-                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Najbliższy mecz</h3>
-                    <div id="home-next-match-container" class="space-y-3">
-                        <!-- Wstrzykiwane przez JS z panelu -->
-                    </div>
+            <!-- 2. NAJBLIŻSZY MECZ (WYŚRODKOWANY) -->
+            <div class="glass-card rounded-3xl p-6 flex flex-col justify-center text-center">
+                <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2">Najbliższy mecz</h3>
+                <div id="home-next-match-container" class="space-y-3 my-auto">
+                    <!-- Wstrzykiwane przez JS -->
                 </div>
-                <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Tabela</a>
             </div>
 
-            <!-- 3. ODLICZANIE DO MECZU (Nowy, wyśrodkowany styl na dole kafelka) -->
+            <!-- 3. ODLICZANIE DO MECZU (WYŚRODKOWANE) -->
             <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between items-center text-center border border-gold/30 relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gold/10 rounded-full blur-2xl"></div>
                 
@@ -138,7 +132,7 @@
                     <div id="countdown-date-label" class="text-xs font-bold uppercase tracking-wider text-slate-300">CZWARTEK, 17 WRZEŚNIA</div>
                 </div>
 
-                <!-- NOWY STYL ODLICZANIA (WYŚRODKOWANY NA DOLE) -->
+                <!-- ODLICZANIE -->
                 <div class="w-full py-4 my-auto">
                     <div id="countdown-grid" class="grid grid-cols-3 gap-3 max-w-sm mx-auto">
                         <div class="bg-white/5 border border-gold/30 p-3 rounded-2xl shadow-inner">
@@ -186,7 +180,7 @@
             initCountdown();
         });
 
-        // 1. Ładowanie ostatnich meczów z localStorage
+        // 1. Ładowanie ostatnich meczów (w pełni wyśrodkowane)
         function loadHomeLastMatches() {
             let matches = JSON.parse(localStorage.getItem('legion_last_matches')) || [
                 { id: 1, date: "13 Wrz", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
@@ -197,28 +191,19 @@
 
             matches.slice(0, 2).forEach(m => {
                 container.innerHTML += `
-                    <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-3">
-                        <div class="bg-slate-900 text-white text-center px-3 py-2 rounded-xl min-w-[50px]">
-                            <span class="block text-sm font-black text-gold">${m.date.split(' ')[0] || '13'}</span>
-                            <span class="block text-[9px] uppercase tracking-wider text-slate-400">${m.date.split(' ')[1] || 'Wrz'}</span>
-                        </div>
-                        <div class="flex-1 space-y-1">
-                            <span class="block text-[10px] font-bold text-slate-400 uppercase">${m.comp}</span>
-                            <div class="flex justify-between items-center text-xs font-black uppercase text-slate-900">
-                                <span>${m.home}</span>
-                                <span class="bg-slate-900 text-gold px-2 py-0.5 rounded text-xs">${m.homeGoals}</span>
-                            </div>
-                            <div class="flex justify-between items-center text-xs font-black uppercase text-slate-900">
-                                <span>${m.away}</span>
-                                <span class="bg-slate-900 text-gold px-2 py-0.5 rounded text-xs">${m.awayGoals}</span>
-                            </div>
+                    <div class="bg-white/60 border border-slate-200 rounded-2xl p-4 space-y-2 text-center">
+                        <div class="text-[10px] font-bold text-slate-400 uppercase">${m.comp} • ${m.date}</div>
+                        <div class="flex items-center justify-between font-black text-xs uppercase text-slate-900 px-2">
+                            <span class="w-5/12 text-right truncate">${m.home}</span>
+                            <span class="w-2/12 text-center text-gold-dark text-sm bg-slate-900 text-white rounded py-0.5">${m.homeGoals}:${m.awayGoals}</span>
+                            <span class="w-5/12 text-left truncate">${m.away}</span>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // 2. Ładowanie najbliższego meczu z obsługą statusu przerwy / komunikatu z panelu
+        // 2. Ładowanie najbliższego meczu (w pełni wyśrodkowane, bez statystyk i przycisków)
         function loadHomeNextMatch() {
             let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
                 dateLabel: "20 Wrz",
@@ -226,49 +211,29 @@
                 team1: "LEGION BIAŁYSTOK",
                 team2: "ATALANTA",
                 targetDate: "2026-09-20T18:00",
-                customStatus: "" // Jeśli w panelu wpiszesz np. "Przerwa" lub "W trakcie"
+                customStatus: ""
             };
 
             const container = document.getElementById('home-next-match-container');
             
-            // Jeśli ustawiono w panelu customowy status (np. Przerwa), wyświetlamy go w wyróżnionym boksie
             let statusBadge = nm.customStatus && nm.customStatus.trim() !== "" 
                 ? `<div class="bg-gold/20 border border-gold text-gold-dark text-center font-black text-xs py-1.5 rounded-xl uppercase tracking-wider mb-2">${nm.customStatus}</div>` 
                 : '';
 
             container.innerHTML = `
-                <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-4">
-                    <div class="bg-slate-900 text-white text-center px-3 py-3 rounded-xl min-w-[50px]">
-                        <span class="block text-sm font-black text-gold">${nm.dateLabel ? nm.dateLabel.split(' ')[0] : '20'}</span>
-                        <span class="block text-[9px] uppercase tracking-wider text-slate-400">${nm.dateLabel ? nm.dateLabel.split(' ')[1] : 'Wrz'}</span>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <span class="block text-[10px] font-bold text-slate-400 uppercase">${nm.info}</span>
-                        ${statusBadge}
-                        <div class="text-sm font-black uppercase text-slate-900 leading-tight">
-                            <div>${nm.team1}</div>
-                            <div class="text-gold-dark mt-0.5">${nm.team2}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-3 gap-2 text-center pt-2">
-                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
-                        <span class="block text-[10px] text-slate-400 uppercase font-bold">BILANS</span>
-                        <span class="text-xs font-black text-slate-900">32 Z</span>
-                    </div>
-                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
-                        <span class="block text-[10px] text-slate-400 uppercase font-bold">FORMA</span>
-                        <span class="text-xs font-black text-gold-dark">59%</span>
-                    </div>
-                    <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
-                        <span class="block text-[10px] text-slate-400 uppercase font-bold">BRAMKI</span>
-                        <span class="text-xs font-black text-slate-900">102</span>
+                <div class="bg-white/60 border border-slate-200 rounded-2xl p-5 space-y-3 text-center">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase">${nm.info} • ${nm.dateLabel}</div>
+                    ${statusBadge}
+                    <div class="space-y-1 font-black text-sm uppercase text-slate-900">
+                        <div>${nm.team1}</div>
+                        <div class="text-xs text-slate-400 font-bold">VS</div>
+                        <div class="text-gold-dark">${nm.team2}</div>
                     </div>
                 </div>
             `;
         }
 
-        // 3. Odliczanie do następnego meczu (Dni, Minuty, Sekundy)
+        // 3. Odliczanie do następnego meczu
         function initCountdown() {
             let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
                 targetDate: "2026-09-20T18:00"
