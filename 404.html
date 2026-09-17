@@ -1,1 +1,19 @@
-
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Przekierowanie – Legion Białystok</title>
+    <script>
+        // Automatyczne wykrywanie podstrony i przekierowanie bez błędu 404 dla GitHub Pages
+        const path = window.location.pathname;
+        if (path.includes('/kadra') || path.includes('druzyna')) {
+            window.location.replace('/druzyna/index.html');
+        } else {
+            window.location.replace('/index.html');
+        }
+    </script>
+</head>
+<body style="background: #0b0b0b; color: #fff; font-family: sans-serif; text-align: center; padding-top: 20vh;">
+    <h2 style="color: #d4af37; text-transform: uppercase;">Ładowanie strony Legionu...</h2>
+</body>
+</html>
