@@ -90,7 +90,6 @@
                     <a href="../druzyna/index.html" id="nav-team" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
                     <a href="../akademia/index.html" id="nav-academy" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
                     <a href="index.html" id="nav-table" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
-                    <a href="../historia/index.html" id="nav-history" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
                     
                     <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
                         <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
@@ -130,10 +129,18 @@
     <!-- GŁÓWNA SEKCJA TABELI -->
     <main class="flex-1 max-w-5xl mx-auto w-full px-6 pt-32 pb-20 space-y-8">
         
-        <!-- NAGŁÓWEK -->
-        <div class="border-b border-juve-border pb-6 flex items-center justify-between">
+        <!-- NAGŁÓWEK ORAZ WYBÓR SEZONU -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-juve-border pb-6">
             <h1 id="txt-main-title" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white">Tabela Ligowa</h1>
-            <span id="txt-league-name" class="text-xs font-bold uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-lg">Klasa A • Sezon 2026</span>
+            
+            <div class="flex items-center space-x-3">
+                <label for="season-select" id="txt-select-season" class="text-xs font-bold uppercase tracking-wider text-slate-400">Sezon:</label>
+                <select id="season-select" onchange="changeSeason(this.value)" class="bg-[#141414] border border-juve-border text-gold text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl focus:outline-none focus:border-gold cursor-pointer shadow-inner">
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
         </div>
 
         <!-- KONTENER TABELI -->
@@ -153,7 +160,7 @@
                         </tr>
                     </thead>
                     <tbody id="table-body" class="divide-y divide-juve-border text-xs font-bold">
-                        <!-- Wstrzykiwane dynamicznie przez JS z panelu (legion_table) -->
+                        <!-- Wstrzykiwane dynamicznie przez JS -->
                     </tbody>
                 </table>
             </div>
@@ -180,7 +187,6 @@
             <div class="space-y-3">
                 <h4 id="footer-club-title" class="text-xs font-black uppercase tracking-widest text-gold">Klub</h4>
                 <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
-                    <li><a href="../historia/index.html" id="foot-history" class="text-slate-400 hover:text-gold transition-colors">Historia</a></li>
                     <li><a href="../o-klubie/index.html" id="foot-about" class="text-slate-400 hover:text-gold transition-colors">O klubie</a></li>
                     <li><a href="../ludzie-legionu/index.html" id="foot-people" class="text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a></li>
                     <li><a href="../kontakt/index.html" id="foot-kontakt" class="text-slate-400 hover:text-gold transition-colors">Kontakt</a></li>
@@ -205,6 +211,8 @@
 
     <!-- SKRYPTY -->
     <script>
+        let currentSeason = '2026';
+
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.protocol !== 'file:') {
                 window.history.replaceState({}, '', '/tabela');
@@ -215,14 +223,33 @@
             changeLanguage(savedLang);
         });
 
+        function changeSeason(season) {
+            currentSeason = season;
+            loadTable();
+        }
+
         function loadTable() {
-            let tableData = JSON.parse(localStorage.getItem('legion_table')) || [
-                { pos: 1, team: "LEGION BIAŁYSTOK", m: 3, pkt: 9, z: 3, r: 0, p: 0, goals: "12:2" },
-                { pos: 2, team: "Orlęta", m: 3, pkt: 6, z: 2, r: 0, p: 1, goals: "7:5" },
-                { pos: 3, team: "Krypnianka", m: 3, pkt: 4, z: 1, r: 1, p: 1, goals: "5:6" },
-                { pos: 4, team: "Wigry II", m: 3, pkt: 1, z: 0, r: 1, p: 2, goals: "3:8" },
-                { pos: 5, team: "Iskra Narew", m: 3, pkt: 0, z: 0, r: 0, p: 3, goals: "2:9" }
-            ];
+            // Słownik tabel dla poszczególnych sezonów (może być pobierany z localStorage lub domyślny)
+            let allTablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || {
+                "2026": [
+                    { pos: 1, team: "LEGION BIAŁYSTOK", m: 3, pkt: 9, z: 3, r: 0, p: 0, goals: "12:2" },
+                    { pos: 2, team: "Orlęta", m: 3, pkt: 6, z: 2, r: 0, p: 1, goals: "7:5" },
+                    { pos: 3, team: "Krypnianka", m: 3, pkt: 4, z: 1, r: 1, p: 1, goals: "5:6" },
+                    { pos: 4, team: "Wigry II", m: 3, pkt: 1, z: 0, r: 1, p: 2, goals: "3:8" },
+                    { pos: 5, team: "Iskra Narew", m: 3, pkt: 0, z: 0, r: 0, p: 3, goals: "2:9" }
+                ],
+                "2025": [
+                    { pos: 1, team: "MKS Mielnik", m: 22, pkt: 52, z: 16, r: 4, p: 2, goals: "61:20" },
+                    { pos: 2, team: "LEGION BIAŁYSTOK", m: 22, pkt: 49, z: 15, r: 4, p: 3, goals: "55:24" },
+                    { pos: 3, team: "GKS Rutka-Tartak", m: 22, pkt: 44, z: 14, r: 2, p: 6, goals: "48:30" }
+                ],
+                "2024": [
+                    { pos: 1, team: "Start Białystok", m: 18, pkt: 45, z: 14, r: 3, p: 1, goals: "50:15" },
+                    { pos: 2, team: "LEGION BIAŁYSTOK", m: 18, pkt: 38, z: 12, r: 2, p: 4, goals: "42:22" }
+                ]
+            };
+
+            let tableData = allTablesBySeason[currentSeason] || allTablesBySeason["2026"];
 
             const tbody = document.getElementById('table-body');
             tbody.innerHTML = '';
@@ -255,13 +282,12 @@
                 team: "Pierwsza drużyna",
                 academy: "Akademia",
                 table: "Tabela",
-                history: "Historia",
                 club: "Klub",
                 about: "O klubie",
                 people: "Ludzie Legionu",
                 contact: "Kontakt",
                 mainTitle: "Tabela Ligowa",
-                leagueName: "Klasa A • Sezon 2026",
+                selectSeason: "Sezon:",
                 thTeam: "Drużyna",
                 thM: "M",
                 thPkt: "Pkt",
@@ -281,13 +307,12 @@
                 team: "First Team",
                 academy: "Academy",
                 table: "Standings",
-                history: "History",
                 club: "Club",
                 about: "About Club",
                 people: "Legion People",
                 contact: "Contact",
                 mainTitle: "League Standings",
-                leagueName: "Class A • 2026 Season",
+                selectSeason: "Season:",
                 thTeam: "Team",
                 thM: "P",
                 thPkt: "Pts",
@@ -307,13 +332,12 @@
                 team: "Primer Equipo",
                 academy: "Academia",
                 table: "Clasificación",
-                history: "Historia",
                 club: "Club",
                 about: "Sobre el club",
                 people: "Gente del Legion",
                 contact: "Contacto",
                 mainTitle: "Clasificación de la Liga",
-                leagueName: "Clase A • Temporada 2026",
+                selectSeason: "Temporada:",
                 thTeam: "Equipo",
                 thM: "PJ",
                 thPkt: "Pts",
@@ -333,13 +357,12 @@
                 team: "Первая команда",
                 academy: "Академия",
                 table: "Таблица",
-                history: "История",
                 club: "Клуб",
                 about: "О клубе",
                 people: "Люди Легиона",
                 contact: "Контакты",
                 mainTitle: "Турнирная таблица",
-                leagueName: "Класс А • Сезон 2026",
+                selectSeason: "Сезон:",
                 thTeam: "Команда",
                 thM: "И",
                 thPkt: "О",
@@ -364,14 +387,13 @@
             document.getElementById('nav-team').innerText = t.team;
             document.getElementById('nav-academy').innerText = t.academy;
             document.getElementById('nav-table').innerText = t.table;
-            document.getElementById('nav-history').innerText = t.history;
             document.getElementById('nav-club').innerText = t.club;
             document.getElementById('nav-about').innerText = t.about;
             document.getElementById('nav-people').innerText = t.people;
             document.getElementById('nav-kontakt').innerText = t.contact;
 
             document.getElementById('txt-main-title').innerText = t.mainTitle;
-            document.getElementById('txt-league-name').innerText = t.leagueName;
+            document.getElementById('txt-select-season').innerText = t.selectSeason;
 
             document.getElementById('th-team').innerText = t.thTeam;
             document.getElementById('th-m').innerText = t.thM;
@@ -391,7 +413,6 @@
             document.getElementById('foot-team').innerText = t.team;
             document.getElementById('foot-academy').innerText = t.academy;
             document.getElementById('foot-table').innerText = t.table;
-            document.getElementById('foot-history').innerText = t.history;
             document.getElementById('foot-about').innerText = t.about;
             document.getElementById('foot-people').innerText = t.people;
             document.getElementById('foot-kontakt').innerText = t.contact;
