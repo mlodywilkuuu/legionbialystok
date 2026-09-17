@@ -104,13 +104,13 @@
             </div>
         </div>
 
-        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ ODLICZANIE -->
+        <!-- WIDŻETY: OSTATNIE MECZE, NAJBLIŻSZY MECZ ORAZ NOWY STYL ODLICZANIA -->
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             <!-- 1. OSTATNIE MECZE (LAST MATCHES) -->
             <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
                 <div>
-                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Ostatnie mecze:</h3>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Ostatnie mecze</h3>
                     <div id="home-last-matches-container" class="space-y-4">
                         <!-- Wstrzykiwane przez JS z panelu -->
                     </div>
@@ -118,10 +118,10 @@
                 <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Centrum Meczowe</a>
             </div>
 
-            <!-- 2. NAJBLIŻSZY MECZ (NEXT MATCH) -->
+            <!-- 2. NAJBLIŻSZY MECZ (NEXT MATCH) - Z OBSŁUGĄ STATUSU PRZERWY / KOMUNIKATU -->
             <div class="glass-card rounded-3xl p-6 space-y-6 flex flex-col justify-between">
                 <div>
-                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Najbliższy mecz:</h3>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-gold-dark mb-4 border-b border-gold/20 pb-2 text-center">Najbliższy mecz</h3>
                     <div id="home-next-match-container" class="space-y-3">
                         <!-- Wstrzykiwane przez JS z panelu -->
                     </div>
@@ -129,34 +129,35 @@
                 <a href="tabela/index.html" class="w-full bg-slate-900 hover:bg-gold text-white font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all text-center block shadow">Tabela</a>
             </div>
 
-            <!-- 3. ODLICZANIE DO MECZU (W pełni po polsku i wyśrodkowane) -->
+            <!-- 3. ODLICZANIE DO MECZU (Nowy, wyśrodkowany styl na dole kafelka) -->
             <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-8 shadow-2xl flex flex-col justify-between items-center text-center border border-gold/30 relative overflow-hidden">
                 <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-gold/10 rounded-full blur-2xl"></div>
-                <div class="w-full">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-gold block">Odliczanie do meczu</span>
-                    
-                    <!-- LICZNIK: Dni, Godziny, Minuty, Sekundy -->
-                    <div id="countdown-grid" class="grid grid-cols-4 gap-2 mt-4 w-full">
-                        <div class="bg-white/10 p-2 rounded-xl border border-white/10">
-                            <span id="cd-days" class="text-xl md:text-2xl font-black text-gold-light block">00</span>
-                            <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">Dni</span>
+                
+                <div class="w-full pt-2">
+                    <span class="text-xs font-black uppercase tracking-widest text-gold block mb-1">Odliczanie do meczu</span>
+                    <div id="countdown-date-label" class="text-xs font-bold uppercase tracking-wider text-slate-300">CZWARTEK, 17 WRZEŚNIA</div>
+                </div>
+
+                <!-- NOWY STYL ODLICZANIA (WYŚRODKOWANY NA DOLE) -->
+                <div class="w-full py-4 my-auto">
+                    <div id="countdown-grid" class="grid grid-cols-3 gap-3 max-w-sm mx-auto">
+                        <div class="bg-white/5 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-days" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">00</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Dni</span>
                         </div>
-                        <div class="bg-white/10 p-2 rounded-xl border border-white/10">
-                            <span id="cd-hours" class="text-xl md:text-2xl font-black text-gold-light block">00</span>
-                            <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">Godziny</span>
+                        <div class="bg-white/5 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-mins" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">00</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Minuty</span>
                         </div>
-                        <div class="bg-white/10 p-2 rounded-xl border border-white/10">
-                            <span id="cd-mins" class="text-xl md:text-2xl font-black text-gold-light block">00</span>
-                            <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">Minuty</span>
-                        </div>
-                        <div class="bg-white/10 p-2 rounded-xl border border-white/10">
-                            <span id="cd-secs" class="text-xl md:text-2xl font-black text-gold-light block">00</span>
-                            <span class="text-[9px] font-bold uppercase tracking-wider text-slate-400 block">Sekundy</span>
+                        <div class="bg-white/5 border border-gold/30 p-3 rounded-2xl shadow-inner">
+                            <span id="cd-secs" class="text-2xl md:text-3xl font-black text-gold-light block font-mono">00</span>
+                            <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mt-0.5">Sekundy</span>
                         </div>
                     </div>
                 </div>
-                <div class="pt-6 border-t border-white/10 w-full mt-4">
-                    <div id="countdown-date-label" class="text-xs font-bold uppercase tracking-widest text-slate-300">CZWARTEK, 17 WRZEŚNIA</div>
+
+                <div class="w-full pb-2">
+                    <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Czas do pierwszego gwizdka</span>
                 </div>
             </div>
 
@@ -188,8 +189,8 @@
         // 1. Ładowanie ostatnich meczów z localStorage
         function loadHomeLastMatches() {
             let matches = JSON.parse(localStorage.getItem('legion_last_matches')) || [
-                { id: 1, date: "13 Sep", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
-                { id: 2, date: "17 Sep", comp: "PUCHAR POLSKI - 21:00", home: "LEGION BIAŁYSTOK", away: "JAGIELLONIA", homeGoals: 1, awayGoals: 0 }
+                { id: 1, date: "13 Wrz", comp: "KLASA A - 20:45", home: "SASSUOLO", away: "JUVENTUS", homeGoals: 3, awayGoals: 2 },
+                { id: 2, date: "17 Wrz", comp: "PUCHAR POLSKI - 21:00", home: "LEGION BIAŁYSTOK", away: "JAGIELLONIA", homeGoals: 1, awayGoals: 0 }
             ];
             const container = document.getElementById('home-last-matches-container');
             container.innerHTML = '';
@@ -199,7 +200,7 @@
                     <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-3">
                         <div class="bg-slate-900 text-white text-center px-3 py-2 rounded-xl min-w-[50px]">
                             <span class="block text-sm font-black text-gold">${m.date.split(' ')[0] || '13'}</span>
-                            <span class="block text-[9px] uppercase tracking-wider text-slate-400">${m.date.split(' ')[1] || 'Sep'}</span>
+                            <span class="block text-[9px] uppercase tracking-wider text-slate-400">${m.date.split(' ')[1] || 'Wrz'}</span>
                         </div>
                         <div class="flex-1 space-y-1">
                             <span class="block text-[10px] font-bold text-slate-400 uppercase">${m.comp}</span>
@@ -217,25 +218,33 @@
             });
         }
 
-        // 2. Ładowanie najbliższego meczu z localStorage
+        // 2. Ładowanie najbliższego meczu z obsługą statusu przerwy / komunikatu z panelu
         function loadHomeNextMatch() {
             let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
-                dateLabel: "20 Sep",
+                dateLabel: "20 Wrz",
                 info: "KLASA A - 18:00",
                 team1: "LEGION BIAŁYSTOK",
                 team2: "ATALANTA",
-                targetDate: "2026-09-20T18:00"
+                targetDate: "2026-09-20T18:00",
+                customStatus: "" // Jeśli w panelu wpiszesz np. "Przerwa" lub "W trakcie"
             };
 
             const container = document.getElementById('home-next-match-container');
+            
+            // Jeśli ustawiono w panelu customowy status (np. Przerwa), wyświetlamy go w wyróżnionym boksie
+            let statusBadge = nm.customStatus && nm.customStatus.trim() !== "" 
+                ? `<div class="bg-gold/20 border border-gold text-gold-dark text-center font-black text-xs py-1.5 rounded-xl uppercase tracking-wider mb-2">${nm.customStatus}</div>` 
+                : '';
+
             container.innerHTML = `
                 <div class="flex items-center gap-4 bg-white/50 border border-slate-200 rounded-2xl p-4">
                     <div class="bg-slate-900 text-white text-center px-3 py-3 rounded-xl min-w-[50px]">
                         <span class="block text-sm font-black text-gold">${nm.dateLabel ? nm.dateLabel.split(' ')[0] : '20'}</span>
-                        <span class="block text-[9px] uppercase tracking-wider text-slate-400">${nm.dateLabel ? nm.dateLabel.split(' ')[1] : 'Sep'}</span>
+                        <span class="block text-[9px] uppercase tracking-wider text-slate-400">${nm.dateLabel ? nm.dateLabel.split(' ')[1] : 'Wrz'}</span>
                     </div>
                     <div class="flex-1 space-y-2">
                         <span class="block text-[10px] font-bold text-slate-400 uppercase">${nm.info}</span>
+                        ${statusBadge}
                         <div class="text-sm font-black uppercase text-slate-900 leading-tight">
                             <div>${nm.team1}</div>
                             <div class="text-gold-dark mt-0.5">${nm.team2}</div>
@@ -245,7 +254,7 @@
                 <div class="grid grid-cols-3 gap-2 text-center pt-2">
                     <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
                         <span class="block text-[10px] text-slate-400 uppercase font-bold">BILANS</span>
-                        <span class="text-xs font-black text-slate-900">32 W</span>
+                        <span class="text-xs font-black text-slate-900">32 Z</span>
                     </div>
                     <div class="bg-white/40 p-2 rounded-xl border border-slate-200">
                         <span class="block text-[10px] text-slate-400 uppercase font-bold">FORMA</span>
@@ -259,7 +268,7 @@
             `;
         }
 
-        // 3. Odliczanie do następnego meczu (po polsku)
+        // 3. Odliczanie do następnego meczu (Dni, Minuty, Sekundy)
         function initCountdown() {
             let nm = JSON.parse(localStorage.getItem('legion_next_match')) || {
                 targetDate: "2026-09-20T18:00"
@@ -267,7 +276,6 @@
 
             const targetTime = new Date(nm.targetDate).getTime();
             const daysEl = document.getElementById('cd-days');
-            const hoursEl = document.getElementById('cd-hours');
             const minsEl = document.getElementById('cd-mins');
             const secsEl = document.getElementById('cd-secs');
             const dateLabelEl = document.getElementById('countdown-date-label');
@@ -286,17 +294,14 @@
 
                 if(diff > 0) {
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const secs = Math.floor((diff % (1000 * 60)) / 1000);
 
                     daysEl.innerText = String(days).padStart(2, '0');
-                    hoursEl.innerText = String(hours).padStart(2, '0');
                     minsEl.innerText = String(mins).padStart(2, '0');
                     secsEl.innerText = String(secs).padStart(2, '0');
                 } else {
                     daysEl.innerText = "00";
-                    hoursEl.innerText = "00";
                     minsEl.innerText = "00";
                     secsEl.innerText = "00";
                 }
