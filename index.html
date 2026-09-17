@@ -40,54 +40,104 @@
         .hero-juve {
             background: linear-gradient(to bottom, rgba(11,11,11,0.85), rgba(11,11,11,0.98)), url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
         }
+
+        /* Płynne, stabilne menu z opóźnieniem chowania */
+        .dropdown-container {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            margin-top: 8px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.25s ease-in-out;
+            z-index: 50;
+        }
+        .dropdown-container:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Podmenu Klub */
+        .sub-dropdown-container {
+            position: relative;
+        }
+        .sub-dropdown-menu {
+            display: none;
+            padding-left: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .sub-dropdown-container:hover .sub-dropdown-menu {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- GÓRNY PASEK / NAWIGACJA (LOGO PO LEWEJ, MENU PO PRAWEJ NA MAXA) -->
+    <!-- GÓRNY PASEK / NAWIGACJA -->
     <header class="w-full bg-[#0b0b0b]/95 backdrop-blur-md border-b border-juve-border px-6 py-4 flex items-center justify-between sticky top-0 z-50">
-        <!-- LOGO PO LEWEJ -->
-        <a href="index.html" class="flex items-center">
-            <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer filter drop-shadow">
-        </a>
-
-        <!-- MENU ROZWIJANE NA MAKSYMALNIE PRAWEJ STRONIE -->
-        <div class="relative group">
-            <button class="bg-[#181818] border border-juve-border text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-            <div class="absolute right-0 top-full mt-2 w-64 bg-[#141414] border border-juve-border rounded-2xl shadow-2xl py-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 space-y-1">
-                <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Strona główna</a>
-                <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Pierwsza drużyna</a>
-                <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Akademia</a>
-                <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Tabela</a>
-                <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold">Historia</a>
-                
-                <!-- ROZWIJANA SEKCJA KLUB -->
-                <div class="relative group/sub border-t border-juve-border my-1 pt-1">
-                    <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
-                        <span>Klub</span>
-                        <span class="text-[10px]">▼</span>
-                    </div>
-                    <div class="hidden group-hover/sub:block pl-4 space-y-1 bg-black/50 py-1">
-                        <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">O klubie</a>
-                        <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Ludzie Legionu</a>
-                        <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold">Kontakt</a>
-                    </div>
-                </div>
-
-                <!-- WYBÓR JĘZYKA (TŁUMACZENIE) -->
-                <div class="border-t border-juve-border mt-2 pt-2 px-5 py-2">
-                    <span class="block text-[10px] font-black uppercase tracking-widest text-gold mb-2">Język / Language</span>
-                    <div class="grid grid-cols-2 gap-1.5">
-                        <button onclick="changeLanguage('pl')" class="bg-black/60 hover:bg-gold hover:text-black border border-juve-border text-slate-300 text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-center">Polski</button>
-                        <button onclick="changeLanguage('en')" class="bg-black/60 hover:bg-gold hover:text-black border border-juve-border text-slate-300 text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-center">English</button>
-                        <button onclick="changeLanguage('es')" class="bg-black/60 hover:bg-gold hover:text-black border border-juve-border text-slate-300 text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-center">Español</button>
-                        <button onclick="changeLanguage('ru')" class="bg-black/60 hover:bg-gold hover:text-black border border-juve-border text-slate-300 text-[11px] font-bold py-1.5 px-2 rounded-lg transition-all text-center">Русский</button>
+        
+        <!-- LEWA STRONA: ROZWIJANE MENU GŁÓWNE + LOGO -->
+        <div class="flex items-center space-x-5">
+            <!-- ROZWIJANE MENU GŁÓWNE (Z STABILNYM HOVEREM) -->
+            <div class="dropdown-container">
+                <button class="bg-[#181818] border border-juve-border text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <div class="dropdown-menu left-0 w-64 space-y-1">
+                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Strona główna</a>
+                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
+                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
+                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
+                    <a href="historia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Historia</a>
+                    
+                    <!-- ROZWIJANA SEKCJA KLUB -->
+                    <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
+                        <div class="px-5 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
+                            <span>Klub</span>
+                            <span class="text-[10px]">▼</span>
+                        </div>
+                        <div class="sub-dropdown-menu space-y-1 py-1">
+                            <a href="o-klubie/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">O klubie</a>
+                            <a href="ludzie-legionu/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a>
+                            <a href="kontakt/index.html" class="block px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Kontakt</a>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- LOGO -->
+            <a href="index.html" class="flex items-center">
+                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-14 w-auto object-contain cursor-pointer filter drop-shadow">
+            </a>
         </div>
+
+        <!-- PRAWA STRONA: ODDZIELNE MENU TŁUMACZENIA (Z STABILNYM HOVEREM) -->
+        <div class="dropdown-container">
+            <button class="bg-[#181818] border border-juve-border text-gold hover:bg-gold hover:text-black px-4 h-12 rounded-xl flex items-center space-x-2 transition-all shadow-md focus:outline-none cursor-pointer text-xs font-black uppercase tracking-wider">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                <span id="current-lang-label">PL</span>
+                <span class="text-[10px]">▼</span>
+            </button>
+            <div class="dropdown-menu right-0 w-40 space-y-1">
+                <button onclick="changeLanguage('pl')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Polski (PL)</button>
+                <button onclick="changeLanguage('en')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">English (EN)</button>
+                <button onclick="changeLanguage('es')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Español (ES)</button>
+                <button onclick="changeLanguage('ru')" class="w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors">Русский (RU)</button>
+            </div>
+        </div>
+
     </header>
 
     <!-- GŁÓWNA SEKCJA -->
@@ -113,47 +163,51 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY (BLOKADA URL ORAZ TŁUMACZENIA) -->
+    <!-- SKRYPTY -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.location.protocol !== 'file:') {
                 window.history.replaceState({}, '', '/');
             }
 
-            // Załaduj zapisany język
             const savedLang = localStorage.getItem('legion_lang') || 'pl';
             changeLanguage(savedLang, false);
         });
 
-        // Słownik tłumaczeń
         const translations = {
             pl: {
                 welcome: "Witaj w oficjalnym serwisie klubowym",
-                rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy."
+                rights: "Wszystkie prawa zastrzeżone. Oficjalny serwis klubowy.",
+                label: "PL"
             },
             en: {
                 welcome: "Welcome to the official club website",
-                rights: "All rights reserved. Official club service."
+                rights: "All rights reserved. Official club service.",
+                label: "EN"
             },
             es: {
                 welcome: "Bienvenido al sitio web oficial del club",
-                rights: "Todos los derechos reservados. Servicio oficial del club."
+                rights: "Todos los derechos reservados. Servicio oficial del club.",
+                label: "ES"
             },
             ru: {
                 welcome: "Добро пожаловать на официальный сайт клуба",
-                rights: "Все права защищены. Официальный клубный сервис."
+                rights: "Все права защищены. Официальный клубный сервис.",
+                label: "RU"
             }
         };
 
-        function changeLanguage(lang, reload = true) {
+        function changeLanguage(lang) {
             localStorage.setItem('legion_lang', lang);
             const t = translations[lang] || translations['pl'];
 
             const welcomeEl = document.getElementById('hero-welcome-text');
             const rightsEl = document.getElementById('footer-rights');
+            const labelEl = document.getElementById('current-lang-label');
 
             if(welcomeEl) welcomeEl.innerText = t.welcome;
             if(rightsEl) rightsEl.innerText = t.rights;
+            if(labelEl) labelEl.innerText = t.label;
         }
     </script>
 </body>
