@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok – Oficjalny Serwis Klubu</title>
+    <title>Panel Administracyjny – Legion Białystok</title>
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,181 +36,588 @@
             }
         }
     </script>
-    <style>
-        .dropdown-container {
-            position: relative;
-        }
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            margin-top: 8px;
-            background: #141414;
-            border: 1px solid #2a2a2a;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-            padding: 0.75rem 0;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.2s ease-in-out;
-            z-index: 100;
-        }
-        .dropdown-container:hover .dropdown-menu,
-        .dropdown-menu:hover {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .sub-dropdown-container {
-            position: relative;
-        }
-        .sub-dropdown-menu {
-            display: none;
-            padding-left: 0.5rem;
-            background: #141414;
-            margin-top: 0.1rem;
-            margin-bottom: 0.1rem;
-        }
-        .sub-dropdown-container:hover .sub-dropdown-menu {
-            display: block;
-        }
-    </style>
 </head>
 <body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- GÓRNY PASEK / NAWIGACJA -->
-    <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-50">
-        <div class="flex items-center space-x-5">
-            <div class="dropdown-container">
-                <button class="bg-black/40 border border-white/20 text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+    <!-- EKRAN LOGOWANIA -->
+    <div id="login-screen" class="fixed inset-0 bg-[#0b0b0b] z-50 flex items-center justify-center p-6">
+        <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 md:p-10 max-w-md w-full space-y-6 shadow-2xl">
+            <div class="text-center space-y-2">
+                <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-16 w-auto mx-auto object-contain">
+                <h1 class="text-2xl font-black uppercase tracking-wider text-white">Panel CMS</h1>
+                <p class="text-xs text-slate-400">Zaloguj się, aby zarządzać serwisem Legion Białystok</p>
+            </div>
+            
+            <form id="login-form" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Login</label>
+                    <input type="text" id="login-user" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Hasło</label>
+                    <input type="password" id="login-pass" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
+                </div>
+                
+                <div id="login-error" class="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-xl text-xs font-bold text-center hidden space-y-1">
+                    <p>Błędny login lub hasło!</p>
+                    <span class="text-[10px] text-slate-400 block font-normal">Domyślny login: mpiotrowski | hasło: Jaga1920.</span>
+                </div>
+
+                <button type="submit" class="w-full bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-widest py-4 rounded-xl transition-all cursor-pointer shadow-lg">
+                    Zaloguj się
                 </button>
-                <div class="dropdown-menu left-0 w-64 space-y-1">
-                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-gold hover:bg-gold/10 transition-colors">Strona główna</a>
-                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
-                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
-                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
-                    
-                    <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
-                        <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
-                            <span>Klub</span>
-                            <span class="text-[10px]">▼</span>
+            </form>
+        </div>
+    </div>
+
+    <!-- GŁÓWNA ZAWARTOŚĆ PANELU -->
+    <div id="admin-main-content" class="hidden flex-col min-h-screen justify-between">
+        <!-- GÓRNY PASEK -->
+        <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-40">
+            <div class="flex items-center space-x-5">
+                <a href="../index.html" class="flex items-center">
+                    <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
+                </a>
+                <span class="text-xs font-black uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-lg">Panel CMS</span>
+                <span id="logged-user-badge" class="text-xs font-bold text-slate-300 hidden md:inline"></span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Wróć do strony &rarr;</a>
+                <button onclick="handleLogout()" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">Wyloguj</button>
+            </div>
+        </header>
+
+        <!-- KONTENER ADMINISTRACYJNY Z ZAKŁADKAMI -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-8">
+            
+            <div id="toast" class="fixed bottom-6 right-6 bg-gold text-black px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50">
+                Zmiany zostały zapisane!
+            </div>
+
+            <!-- NAWIGACJA ZAKŁADEK -->
+            <div class="flex flex-wrap gap-2 border-b border-juve-border pb-4">
+                <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gold text-black transition-all cursor-pointer">Użytkownicy</button>
+                <button onclick="switchTab('matchcenter')" id="tab-btn-matchcenter" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Match Center</button>
+                <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Najbliższe Mecze</button>
+                <button onclick="switchTab('table')" id="tab-btn-table" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Tabela</button>
+                <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Artykuły</button>
+                <button onclick="switchTab('trophies')" id="tab-btn-trophies" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Trofea</button>
+                <button onclick="switchTab('people')" id="tab-btn-people" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Skład / Ludzie</button>
+            </div>
+
+            <!-- 1. ZAKŁADKA: UŻYTKOWNICY -->
+            <div id="tab-users" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Użytkownicy i Permisje</h2>
+                    <p class="text-xs text-slate-400 mt-1">Twórz konta, nadawaj loginy, hasła oraz uprawnienia do zakładek panelu.</p>
+                </div>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowego użytkownika</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="new-user-login" placeholder="Login" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="password" id="new-user-pass" placeholder="Hasło" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <div class="space-y-2 pt-2">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Wybierz permisje:</label>
+                        <div class="grid grid-cols-2 md:grid-cols-6 gap-3 text-xs font-bold">
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="matchcenter" class="new-perm accent-[#d4af37]"> <span>Match Center</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="matches" class="new-perm accent-[#d4af37]"> <span>Terminarz</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="table" class="new-perm accent-[#d4af37]"> <span>Tabela</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="articles" class="new-perm accent-[#d4af37]"> <span>Artykuły</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="trophies" class="new-perm accent-[#d4af37]"> <span>Trofea</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="people" class="new-perm accent-[#d4af37]"> <span>Skład</span></label>
                         </div>
-                        <div class="sub-dropdown-menu space-y-1 py-1">
-                            <a href="o-klubie/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
+                    </div>
+                    <button onclick="addUser()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj użytkownika</button>
+                </div>
+                <div id="admin-users-list" class="space-y-3"></div>
+            </div>
+
+            <!-- 2. ZAKŁADKA: MATCH CENTER -->
+            <div id="tab-matchcenter" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Zarządzanie Match Center (Mecz na żywo)</h2>
+                    <p class="text-xs text-slate-400 mt-1">Konfiguruj wynik, statystyki i relację na żywo z nadchodzącego meczu.</p>
+                </div>
+
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">1. Informacje o spotkaniu i wynik</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Gospodarz</label>
+                            <input type="text" id="mc-home-team" value="Legion Białystok" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Gość (Przeciwnik)</label>
+                            <input type="text" id="mc-away-team" placeholder="np. KS Wasilków" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Status / Minutnik</label>
+                            <select id="mc-status" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold text-xs font-black uppercase">
+                                <option value="Przed meczem">Przed meczem</option>
+                                <option value="1. Połowa">1. Połowa</option>
+                                <option value="Przerwa">Przerwa</option>
+                                <option value="2. Połowa">2. Połowa</option>
+                                <option value="Koniec meczu">Koniec meczu</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Bramki Gospodarza</label>
+                            <input type="number" id="mc-home-goals" value="0" min="0" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold text-lg font-black text-center">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Bramki Gościa</label>
+                            <input type="number" id="mc-away-goals" value="0" min="0" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold text-lg font-black text-center">
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <a href="index.html" class="flex items-center">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
-            </a>
-        </div>
-
-        <div class="flex items-center space-x-4">
-            <a href="panel/index.html" class="bg-gold/10 border border-gold/30 text-gold hover:bg-gold hover:text-black px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all">Panel CMS</a>
-        </div>
-    </header>
-
-    <!-- GŁÓWNA ZAWARTOŚĆ -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-6 pt-32 pb-20 space-y-16">
-        
-        <!-- HERO / MATCH CENTER NA ŻYWO -->
-        <section id="match-center-section" class="bg-[#141414] border border-juve-border rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 bg-gold/10 border-l border-b border-gold/30 px-4 py-1.5 rounded-bl-2xl text-[10px] font-black uppercase tracking-widest text-gold">Match Center Live</div>
-            
-            <div id="match-center-content" class="space-y-8">
-                <!-- Wstrzykiwane przez JS -->
-            </div>
-        </section>
-
-        <!-- SEKCJA: NAJBLIŻSZE MECZE I AKTUALNOŚCI -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- LEWA STRONA: AKTUALNOŚCI Z TAGAMI -->
-            <div class="lg:col-span-2 space-y-6">
-                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najnowsze Aktualności</h2>
-                    <span class="text-xs font-bold text-gold">Legion Białystok</span>
-                </div>
-                
-                <div id="public-articles-container" class="space-y-6">
-                    <!-- Wstrzykiwane z panelu -->
-                </div>
-            </div>
-
-            <!-- PRAWA STRONA: TERMINARZ / NAJBLIŻSZE MECZE -->
-            <div class="space-y-6">
-                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Terminarz</h2>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">2. Statystyki meczowe</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="text-[10px] uppercase text-slate-400 font-bold block mb-1">Posiadanie piłki (%)</label>
+                            <div class="flex space-x-2">
+                                <input type="number" id="mc-stat-poss-h" placeholder="Dom" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="50">
+                                <input type="number" id="mc-stat-poss-a" placeholder="Gość" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="50">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase text-slate-400 font-bold block mb-1">Strzały celne</label>
+                            <div class="flex space-x-2">
+                                <input type="number" id="mc-stat-shots-on-h" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                                <input type="number" id="mc-stat-shots-on-a" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase text-slate-400 font-bold block mb-1">Strzały niecelne</label>
+                            <div class="flex space-x-2">
+                                <input type="number" id="mc-stat-shots-off-h" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                                <input type="number" id="mc-stat-shots-off-a" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase text-slate-400 font-bold block mb-1">Rzuty rożne</label>
+                            <div class="flex space-x-2">
+                                <input type="number" id="mc-stat-corners-h" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                                <input type="number" id="mc-stat-corners-a" class="w-1/2 bg-black/60 border border-juve-border rounded-lg px-2 py-2 text-center text-xs font-bold" value="0">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="upcoming-matches-container" class="space-y-4">
-                    <!-- Wstrzykiwane z panelu -->
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">3. Wydarzenia na boisku (Minuta po minucie)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <input type="text" id="ev-minute" placeholder="Minuta (np. 45')" class="bg-black/60 border border-juve-border rounded-xl px-4 py-2.5 text-white text-xs font-bold">
+                        <select id="ev-type" class="bg-black/60 border border-juve-border rounded-xl px-4 py-2.5 text-gold text-xs font-bold uppercase">
+                            <option value="goal">⚽ Gol</option>
+                            <option value="yellow">🟨 Żółta kartka</option>
+                            <option value="red">🟥 Czerwona kartka</option>
+                            <option value="sub">🔄 Zmiana</option>
+                        </select>
+                        <select id="ev-team" class="bg-black/60 border border-juve-border rounded-xl px-4 py-2.5 text-white text-xs font-bold uppercase">
+                            <option value="home">Gospodarz (Legion)</option>
+                            <option value="away">Gość (Przeciwnik)</option>
+                        </select>
+                        <input type="text" id="ev-desc" placeholder="Opis (np. Kowalski)" class="bg-black/60 border border-juve-border rounded-xl px-4 py-2.5 text-white text-xs font-bold">
+                    </div>
+                    <button onclick="addMatchEvent()" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">+ Dodaj wydarzenie</button>
+                    
+                    <div id="admin-events-list" class="space-y-2 pt-2"></div>
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="saveMatchCenterData()" class="bg-gold hover:bg-gold-light text-black px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz i publikuj Match Center</button>
                 </div>
             </div>
 
-        </div>
+            <!-- 3. ZAKŁADKA: NAJBLIŻSZE MECZE -->
+            <div id="tab-matches" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Zarządzanie Najbliższymi Meczami</h2>
+                    <p class="text-xs text-slate-400 mt-1">Dodawaj, edytuj i usuwaj nadchodzące spotkania drużyny.</p>
+                </div>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy mecz</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Przeciwnik</label>
+                            <input type="text" id="match-opponent" placeholder="np. KS Wasilków" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Data i Godzina</label>
+                            <input type="text" id="match-date" placeholder="np. 25.09.2026, 16:00" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Rozgrywki / Status</label>
+                            <input type="text" id="match-competition" placeholder="np. Klasa Okręgowa" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                    </div>
+                    <button onclick="addUpcomingMatch()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj mecz do terminarza</button>
+                </div>
+                <div id="admin-matches-list" class="space-y-3"></div>
+            </div>
 
-    </main>
-
-    <!-- STOPKA -->
-    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-12 px-6 md:px-16">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-juve-border">
-            <div class="space-y-4">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain">
-                <p class="text-xs text-slate-400 leading-relaxed">Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone &copy; 2026.</p>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Nawigacja</h4>
-                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
-                    <li><a href="index.html" class="text-slate-400 hover:text-gold transition-colors">Strona główna</a></li>
-                    <li><a href="druzyna/index.html" class="text-slate-400 hover:text-gold transition-colors">Pierwsza drużyna</a></li>
-                    <li><a href="akademia/index.html" class="text-slate-400 hover:text-gold transition-colors">Akademia</a></li>
-                    <li><a href="tabela/index.html" class="text-slate-400 hover:text-gold transition-colors">Tabela</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Klub</h4>
-                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
-                    <li><a href="o-klubie/index.html" class="text-slate-400 hover:text-gold transition-colors">O klubie</a></li>
-                    <li><a href="ludzie-legionu/index.html" class="text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a></li>
-                    <li><a href="kontakt/index.html" class="text-slate-400 hover:text-gold transition-colors">Kontakt</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Social Media</h4>
-                <div class="flex space-x-3 pt-1">
-                    <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-10 h-10 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="w-10 h-10 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Instagram">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
+            <!-- 4. ZAKŁADKA: TABELA -->
+            <div id="tab-table" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-juve-border pb-4">
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Tabela Ligowa</h2>
+                        <p class="text-xs text-slate-400 mt-1">Wybierz sezon, edytuj drużyny lub dodaj nowe wiersze do tabeli.</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Sezon:</label>
+                        <select id="admin-season-select" onchange="switchAdminSeason(this.value)" class="bg-black/60 border border-juve-border text-gold text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl focus:outline-none focus:border-gold">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-juve-border text-[10px] font-black uppercase tracking-widest text-slate-400 bg-black/40">
+                                <th class="py-3 px-4 text-center w-16">Poz</th>
+                                <th class="py-3 px-4">Drużyna</th>
+                                <th class="py-3 px-4 text-center w-16">M</th>
+                                <th class="py-3 px-4 text-center w-16 text-gold">Pkt</th>
+                                <th class="py-3 px-4 text-center w-16">Z</th>
+                                <th class="py-3 px-4 text-center w-16">R</th>
+                                <th class="py-3 px-4 text-center w-16">P</th>
+                                <th class="py-3 px-3 text-center w-24">Bramki</th>
+                                <th class="py-3 px-4 text-center w-20">Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-juve-border text-xs font-bold"></tbody>
+                    </table>
+                </div>
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                    <button onclick="addTableRow()" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">+ Dodaj drużynę</button>
+                    <button onclick="saveTableData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz tabelę</button>
                 </div>
             </div>
-        </div>
-        <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
-            <span>Legion Białystok &copy; 2026. Wszelkie prawa zastrzeżone.</span>
-        </div>
-    </footer>
 
-    <!-- SKRYPTY ŁADUJĄCE DANE Z PANELU -->
+            <!-- 5. ZAKŁADKA: ARTYKUŁY -->
+            <div id="tab-articles" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Artykuły i Aktualności</h2>
+                    <p class="text-xs text-slate-400 mt-1">Dodawaj artykuły, formatuj treść, dodawaj tagi oraz wczytuj zdjęcia bezpośrednio z dysku.</p>
+                </div>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy artykuł</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="art-title" placeholder="Tytuł artykułu" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="text" id="art-date" placeholder="Data (np. 18.09.2026)" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Zdjęcie główne z dysku</label>
+                            <input type="file" id="art-file" accept="image/*" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-2 text-slate-300 text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold file:text-black hover:file:bg-gold-light cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Tag / Kategoria</label>
+                            <input type="text" id="art-tag" placeholder="np. Mecz, Klub, Transfery" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold font-bold text-xs">
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <button type="button" onclick="formatText('bold')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><b>B</b></button>
+                        <button type="button" onclick="formatText('italic')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><i>I</i></button>
+                        <button type="button" onclick="formatText('underline')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><u>U</u></button>
+                        <button type="button" onclick="formatText('insertUnorderedList')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all">• Lista</button>
+                    </div>
+
+                    <div id="art-content" contenteditable="true" class="w-full min-h-[150px] bg-black/60 border border-juve-border rounded-xl p-4 text-white text-xs font-normal focus:outline-none focus:border-gold overflow-y-auto" placeholder="Treść artykułu..."></div>
+
+                    <button onclick="addArticle()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Opublikuj artykuł</button>
+                </div>
+                <div id="admin-articles-list" class="space-y-3"></div>
+            </div>
+
+            <!-- 6. ZAKŁADKA: TROFEA -->
+            <div id="tab-trophies" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Trofea i Osiągnięcia</h2>
+                    <p class="text-xs text-slate-400 mt-1">Zarządzaj pucharami i osiągnięciami klubowymi.</p>
+                </div>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj trofeum</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="trophy-name" placeholder="Nazwa trofeum" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="text" id="trophy-year" placeholder="Rok" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <button onclick="addTrophy()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj trofeum</button>
+                </div>
+                <div id="admin-trophies-list" class="space-y-3"></div>
+            </div>
+
+            <!-- 7. ZAKŁADKA: SKŁAD / LUDZIE -->
+            <div id="tab-people" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Ludzie Legionu, Sztab i Akademia</h2>
+                    <p class="text-xs text-slate-400 mt-1">Wgrywaj zdjęcia zawodników, trenerów i zarządu bezpośrednio ze swojego dysku.</p>
+                </div>
+                <div id="admin-people-container" class="space-y-8"></div>
+                <div class="pt-4">
+                    <button onclick="savePeopleData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz zmiany personalne</button>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- STOPKA -->
+        <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-8 px-6 text-center text-xs text-slate-500">
+            Legion Białystok CMS &copy; 2026. Wszelkie prawa zastrzeżone.
+        </footer>
+    </div>
+
+    <!-- SKRYPT PANELU -->
     <script>
+        let currentAdminSeason = '2026';
+        let tablesBySeason = {};
+        let peopleData = {};
+        let articlesData = [];
+        let trophiesData = [];
+        let upcomingMatchesData = [];
+        let matchCenterData = {};
+        let usersData = [];
+        let currentUser = null;
+
+        const rolesConfig = [
+            { key: "zarzad", title: "Zarząd Klubu" },
+            { key: "sztab", title: "Sztab Szkolny i Trenerzy" },
+            { key: "dzialacze", title: "Działacze i Administracja" },
+            { key: "druzyna", title: "Pierwsza Drużyna (Zawodnicy)" },
+            { key: "akademia", title: "Akademia (Trenerzy / Młodzież)" }
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
-            loadMatchCenter();
-            loadArticles();
-            loadUpcomingMatches();
+            initUsers();
+
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+
+            const activeUserLogin = localStorage.getItem('legion_active_user');
+            if (activeUserLogin) {
+                initUsers();
+                currentUser = usersData.find(u => u.login === activeUserLogin);
+                if (currentUser) {
+                    showAdminPanel();
+                }
+            }
         });
 
-        function loadMatchCenter() {
-            const mcContainer = document.getElementById('match-center-content');
-            if (!mcContainer) return;
+        function initUsers() {
+            let savedUsers = localStorage.getItem('legion_users');
+            if (!savedUsers) {
+                usersData = [
+                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] }
+                ];
+                localStorage.setItem('legion_users', JSON.stringify(usersData));
+            } else {
+                try {
+                    usersData = JSON.parse(savedUsers);
+                    if (!usersData.some(u => u.login === 'mpiotrowski')) {
+                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] });
+                        localStorage.setItem('legion_users', JSON.stringify(usersData));
+                    }
+                } catch(e) {
+                    usersData = [
+                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] }
+                    ];
+                }
+            }
+        }
 
-            const mcData = JSON.parse(localStorage.getItem('legion_match_center')) || {
+        function handleLogin() {
+            const uInput = document.getElementById('login-user');
+            const pInput = document.getElementById('login-pass');
+            const errDiv = document.getElementById('login-error');
+
+            const u = uInput ? uInput.value.trim() : '';
+            const p = pInput ? pInput.value.trim() : '';
+
+            initUsers();
+            const found = usersData.find(user => user.login === u && user.pass === p);
+            
+            if (found) {
+                currentUser = found;
+                localStorage.setItem('legion_active_user', found.login);
+                if (errDiv) errDiv.classList.add('hidden');
+                if (uInput) uInput.classList.remove('border-red-500');
+                if (pInput) pInput.classList.remove('border-red-500');
+                showAdminPanel();
+            } else {
+                if (errDiv) errDiv.classList.remove('hidden');
+                if (uInput) uInput.classList.add('border-red-500');
+                if (pInput) pInput.classList.add('border-red-500');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('legion_active_user');
+            currentUser = null;
+            document.getElementById('login-screen').classList.remove('hidden');
+            const mainCont = document.getElementById('admin-main-content');
+            mainCont.classList.remove('flex');
+            mainCont.classList.add('hidden');
+            
+            const uInput = document.getElementById('login-user');
+            const pInput = document.getElementById('login-pass');
+            const errDiv = document.getElementById('login-error');
+
+            if (uInput) { uInput.value = ''; uInput.classList.remove('border-red-500'); }
+            if (pInput) { pInput.value = ''; pInput.classList.remove('border-red-500'); }
+            if (errDiv) errDiv.classList.add('hidden');
+        }
+
+        function showAdminPanel() {
+            const loginScreen = document.getElementById('login-screen');
+            const mainCont = document.getElementById('admin-main-content');
+
+            if (loginScreen) loginScreen.classList.add('hidden');
+            if (mainCont) {
+                mainCont.classList.remove('hidden');
+                mainCont.classList.add('flex');
+            }
+            
+            const badge = document.getElementById('logged-user-badge');
+            if (badge) badge.innerText = `Zalogowany: ${currentUser.login}`;
+
+            applyPermissions();
+            loadAllData();
+            renderAdminTable();
+            renderAdminPeople();
+            renderAdminArticles();
+            renderAdminTrophies();
+            renderAdminUsers();
+            renderAdminMatches();
+            renderMatchCenterForm();
+            
+            if (currentUser.login === 'mpiotrowski') {
+                switchTab('users');
+            } else {
+                const perms = currentUser.perms || [];
+                if (perms.length > 0) switchTab(perms[0]);
+            }
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gold', 'text-black');
+                btn.classList.add('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+            });
+
+            const targetTab = document.getElementById(`tab-${tabName}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if (targetTab) targetTab.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.remove('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+                targetBtn.classList.add('bg-gold', 'text-black');
+            }
+        }
+
+        function applyPermissions() {
+            const perms = currentUser.perms || [];
+            
+            const btnUsers = document.getElementById('tab-btn-users');
+            const btnMatchCenter = document.getElementById('tab-btn-matchcenter');
+            const btnMatches = document.getElementById('tab-btn-matches');
+            const btnTable = document.getElementById('tab-btn-table');
+            const btnArticles = document.getElementById('tab-btn-articles');
+            const btnTrophies = document.getElementById('tab-btn-trophies');
+            const btnPeople = document.getElementById('tab-btn-people');
+
+            if (currentUser.login === 'mpiotrowski') {
+                if (btnUsers) btnUsers.style.display = 'block';
+            } else {
+                if (btnUsers) btnUsers.style.display = 'none';
+            }
+
+            if (btnMatchCenter) btnMatchCenter.style.display = perms.includes('matchcenter') ? 'block' : 'none';
+            if (btnMatches) btnMatches.style.display = perms.includes('matches') ? 'block' : 'none';
+            if (btnTable) btnTable.style.display = perms.includes('table') ? 'block' : 'none';
+            if (btnArticles) btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
+            if (btnTrophies) btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
+            if (btnPeople) btnPeople.style.display = perms.includes('people') ? 'block' : 'none';
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+
+        function renderAdminUsers() {
+            const list = document.getElementById('admin-users-list');
+            if (!list) return;
+            list.innerHTML = '';
+            usersData.forEach((u, idx) => {
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">${u.login}</h4>
+                            <span class="text-[10px] text-gold font-bold">Permisje: ${u.perms.join(', ') || 'brak'}</span>
+                        </div>
+                        ${u.login !== 'mpiotrowski' ? `<button onclick="removeUser(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń konto</button>` : `<span class="text-[10px] text-slate-500 font-bold uppercase">Główny Admin</span>`}
+                    </div>
+                `;
+            });
+        }
+
+        function addUser() {
+            const login = document.getElementById('new-user-login').value.trim();
+            const pass = document.getElementById('new-user-pass').value.trim();
+            const checkedPerms = document.querySelectorAll('.new-perm:checked');
+            let perms = [];
+            checkedPerms.forEach(cb => perms.push(cb.value));
+
+            if (!login || !pass) return alert('Wpisz login i hasło!');
+            if (usersData.some(u => u.login === login)) return alert('Taki użytkownik już istnieje!');
+
+            usersData.push({ login, pass, perms });
+            localStorage.setItem('legion_users', JSON.stringify(usersData));
+
+            document.getElementById('new-user-login').value = '';
+            document.getElementById('new-user-pass').value = '';
+            document.querySelectorAll('.new-perm').forEach(cb => cb.checked = false);
+
+            renderAdminUsers();
+            showToast();
+        }
+
+        function removeUser(idx) {
+            usersData.splice(idx, 1);
+            localStorage.setItem('legion_users', JSON.stringify(usersData));
+            renderAdminUsers();
+            showToast();
+        }
+
+        function loadAllData() {
+            tablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || { "2026": [], "2025": [], "2024": [] };
+            peopleData = JSON.parse(localStorage.getItem('legion_people')) || { "zarzad": [], "sztab": [], "dzialacze": [], "druzyna": [], "akademia": [] };
+            articlesData = JSON.parse(localStorage.getItem('legion_articles')) || [];
+            trophiesData = JSON.parse(localStorage.getItem('legion_trophies')) || [];
+            upcomingMatchesData = JSON.parse(localStorage.getItem('legion_upcoming_matches')) || [];
+            matchCenterData = JSON.parse(localStorage.getItem('legion_match_center')) || {
                 homeTeam: "Legion Białystok",
                 awayTeam: "Przeciwnik",
                 status: "Przed meczem",
@@ -219,115 +626,395 @@
                 stats: { possH: 50, possA: 50, shotsOnH: 0, shotsOnA: 0, shotsOffH: 0, shotsOffA: 0, cornersH: 0, cornersA: 0 },
                 events: []
             };
-
-            let eventsHtml = '';
-            if (mcData.events && mcData.events.length > 0) {
-                eventsHtml = `<div class="border-t border-juve-border pt-6 space-y-3"><h4 class="text-xs font-black uppercase text-gold">Wydarzenia na żywo</h4><div class="space-y-2">`;
-                mcData.events.forEach(ev => {
-                    let icon = ev.type === 'goal' ? '⚽' : (ev.type === 'yellow' ? '🟨' : (ev.type === 'red' ? '🟥' : '🔄'));
-                    eventsHtml += `
-                        <div class="flex items-center justify-between bg-black/40 border border-juve-border p-3 rounded-xl text-xs">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-gold font-black">${ev.minute}</span>
-                                <span>${icon}</span>
-                                <span class="text-white font-bold">${ev.desc}</span>
-                            </div>
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">(${ev.team === 'home' ? mcData.homeTeam : mcData.awayTeam})</span>
-                        </div>
-                    `;
-                });
-                eventsHtml += `</div></div>`;
-            }
-
-            mcContainer.innerHTML = `
-                <div class="text-center space-y-4">
-                    <span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest">${mcData.status}</span>
-                    <div class="flex items-center justify-center space-x-6 md:space-x-12 py-4">
-                        <div class="text-right w-1/3">
-                            <h3 class="text-base md:text-2xl font-black uppercase text-white truncate">${mcData.homeTeam}</h3>
-                        </div>
-                        <div class="bg-black/60 border border-juve-border px-6 py-3 rounded-2xl flex items-center space-x-4 shadow-xl">
-                            <span class="text-2xl md:text-4xl font-black text-gold">${mcData.homeGoals}</span>
-                            <span class="text-slate-500 font-bold">-</span>
-                            <span class="text-2xl md:text-4xl font-black text-gold">${mcData.awayGoals}</span>
-                        </div>
-                        <div class="text-left w-1/3">
-                            <h3 class="text-base md:text-2xl font-black uppercase text-white truncate">${mcData.awayTeam || 'Gość'}</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STATYSTYKI -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/40 border border-juve-border p-6 rounded-2xl text-xs">
-                    <div class="space-y-3">
-                        <div class="flex justify-between font-bold text-slate-400">
-                            <span>Posiadanie piłki (%)</span>
-                            <span>${mcData.stats?.possH ?? 50}% - ${mcData.stats?.possA ?? 50}%</span>
-                        </div>
-                        <div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden flex">
-                            <div class="bg-gold h-full" style="width: ${mcData.stats?.possH ?? 50}%"></div>
-                            <div class="bg-slate-600 h-full" style="width: ${mcData.stats?.possA ?? 50}%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2 text-center font-bold text-slate-300">
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Strzały celne</span>${mcData.stats?.shotsOnH ?? 0} : ${mcData.stats?.shotsOnA ?? 0}</div>
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Niecelne</span>${mcData.stats?.shotsOffH ?? 0} : ${mcData.stats?.shotsOffA ?? 0}</div>
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Rzuty rożne</span>${mcData.stats?.cornersH ?? 0} : ${mcData.stats?.cornersA ?? 0}</div>
-                    </div>
-                </div>
-
-                ${eventsHtml}
-            `;
         }
 
-        function loadArticles() {
-            const container = document.getElementById('public-articles-container');
-            if (!container) return;
+        function renderMatchCenterForm() {
+            document.getElementById('mc-home-team').value = matchCenterData.homeTeam || "Legion Białystok";
+            document.getElementById('mc-away-team').value = matchCenterData.awayTeam || "";
+            document.getElementById('mc-status').value = matchCenterData.status || "Przed meczem";
+            document.getElementById('mc-home-goals').value = matchCenterData.homeGoals ?? 0;
+            document.getElementById('mc-away-goals').value = matchCenterData.awayGoals ?? 0;
 
-            const articles = JSON.parse(localStorage.getItem('legion_articles')) || [];
-            if (articles.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak artykułów w bazie.</p>`;
-                return;
+            if (matchCenterData.stats) {
+                document.getElementById('mc-stat-poss-h').value = matchCenterData.stats.possH ?? 50;
+                document.getElementById('mc-stat-poss-a').value = matchCenterData.stats.possA ?? 50;
+                document.getElementById('mc-stat-shots-on-h').value = matchCenterData.stats.shotsOnH ?? 0;
+                document.getElementById('mc-stat-shots-on-a').value = matchCenterData.stats.shotsOnA ?? 0;
+                document.getElementById('mc-stat-shots-off-h').value = matchCenterData.stats.shotsOffH ?? 0;
+                document.getElementById('mc-stat-shots-off-a').value = matchCenterData.stats.shotsOffA ?? 0;
+                document.getElementById('mc-stat-corners-h').value = matchCenterData.stats.cornersH ?? 0;
+                document.getElementById('mc-stat-corners-a').value = matchCenterData.stats.cornersA ?? 0;
             }
 
-            container.innerHTML = '';
-            articles.forEach(art => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-3xl p-6 space-y-4 shadow-xl">
-                        ${art.img ? `<img src="${art.img}" alt="${art.title}" class="w-full h-56 object-cover rounded-2xl border border-juve-border">` : ''}
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-gold">${art.date}</span>
-                            ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">${art.tag}</span>` : ''}
+            renderMatchEventsList();
+        }
+
+        function renderMatchEventsList() {
+            const listContainer = document.getElementById('admin-events-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            const events = matchCenterData.events || [];
+            if (events.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak zarejestrowanych wydarzeń.</p>`;
+                return;
+            }
+            events.forEach((ev, idx) => {
+                let icon = ev.type === 'goal' ? '⚽' : (ev.type === 'yellow' ? '🟨' : (ev.type === 'red' ? '🟥' : '🔄'));
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/60 border border-juve-border p-3 rounded-xl text-xs">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-gold font-black">${ev.minute}</span>
+                            <span>${icon}</span>
+                            <span class="uppercase font-bold text-slate-400">(${ev.team === 'home' ? 'Gospodarz' : 'Gość'})</span>
+                            <span class="text-white font-bold">${ev.desc}</span>
                         </div>
-                        <h3 class="text-xl font-black uppercase tracking-wider text-white">${art.title}</h3>
-                        <div class="text-xs text-slate-300 space-y-2 leading-relaxed">${art.content}</div>
+                        <button onclick="removeMatchEvent(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
                     </div>
                 `;
             });
         }
 
-        function loadUpcomingMatches() {
-            const container = document.getElementById('upcoming-matches-container');
-            if (!container) return;
+        function addMatchEvent() {
+            const minute = document.getElementById('ev-minute').value.trim();
+            const type = document.getElementById('ev-type').value;
+            const team = document.getElementById('ev-team').value;
+            const desc = document.getElementById('ev-desc').value.trim();
 
-            const matches = JSON.parse(localStorage.getItem('legion_upcoming_matches')) || [];
-            if (matches.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak nadchodzących meczów w terminarzu.</p>`;
+            if (!minute || !desc) return alert('Wpisz minutę oraz opis wydarzenia!');
+
+            if (!matchCenterData.events) matchCenterData.events = [];
+            matchCenterData.events.push({ minute, type, team, desc });
+
+            document.getElementById('ev-minute').value = '';
+            document.getElementById('ev-desc').value = '';
+            renderMatchEventsList();
+        }
+
+        function removeMatchEvent(idx) {
+            matchCenterData.events.splice(idx, 1);
+            renderMatchEventsList();
+        }
+
+        function saveMatchCenterData() {
+            matchCenterData.homeTeam = document.getElementById('mc-home-team').value.trim();
+            matchCenterData.awayTeam = document.getElementById('mc-away-team').value.trim();
+            matchCenterData.status = document.getElementById('mc-status').value;
+            matchCenterData.homeGoals = parseInt(document.getElementById('mc-home-goals').value) || 0;
+            matchCenterData.awayGoals = parseInt(document.getElementById('mc-away-goals').value) || 0;
+
+            matchCenterData.stats = {
+                possH: parseInt(document.getElementById('mc-stat-poss-h').value) || 50,
+                possA: parseInt(document.getElementById('mc-stat-poss-a').value) || 50,
+                shotsOnH: parseInt(document.getElementById('mc-stat-shots-on-h').value) || 0,
+                shotsOnA: parseInt(document.getElementById('mc-stat-shots-on-a').value) || 0,
+                shotsOffH: parseInt(document.getElementById('mc-stat-shots-off-h').value) || 0,
+                shotsOffA: parseInt(document.getElementById('mc-stat-shots-off-a').value) || 0,
+                cornersH: parseInt(document.getElementById('mc-stat-corners-h').value) || 0,
+                cornersA: parseInt(document.getElementById('mc-stat-corners-a').value) || 0
+            };
+
+            localStorage.setItem('legion_match_center', JSON.stringify(matchCenterData));
+            showToast();
+        }
+
+        function renderAdminMatches() {
+            const listContainer = document.getElementById('admin-matches-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            if (upcomingMatchesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych najbliższych meczów.</p>`;
                 return;
             }
-
-            container.innerHTML = '';
-            matches.forEach(match => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-2xl p-4 flex items-center justify-between shadow-lg">
+            upcomingMatchesData.forEach((match, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
                         <div>
-                            <span class="text-[10px] text-gold font-bold uppercase">${match.competition || 'Mecz'}</span>
-                            <h4 class="text-xs font-black uppercase text-white mt-0.5">Legion Białystok vs ${match.opponent}</h4>
+                            <h4 class="text-xs font-black uppercase text-white">Legion Białystok vs ${match.opponent}</h4>
+                            <span class="text-[10px] text-gold font-bold">${match.date} | ${match.competition}</span>
                         </div>
-                        <span class="text-xs font-bold text-slate-300 text-right">${match.date}</span>
+                        <button onclick="removeUpcomingMatch(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
                     </div>
                 `;
             });
+        }
+
+        function addUpcomingMatch() {
+            const opponent = document.getElementById('match-opponent').value.trim();
+            const date = document.getElementById('match-date').value.trim();
+            const competition = document.getElementById('match-competition').value.trim();
+
+            if (!opponent) return alert('Wprowadź nazwę przeciwnika!');
+
+            upcomingMatchesData.push({ opponent, date, competition });
+            localStorage.setItem('legion_upcoming_matches', JSON.stringify(upcomingMatchesData));
+
+            document.getElementById('match-opponent').value = '';
+            document.getElementById('match-date').value = '';
+            document.getElementById('match-competition').value = '';
+
+            renderAdminMatches();
+            showToast();
+        }
+
+        function removeUpcomingMatch(idx) {
+            upcomingMatchesData.splice(idx, 1);
+            localStorage.setItem('legion_upcoming_matches', JSON.stringify(upcomingMatchesData));
+            renderAdminMatches();
+            showToast();
+        }
+
+        function switchAdminSeason(season) {
+            currentAdminSeason = season;
+            renderAdminTable();
+        }
+
+        function renderAdminTable() {
+            let list = tablesBySeason[currentAdminSeason] || [];
+            const tbody = document.getElementById('admin-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            list.forEach((row, index) => {
+                tbody.innerHTML += `
+                    <tr class="border-b border-juve-border/50">
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.pos}" data-idx="${index}" class="t-pos w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-white font-bold"></td>
+                        <td class="py-3 px-2"><input type="text" value="${row.team}" data-idx="${index}" class="t-team w-full bg-black/60 border border-juve-border rounded-lg px-3 py-1.5 text-white font-bold uppercase"></td>
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.m}" data-idx="${index}" class="t-m w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-white font-bold"></td>
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.pkt}" data-idx="${index}" class="t-pkt w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-gold font-black"></td>
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.z}" data-idx="${index}" class="t-z w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-white font-bold"></td>
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.r}" data-idx="${index}" class="t-r w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-white font-bold"></td>
+                        <td class="py-3 px-2 text-center"><input type="number" value="${row.p}" data-idx="${index}" class="t-p w-12 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-white font-bold"></td>
+                        <td class="py-3 px-2 text-center"><input type="text" value="${row.goals}" data-idx="${index}" class="t-goals w-20 bg-black/60 border border-juve-border rounded-lg text-center py-1.5 text-slate-300 font-bold"></td>
+                        <td class="py-3 px-2 text-center">
+                            <button onclick="removeTableRow(${index})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function addTableRow() {
+            if (!tablesBySeason[currentAdminSeason]) tablesBySeason[currentAdminSeason] = [];
+            tablesBySeason[currentAdminSeason].push({ pos: tablesBySeason[currentAdminSeason].length + 1, team: "NOWA DRUŻYNA", m: 0, pkt: 0, z: 0, r: 0, p: 0, goals: "0:0" });
+            renderAdminTable();
+        }
+
+        function removeTableRow(index) {
+            tablesBySeason[currentAdminSeason].splice(index, 1);
+            renderAdminTable();
+        }
+
+        function saveTableData() {
+            let list = tablesBySeason[currentAdminSeason];
+            const rows = document.querySelectorAll('#admin-table-body tr');
+            rows.forEach((tr, index) => {
+                list[index].pos = parseInt(tr.querySelector('.t-pos').value) || (index + 1);
+                list[index].team = tr.querySelector('.t-team').value;
+                list[index].m = parseInt(tr.querySelector('.t-m').value) || 0;
+                list[index].pkt = parseInt(tr.querySelector('.t-pkt').value) || 0;
+                list[index].z = parseInt(tr.querySelector('.t-z').value) || 0;
+                list[index].r = parseInt(tr.querySelector('.t-r').value) || 0;
+                list[index].p = parseInt(tr.querySelector('.t-p').value) || 0;
+                list[index].goals = tr.querySelector('.t-goals').value;
+            });
+            localStorage.setItem('legion_tables_by_season', JSON.stringify(tablesBySeason));
+            showToast();
+        }
+
+        function renderAdminArticles() {
+            const listContainer = document.getElementById('admin-articles-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            if (articlesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych artykułów.</p>`;
+                return;
+            }
+            articlesData.forEach((art, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div class="flex items-center space-x-3">
+                            ${art.img ? `<img src="${art.img}" class="w-10 h-10 object-cover rounded-lg border border-juve-border">` : ''}
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="text-xs font-black uppercase text-white">${art.title}</h4>
+                                    ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase">${art.tag}</span>` : ''}
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-bold">${art.date}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeArticle(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addArticle() {
+            const title = document.getElementById('art-title').value.trim();
+            const date = document.getElementById('art-date').value.trim();
+            const tag = document.getElementById('art-tag').value.trim();
+            const content = document.getElementById('art-content').innerHTML;
+            const fileInput = document.getElementById('art-file');
+
+            if (!title) return alert('Wprowadź tytuł artykułu!');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    articlesData.unshift({ title, date, img: e.target.result, tag, content });
+                    localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+                    resetArticleForm();
+                    renderAdminArticles();
+                    showToast();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                articlesData.unshift({ title, date, img: '', tag, content });
+                localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+                resetArticleForm();
+                renderAdminArticles();
+                showToast();
+            }
+        }
+
+        function resetArticleForm() {
+            document.getElementById('art-title').value = '';
+            document.getElementById('art-date').value = '';
+            document.getElementById('art-file').value = '';
+            document.getElementById('art-tag').value = '';
+            document.getElementById('art-content').innerHTML = '';
+        }
+
+        function removeArticle(idx) {
+            articlesData.splice(idx, 1);
+            localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+            renderAdminArticles();
+            showToast();
+        }
+
+        function renderAdminTrophies() {
+            const listContainer = document.getElementById('admin-trophies-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            if (trophiesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych trofeów.</p>`;
+                return;
+            }
+            trophiesData.forEach((trophy, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">${trophy.name}</h4>
+                            <span class="text-[10px] text-gold font-bold">Rok: ${trophy.year}</span>
+                        </div>
+                        <button onclick="removeTrophy(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addTrophy() {
+            const name = document.getElementById('trophy-name').value;
+            const year = document.getElementById('trophy-year').value;
+            if (!name) return alert('Wprowadź nazwę trofeum!');
+
+            trophiesData.push({ name, year });
+            localStorage.setItem('legion_trophies', JSON.stringify(trophiesData));
+            document.getElementById('trophy-name').value = '';
+            document.getElementById('trophy-year').value = '';
+            renderAdminTrophies();
+            showToast();
+        }
+
+        function removeTrophy(idx) {
+            trophiesData.splice(idx, 1);
+            localStorage.setItem('legion_trophies', JSON.stringify(trophiesData));
+            renderAdminTrophies();
+            showToast();
+        }
+
+        function renderAdminPeople() {
+            const container = document.getElementById('admin-people-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            rolesConfig.forEach(roleObj => {
+                let list = peopleData[roleObj.key] || [];
+                let html = `
+                    <div class="space-y-4 border border-juve-border rounded-2xl p-6 bg-black/40">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-black uppercase tracking-wider text-gold">${roleObj.title}</h3>
+                            <button onclick="addPerson('${roleObj.key}')" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer">+ Dodaj osobę</button>
+                        </div>
+                        <div class="space-y-3">
+                `;
+
+                if (list.length === 0) {
+                    html += `<p class="text-xs text-slate-500 italic">Brak osób w tej sekcji.</p>`;
+                } else {
+                    list.forEach((p, idx) => {
+                        html += `
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center bg-[#141414] border border-juve-border p-4 rounded-xl">
+                                <div class="md:col-span-3">
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Imię i nazwisko</label>
+                                    <input type="text" value="${p.name}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'name', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
+                                </div>
+                                <div class="md:col-span-3">
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Pozycja / Rola</label>
+                                    <input type="text" value="${p.role}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'role', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
+                                </div>
+                                <div class="md:col-span-4 flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg overflow-hidden bg-zinc-900 border border-juve-border flex-shrink-0 flex items-center justify-center">
+                                        ${p.photo ? `<img src="${p.photo}" class="w-full h-full object-cover">` : `<span class="text-[9px] text-slate-600">Brak</span>`}
+                                    </div>
+                                    <div class="w-full">
+                                        <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Zmień zdjęcie</label>
+                                        <input type="file" accept="image/*" onchange="updatePersonPhoto(event, '${roleObj.key}', ${idx})" class="w-full text-[10px] text-slate-300 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-bold file:bg-gold file:text-black cursor-pointer">
+                                    </div>
+                                </div>
+                                <div class="md:col-span-2 flex justify-end pt-4 md:pt-0">
+                                    <button onclick="removePerson('${roleObj.key}', ${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+
+                html += `</div></div>`;
+                container.innerHTML += html;
+            });
+        }
+
+        function addPerson(roleKey) {
+            if (!peopleData[roleKey]) peopleData[roleKey] = [];
+            peopleData[roleKey].push({ name: "Nowa Osoba", role: "Pozycja / Funkcja", photo: "" });
+            renderAdminPeople();
+        }
+
+        function updatePersonData(roleKey, idx, field, value) {
+            if (peopleData[roleKey] && peopleData[roleKey][idx]) {
+                peopleData[roleKey][idx][field] = value;
+            }
+        }
+
+        function updatePersonPhoto(event, roleKey, idx) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    peopleData[roleKey][idx].photo = e.target.result;
+                    renderAdminPeople();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removePerson(roleKey, idx) {
+            peopleData[roleKey].splice(idx, 1);
+            renderAdminPeople();
+        }
+
+        function savePeopleData() {
+            localStorage.setItem('legion_people', JSON.stringify(peopleData));
+            showToast();
         }
     </script>
 </body>
