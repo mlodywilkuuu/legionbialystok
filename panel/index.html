@@ -82,21 +82,32 @@
             </div>
         </header>
 
-        <!-- KONTENER ADMINISTRACYJNY -->
-        <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
+        <!-- KONTENER ADMINISTRACYJNY Z ZAKŁADKAMI -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-8">
             
             <!-- TOAST POWIADOMIEŃ -->
             <div id="toast" class="fixed bottom-6 right-6 bg-gold text-black px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50">
                 Zmiany zostały zapisane!
             </div>
 
-            <!-- SEKCJA 0: ZARZĄDZANIE UŻYTKOWNIKAMI I PERMISJAMI (Tylko dla głównego admina lub uprawnionych) -->
-            <div id="sec-users" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- NAWIGACJA ZAKŁADEK -->
+            <div class="flex flex-wrap gap-2 border-b border-juve-border pb-4">
+                <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gold text-black transition-all cursor-pointer">Użytkownicy</button>
+                <button onclick="switchTab('match')" id="tab-btn-match" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Match Center</button>
+                <button onclick="switchTab('table')" id="tab-btn-table" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Tabela</button>
+                <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Artykuły</button>
+                <button onclick="switchTab('trophies')" id="tab-btn-trophies" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Trofea</button>
+                <button onclick="switchTab('people')" id="tab-btn-people" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Skład / Ludzie</button>
+            </div>
+
+            <!-- TREŚĆ ZAKŁADEK -->
+
+            <!-- 1. ZAKŁADKA: UŻYTKOWNICY -->
+            <div id="tab-users" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Użytkownicy i Permisje</h2>
-                    <p class="text-xs text-slate-400 mt-1">Twórz konta, nadawaj loginy, hasła oraz precyzyjne uprawnienia do sekcji panelu.</p>
+                    <p class="text-xs text-slate-400 mt-1">Twórz konta, nadawaj loginy, hasła oraz uprawnienia do zakładek panelu.</p>
                 </div>
-
                 <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
                     <h3 class="text-sm font-black uppercase text-gold">Dodaj nowego użytkownika</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -104,7 +115,7 @@
                         <input type="password" id="new-user-pass" placeholder="Hasło" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
                     </div>
                     <div class="space-y-2 pt-2">
-                        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Wybierz permisje (uprawnienia do sekcji):</label>
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Wybierz permisje:</label>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs font-bold">
                             <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="match" class="new-perm accent-[#d4af37]"> <span>Match Center</span></label>
                             <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="table" class="new-perm accent-[#d4af37]"> <span>Tabela</span></label>
@@ -115,12 +126,11 @@
                     </div>
                     <button onclick="addUser()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj użytkownika</button>
                 </div>
-
                 <div id="admin-users-list" class="space-y-3"></div>
             </div>
 
-            <!-- SEKCJA 1: MATCH CENTER -->
-            <div id="sec-match" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- 2. ZAKŁADKA: MATCH CENTER -->
+            <div id="tab-match" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Match Center</h2>
                     <p class="text-xs text-slate-400 mt-1">Zarządzaj informacjami o spotkaniu na stronie głównej.</p>
@@ -142,8 +152,8 @@
                 <button onclick="saveMatchCenter()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz Match Center</button>
             </div>
 
-            <!-- SEKCJA 2: TABELA LIGOWA -->
-            <div id="sec-table" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- 3. ZAKŁADKA: TABELA -->
+            <div id="tab-table" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-juve-border pb-4">
                     <div>
                         <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Tabela Ligowa</h2>
@@ -158,7 +168,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
@@ -177,20 +186,18 @@
                         <tbody id="admin-table-body" class="divide-y divide-juve-border text-xs font-bold"></tbody>
                     </table>
                 </div>
-
                 <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
                     <button onclick="addTableRow()" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">+ Dodaj drużynę</button>
                     <button onclick="saveTableData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz tabelę</button>
                 </div>
             </div>
 
-            <!-- SEKCJA 3: ARTYKUŁY -->
-            <div id="sec-articles" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- 4. ZAKŁADKA: ARTYKUŁY -->
+            <div id="tab-articles" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Artykuły i Aktualności</h2>
                     <p class="text-xs text-slate-400 mt-1">Dodawaj artykuły z zaawansowanym formatowaniem treści.</p>
                 </div>
-
                 <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
                     <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy artykuł</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -210,17 +217,15 @@
 
                     <button onclick="addArticle()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Opublikuj artykuł</button>
                 </div>
-
                 <div id="admin-articles-list" class="space-y-3"></div>
             </div>
 
-            <!-- SEKCJA 4: TROFEA -->
-            <div id="sec-trophies" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- 5. ZAKŁADKA: TROFEA -->
+            <div id="tab-trophies" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Trofea i Osiągnięcia</h2>
                     <p class="text-xs text-slate-400 mt-1">Zarządzaj pucharami i osiągnięciami klubowymi.</p>
                 </div>
-
                 <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
                     <h3 class="text-sm font-black uppercase text-gold">Dodaj trofeum</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -229,19 +234,16 @@
                     </div>
                     <button onclick="addTrophy()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj trofeum</button>
                 </div>
-
                 <div id="admin-trophies-list" class="space-y-3"></div>
             </div>
 
-            <!-- SEKCJA 5: LUDZIE LEGIONU I DRUŻYNY -->
-            <div id="sec-people" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- 6. ZAKŁADKA: SKŁAD / LUDZIE -->
+            <div id="tab-people" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Ludzie Legionu, Sztab i Akademia</h2>
                     <p class="text-xs text-slate-400 mt-1">Brak losowych zdjęć – sekcje wyświetlają się tylko wtedy, gdy kogoś dodasz.</p>
                 </div>
-
                 <div id="admin-people-container" class="space-y-8"></div>
-
                 <div class="pt-4">
                     <button onclick="savePeopleData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz zmiany personalne</button>
                 </div>
@@ -286,20 +288,35 @@
         });
 
         function initUsers() {
-            usersData = JSON.parse(localStorage.getItem('legion_users')) || [
-                { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
-            ];
+            let savedUsers = localStorage.getItem('legion_users');
+            if (!savedUsers) {
+                usersData = [
+                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
+                ];
+                localStorage.setItem('legion_users', JSON.stringify(usersData));
+            } else {
+                try {
+                    usersData = JSON.parse(savedUsers);
+                } catch(e) {
+                    usersData = [
+                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
+                    ];
+                }
+            }
         }
 
         function handleLogin(e) {
             e.preventDefault();
-            const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
+            const u = document.getElementById('login-user').value.trim();
+            const p = document.getElementById('login-pass').value.trim();
 
+            initUsers();
             const found = usersData.find(user => user.login === u && user.pass === p);
+            
             if (found) {
                 currentUser = found;
                 localStorage.setItem('legion_active_user', found.login);
+                document.getElementById('login-error').classList.add('hidden');
                 showAdminPanel();
             } else {
                 document.getElementById('login-error').classList.remove('hidden');
@@ -328,23 +345,55 @@
             renderAdminTrophies();
             renderAdminUsers();
             loadMatchCenterInputs();
+            
+            // Domyślne włączenie pierwszej dostępnej zakładki
+            if (currentUser.login === 'mpiotrowski') {
+                switchTab('users');
+            } else {
+                const perms = currentUser.perms || [];
+                if (perms.length > 0) switchTab(perms[0]);
+            }
+        }
+
+        // --- ZARZĄDZANIE ZAKŁADKAMI ---
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gold', 'text-black');
+                btn.classList.add('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+            });
+
+            const targetTab = document.getElementById(`tab-${tabName}`);
+            const targetBtn = document.getElementById(`tab-btn-${tabName}`);
+
+            if (targetTab) targetTab.classList.remove('hidden');
+            if (targetBtn) {
+                targetBtn.classList.remove('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+                targetBtn.classList.add('bg-gold', 'text-black');
+            }
         }
 
         function applyPermissions() {
             const perms = currentUser.perms || [];
             
-            // Główny admin 'mpiotrowski' lub osoby z pełnymi uprawnieniami widzą sekcję użytkowników
+            const btnUsers = document.getElementById('tab-btn-users');
+            const btnMatch = document.getElementById('tab-btn-match');
+            const btnTable = document.getElementById('tab-btn-table');
+            const btnArticles = document.getElementById('tab-btn-articles');
+            const btnTrophies = document.getElementById('tab-btn-trophies');
+            const btnPeople = document.getElementById('tab-btn-people');
+
             if (currentUser.login === 'mpiotrowski') {
-                document.getElementById('sec-users').style.display = 'block';
+                btnUsers.style.display = 'block';
             } else {
-                document.getElementById('sec-users').style.display = 'none';
+                btnUsers.style.display = 'none';
             }
 
-            document.getElementById('sec-match').style.display = perms.includes('match') ? 'block' : 'none';
-            document.getElementById('sec-table').style.display = perms.includes('table') ? 'block' : 'none';
-            document.getElementById('sec-articles').style.display = perms.includes('articles') ? 'block' : 'none';
-            document.getElementById('sec-trophies').style.display = perms.includes('trophies') ? 'block' : 'none';
-            document.getElementById('sec-people').style.display = perms.includes('people') ? 'block' : 'none';
+            btnMatch.style.display = perms.includes('match') ? 'block' : 'none';
+            btnTable.style.display = perms.includes('table') ? 'block' : 'none';
+            btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
+            btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
+            btnPeople.style.display = perms.includes('people') ? 'block' : 'none';
         }
 
         function showToast() {
@@ -359,7 +408,6 @@
             document.execCommand(command, false, null);
         }
 
-        // --- ZARZĄDZANIE UŻYTKOWNIKAMI I PERMISJAMI ---
         function renderAdminUsers() {
             const list = document.getElementById('admin-users-list');
             list.innerHTML = '';
@@ -377,8 +425,8 @@
         }
 
         function addUser() {
-            const login = document.getElementById('new-user-login').value;
-            const pass = document.getElementById('new-user-pass').value;
+            const login = document.getElementById('new-user-login').value.trim();
+            const pass = document.getElementById('new-user-pass').value.trim();
             const checkedPerms = document.querySelectorAll('.new-perm:checked');
             let perms = [];
             checkedPerms.forEach(cb => perms.push(cb.value));
@@ -404,7 +452,6 @@
             showToast();
         }
 
-        // --- ŁADOWANIE POZOSTAŁYCH DANYCH ---
         function loadAllData() {
             tablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || { "2026": [], "2025": [], "2024": [] };
             peopleData = JSON.parse(localStorage.getItem('legion_people')) || { "zarzad": [], "sztab": [], "dzialacze": [], "druzyna": [], "akademia": [] };
