@@ -37,17 +37,50 @@
         }
     </script>
     <style>
-        .dropdown-container { position: relative; }
-        .dropdown-menu {
-            position: absolute; top: 100%; margin-top: 8px; background: #141414; border: 1px solid #2a2a2a; border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); padding: 0.75rem 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.2s ease-in-out; z-index: 100;
+        .dropdown-container {
+            position: relative;
         }
-        .dropdown-container:hover .dropdown-menu, .dropdown-menu:hover { opacity: 1; visibility: visible; transform: translateY(0); }
-        .sub-dropdown-container { position: relative; }
-        .sub-dropdown-menu { display: none; padding-left: 0.5rem; background: #141414; margin-top: 0.1rem; margin-bottom: 0.1rem; }
-        .sub-dropdown-container:hover .sub-dropdown-menu { display: block; }
-        @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-        .animate-pulse-slow { animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            margin-top: 8px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease-in-out;
+            z-index: 100;
+        }
+        .dropdown-container:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .sub-dropdown-container {
+            position: relative;
+        }
+        .sub-dropdown-menu {
+            display: none;
+            padding-left: 0.5rem;
+            background: #141414;
+            margin-top: 0.1rem;
+            margin-bottom: 0.1rem;
+        }
+        .sub-dropdown-container:hover .sub-dropdown-menu {
+            display: block;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
     </style>
 </head>
 <body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
@@ -85,6 +118,7 @@
         </div>
 
         <div class="flex items-center space-x-3">
+            <!-- PRZYCISK MATCH CENTER W NAWIGACJI -->
             <a href="#match-center-section" class="bg-red-600/20 border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center space-x-2">
                 <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse-slow"></span>
                 <span>Match Center</span>
@@ -96,7 +130,7 @@
     <!-- GŁÓWNA ZAWARTOŚĆ -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-6 pt-32 pb-20 space-y-16">
         
-        <!-- HERO / MATCH CENTER NA ŻYWO Z PANELU -->
+        <!-- HERO / MATCH CENTER NA ŻYWO (SYNCHRONIZOWANY Z PANELEM) -->
         <section id="match-center-section" class="bg-[#141414] border border-juve-border rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
             <div class="absolute top-0 right-0 bg-gold/10 border-l border-b border-gold/30 px-4 py-1.5 rounded-bl-2xl text-[10px] font-black uppercase tracking-widest text-gold flex items-center space-x-2">
                 <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse-slow"></span>
@@ -104,53 +138,48 @@
             </div>
             
             <div id="match-center-content" class="space-y-8">
-                <!-- Wstrzykiwane przez JS na podstawie panelu -->
+                <!-- Wstrzykiwane dynamicznie z localStorage przez JS -->
             </div>
         </section>
 
-        <!-- SEKCJA: NAJBLIŻSZE MECZE -->
-        <section class="space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div class="flex items-baseline space-x-4">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najbliższe Mecze</h2>
-                    <a href="tabela/index.html" class="text-xs font-bold text-gold hover:underline uppercase tracking-wider">Zobacz terminarz</a>
+        <!-- SEKCJA: NAJBLIŻSZE MECZE I AKTUALNOŚCI -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- LEWA STRONA: AKTUALNOŚCI Z TAGAMI -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najnowsze Aktualności</h2>
+                    <span class="text-xs font-bold text-gold">Legion Białystok</span>
                 </div>
                 
-                <div class="flex items-center space-x-2 text-xs font-black uppercase">
-                    <button onclick="filterMatches('pierwsza')" id="filter-btn-pierwsza" class="bg-red-600 text-white px-4 py-2 rounded-xl transition-all cursor-pointer">Pierwsza Drużyna</button>
-                    <button onclick="filterMatches('akademia')" id="filter-btn-akademia" class="bg-zinc-900 border border-juve-border text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all cursor-pointer">Akademia</button>
-                    <button onclick="filterMatches('rezerwy')" id="filter-btn-rezerwy" class="bg-zinc-900 border border-juve-border text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all cursor-pointer">Rezerwy</button>
+                <div id="public-articles-container" class="space-y-6">
+                    <!-- Wstrzykiwane z panelu -->
                 </div>
             </div>
 
-            <div id="matches-tiles-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Wstrzykiwane przez JS -->
+            <!-- PRAWA STRONA: TERMINARZ / NAJBLIŻSZE MECZE -->
+            <div class="space-y-6">
+                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Terminarz</h2>
+                </div>
+
+                <div id="upcoming-matches-container" class="space-y-4">
+                    <!-- Wstrzykiwane z panelu -->
+                </div>
             </div>
-        </section>
+
+        </div>
 
         <!-- SEKCJA: GALERIA TROFEÓW (POBIERANA Z PANELU) -->
-        <section class="space-y-6">
+        <section class="space-y-6 pt-4">
             <div class="border-b border-juve-border pb-3 flex items-center justify-between">
                 <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Galeria Trofeów i Osiągnięć</h2>
                 <span class="text-xs font-bold text-gold">Historia Klubu</span>
             </div>
             <div id="public-trophies-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Wstrzykiwane dynamicznie z localStorage trofeów -->
+                <!-- Wstrzykiwane dynamicznie z zakładki Trofea w panelu -->
             </div>
         </section>
-
-        <!-- SEKCJA: AKTUALNOŚCI -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-4">
-            <div class="lg:col-span-3 space-y-6">
-                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najnowsze Aktualności</h2>
-                    <span class="text-xs font-bold text-gold">Legion Białystok</span>
-                </div>
-                <div id="public-articles-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Wstrzykiwane z panelu -->
-                </div>
-            </div>
-        </div>
 
     </main>
 
@@ -192,16 +221,16 @@
         </div>
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZUJĄCE DANE Z PANELEM -->
+    <!-- SKRYPTY ŁADUJĄCE DANE Z PANELU CMS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             loadMatchCenter();
             loadArticles();
+            loadUpcomingMatches();
             loadTrophies();
-            renderMatchesTiles('pierwsza');
         });
 
-        // Bezpośrednia zmiana statusu (np. na Przerwe lub 1. połowę) z poziomu strony
+        // Obsługa przycisków szybkiej zmiany statusu (np. na Przerwe) bezpośrednio ze strony
         function setMatchStatus(statusText) {
             let mcData = JSON.parse(localStorage.getItem('legion_match_center')) || {};
             mcData.status = statusText;
@@ -209,7 +238,6 @@
             loadMatchCenter();
         }
 
-        // POBIERANIE MATCH CENTER Z PANELU ADMINA
         function loadMatchCenter() {
             const mcContainer = document.getElementById('match-center-content');
             if (!mcContainer) return;
@@ -294,7 +322,56 @@
             `;
         }
 
-        // POBIERANIE GALERII TROFEÓW Z PANELU ADMINA
+        function loadArticles() {
+            const container = document.getElementById('public-articles-container');
+            if (!container) return;
+
+            const articles = JSON.parse(localStorage.getItem('legion_articles')) || [];
+            if (articles.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak artykułów w bazie.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            articles.forEach(art => {
+                container.innerHTML += `
+                    <div class="bg-[#141414] border border-juve-border rounded-3xl p-6 space-y-4 shadow-xl">
+                        ${art.img ? `<img src="${art.img}" alt="${art.title}" class="w-full h-56 object-cover rounded-2xl border border-juve-border">` : ''}
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-gold">${art.date}</span>
+                            ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">${art.tag}</span>` : ''}
+                        </div>
+                        <h3 class="text-xl font-black uppercase tracking-wider text-white">${art.title}</h3>
+                        <div class="text-xs text-slate-300 space-y-2 leading-relaxed">${art.content}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function loadUpcomingMatches() {
+            const container = document.getElementById('upcoming-matches-container');
+            if (!container) return;
+
+            const matches = JSON.parse(localStorage.getItem('legion_upcoming_matches')) || [];
+            if (matches.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak nadchodzących meczów w terminarzu.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            matches.forEach(match => {
+                container.innerHTML += `
+                    <div class="bg-[#141414] border border-juve-border rounded-2xl p-4 flex items-center justify-between shadow-lg">
+                        <div>
+                            <span class="text-[10px] text-gold font-bold uppercase">${match.competition || 'Mecz'}</span>
+                            <h4 class="text-xs font-black uppercase text-white mt-0.5">Legion Białystok vs ${match.opponent}</h4>
+                        </div>
+                        <span class="text-xs font-bold text-slate-300 text-right">${match.date}</span>
+                    </div>
+                `;
+            });
+        }
+
         function loadTrophies() {
             const container = document.getElementById('public-trophies-container');
             if (!container) return;
@@ -314,90 +391,6 @@
                             <span class="text-[10px] text-gold font-bold uppercase tracking-widest">Rok: ${trophy.year}</span>
                             <h4 class="text-sm font-black uppercase tracking-wider text-white mt-0.5">${trophy.name}</h4>
                         </div>
-                    </div>
-                `;
-            });
-        }
-
-        function filterMatches(category) {
-            ['pierwsza', 'akademia', 'rezerwy'].forEach(cat => {
-                const btn = document.getElementById(`filter-btn-${cat}`);
-                if (cat === category) {
-                    btn.className = "bg-red-600 text-white px-4 py-2 rounded-xl transition-all cursor-pointer";
-                } else {
-                    btn.className = "bg-zinc-900 border border-juve-border text-slate-400 hover:text-white px-4 py-2 rounded-xl transition-all cursor-pointer";
-                }
-            });
-            renderMatchesTiles(category);
-        }
-
-        function renderMatchesTiles(category) {
-            const container = document.getElementById('matches-tiles-container');
-            if (!container) return;
-
-            let mockMatches = {
-                'pierwsza': [
-                    { type: 'DOM', date: '20 Sep. • Stadion Miejski', t1: 'LEGION BIAŁYSTOK', t2: 'ATALANTA', competition: 'KLASA A', time: '18:00' },
-                    { type: 'WYJAZD', date: '27 Sep. • Stadion Wyjazdowy', t1: 'ORLĘTA', t2: 'LEGION BIAŁYSTOK', competition: 'KLASA A', time: '15:30' },
-                    { type: 'DOM', date: '04 Oct. • Stadion Miejski', t1: 'LEGION BIAŁYSTOK', t2: 'WIGRY', competition: 'KLASA A', time: '17:00' }
-                ],
-                'akademia': [
-                    { type: 'DOM', date: '21 Sep. • Boisko Szkolne', t1: 'LEGION U-19', t2: 'JAGA U-19', competition: 'LIGA WOJEWÓDZKA', time: '12:00' },
-                    { type: 'WYJAZD', date: '28 Sep. • Łomża', t1: 'ŁKS ŁOMŻA', t2: 'LEGION U-19', competition: 'LIGA WOJEWÓDZKA', time: '14:00' },
-                    { type: 'DOM', date: '05 Oct. • Boisko Szkolne', t1: 'LEGION U-19', t2: 'TALENT BIAŁYSTOK', competition: 'LIGA WOJEWÓDZKA', time: '11:00' }
-                ],
-                'rezerwy': [
-                    { type: 'DOM', date: '22 Sep. • Stadion Miejski', t1: 'LEGION II', t2: 'KS WASILKÓW II', competition: 'KLASA B', time: '16:00' },
-                    { type: 'WYJAZD', date: '29 Sep. • Supraśl', t1: 'SUPRAŚLIANKA', t2: 'LEGION II', competition: 'KLASA B', time: '13:00' },
-                    { type: 'DOM', date: '06 Oct. • Stadion Miejski', t1: 'LEGION II', t2: 'Iskra Narew', competition: 'KLASA B', time: '15:00' }
-                ]
-            };
-
-            let list = mockMatches[category] || mockMatches['pierwsza'];
-            container.innerHTML = '';
-
-            list.forEach(m => {
-                let badgeColor = m.type === 'DOM' ? 'bg-red-600 text-white' : 'bg-zinc-800 text-slate-300 border border-juve-border';
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-2xl p-6 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden">
-                        <div class="flex items-center justify-between">
-                            <span class="${badgeColor} px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-wider">${m.type}</span>
-                            <span class="text-xs font-bold text-slate-400">${m.date}</span>
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-sm font-black uppercase tracking-wider text-white">${m.t1}</h4>
-                            <h4 class="text-sm font-black uppercase tracking-wider text-white">${m.t2}</h4>
-                        </div>
-                        <div class="border-t border-juve-border pt-4 flex items-center justify-between">
-                            <span class="text-xs font-black uppercase tracking-widest text-slate-400">${m.competition}</span>
-                            <span class="text-sm font-black text-gold bg-black/60 border border-juve-border px-3 py-1 rounded-xl">${m.time}</span>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function loadArticles() {
-            const container = document.getElementById('public-articles-container');
-            if (!container) return;
-
-            const articles = JSON.parse(localStorage.getItem('legion_articles')) || [];
-            if (articles.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic col-span-2">Brak artykułów w bazie.</p>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            articles.forEach(art => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-3xl p-6 space-y-4 shadow-xl">
-                        ${art.img ? `<img src="${art.img}" alt="${art.title}" class="w-full h-56 object-cover rounded-2xl border border-juve-border">` : ''}
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-gold">${art.date}</span>
-                            ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">${art.tag}</span>` : ''}
-                        </div>
-                        <h3 class="text-xl font-black uppercase tracking-wider text-white">${art.title}</h3>
-                        <div class="text-xs text-slate-300 space-y-2 leading-relaxed">${art.content}</div>
                     </div>
                 `;
             });
