@@ -127,69 +127,36 @@
     </header>
 
     <!-- GŁÓWNA SEKCJA KONTAKTU -->
-    <main class="flex-1 max-w-5xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
+    <main class="flex-1 max-w-3xl mx-auto w-full px-6 pt-32 pb-20 space-y-8">
         <div class="border-b border-juve-border pb-6">
             <h1 id="txt-main-title" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white">Kontakt z klubem</h1>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            <!-- LEWA STRONA: INFORMACJE I SOCIAL MEDIA -->
-            <div class="lg:col-span-5 space-y-6">
-                <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
-                    <h3 id="txt-info-title" class="text-xl font-black uppercase text-gold">Informacje</h3>
-                    <div class="space-y-4 text-xs font-bold uppercase tracking-wider text-slate-300">
-                        <p><strong class="text-white">Klub:</strong> Legion Białystok</p>
-                        <p><strong class="text-white">Miasto:</strong> Białystok, Polska</p>
-                        <p><strong class="text-white">Email:</strong> <a href="mailto:biuro@legionbialystok.pl" class="text-gold hover:underline">biuro@legionbialystok.pl</a></p>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- KARTKA: ADRES E-MAIL -->
+            <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <h3 id="txt-info-title" class="text-xl font-black uppercase text-gold">Adres e-mail</h3>
+                    <p id="info-desc" class="text-xs font-bold uppercase tracking-wider text-slate-300 leading-relaxed">Skontaktuj się z nami bezpośrednio przez pocztę elektroniczną:</p>
+                    <p><a href="mailto:biuro@legionbialystok.pl" class="text-gold hover:underline text-sm font-black lowercase tracking-normal">biuro@legionbialystok.pl</a></p>
                 </div>
+            </div>
 
-                <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+            <!-- KARTKA: SOCIAL MEDIA -->
+            <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl flex flex-col justify-between">
+                <div class="space-y-4">
                     <h3 id="txt-social-title" class="text-xl font-black uppercase text-gold">Social Media</h3>
-                    <p id="txt-social-desc" class="text-xs text-slate-400">Odwiedź nasze oficjalne profile społecznościowe, aby być na bieżąco z wynikami i aktualnościami.</p>
-                    <div class="flex space-x-3 pt-1">
-                        <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                        <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Instagram">
-                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                    </div>
+                    <p id="txt-social-desc" class="text-xs text-slate-400 leading-relaxed">Odwiedź nasze oficjalne profile społecznościowe, aby być na bieżąco z wynikami i aktualnościami.</p>
+                </div>
+                <div class="flex space-x-3 pt-1">
+                    <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Instagram">
+                        <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
                 </div>
             </div>
-
-            <!-- PRAWA STRONA: FORMULARZ KONTAKTOWY -->
-            <div class="lg:col-span-7 bg-[#141414] border border-juve-border rounded-3xl p-8 md:p-10 shadow-2xl space-y-6">
-                <h3 id="txt-form-title" class="text-xl font-black uppercase text-gold">Napisz do nas</h3>
-                
-                <form onsubmit="sendEmail(event)" class="space-y-4">
-                    <div class="space-y-1">
-                        <label id="lbl-name" class="text-xs font-bold uppercase tracking-wider text-slate-400">Twoje Imię i Nazwisko</label>
-                        <input type="text" id="form-name" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
-                    </div>
-
-                    <div class="space-y-1">
-                        <label id="lbl-email" class="text-xs font-bold uppercase tracking-wider text-slate-400">Twój Adres E-mail</label>
-                        <input type="email" id="form-email" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
-                    </div>
-
-                    <div class="space-y-1">
-                        <label id="lbl-subject" class="text-xs font-bold uppercase tracking-wider text-slate-400">Temat wiadomości</label>
-                        <input type="text" id="form-subject" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
-                    </div>
-
-                    <div class="space-y-1">
-                        <label id="lbl-message" class="text-xs font-bold uppercase tracking-wider text-slate-400">Treść wiadomości</label>
-                        <textarea id="form-message" rows="5" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
-                    </div>
-
-                    <button type="submit" id="btn-submit" class="w-full bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-widest py-4 rounded-xl transition-all cursor-pointer shadow-lg">
-                        Wyślij wiadomość
-                    </button>
-                </form>
-            </div>
-
         </div>
     </main>
 
@@ -245,22 +212,6 @@
             changeLanguage(savedLang);
         });
 
-        // Funkcja obsługująca wysyłanie formularza bezpośrednio na biuro@legionbialystok.pl
-        function sendEmail(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('form-name').value;
-            const email = document.getElementById('form-email').value;
-            const subject = document.getElementById('form-subject').value;
-            const message = document.getElementById('form-message').value;
-
-            const recipient = "biuro@legionbialystok.pl";
-            const emailBody = `Wiadomość od: ${name} (${email})\n\nTreść:\n${message}`;
-
-            // Otwiera domyślnego klienta pocztowego (np. Outlook, Gmail w przeglądarce) z wypełnionymi danymi
-            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-        }
-
         const translations = {
             pl: {
                 home: "Strona główna",
@@ -272,15 +223,10 @@
                 people: "Ludzie Legionu",
                 contact: "Kontakt",
                 mainTitle: "Kontakt z klubem",
-                infoTitle: "Informacje",
+                infoTitle: "Adres e-mail",
+                infoDesc: "Skontaktuj się z nami bezpośrednio przez pocztę elektroniczną:",
                 socialTitle: "Social Media",
                 socialDesc: "Odwiedź nasze oficjalne profile społecznościowe, aby być na bieżąco z wynikami i aktualnościami.",
-                formTitle: "Napisz do nas",
-                lbl-name: "Twoje Imię i Nazwisko",
-                lbl-email: "Twój Adres E-mail",
-                lbl-subject: "Temat wiadomości",
-                lbl-message: "Treść wiadomości",
-                btnSubmit: "Wyślij wiadomość",
                 footerDesc: "Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone © 2026.",
                 footerNavTitle: "Nawigacja",
                 footerClubTitle: "Klub",
@@ -298,15 +244,10 @@
                 people: "Legion People",
                 contact: "Contact",
                 mainTitle: "Club Contact",
-                infoTitle: "Information",
+                infoTitle: "E-mail Address",
+                infoDesc: "Contact us directly via email:",
                 socialTitle: "Social Media",
                 socialDesc: "Visit our official social media profiles to stay up to date with results and news.",
-                formTitle: "Write to us",
-                lbl-name: "Your Name",
-                lbl-email: "Your E-mail Address",
-                lbl-subject: "Subject",
-                lbl-message: "Message",
-                btnSubmit: "Send Message",
                 footerDesc: "Official website of Legion Białystok club. All rights reserved © 2026.",
                 footerNavTitle: "Navigation",
                 footerClubTitle: "Club",
@@ -324,15 +265,10 @@
                 people: "Gente del Legion",
                 contact: "Contacto",
                 mainTitle: "Contacto del Club",
-                infoTitle: "Información",
+                infoTitle: "Correo electrónico",
+                infoDesc: "Contáctenos directamente por correo electrónico:",
                 socialTitle: "Redes Sociales",
                 socialDesc: "Visita nuestros perfiles sociales oficiales para estar al tanto de resultados y noticias.",
-                formTitle: "Escríbenos",
-                lbl-name: "Tu Nombre",
-                lbl-email: "Tu Correo Electrónico",
-                lbl-subject: "Asunto",
-                lbl-message: "Mensaje",
-                btnSubmit: "Enviar Mensaje",
                 footerDesc: "Sitio web oficial del club Legion Białystok. Todos los derechos reservados © 2026.",
                 footerNavTitle: "Navegación",
                 footerClubTitle: "Club",
@@ -350,15 +286,10 @@
                 people: "Люди Легиона",
                 contact: "Контакты",
                 mainTitle: "Контакты клуба",
-                infoTitle: "Информация",
+                infoTitle: "Эл. почта",
+                infoDesc: "Свяжитесь с нами напрямую по электронной почте:",
                 socialTitle: "Соцсети",
                 socialDesc: "Посетите наши официальные страницы в соцсетях, чтобы быть в курсе результатов и новостей.",
-                formTitle: "Напишите нам",
-                lbl-name: "Ваше Имя",
-                lbl-email: "Ваш E-mail",
-                lbl-subject: "Тема сообщения",
-                lbl-message: "Текст сообщения",
-                btnSubmit: "Отправить сообщение",
                 footerDesc: "Официальный сайт клуба Легион Белосток. Все права защищены © 2026.",
                 footerNavTitle: "Навигация",
                 footerClubTitle: "Клуб",
@@ -383,15 +314,9 @@
 
             document.getElementById('txt-main-title').innerText = t.mainTitle;
             document.getElementById('txt-info-title').innerText = t.infoTitle;
+            document.getElementById('info-desc').innerText = t.infoDesc;
             document.getElementById('txt-social-title').innerText = t.socialTitle;
             document.getElementById('txt-social-desc').innerText = t.socialDesc;
-            document.getElementById('txt-form-title').innerText = t.formTitle;
-
-            document.getElementById('lbl-name').innerText = t['lbl-name'];
-            document.getElementById('lbl-email').innerText = t['lbl-email'];
-            document.getElementById('lbl-subject').innerText = t['lbl-subject'];
-            document.getElementById('lbl-message').innerText = t['lbl-message'];
-            document.getElementById('btn-submit').innerText = t.btnSubmit;
 
             document.getElementById('footer-desc').innerText = t.footerDesc;
             document.getElementById('footer-nav-title').innerText = t.footerNavTitle;
