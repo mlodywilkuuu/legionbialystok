@@ -1,232 +1,37 @@
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Legion Białystok</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial;}
-
-body{height:100vh;overflow:hidden;color:white;}
-
-/* ===== BACKGROUND ===== */
-.bg{
-  position:fixed;
-  width:100%;height:100%;
-  background:linear-gradient(-45deg,#0b0f14,#162033,#0b0f14,#1a2a44);
-  background-size:400% 400%;
-  animation:gradient 12s ease infinite;
-  z-index:-1;
-}
-@keyframes gradient{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-/* ===== MAINTENANCE ===== */
-.maintenance{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  text-align:center;
-}
-
-.logo{width:110px;margin-bottom:20px;}
-
-.status{color:#00aaff;letter-spacing:3px;font-size:14px;}
-
-.desc{color:#aaa;margin-top:10px;}
-
-/* hidden open */
-.hidden-btn{
-  position:fixed;top:0;right:0;
-  width:80px;height:80px;
-  opacity:0;cursor:pointer;
-}
-
-/* ===== MAIN ===== */
-.main-site{display:none;padding-top:80px;}
-
-/* NAV */
-nav{
-  position:fixed;
-  top:0;left:0;width:100%;
-  display:flex;justify-content:space-between;
-  align-items:center;
-  padding:12px 25px;
-  background:rgba(10,15,20,0.6);
-  backdrop-filter:blur(10px);
-}
-
-/* LEFT */
-.nav-left{display:flex;align-items:center;gap:15px;}
-.nav-left img{width:36px;}
-
-.nav-btn{
-  background:none;border:none;color:#ccc;
-  padding:6px 10px;border-radius:8px;
-  cursor:pointer;
-}
-.nav-btn:hover{background:rgba(255,255,255,0.1);color:white;}
-
-/* RIGHT */
-.lang{position:relative;}
-.lang-btn{background:#222;color:white;border:none;padding:6px 10px;border-radius:8px;}
-.lang-menu{
-  position:absolute;top:40px;right:0;
-  background:#111;border-radius:10px;
-  display:none;
-}
-.lang-menu button{
-  display:block;width:100%;
-  padding:10px;background:none;border:none;color:#ccc;
-}
-.lang-menu button:hover{background:#222;color:white;}
-.lang:hover .lang-menu{display:block;}
-
-/* HERO */
-.hero{padding:120px 40px;}
-
-.next-match{
-  margin:40px;
-  padding:20px;
-  border-radius:12px;
-  background:rgba(20,25,35,0.7);
-  text-align:center;
-}
-.next-match b{color:#00aaff;}
-
-/* ===== PANEL ===== */
-.panel{
-  display:none;
-  padding:40px;
-}
-
-input{
-  display:block;
-  margin:10px 0;
-  padding:10px;
-  width:250px;
-}
-
-button{
-  padding:8px 15px;
-  cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="bg"></div>
-
-<!-- hidden open -->
-<div class="hidden-btn" onclick="showSite()"></div>
-
-<!-- MAINTENANCE -->
-<div class="maintenance" id="maintenance">
-  <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" class="logo">
-  <div class="status">Prace techniczne</div>
-  <div class="desc">Strona chwilowo niedostępna</div>
-</div>
-
-<!-- SITE -->
-<div class="main-site" id="mainSite">
-
-<nav>
-  <div class="nav-left">
-    <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
-
-    <button class="nav-btn" onclick="showPanel()">Panel</button>
-  </div>
-
-  <div class="lang">
-    <button class="lang-btn">🌍</button>
-    <div class="lang-menu">
-      <button onclick="setLang('pl')">🇵🇱 PL</button>
-      <button onclick="setLang('en')">🇬🇧 EN</button>
-    </div>
-  </div>
-</nav>
-
-<div class="hero">
-  <h1 id="title">Legion Białystok</h1>
-  <p id="subtitle">Nowa era klubu</p>
-</div>
-
-<div id="nextMatchBox" class="next-match"></div>
-
-</div>
-
-<!-- PANEL -->
 <div class="panel" id="panel">
 
-<h2>Next Match</h2>
+<h1>⚙️ PANEL ADMINA</h1>
 
-<input id="t1" placeholder="Team 1">
-<input id="t2" placeholder="Team 2">
-<input id="date" placeholder="Date">
+<!-- NEXT MATCH -->
+<h2>⚽ Następny mecz</h2>
+<input id="nm_t1" placeholder="Drużyna 1">
+<input id="nm_t2" placeholder="Drużyna 2">
+<input id="nm_date" placeholder="Data">
+<button onclick="saveNextMatch()">Zapisz</button>
 
-<button onclick="saveMatch()">Zapisz</button>
-<button onclick="back()">Powrót</button>
+<hr>
+
+<!-- ARTYKUŁY -->
+<h2>📰 Artykuły</h2>
+<input id="art_title" placeholder="Tytuł">
+<input id="art_content" placeholder="Treść">
+<button onclick="addArticle()">Dodaj artykuł</button>
+
+<div id="articlesList"></div>
+
+<hr>
+
+<!-- MECZE -->
+<h2>📊 Mecze</h2>
+<input id="m_t1" placeholder="Team 1">
+<input id="m_t2" placeholder="Team 2">
+<input id="m_s1" placeholder="Score 1">
+<input id="m_s2" placeholder="Score 2">
+<button onclick="addMatch()">Dodaj mecz</button>
+
+<div id="matchesList"></div>
+
+<br>
+<button onclick="back()">⬅ Powrót</button>
 
 </div>
-
-<script>
-function showSite(){
-  maintenance.style.display="none";
-  mainSite.style.display="block";
-  document.body.style.overflow="auto";
-}
-
-/* PANEL */
-function showPanel(){
-  mainSite.style.display="none";
-  panel.style.display="block";
-}
-
-function back(){
-  panel.style.display="none";
-  mainSite.style.display="block";
-}
-
-/* NEXT MATCH */
-function saveMatch(){
-  const data={
-    t1:t1.value,
-    t2:t2.value,
-    date:date.value
-  };
-  localStorage.setItem("nextMatch",JSON.stringify(data));
-  loadMatch();
-}
-
-function loadMatch(){
-  const data=JSON.parse(localStorage.getItem("nextMatch"));
-  if(!data)return;
-
-  nextMatchBox.innerHTML=`
-    <div>Next Match</div>
-    <div>${data.t1} <b>vs</b> ${data.t2}</div>
-    <div style="color:#aaa">${data.date}</div>
-  `;
-}
-loadMatch();
-
-/* LANG */
-const texts={
-  pl:{title:"Legion Białystok",subtitle:"Nowa era klubu"},
-  en:{title:"Legion Białystok",subtitle:"New era"}
-};
-
-function setLang(l){
-  title.textContent=texts[l].title;
-  subtitle.textContent=texts[l].subtitle;
-}
-</script>
-
-</body>
-</html>
