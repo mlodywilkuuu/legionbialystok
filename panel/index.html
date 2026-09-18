@@ -48,16 +48,22 @@
                 <p class="text-xs text-slate-400">Zaloguj się, aby zarządzać serwisem Legion Białystok</p>
             </div>
             
-            <form onsubmit="handleLogin(event)" class="space-y-4">
+            <form id="login-form" class="space-y-4">
                 <div class="space-y-1">
                     <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Login</label>
-                    <input type="text" id="login-user" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold">
+                    <input type="text" id="login-user" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
                 </div>
                 <div class="space-y-1">
                     <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Hasło</label>
-                    <input type="password" id="login-pass" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold">
+                    <input type="password" id="login-pass" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
                 </div>
-                <div id="login-error" class="text-red-400 text-xs font-bold text-center hidden">Niepoprawny login lub hasło!</div>
+                
+                <!-- KOMUNIKAT O BŁĘDZIE LOGOWANIA -->
+                <div id="login-error" class="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-xl text-xs font-bold text-center hidden space-y-1">
+                    <p>Błędny login lub hasło!</p>
+                    <span class="text-[10px] text-slate-400 block font-normal">Domyślny login: mpiotrowski | hasło: Jaga1920.</span>
+                </div>
+
                 <button type="submit" class="w-full bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-widest py-4 rounded-xl transition-all cursor-pointer shadow-lg">
                     Zaloguj się
                 </button>
@@ -278,8 +284,18 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             initUsers();
+
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+
             const activeUserLogin = localStorage.getItem('legion_active_user');
             if (activeUserLogin) {
+                initUsers();
                 currentUser = usersData.find(u => u.login === activeUserLogin);
                 if (currentUser) {
                     showAdminPanel();
@@ -297,6 +313,10 @@
             } else {
                 try {
                     usersData = JSON.parse(savedUsers);
+                    if (!usersData.some(u => u.login === 'mpiotrowski')) {
+                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] });
+                        localStorage.setItem('legion_users', JSON.stringify(usersData));
+                    }
                 } catch(e) {
                     usersData = [
                         { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
@@ -305,10 +325,13 @@
             }
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('login-user').value.trim();
-            const p = document.getElementById('login-pass').value.trim();
+        function handleLogin() {
+            const uInput = document.getElementById('login-user');
+            const pInput = document.getElementById('login-pass');
+            const errDiv = document.getElementById('login-error');
+
+            const u = uInput ? uInput.value.trim() : '';
+            const p = pInput ? pInput.value.trim() : '';
 
             initUsers();
             const found = usersData.find(user => user.login === u && user.pass === p);
@@ -316,10 +339,14 @@
             if (found) {
                 currentUser = found;
                 localStorage.setItem('legion_active_user', found.login);
-                document.getElementById('login-error').classList.add('hidden');
+                if (errDiv) errDiv.classList.add('hidden');
+                if (uInput) uInput.classList.remove('border-red-500');
+                if (pInput) pInput.classList.remove('border-red-500');
                 showAdminPanel();
             } else {
-                document.getElementById('login-error').classList.remove('hidden');
+                if (errDiv) errDiv.classList.remove('hidden');
+                if (uInput) uInput.classList.add('border-red-500');
+                if (pInput) pInput.classList.add('border-red-500');
             }
         }
 
@@ -327,15 +354,31 @@
             localStorage.removeItem('legion_active_user');
             currentUser = null;
             document.getElementById('login-screen').classList.remove('hidden');
-            document.getElementById('admin-main-content').classList.remove('flex');
-            document.getElementById('admin-main-content').classList.add('hidden');
+            const mainCont = document.getElementById('admin-main-content');
+            mainCont.classList.remove('flex');
+            mainCont.classList.add('hidden');
+            
+            const uInput = document.getElementById('login-user');
+            const pInput = document.getElementById('login-pass');
+            const errDiv = document.getElementById('login-error');
+
+            if (uInput) { uInput.value = ''; uInput.classList.remove('border-red-500'); }
+            if (pInput) { pInput.value = ''; pInput.classList.remove('border-red-500'); }
+            if (errDiv) errDiv.classList.add('hidden');
         }
 
         function showAdminPanel() {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('admin-main-content').classList.remove('hidden');
-            document.getElementById('admin-main-content').classList.add('flex');
-            document.getElementById('logged-user-badge').innerText = `Zalogowany: ${currentUser.login}`;
+            const loginScreen = document.getElementById('login-screen');
+            const mainCont = document.getElementById('admin-main-content');
+
+            if (loginScreen) loginScreen.classList.add('hidden');
+            if (mainCont) {
+                mainCont.classList.remove('hidden');
+                mainCont.classList.add('flex');
+            }
+            
+            const badge = document.getElementById('logged-user-badge');
+            if (badge) badge.innerText = `Zalogowany: ${currentUser.login}`;
 
             applyPermissions();
             loadAllData();
@@ -346,7 +389,6 @@
             renderAdminUsers();
             loadMatchCenterInputs();
             
-            // Domyślne włączenie pierwszej dostępnej zakładki
             if (currentUser.login === 'mpiotrowski') {
                 switchTab('users');
             } else {
@@ -355,7 +397,6 @@
             }
         }
 
-        // --- ZARZĄDZANIE ZAKŁADKAMI ---
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -384,20 +425,21 @@
             const btnPeople = document.getElementById('tab-btn-people');
 
             if (currentUser.login === 'mpiotrowski') {
-                btnUsers.style.display = 'block';
+                if (btnUsers) btnUsers.style.display = 'block';
             } else {
-                btnUsers.style.display = 'none';
+                if (btnUsers) btnUsers.style.display = 'none';
             }
 
-            btnMatch.style.display = perms.includes('match') ? 'block' : 'none';
-            btnTable.style.display = perms.includes('table') ? 'block' : 'none';
-            btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
-            btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
-            btnPeople.style.display = perms.includes('people') ? 'block' : 'none';
+            if (btnMatch) btnMatch.style.display = perms.includes('match') ? 'block' : 'none';
+            if (btnTable) btnTable.style.display = perms.includes('table') ? 'block' : 'none';
+            if (btnArticles) btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
+            if (btnTrophies) btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
+            if (btnPeople) btnPeople.style.display = perms.includes('people') ? 'block' : 'none';
         }
 
         function showToast() {
             const toast = document.getElementById('toast');
+            if (!toast) return;
             toast.classList.remove('translate-y-20', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-y-20', 'opacity-0');
@@ -410,6 +452,7 @@
 
         function renderAdminUsers() {
             const list = document.getElementById('admin-users-list');
+            if (!list) return;
             list.innerHTML = '';
             usersData.forEach((u, idx) => {
                 list.innerHTML += `
@@ -461,9 +504,9 @@
         }
 
         function loadMatchCenterInputs() {
-            document.getElementById('mc-opponent').value = matchCenterData.opponent || '';
-            document.getElementById('mc-date').value = matchCenterData.date || '';
-            document.getElementById('mc-score').value = matchCenterData.score || '';
+            if (document.getElementById('mc-opponent')) document.getElementById('mc-opponent').value = matchCenterData.opponent || '';
+            if (document.getElementById('mc-date')) document.getElementById('mc-date').value = matchCenterData.date || '';
+            if (document.getElementById('mc-score')) document.getElementById('mc-score').value = matchCenterData.score || '';
         }
 
         function saveMatchCenter() {
@@ -484,6 +527,7 @@
         function renderAdminTable() {
             let list = tablesBySeason[currentAdminSeason] || [];
             const tbody = document.getElementById('admin-table-body');
+            if (!tbody) return;
             tbody.innerHTML = '';
             list.forEach((row, index) => {
                 tbody.innerHTML += `
@@ -534,6 +578,7 @@
 
         function renderAdminArticles() {
             const listContainer = document.getElementById('admin-articles-list');
+            if (!listContainer) return;
             listContainer.innerHTML = '';
             if (articlesData.length === 0) {
                 listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych artykułów.</p>`;
@@ -579,6 +624,7 @@
 
         function renderAdminTrophies() {
             const listContainer = document.getElementById('admin-trophies-list');
+            if (!listContainer) return;
             listContainer.innerHTML = '';
             if (trophiesData.length === 0) {
                 listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych trofeów.</p>`;
@@ -619,6 +665,7 @@
 
         function renderAdminPeople() {
             const container = document.getElementById('admin-people-container');
+            if (!container) return;
             container.innerHTML = '';
 
             rolesConfig.forEach(roleObj => {
