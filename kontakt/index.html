@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt – Legion Białystok</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#d4af37',
+                            light: '#f3e5ab',
+                            dark: '#aa8c2c',
+                            accent: '#ffd700'
+                        },
+                        juve: {
+                            black: '#0b0b0b',
+                            dark: '#121212',
+                            card: '#181818',
+                            border: '#2a2a2a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .dropdown-container {
+            position: relative;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            margin-top: 8px;
+            background: #141414;
+            border: 1px solid #2a2a2a;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            padding: 0.75rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease-in-out;
+            z-index: 100;
+        }
+        .dropdown-container:hover .dropdown-menu,
+        .dropdown-menu:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .sub-dropdown-container {
+            position: relative;
+        }
+        .sub-dropdown-menu {
+            display: none;
+            padding-left: 0.5rem;
+            background: #141414;
+            margin-top: 0.1rem;
+            margin-bottom: 0.1rem;
+        }
+        .sub-dropdown-container:hover .sub-dropdown-menu {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- GÓRNY PASEK / NAWIGACJA -->
+    <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-50">
+        <div class="flex items-center space-x-5">
+            <div class="dropdown-container">
+                <button class="bg-black/40 border border-white/20 text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+                <div class="dropdown-menu left-0 w-64 space-y-1">
+                    <a href="../index.html" id="nav-home" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Strona główna</a>
+                    <a href="../druzyna/index.html" id="nav-team" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
+                    <a href="../akademia/index.html" id="nav-academy" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
+                    <a href="../tabela/index.html" id="nav-table" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
+                    
+                    <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
+                        <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
+                            <span id="nav-club">Klub</span>
+                            <span class="text-[10px]">▼</span>
+                        </div>
+                        <div class="sub-dropdown-menu space-y-1 py-1">
+                            <a href="../o-klubie/index.html" id="nav-about" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
+                            <a href="../ludzie-legionu/index.html" id="nav-people" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
+                            <a href="index.html" id="nav-kontakt" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="../index.html" class="flex items-center">
+                <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
+            </a>
+        </div>
+
+        <!-- TŁUMACZENIA -->
+        <div class="dropdown-container">
+            <button class="bg-black/40 border border-white/20 text-gold hover:bg-gold hover:text-black px-4 h-12 rounded-xl flex items-center space-x-2 transition-all shadow-md focus:outline-none cursor-pointer text-xs font-black uppercase tracking-wider">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
+                <span id="current-lang-label">PL</span>
+                <span class="text-[10px]">▼</span>
+            </button>
+            <div class="dropdown-menu right-0 w-44 space-y-1">
+                <button type="button" onclick="changeLanguage('pl')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇵🇱 Polski (PL)</button>
+                <button type="button" onclick="changeLanguage('en')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇬🇧 English (EN)</button>
+                <button type="button" onclick="changeLanguage('es')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇪🇸 Español (ES)</button>
+                <button type="button" onclick="changeLanguage('ru')" class="w-full text-left px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold block transition-colors cursor-pointer">🇷🇺 Русский (RU)</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- GŁÓWNA SEKCJA KONTAKTU -->
+    <main class="flex-1 max-w-5xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
+        <div class="border-b border-juve-border pb-6">
+            <h1 id="txt-main-title" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white">Kontakt z klubem</h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- LEWA STRONA: INFORMACJE I SOCIAL MEDIA -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                    <h3 id="txt-info-title" class="text-xl font-black uppercase text-gold">Informacje</h3>
+                    <div class="space-y-4 text-xs font-bold uppercase tracking-wider text-slate-300">
+                        <p><strong class="text-white">Klub:</strong> Legion Białystok</p>
+                        <p><strong class="text-white">Miasto:</strong> Białystok, Polska</p>
+                        <p><strong class="text-white">Email:</strong> <a href="mailto:biuro@legionbialystok.pl" class="text-gold hover:underline">biuro@legionbialystok.pl</a></p>
+                    </div>
+                </div>
+
+                <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                    <h3 id="txt-social-title" class="text-xl font-black uppercase text-gold">Social Media</h3>
+                    <p id="txt-social-desc" class="text-xs text-slate-400">Odwiedź nasze oficjalne profile społecznościowe, aby być na bieżąco z wynikami i aktualnościami.</p>
+                    <div class="flex space-x-3 pt-1">
+                        <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="w-12 h-12 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Instagram">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRAWA STRONA: FORMULARZ KONTAKTOWY -->
+            <div class="lg:col-span-7 bg-[#141414] border border-juve-border rounded-3xl p-8 md:p-10 shadow-2xl space-y-6">
+                <h3 id="txt-form-title" class="text-xl font-black uppercase text-gold">Napisz do nas</h3>
+                
+                <form onsubmit="sendEmail(event)" class="space-y-4">
+                    <div class="space-y-1">
+                        <label id="lbl-name" class="text-xs font-bold uppercase tracking-wider text-slate-400">Twoje Imię i Nazwisko</label>
+                        <input type="text" id="form-name" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label id="lbl-email" class="text-xs font-bold uppercase tracking-wider text-slate-400">Twój Adres E-mail</label>
+                        <input type="email" id="form-email" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label id="lbl-subject" class="text-xs font-bold uppercase tracking-wider text-slate-400">Temat wiadomości</label>
+                        <input type="text" id="form-subject" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label id="lbl-message" class="text-xs font-bold uppercase tracking-wider text-slate-400">Treść wiadomości</label>
+                        <textarea id="form-message" rows="5" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" id="btn-submit" class="w-full bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-widest py-4 rounded-xl transition-all cursor-pointer shadow-lg">
+                        Wyślij wiadomość
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- STOPKA -->
+    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-12 px-6 md:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-juve-border">
+            <div class="space-y-4">
+                <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain">
+                <p id="footer-desc" class="text-xs text-slate-400 leading-relaxed">Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone &copy; 2026.</p>
+            </div>
+            <div class="space-y-3">
+                <h4 id="footer-nav-title" class="text-xs font-black uppercase tracking-widest text-gold">Nawigacja</h4>
+                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
+                    <li><a href="../index.html" id="foot-home" class="text-slate-400 hover:text-gold transition-colors">Strona główna</a></li>
+                    <li><a href="../druzyna/index.html" id="foot-team" class="text-slate-400 hover:text-gold transition-colors">Pierwsza drużyna</a></li>
+                    <li><a href="../akademia/index.html" id="foot-academy" class="text-slate-400 hover:text-gold transition-colors">Akademia</a></li>
+                    <li><a href="../tabela/index.html" id="foot-table" class="text-slate-400 hover:text-gold transition-colors">Tabela</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 id="footer-club-title" class="text-xs font-black uppercase tracking-widest text-gold">Klub</h4>
+                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
+                    <li><a href="../o-klubie/index.html" id="foot-about" class="text-slate-400 hover:text-gold transition-colors">O klubie</a></li>
+                    <li><a href="../ludzie-legionu/index.html" id="foot-people" class="text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a></li>
+                    <li><a href="index.html" id="foot-kontakt" class="text-slate-400 hover:text-gold transition-colors">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 id="footer-social-title" class="text-xs font-black uppercase tracking-widest text-gold">Social Media</h4>
+                <div class="flex space-x-3 pt-1">
+                    <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-10 h-10 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.instagram.com/legionbialystok/" target="_blank" class="w-10 h-10 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Instagram">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
+            <span id="footer-rights">Legion Białystok &copy; 2026. Wszelkie prawa zastrzeżone.</span>
+        </div>
+    </footer>
+
+    <!-- SKRYPTY -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.location.protocol !== 'file:') {
+                window.history.replaceState({}, '', '/kontakt');
+            }
+
+            const savedLang = localStorage.getItem('legion_lang') || 'pl';
+            changeLanguage(savedLang);
+        });
+
+        // Funkcja obsługująca wysyłanie formularza bezpośrednio na biuro@legionbialystok.pl
+        function sendEmail(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const subject = document.getElementById('form-subject').value;
+            const message = document.getElementById('form-message').value;
+
+            const recipient = "biuro@legionbialystok.pl";
+            const emailBody = `Wiadomość od: ${name} (${email})\n\nTreść:\n${message}`;
+
+            // Otwiera domyślnego klienta pocztowego (np. Outlook, Gmail w przeglądarce) z wypełnionymi danymi
+            window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        }
+
+        const translations = {
+            pl: {
+                home: "Strona główna",
+                team: "Pierwsza drużyna",
+                academy: "Akademia",
+                table: "Tabela",
+                club: "Klub",
+                about: "O klubie",
+                people: "Ludzie Legionu",
+                contact: "Kontakt",
+                mainTitle: "Kontakt z klubem",
+                infoTitle: "Informacje",
+                socialTitle: "Social Media",
+                socialDesc: "Odwiedź nasze oficjalne profile społecznościowe, aby być na bieżąco z wynikami i aktualnościami.",
+                formTitle: "Napisz do nas",
+                lbl-name: "Twoje Imię i Nazwisko",
+                lbl-email: "Twój Adres E-mail",
+                lbl-subject: "Temat wiadomości",
+                lbl-message: "Treść wiadomości",
+                btnSubmit: "Wyślij wiadomość",
+                footerDesc: "Oficjalny serwis internetowy klubu Legion Białystok. Wszystkie prawa zastrzeżone © 2026.",
+                footerNavTitle: "Nawigacja",
+                footerClubTitle: "Klub",
+                footerSocialTitle: "Social Media",
+                footerRights: "Legion Białystok © 2026. Wszelkie prawa zastrzeżone.",
+                label: "PL"
+            },
+            en: {
+                home: "Home",
+                team: "First Team",
+                academy: "Academy",
+                table: "Standings",
+                club: "Club",
+                about: "About Club",
+                people: "Legion People",
+                contact: "Contact",
+                mainTitle: "Club Contact",
+                infoTitle: "Information",
+                socialTitle: "Social Media",
+                socialDesc: "Visit our official social media profiles to stay up to date with results and news.",
+                formTitle: "Write to us",
+                lbl-name: "Your Name",
+                lbl-email: "Your E-mail Address",
+                lbl-subject: "Subject",
+                lbl-message: "Message",
+                btnSubmit: "Send Message",
+                footerDesc: "Official website of Legion Białystok club. All rights reserved © 2026.",
+                footerNavTitle: "Navigation",
+                footerClubTitle: "Club",
+                footerSocialTitle: "Social Media",
+                footerRights: "Legion Białystok © 2026. All rights reserved.",
+                label: "EN"
+            },
+            es: {
+                home: "Inicio",
+                team: "Primer Equipo",
+                academy: "Academia",
+                table: "Clasificación",
+                club: "Club",
+                about: "Sobre el club",
+                people: "Gente del Legion",
+                contact: "Contacto",
+                mainTitle: "Contacto del Club",
+                infoTitle: "Información",
+                socialTitle: "Redes Sociales",
+                socialDesc: "Visita nuestros perfiles sociales oficiales para estar al tanto de resultados y noticias.",
+                formTitle: "Escríbenos",
+                lbl-name: "Tu Nombre",
+                lbl-email: "Tu Correo Electrónico",
+                lbl-subject: "Asunto",
+                lbl-message: "Mensaje",
+                btnSubmit: "Enviar Mensaje",
+                footerDesc: "Sitio web oficial del club Legion Białystok. Todos los derechos reservados © 2026.",
+                footerNavTitle: "Navegación",
+                footerClubTitle: "Club",
+                footerSocialTitle: "Redes Sociales",
+                footerRights: "Legion Białystok © 2026. Todos los derechos reservados.",
+                label: "ES"
+            },
+            ru: {
+                home: "Главная",
+                team: "Первая команда",
+                academy: "Академия",
+                table: "Таблица",
+                club: "Клуб",
+                about: "О клубе",
+                people: "Люди Легиона",
+                contact: "Контакты",
+                mainTitle: "Контакты клуба",
+                infoTitle: "Информация",
+                socialTitle: "Соцсети",
+                socialDesc: "Посетите наши официальные страницы в соцсетях, чтобы быть в курсе результатов и новостей.",
+                formTitle: "Напишите нам",
+                lbl-name: "Ваше Имя",
+                lbl-email: "Ваш E-mail",
+                lbl-subject: "Тема сообщения",
+                lbl-message: "Текст сообщения",
+                btnSubmit: "Отправить сообщение",
+                footerDesc: "Официальный сайт клуба Легион Белосток. Все права защищены © 2026.",
+                footerNavTitle: "Навигация",
+                footerClubTitle: "Клуб",
+                footerSocialTitle: "Соцсети",
+                footerRights: "Легион Белосток © 2026. Все права защищены.",
+                label: "RU"
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('legion_lang', lang);
+            const t = translations[lang] || translations['pl'];
+
+            document.getElementById('nav-home').innerText = t.home;
+            document.getElementById('nav-team').innerText = t.team;
+            document.getElementById('nav-academy').innerText = t.academy;
+            document.getElementById('nav-table').innerText = t.table;
+            document.getElementById('nav-club').innerText = t.club;
+            document.getElementById('nav-about').innerText = t.about;
+            document.getElementById('nav-people').innerText = t.people;
+            document.getElementById('nav-kontakt').innerText = t.contact;
+
+            document.getElementById('txt-main-title').innerText = t.mainTitle;
+            document.getElementById('txt-info-title').innerText = t.infoTitle;
+            document.getElementById('txt-social-title').innerText = t.socialTitle;
+            document.getElementById('txt-social-desc').innerText = t.socialDesc;
+            document.getElementById('txt-form-title').innerText = t.formTitle;
+
+            document.getElementById('lbl-name').innerText = t['lbl-name'];
+            document.getElementById('lbl-email').innerText = t['lbl-email'];
+            document.getElementById('lbl-subject').innerText = t['lbl-subject'];
+            document.getElementById('lbl-message').innerText = t['lbl-message'];
+            document.getElementById('btn-submit').innerText = t.btnSubmit;
+
+            document.getElementById('footer-desc').innerText = t.footerDesc;
+            document.getElementById('footer-nav-title').innerText = t.footerNavTitle;
+            document.getElementById('footer-club-title').innerText = t.footerClubTitle;
+            document.getElementById('footer-social-title').innerText = t.footerSocialTitle;
+            document.getElementById('footer-rights').innerText = t.footerRights;
+
+            document.getElementById('foot-home').innerText = t.home;
+            document.getElementById('foot-team').innerText = t.team;
+            document.getElementById('foot-academy').innerText = t.academy;
+            document.getElementById('foot-table').innerText = t.table;
+            document.getElementById('foot-about').innerText = t.about;
+            document.getElementById('foot-people').innerText = t.people;
+            document.getElementById('foot-kontakt').innerText = t.contact;
+
+            document.getElementById('current-lang-label').innerText = t.label;
+        }
+    </script>
+</body>
+</html>
