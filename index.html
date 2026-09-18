@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Legion Białystok – Oficjalny Serwis Klubu</title>
+    <title>Prace techniczne – Legion Białystok</title>
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,330 +37,40 @@
         }
     </script>
     <style>
-        .dropdown-container { position: relative; }
-        .dropdown-menu {
-            position: absolute; top: 100%; margin-top: 8px; background: #141414; border: 1px solid #2a2a2a; border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); padding: 0.75rem 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.2s ease-in-out; z-index: 100;
-        }
-        .dropdown-container:hover .dropdown-menu, .dropdown-menu:hover { opacity: 1; visibility: visible; transform: translateY(0); }
-        .sub-dropdown-container { position: relative; }
-        .sub-dropdown-menu { display: none; padding-left: 0.5rem; background: #141414; margin-top: 0.1rem; margin-bottom: 0.1rem; }
-        .sub-dropdown-container:hover .sub-dropdown-menu { display: block; }
         @keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .animate-pulse-slow { animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
     </style>
 </head>
-<body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+<body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col items-center justify-between p-6 relative overflow-hidden">
 
-    <!-- GÓRNY PASEK / NAWIGACJA -->
-    <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-50">
-        <div class="flex items-center space-x-5">
-            <div class="dropdown-container">
-                <button class="bg-black/40 border border-white/20 text-white hover:bg-gold hover:text-black w-12 h-12 rounded-xl flex items-center justify-center transition-all shadow-md focus:outline-none cursor-pointer">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-                <div class="dropdown-menu left-0 w-64 space-y-1">
-                    <a href="index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-gold hover:bg-gold/10 transition-colors">Strona główna</a>
-                    <a href="druzyna/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Pierwsza drużyna</a>
-                    <a href="akademia/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Akademia</a>
-                    <a href="tabela/index.html" class="block px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold transition-colors">Tabela</a>
-                    
-                    <div class="sub-dropdown-container border-t border-juve-border my-1 pt-1">
-                        <div class="px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-300 hover:bg-gold/10 hover:text-gold flex justify-between items-center cursor-pointer">
-                            <span>Klub</span>
-                            <span class="text-[10px]">▼</span>
-                        </div>
-                        <div class="sub-dropdown-menu space-y-1 py-1">
-                            <a href="o-klubie/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">O klubie</a>
-                            <a href="ludzie-legionu/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Ludzie Legionu</a>
-                            <a href="kontakt/index.html" class="block px-6 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:bg-gold/10 hover:text-gold transition-colors">Kontakt</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- NIEWIDZIALNY PRZYCISK W PRAWYM GÓRNYM ROGU (PRZENOSZĄCY DO PANELU) -->
+    <a href="panel/index.html" class="absolute top-4 right-4 w-16 h-16 z-50 cursor-pointer opacity-0" title="Panel administracyjny"></a>
 
-            <a href="index.html" class="flex items-center">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
-            </a>
+    <!-- PUSTY ELEMENT DLA WYROWNANIA -->
+    <div></div>
+
+    <!-- ŚRODKOWA SEKCJA: LOGO I NAPIS PRACE TECHNICZNE -->
+    <div class="flex flex-col items-center space-y-6 text-center max-w-md w-full">
+        <div class="relative">
+            <div class="absolute -inset-4 bg-gold/10 rounded-full blur-xl animate-pulse-slow"></div>
+            <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion Białystok" class="h-28 w-auto object-contain relative z-10">
         </div>
-
-        <div class="flex items-center space-x-3">
-            <a href="#match-center-section" class="bg-red-600/20 border border-red-500/50 text-red-400 hover:bg-red-600 hover:text-white px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse-slow"></span>
-                <span>Match Center</span>
-            </a>
-            <a href="panel/index.html" class="bg-gold/10 border border-gold/30 text-gold hover:bg-gold hover:text-black px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all">Panel CMS</a>
-        </div>
-    </header>
-
-    <!-- GŁÓWNA ZAWARTOŚĆ -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-6 pt-32 pb-20 space-y-16">
         
-        <!-- SEKCJA MATCH CENTER (NA ŻYWO Z PANELU) -->
-        <section id="match-center-section" class="bg-[#141414] border border-juve-border rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 bg-gold/10 border-l border-b border-gold/30 px-4 py-1.5 rounded-bl-2xl text-[10px] font-black uppercase tracking-widest text-gold flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse-slow"></span>
-                <span>Match Center Live</span>
-            </div>
-            
-            <div id="match-center-content" class="space-y-8">
-                <!-- Wstrzykiwane przez JS -->
-            </div>
-        </section>
-
-        <!-- DWUKOLUMNOWY UKŁAD: AKTUALNOŚCI ORAZ TERMINARZ -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- LEWA STRONA: AKTUALNOŚCI -->
-            <div class="lg:col-span-2 space-y-6">
-                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Najnowsze Aktualności</h2>
-                    <span class="text-xs font-bold text-gold">Legion Białystok</span>
-                </div>
-                
-                <div id="public-articles-container" class="space-y-6">
-                    <!-- Wstrzykiwane z panelu -->
-                </div>
-            </div>
-
-            <!-- PRAWA STRONA: TERMINARZ MECZÓW -->
-            <div class="space-y-6">
-                <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Terminarz</h2>
-                    <a href="tabela/index.html" class="text-xs font-bold text-gold hover:underline uppercase">Tabela</a>
-                </div>
-
-                <div id="upcoming-matches-container" class="space-y-4">
-                    <!-- Wstrzykiwane z panelu -->
-                </div>
-            </div>
-
+        <div class="space-y-2">
+            <h1 class="text-3xl md:text-4xl font-black uppercase tracking-wider text-white">Prace techniczne</h1>
+            <p class="text-xs text-slate-400 tracking-wide uppercase font-bold">Trwa aktualizacja serwisu internetowego klubu Legion Białystok.</p>
         </div>
 
-        <!-- SEKCJA: GALERIA TROFEÓW -->
-        <section class="space-y-6 pt-4">
-            <div class="border-b border-juve-border pb-3 flex items-center justify-between">
-                <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Galeria Trofeów i Osiągnięć</h2>
-                <span class="text-xs font-bold text-gold">Historia Klubu</span>
-            </div>
-            <div id="public-trophies-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Wstrzykiwane dynamicznie z zakładki Trofea w panelu -->
-            </div>
-        </section>
-
-    </main>
+        <div class="inline-flex items-center space-x-2 bg-gold/10 border border-gold/30 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest text-gold">
+            <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
+            <span>Wracamy wkrótce</span>
+        </div>
+    </div>
 
     <!-- STOPKA -->
-    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-12 px-6 md:px-16">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-juve-border">
-            <div class="space-y-4">
-                <img src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain">
-                <p class="text-xs text-slate-400 leading-relaxed">Oficjalny serwis internetowy klubu Legion Białystok. Wszelkie prawa zastrzeżone &copy; 2026.</p>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Nawigacja</h4>
-                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
-                    <li><a href="index.html" class="text-slate-400 hover:text-gold transition-colors">Strona główna</a></li>
-                    <li><a href="druzyna/index.html" class="text-slate-400 hover:text-gold transition-colors">Pierwsza drużyna</a></li>
-                    <li><a href="akademia/index.html" class="text-slate-400 hover:text-gold transition-colors">Akademia</a></li>
-                    <li><a href="tabela/index.html" class="text-slate-400 hover:text-gold transition-colors">Tabela</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Klub</h4>
-                <ul class="space-y-2 text-xs font-bold uppercase tracking-wider">
-                    <li><a href="o-klubie/index.html" class="text-slate-400 hover:text-gold transition-colors">O klubie</a></li>
-                    <li><a href="ludzie-legionu/index.html" class="text-slate-400 hover:text-gold transition-colors">Ludzie Legionu</a></li>
-                    <li><a href="kontakt/index.html" class="text-slate-400 hover:text-gold transition-colors">Kontakt</a></li>
-                </ul>
-            </div>
-            <div class="space-y-3">
-                <h4 class="text-xs font-black uppercase tracking-widest text-gold">Social Media</h4>
-                <div class="flex space-x-3 pt-1">
-                    <a href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" class="w-10 h-10 rounded-xl bg-zinc-900 border border-juve-border flex items-center justify-center text-slate-300 hover:bg-gold hover:text-black transition-all" title="Facebook">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500">
-            <span>Legion Białystok &copy; 2026. Wszelkie prawa zastrzeżone.</span>
-        </div>
+    <footer class="text-center text-[10px] text-slate-600 font-bold uppercase tracking-widest">
+        Legion Białystok &copy; 2026. Wszelkie prawa zastrzeżone.
     </footer>
 
-    <!-- SKRYPTY SYNCHRONIZUJĄCE STRONĘ Z PANELEM CMS -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            loadMatchCenter();
-            loadArticles();
-            loadUpcomingMatches();
-            loadTrophies();
-        });
-
-        function setMatchStatus(statusText) {
-            let mcData = JSON.parse(localStorage.getItem('legion_match_center')) || {};
-            mcData.status = statusText;
-            localStorage.setItem('legion_match_center', JSON.stringify(mcData));
-            loadMatchCenter();
-        }
-
-        function loadMatchCenter() {
-            const mcContainer = document.getElementById('match-center-content');
-            if (!mcContainer) return;
-
-            const mcData = JSON.parse(localStorage.getItem('legion_match_center')) || {
-                homeTeam: "Legion Białystok",
-                awayTeam: "Przeciwnik",
-                status: "Przed meczem",
-                homeGoals: 0,
-                awayGoals: 0,
-                stats: { possH: 50, possA: 50, shotsOnH: 0, shotsOnA: 0, shotsOffH: 0, shotsOffA: 0, cornersH: 0, cornersA: 0 },
-                events: []
-            };
-
-            let eventsHtml = '';
-            if (mcData.events && mcData.events.length > 0) {
-                eventsHtml = `<div class="border-t border-juve-border pt-6 space-y-3"><h4 class="text-xs font-black uppercase text-gold">Wydarzenia na żywo</h4><div class="space-y-2">`;
-                mcData.events.forEach(ev => {
-                    let icon = ev.type === 'goal' ? '⚽' : (ev.type === 'yellow' ? '🟨' : (ev.type === 'red' ? '🟥' : '🔄'));
-                    eventsHtml += `
-                        <div class="flex items-center justify-between bg-black/40 border border-juve-border p-3 rounded-xl text-xs">
-                            <div class="flex items-center space-x-3">
-                                <span class="text-gold font-black">${ev.minute}</span>
-                                <span>${icon}</span>
-                                <span class="text-white font-bold">${ev.desc}</span>
-                            </div>
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">(${ev.team === 'home' ? mcData.homeTeam : mcData.awayTeam})</span>
-                        </div>
-                    `;
-                });
-                eventsHtml += `</div></div>`;
-            }
-
-            mcContainer.innerHTML = `
-                <div class="text-center space-y-4">
-                    <div class="flex flex-wrap items-center justify-center gap-2">
-                        <span class="bg-red-500/10 text-red-400 border border-red-500/30 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest inline-flex items-center space-x-2">
-                            <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse-slow"></span>
-                            <span>${mcData.status}</span>
-                        </span>
-                        <button onclick="setMatchStatus('1. Połowa')" class="bg-zinc-900 border border-juve-border text-slate-300 hover:text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer">1. Połowa</button>
-                        <button onclick="setMatchStatus('Przerwa')" class="bg-gold/20 border border-gold/50 text-gold hover:bg-gold hover:text-black px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer">Przerwa</button>
-                        <button onclick="setMatchStatus('2. Połowa')" class="bg-zinc-900 border border-juve-border text-slate-300 hover:text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer">2. Połowa</button>
-                        <button onclick="setMatchStatus('Koniec meczu')" class="bg-zinc-900 border border-juve-border text-slate-300 hover:text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider transition-all cursor-pointer">Koniec</button>
-                    </div>
-
-                    <div class="flex items-center justify-center space-x-6 md:space-x-12 py-4">
-                        <div class="text-right w-1/3">
-                            <h3 class="text-base md:text-2xl font-black uppercase text-white truncate">${mcData.homeTeam}</h3>
-                        </div>
-                        <div class="bg-black/60 border border-juve-border px-6 py-3 rounded-2xl flex items-center space-x-4 shadow-xl">
-                            <span class="text-2xl md:text-4xl font-black text-gold">${mcData.homeGoals}</span>
-                            <span class="text-slate-500 font-bold">-</span>
-                            <span class="text-2xl md:text-4xl font-black text-gold">${mcData.awayGoals}</span>
-                        </div>
-                        <div class="text-left w-1/3">
-                            <h3 class="text-base md:text-2xl font-black uppercase text-white truncate">${mcData.awayTeam || 'Gość'}</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STATYSTYKY -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/40 border border-juve-border p-6 rounded-2xl text-xs">
-                    <div class="space-y-3">
-                        <div class="flex justify-between font-bold text-slate-400">
-                            <span>Posiadanie piłki (%)</span>
-                            <span>${mcData.stats?.possH ?? 50}% - ${mcData.stats?.possA ?? 50}%</span>
-                        </div>
-                        <div class="w-full bg-zinc-900 h-2 rounded-full overflow-hidden flex">
-                            <div class="bg-gold h-full" style="width: ${mcData.stats?.possH ?? 50}%"></div>
-                            <div class="bg-slate-600 h-full" style="width: ${mcData.stats?.possA ?? 50}%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2 text-center font-bold text-slate-300">
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Strzały celne</span>${mcData.stats?.shotsOnH ?? 0} : ${mcData.stats?.shotsOnA ?? 0}</div>
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Niecelne</span>${mcData.stats?.shotsOffH ?? 0} : ${mcData.stats?.shotsOffA ?? 0}</div>
-                        <div class="bg-black/60 p-2 rounded-xl border border-juve-border"><span class="block text-[10px] text-slate-500">Rzuty rożne</span>${mcData.stats?.cornersH ?? 0} : ${mcData.stats?.cornersA ?? 0}</div>
-                    </div>
-                </div>
-
-                ${eventsHtml}
-            `;
-        }
-
-        function loadArticles() {
-            const container = document.getElementById('public-articles-container');
-            if (!container) return;
-
-            const articles = JSON.parse(localStorage.getItem('legion_articles')) || [];
-            if (articles.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak artykułów w bazie.</p>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            articles.forEach(art => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-3xl p-6 space-y-4 shadow-xl">
-                        ${art.img ? `<img src="${art.img}" alt="${art.title}" class="w-full h-56 object-cover rounded-2xl border border-juve-border">` : ''}
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-gold">${art.date}</span>
-                            ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider">${art.tag}</span>` : ''}
-                        </div>
-                        <h3 class="text-xl font-black uppercase tracking-wider text-white">${art.title}</h3>
-                        <div class="text-xs text-slate-300 space-y-2 leading-relaxed">${art.content}</div>
-                    </div>
-                `;
-            });
-        }
-
-        function loadUpcomingMatches() {
-            const container = document.getElementById('upcoming-matches-container');
-            if (!container) return;
-
-            const matches = JSON.parse(localStorage.getItem('legion_upcoming_matches')) || [];
-            if (matches.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak nadchodzących meczów w terminarzu.</p>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            matches.forEach(match => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-2xl p-4 flex items-center justify-between shadow-lg">
-                        <div>
-                            <span class="text-[10px] text-gold font-bold uppercase">${match.competition || 'Mecz'}</span>
-                            <h4 class="text-xs font-black uppercase text-white mt-0.5">Legion Białystok vs ${match.opponent}</h4>
-                        </div>
-                        <span class="text-xs font-bold text-slate-300 text-right">${match.date}</span>
-                    </div>
-                `;
-            });
-        }
-
-        function loadTrophies() {
-            const container = document.getElementById('public-trophies-container');
-            if (!container) return;
-
-            const trophies = JSON.parse(localStorage.getItem('legion_trophies')) || [];
-            if (trophies.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic col-span-3">Brak trofeów w gablocie klubowej.</p>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            trophies.forEach(trophy => {
-                container.innerHTML += `
-                    <div class="bg-[#141414] border border-juve-border rounded-2xl p-6 flex items-center space-x-4 shadow-xl">
-                        <div class="w-12 h-12 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold text-2xl flex-shrink-0">🏆</div>
-                        <div>
-                            <span class="text-[10px] text-gold font-bold uppercase tracking-widest">Rok: ${trophy.year}</span>
-                            <h4 class="text-sm font-black uppercase tracking-wider text-white mt-0.5">${trophy.name}</h4>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-    </script>
 </body>
 </html>
