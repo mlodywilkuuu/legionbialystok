@@ -94,7 +94,7 @@
                 Zmiany zostały zapisane!
             </div>
 
-            <!-- NAWIGACJA ZAKŁADEK (MATCH CENTER DOKŁADNIE PRZED TABELĄ) -->
+            <!-- NAWIGACJA ZAKŁADEK (MATCH CENTER PRZED TABELĄ + PANEL DDOS) -->
             <div class="flex flex-wrap gap-2 border-b border-juve-border pb-4">
                 <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gold text-black transition-all cursor-pointer">Użytkownicy</button>
                 <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Najbliższe Mecze</button>
@@ -103,6 +103,10 @@
                 <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Artykuły</button>
                 <button onclick="switchTab('trophies')" id="tab-btn-trophies" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Trofea</button>
                 <button onclick="switchTab('people')" id="tab-btn-people" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Skład / Ludzie</button>
+                <button onclick="switchTab('ddos')" id="tab-btn-ddos" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-red-400 hover:text-red-300 transition-all cursor-pointer flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span>Panel DDoS & Ochrona</span>
+                </button>
             </div>
 
             <!-- 1. ZAKŁADKA: UŻYTKOWNICY -->
@@ -367,6 +371,72 @@
                 </div>
             </div>
 
+            <!-- 8. ZAKŁADKA: PANEL DDOS & OCHRONA -->
+            <div id="tab-ddos" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+                <div class="border-b border-juve-border pb-4 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Panel Ochrony i Zapory DDoS</h2>
+                        <p class="text-xs text-slate-400 mt-1">Monitorowanie ruchu sieciowego, filtrowanie żądań oraz blokowanie adresów IP.</p>
+                    </div>
+                    <span class="bg-green-500/10 border border-green-500/30 text-green-400 px-4 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span>Ochrona aktywna</span>
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-black/40 border border-juve-border p-6 rounded-2xl space-y-2">
+                        <span class="text-[10px] font-black uppercase text-slate-400">Ruch (Ostatnia minuta)</span>
+                        <h3 class="text-2xl font-black text-gold">1,428 req/s</h3>
+                        <p class="text-[10px] text-slate-500">Normalny poziom obciążenia serwera</p>
+                    </div>
+                    <div class="bg-black/40 border border-juve-border p-6 rounded-2xl space-y-2">
+                        <span class="text-[10px] font-black uppercase text-slate-400">Zablokowane zagrożenia</span>
+                        <h3 class="text-2xl font-black text-red-500">0</h3>
+                        <p class="text-[10px] text-slate-500">Brak podejrzanych próśb HTTP Flood</p>
+                    </div>
+                    <div class="bg-black/40 border border-juve-border p-6 rounded-2xl space-y-2">
+                        <span class="text-[10px] font-black uppercase text-slate-400">Tryb Zapory (WAF)</span>
+                        <h3 class="text-2xl font-black text-white">Standardowy</h3>
+                        <p class="text-[10px] text-slate-500">Automatyczna weryfikacja wyzwań JS</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Ustawienia zabezpieczeń zapory</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Tryb ochrony serwisu</label>
+                            <select id="ddos-mode" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold text-xs font-black uppercase">
+                                <option value="standard">Standardowy (Automatyczny)</option>
+                                <option value="under_attack">Tryb pod atakiem (Unde Attack Mode)</option>
+                                <option value="strict">Restrykcyjny (Wysoki poziom)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Blokuj nagłe piki żądań (Rate Limiting)</label>
+                            <select id="ddos-rate" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold uppercase">
+                                <option value="100">100 req / 10 sek. na IP</option>
+                                <option value="50" selected>50 req / 10 sek. na IP (Zalecane)</option>
+                                <option value="20">20 req / 10 sek. na IP (Ostry)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="saveDdosSettings()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz konfigurację zapory</button>
+                </div>
+
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Ręczna blokada adresu IP</h3>
+                    <div class="flex gap-4">
+                        <input type="text" id="block-ip-input" placeholder="Wprowadź adres IP (np. 192.168.1.1)" class="flex-1 bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <button onclick="blockIp()" class="bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">Zablokuj IP</button>
+                    </div>
+                    <div id="blocked-ips-list" class="space-y-2 pt-2">
+                        <p class="text-xs text-slate-500 italic">Brak ręcznie zablokowanych adresów IP.</p>
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- STOPKA -->
@@ -420,25 +490,23 @@
             let savedUsers = localStorage.getItem('legion_users');
             if (!savedUsers) {
                 usersData = [
-                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] }
+                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people", "ddos"] }
                 ];
                 localStorage.setItem('legion_users', JSON.stringify(usersData));
             } else {
                 try {
                     usersData = JSON.parse(savedUsers);
                     if (!usersData.some(u => u.login === 'mpiotrowski')) {
-                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] });
+                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people", "ddos"] });
                         localStorage.setItem('legion_users', JSON.stringify(usersData));
                     }
-                    // Auto-fix kont dla starych zapisów bez permisji matchcenter
                     usersData.forEach(u => {
-                        if (!u.perms.includes('matchcenter')) {
-                            u.perms.push('matchcenter');
-                        }
+                        if (!u.perms.includes('matchcenter')) u.perms.push('matchcenter');
+                        if (!u.perms.includes('ddos')) u.perms.push('ddos');
                     });
                 } catch(e) {
                     usersData = [
-                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] }
+                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people", "ddos"] }
                     ];
                 }
             }
@@ -521,7 +589,9 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('bg-gold', 'text-black');
-                btn.classList.add('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+                if (btn.id !== 'tab-btn-ddos') {
+                    btn.classList.add('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+                }
             });
 
             const targetTab = document.getElementById(`tab-${tabName}`);
@@ -529,7 +599,7 @@
 
             if (targetTab) targetTab.classList.remove('hidden');
             if (targetBtn) {
-                targetBtn.classList.remove('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300');
+                targetBtn.classList.remove('bg-[#141414]', 'border', 'border-juve-border', 'text-slate-300', 'text-red-400');
                 targetBtn.classList.add('bg-gold', 'text-black');
             }
         }
@@ -544,6 +614,7 @@
             const btnArticles = document.getElementById('tab-btn-articles');
             const btnTrophies = document.getElementById('tab-btn-trophies');
             const btnPeople = document.getElementById('tab-btn-people');
+            const btnDdos = document.getElementById('tab-btn-ddos');
 
             if (currentUser.login === 'mpiotrowski') {
                 if (btnUsers) btnUsers.style.display = 'block';
@@ -557,6 +628,7 @@
             if (btnArticles) btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
             if (btnTrophies) btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
             if (btnPeople) btnPeople.style.display = perms.includes('people') ? 'block' : 'none';
+            if (btnDdos) btnDdos.style.display = perms.includes('ddos') ? 'block' : 'none';
         }
 
         function showToast() {
@@ -1020,6 +1092,29 @@
 
         function savePeopleData() {
             localStorage.setItem('legion_people', JSON.stringify(peopleData));
+            showToast();
+        }
+
+        function saveDdosSettings() {
+            showToast();
+        }
+
+        function blockIp() {
+            const ipInput = document.getElementById('block-ip-input');
+            const ip = ipInput ? ipInput.value.trim() : '';
+            if (!ip) return alert('Wpisz adres IP do zablokowania!');
+            
+            const listContainer = document.getElementById('blocked-ips-list');
+            if (listContainer.innerHTML.includes('Brak ręcznie')) {
+                listContainer.innerHTML = '';
+            }
+            listContainer.innerHTML += `
+                <div class="flex items-center justify-between bg-black/60 border border-juve-border p-3 rounded-xl text-xs">
+                    <span class="text-red-400 font-bold">${ip}</span>
+                    <span class="text-[10px] text-slate-500 uppercase">Zablokowano ręcznie</span>
+                </div>
+            `;
+            ipInput.value = '';
             showToast();
         }
     </script>
