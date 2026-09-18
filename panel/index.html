@@ -58,7 +58,6 @@
                     <input type="password" id="login-pass" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold transition-colors">
                 </div>
                 
-                <!-- KOMUNIKAT O BŁĘDZIE LOGOWANIA -->
                 <div id="login-error" class="bg-red-500/10 border border-red-500/30 text-red-400 p-3 rounded-xl text-xs font-bold text-center hidden space-y-1">
                     <p>Błędny login lub hasło!</p>
                     <span class="text-[10px] text-slate-400 block font-normal">Domyślny login: mpiotrowski | hasło: Jaga1920.</span>
@@ -91,7 +90,6 @@
         <!-- KONTENER ADMINISTRACYJNY Z ZAKŁADKAMI -->
         <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-8">
             
-            <!-- TOAST POWIADOMIEŃ -->
             <div id="toast" class="fixed bottom-6 right-6 bg-gold text-black px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50">
                 Zmiany zostały zapisane!
             </div>
@@ -99,14 +97,12 @@
             <!-- NAWIGACJA ZAKŁADEK -->
             <div class="flex flex-wrap gap-2 border-b border-juve-border pb-4">
                 <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gold text-black transition-all cursor-pointer">Użytkownicy</button>
-                <button onclick="switchTab('match')" id="tab-btn-match" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Match Center</button>
+                <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Najbliższe Mecze</button>
                 <button onclick="switchTab('table')" id="tab-btn-table" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Tabela</button>
                 <button onclick="switchTab('articles')" id="tab-btn-articles" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Artykuły</button>
                 <button onclick="switchTab('trophies')" id="tab-btn-trophies" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Trofea</button>
                 <button onclick="switchTab('people')" id="tab-btn-people" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Skład / Ludzie</button>
             </div>
-
-            <!-- TREŚĆ ZAKŁADEK -->
 
             <!-- 1. ZAKŁADKA: UŻYTKOWNICY -->
             <div id="tab-users" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl">
@@ -123,7 +119,7 @@
                     <div class="space-y-2 pt-2">
                         <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Wybierz permisje:</label>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs font-bold">
-                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="match" class="new-perm accent-[#d4af37]"> <span>Match Center</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="matches" class="new-perm accent-[#d4af37]"> <span>Najbliższe Mecze</span></label>
                             <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="table" class="new-perm accent-[#d4af37]"> <span>Tabela</span></label>
                             <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="articles" class="new-perm accent-[#d4af37]"> <span>Artykuły</span></label>
                             <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="trophies" class="new-perm accent-[#d4af37]"> <span>Trofea</span></label>
@@ -135,27 +131,31 @@
                 <div id="admin-users-list" class="space-y-3"></div>
             </div>
 
-            <!-- 2. ZAKŁADKA: MATCH CENTER -->
-            <div id="tab-match" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
+            <!-- 2. ZAKŁADKA: NAJBLIŻSZE MECZE -->
+            <div id="tab-matches" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Match Center</h2>
-                    <p class="text-xs text-slate-400 mt-1">Zarządzaj informacjami o spotkaniu na stronie głównej.</p>
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Zarządzanie Najbliższymi Meczami</h2>
+                    <p class="text-xs text-slate-400 mt-1">Dodawaj, edytuj i usuwaj nadchodzące spotkania drużyny.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold uppercase text-slate-400">Rywal</label>
-                        <input type="text" id="mc-opponent" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy mecz</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Przeciwnik</label>
+                            <input type="text" id="match-opponent" placeholder="np. KS Wasilków" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Data i Godzina</label>
+                            <input type="text" id="match-date" placeholder="np. 25.09.2026, 16:00" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold uppercase text-slate-400">Rozgrywki / Status</label>
+                            <input type="text" id="match-competition" placeholder="np. Klasa Okręgowa" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        </div>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold uppercase text-slate-400">Data i Godzina</label>
-                        <input type="text" id="mc-date" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold uppercase text-slate-400">Wynik / Status</label>
-                        <input type="text" id="mc-score" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold font-black text-xs">
-                    </div>
+                    <button onclick="addUpcomingMatch()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj mecz do terminarza</button>
                 </div>
-                <button onclick="saveMatchCenter()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz Match Center</button>
+                <div id="admin-matches-list" class="space-y-3"></div>
             </div>
 
             <!-- 3. ZAKŁADKA: TABELA -->
@@ -198,11 +198,11 @@
                 </div>
             </div>
 
-            <!-- 4. ZAKŁADKA: ARTYKUŁY -->
+            <!-- 4. ZAKŁADKA: ARTYKUŁY (Z WGRYWANIEM ZDJĘĆ Z PLIKU) -->
             <div id="tab-articles" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Artykuły i Aktualności</h2>
-                    <p class="text-xs text-slate-400 mt-1">Dodawaj artykuły z zaawansowanym formatowaniem treści.</p>
+                    <p class="text-xs text-slate-400 mt-1">Dodawaj artykuły, formatuj treść, dodawaj tagi oraz wczytuj zdjęcia bezpośrednio z dysku.</p>
                 </div>
                 <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
                     <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy artykuł</h3>
@@ -210,7 +210,16 @@
                         <input type="text" id="art-title" placeholder="Tytuł artykułu" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
                         <input type="text" id="art-date" placeholder="Data (np. 18.09.2026)" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
                     </div>
-                    <input type="text" id="art-img" placeholder="URL zdjęcia głównego (opcjonalnie)" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-slate-300 text-xs font-bold">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Zdjęcie główne z dysku</label>
+                            <input type="file" id="art-file" accept="image/*" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-2 text-slate-300 text-xs file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-gold file:text-black hover:file:bg-gold-light cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-slate-400 mb-1">Tag / Kategoria</label>
+                            <input type="text" id="art-tag" placeholder="np. Mecz, Klub, Transfery" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold font-bold text-xs">
+                        </div>
+                    </div>
                     
                     <div class="flex flex-wrap gap-2 pt-2">
                         <button type="button" onclick="formatText('bold')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><b>B</b></button>
@@ -243,11 +252,11 @@
                 <div id="admin-trophies-list" class="space-y-3"></div>
             </div>
 
-            <!-- 6. ZAKŁADKA: SKŁAD / LUDZIE -->
+            <!-- 6. ZAKŁADKA: SKŁAD / LUDZIE (Z WGRYWANIEM ZDJĘĆ Z PLIKU) -->
             <div id="tab-people" class="tab-content space-y-6 bg-[#141414] border border-juve-border rounded-3xl p-8 shadow-2xl hidden">
                 <div class="border-b border-juve-border pb-4">
                     <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Ludzie Legionu, Sztab i Akademia</h2>
-                    <p class="text-xs text-slate-400 mt-1">Brak losowych zdjęć – sekcje wyświetlają się tylko wtedy, gdy kogoś dodasz.</p>
+                    <p class="text-xs text-slate-400 mt-1">Wgrywaj zdjęcia zawodników, trenerów i zarządu bezpośrednio ze swojego dysku.</p>
                 </div>
                 <div id="admin-people-container" class="space-y-8"></div>
                 <div class="pt-4">
@@ -270,7 +279,7 @@
         let peopleData = {};
         let articlesData = [];
         let trophiesData = [];
-        let matchCenterData = {};
+        let upcomingMatchesData = [];
         let usersData = [];
         let currentUser = null;
 
@@ -307,19 +316,19 @@
             let savedUsers = localStorage.getItem('legion_users');
             if (!savedUsers) {
                 usersData = [
-                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
+                    { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matches", "table", "articles", "trophies", "people"] }
                 ];
                 localStorage.setItem('legion_users', JSON.stringify(usersData));
             } else {
                 try {
                     usersData = JSON.parse(savedUsers);
                     if (!usersData.some(u => u.login === 'mpiotrowski')) {
-                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] });
+                        usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["matches", "table", "articles", "trophies", "people"] });
                         localStorage.setItem('legion_users', JSON.stringify(usersData));
                     }
                 } catch(e) {
                     usersData = [
-                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
+                        { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matches", "table", "articles", "trophies", "people"] }
                     ];
                 }
             }
@@ -387,7 +396,7 @@
             renderAdminArticles();
             renderAdminTrophies();
             renderAdminUsers();
-            loadMatchCenterInputs();
+            renderAdminMatches();
             
             if (currentUser.login === 'mpiotrowski') {
                 switchTab('users');
@@ -418,7 +427,7 @@
             const perms = currentUser.perms || [];
             
             const btnUsers = document.getElementById('tab-btn-users');
-            const btnMatch = document.getElementById('tab-btn-match');
+            const btnMatches = document.getElementById('tab-btn-matches');
             const btnTable = document.getElementById('tab-btn-table');
             const btnArticles = document.getElementById('tab-btn-articles');
             const btnTrophies = document.getElementById('tab-btn-trophies');
@@ -430,7 +439,7 @@
                 if (btnUsers) btnUsers.style.display = 'none';
             }
 
-            if (btnMatch) btnMatch.style.display = perms.includes('match') ? 'block' : 'none';
+            if (btnMatches) btnMatches.style.display = perms.includes('matches') ? 'block' : 'none';
             if (btnTable) btnTable.style.display = perms.includes('table') ? 'block' : 'none';
             if (btnArticles) btnArticles.style.display = perms.includes('articles') ? 'block' : 'none';
             if (btnTrophies) btnTrophies.style.display = perms.includes('trophies') ? 'block' : 'none';
@@ -500,22 +509,52 @@
             peopleData = JSON.parse(localStorage.getItem('legion_people')) || { "zarzad": [], "sztab": [], "dzialacze": [], "druzyna": [], "akademia": [] };
             articlesData = JSON.parse(localStorage.getItem('legion_articles')) || [];
             trophiesData = JSON.parse(localStorage.getItem('legion_trophies')) || [];
-            matchCenterData = JSON.parse(localStorage.getItem('legion_match_center')) || { opponent: "", date: "", score: "" };
+            upcomingMatchesData = JSON.parse(localStorage.getItem('legion_upcoming_matches')) || [];
         }
 
-        function loadMatchCenterInputs() {
-            if (document.getElementById('mc-opponent')) document.getElementById('mc-opponent').value = matchCenterData.opponent || '';
-            if (document.getElementById('mc-date')) document.getElementById('mc-date').value = matchCenterData.date || '';
-            if (document.getElementById('mc-score')) document.getElementById('mc-score').value = matchCenterData.score || '';
+        function renderAdminMatches() {
+            const listContainer = document.getElementById('admin-matches-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            if (upcomingMatchesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych najbliższych meczów.</p>`;
+                return;
+            }
+            upcomingMatchesData.forEach((match, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">Legion Białystok vs ${match.opponent}</h4>
+                            <span class="text-[10px] text-gold font-bold">${match.date} | ${match.competition}</span>
+                        </div>
+                        <button onclick="removeUpcomingMatch(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                    </div>
+                `;
+            });
         }
 
-        function saveMatchCenter() {
-            matchCenterData = {
-                opponent: document.getElementById('mc-opponent').value,
-                date: document.getElementById('mc-date').value,
-                score: document.getElementById('mc-score').value
-            };
-            localStorage.setItem('legion_match_center', JSON.stringify(matchCenterData));
+        function addUpcomingMatch() {
+            const opponent = document.getElementById('match-opponent').value.trim();
+            const date = document.getElementById('match-date').value.trim();
+            const competition = document.getElementById('match-competition').value.trim();
+
+            if (!opponent) return alert('Wprowadź nazwę przeciwnika!');
+
+            upcomingMatchesData.push({ opponent, date, competition });
+            localStorage.setItem('legion_upcoming_matches', JSON.stringify(upcomingMatchesData));
+
+            document.getElementById('match-opponent').value = '';
+            document.getElementById('match-date').value = '';
+            document.getElementById('match-competition').value = '';
+
+            renderAdminMatches();
+            showToast();
+        }
+
+        function removeUpcomingMatch(idx) {
+            upcomingMatchesData.splice(idx, 1);
+            localStorage.setItem('legion_upcoming_matches', JSON.stringify(upcomingMatchesData));
+            renderAdminMatches();
             showToast();
         }
 
@@ -587,9 +626,15 @@
             articlesData.forEach((art, idx) => {
                 listContainer.innerHTML += `
                     <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
-                        <div>
-                            <h4 class="text-xs font-black uppercase text-white">${art.title}</h4>
-                            <span class="text-[10px] text-gold font-bold">${art.date}</span>
+                        <div class="flex items-center space-x-3">
+                            ${art.img ? `<img src="${art.img}" class="w-10 h-10 object-cover rounded-lg border border-juve-border">` : ''}
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <h4 class="text-xs font-black uppercase text-white">${art.title}</h4>
+                                    ${art.tag ? `<span class="bg-gold/10 text-gold border border-gold/30 px-2 py-0.5 rounded text-[9px] font-bold uppercase">${art.tag}</span>` : ''}
+                                </div>
+                                <span class="text-[10px] text-slate-400 font-bold">${art.date}</span>
+                            </div>
                         </div>
                         <button onclick="removeArticle(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
                     </div>
@@ -598,21 +643,39 @@
         }
 
         function addArticle() {
-            const title = document.getElementById('art-title').value;
-            const date = document.getElementById('art-date').value;
-            const img = document.getElementById('art-img').value;
+            const title = document.getElementById('art-title').value.trim();
+            const date = document.getElementById('art-date').value.trim();
+            const tag = document.getElementById('art-tag').value.trim();
             const content = document.getElementById('art-content').innerHTML;
+            const fileInput = document.getElementById('art-file');
 
             if (!title) return alert('Wprowadź tytuł artykułu!');
-            articlesData.unshift({ title, date, img, content });
-            localStorage.setItem('legion_articles', JSON.stringify(articlesData));
-            
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    articlesData.unshift({ title, date, img: e.target.result, tag, content });
+                    localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+                    resetArticleForm();
+                    renderAdminArticles();
+                    showToast();
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                articlesData.unshift({ title, date, img: '', tag, content });
+                localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+                resetArticleForm();
+                renderAdminArticles();
+                showToast();
+            }
+        }
+
+        function resetArticleForm() {
             document.getElementById('art-title').value = '';
             document.getElementById('art-date').value = '';
-            document.getElementById('art-img').value = '';
+            document.getElementById('art-file').value = '';
+            document.getElementById('art-tag').value = '';
             document.getElementById('art-content').innerHTML = '';
-            renderAdminArticles();
-            showToast();
         }
 
         function removeArticle(idx) {
@@ -685,19 +748,24 @@
                     list.forEach((p, idx) => {
                         html += `
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center bg-[#141414] border border-juve-border p-4 rounded-xl">
-                                <div class="md:col-span-4">
+                                <div class="md:col-span-3">
                                     <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Imię i nazwisko</label>
                                     <input type="text" value="${p.name}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'name', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
                                 </div>
-                                <div class="md:col-span-4">
+                                <div class="md:col-span-3">
                                     <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Pozycja / Rola</label>
                                     <input type="text" value="${p.role}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'role', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
                                 </div>
-                                <div class="md:col-span-3">
-                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">URL zdjęcia (opcjonalnie)</label>
-                                    <input type="text" value="${p.photo || ''}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'photo', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-slate-300 text-xs font-bold">
+                                <div class="md:col-span-4 flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg overflow-hidden bg-zinc-900 border border-juve-border flex-shrink-0 flex items-center justify-center">
+                                        ${p.photo ? `<img src="${p.photo}" class="w-full h-full object-cover">` : `<span class="text-[9px] text-slate-600">Brak</span>`}
+                                    </div>
+                                    <div class="w-full">
+                                        <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Zmień zdjęcie</label>
+                                        <input type="file" accept="image/*" onchange="updatePersonPhoto(event, '${roleObj.key}', ${idx})" class="w-full text-[10px] text-slate-300 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-bold file:bg-gold file:text-black cursor-pointer">
+                                    </div>
                                 </div>
-                                <div class="md:col-span-1 flex justify-end pt-4 md:pt-0">
+                                <div class="md:col-span-2 flex justify-end pt-4 md:pt-0">
                                     <button onclick="removePerson('${roleObj.key}', ${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
                                 </div>
                             </div>
@@ -719,6 +787,18 @@
         function updatePersonData(roleKey, idx, field, value) {
             if (peopleData[roleKey] && peopleData[roleKey][idx]) {
                 peopleData[roleKey][idx][field] = value;
+            }
+        }
+
+        function updatePersonPhoto(event, roleKey, idx) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    peopleData[roleKey][idx].photo = e.target.result;
+                    renderAdminPeople();
+                };
+                reader.readAsDataURL(file);
             }
         }
 
