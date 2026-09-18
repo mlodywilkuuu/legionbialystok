@@ -94,7 +94,7 @@
                 Zmiany zostały zapisane!
             </div>
 
-            <!-- NAWIGACJA ZAKŁADEK (MATCH CENTER PRZED TABELĄ) -->
+            <!-- NAWIGACJA ZAKŁADEK (MATCH CENTER DOKŁADNIE PRZED TABELĄ) -->
             <div class="flex flex-wrap gap-2 border-b border-juve-border pb-4">
                 <button onclick="switchTab('users')" id="tab-btn-users" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-gold text-black transition-all cursor-pointer">Użytkownicy</button>
                 <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-[#141414] border border-juve-border text-slate-300 hover:text-gold transition-all cursor-pointer">Najbliższe Mecze</button>
@@ -430,6 +430,12 @@
                         usersData.unshift({ login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] });
                         localStorage.setItem('legion_users', JSON.stringify(usersData));
                     }
+                    // Auto-fix kont dla starych zapisów bez permisji matchcenter
+                    usersData.forEach(u => {
+                        if (!u.perms.includes('matchcenter')) {
+                            u.perms.push('matchcenter');
+                        }
+                    });
                 } catch(e) {
                     usersData = [
                         { login: "mpiotrowski", pass: "Jaga1920.", perms: ["matchcenter", "matches", "table", "articles", "trophies", "people"] }
