@@ -39,116 +39,313 @@
 </head>
 <body class="bg-[#0b0b0b] text-white font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
 
-    <!-- GÓRNY PASEK -->
-    <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-50">
-        <div class="flex items-center space-x-5">
-            <a href="../index.html" class="flex items-center">
-                <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
-            </a>
-            <span class="text-xs font-black uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-lg">Panel CMS</span>
-        </div>
-        <a href="../index.html" class="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Wróć do strony głównej &rarr;</a>
-    </header>
-
-    <!-- ZAWARTOŚĆ PANELU -->
-    <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
-        
-        <!-- KOMUNIKAT O ZAPISIE -->
-        <div id="toast" class="fixed bottom-6 right-6 bg-gold text-black px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50">
-            Zmiany zostały zapisane!
-        </div>
-
-        <!-- SEKCJA 1: ZARZĄDZANIE TABELĄ LIGOWĄ -->
-        <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-juve-border pb-4">
-                <div>
-                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Tabela Ligowa</h2>
-                    <p class="text-xs text-slate-400 mt-1">Wybierz sezon, edytuj drużyny lub dodaj nowe wiersze do tabeli.</p>
+    <!-- EKRAN LOGOWANIA -->
+    <div id="login-screen" class="fixed inset-0 bg-[#0b0b0b] z-50 flex items-center justify-center p-6">
+        <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 md:p-10 max-w-md w-full space-y-6 shadow-2xl">
+            <div class="text-center space-y-2">
+                <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo" class="h-16 w-auto mx-auto object-contain">
+                <h1 class="text-2xl font-black uppercase tracking-wider text-white">Panel CMS</h1>
+                <p class="text-xs text-slate-400">Zaloguj się, aby zarządzać serwisem Legion Białystok</p>
+            </div>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Login</label>
+                    <input type="text" id="login-user" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold">
                 </div>
-                <div class="flex items-center space-x-3">
-                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Sezon:</label>
-                    <select id="admin-season-select" onchange="switchAdminSeason(this.value)" class="bg-black/60 border border-juve-border text-gold text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl focus:outline-none focus:border-gold">
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                    </select>
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Hasło</label>
+                    <input type="password" id="login-pass" required class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold focus:outline-none focus:border-gold">
+                </div>
+                <div id="login-error" class="text-red-400 text-xs font-bold text-center hidden">Niepoprawny login lub hasło!</div>
+                <button type="submit" class="w-full bg-gold hover:bg-gold-light text-black font-black text-xs uppercase tracking-widest py-4 rounded-xl transition-all cursor-pointer shadow-lg">
+                    Zaloguj się
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- GŁÓWNA ZAWARTOŚĆ PANELU -->
+    <div id="admin-main-content" class="hidden flex-col min-h-screen justify-between">
+        <!-- GÓRNY PASEK -->
+        <header class="w-full bg-[#0b0b0b]/90 backdrop-blur-md border-b border-juve-border fixed top-0 left-0 px-6 py-4 flex items-center justify-between z-40">
+            <div class="flex items-center space-x-5">
+                <a href="../index.html" class="flex items-center">
+                    <img src="../8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Logo Legion" class="h-12 w-auto object-contain cursor-pointer">
+                </a>
+                <span class="text-xs font-black uppercase tracking-widest text-gold bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-lg">Panel CMS</span>
+                <span id="logged-user-badge" class="text-xs font-bold text-slate-300 hidden md:inline"></span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-gold transition-colors">Wróć do strony &rarr;</a>
+                <button onclick="handleLogout()" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer">Wyloguj</button>
+            </div>
+        </header>
+
+        <!-- KONTENER ADMINISTRACYJNY -->
+        <main class="flex-1 max-w-6xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
+            
+            <!-- TOAST POWIADOMIEŃ -->
+            <div id="toast" class="fixed bottom-6 right-6 bg-gold text-black px-6 py-3 rounded-xl font-black text-xs uppercase tracking-wider shadow-2xl transition-all duration-300 translate-y-20 opacity-0 z-50">
+                Zmiany zostały zapisane!
+            </div>
+
+            <!-- SEKCJA 0: ZARZĄDZANIE UŻYTKOWNIKAMI I PERMISJAMI (Tylko dla głównego admina lub uprawnionych) -->
+            <div id="sec-users" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Użytkownicy i Permisje</h2>
+                    <p class="text-xs text-slate-400 mt-1">Twórz konta, nadawaj loginy, hasła oraz precyzyjne uprawnienia do sekcji panelu.</p>
+                </div>
+
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowego użytkownika</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="new-user-login" placeholder="Login" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="password" id="new-user-pass" placeholder="Hasło" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <div class="space-y-2 pt-2">
+                        <label class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Wybierz permisje (uprawnienia do sekcji):</label>
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs font-bold">
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="match" class="new-perm accent-[#d4af37]"> <span>Match Center</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="table" class="new-perm accent-[#d4af37]"> <span>Tabela</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="articles" class="new-perm accent-[#d4af37]"> <span>Artykuły</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="trophies" class="new-perm accent-[#d4af37]"> <span>Trofea</span></label>
+                            <label class="flex items-center space-x-2 cursor-pointer bg-black/60 border border-juve-border p-3 rounded-xl"><input type="checkbox" value="people" class="new-perm accent-[#d4af37]"> <span>Skład / Ludzie</span></label>
+                        </div>
+                    </div>
+                    <button onclick="addUser()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj użytkownika</button>
+                </div>
+
+                <div id="admin-users-list" class="space-y-3"></div>
+            </div>
+
+            <!-- SEKCJA 1: MATCH CENTER -->
+            <div id="sec-match" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Match Center</h2>
+                    <p class="text-xs text-slate-400 mt-1">Zarządzaj informacjami o spotkaniu na stronie głównej.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase text-slate-400">Rywal</label>
+                        <input type="text" id="mc-opponent" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase text-slate-400">Data i Godzina</label>
+                        <input type="text" id="mc-date" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold uppercase text-slate-400">Wynik / Status</label>
+                        <input type="text" id="mc-score" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-gold font-black text-xs">
+                    </div>
+                </div>
+                <button onclick="saveMatchCenter()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz Match Center</button>
+            </div>
+
+            <!-- SEKCJA 2: TABELA LIGOWA -->
+            <div id="sec-table" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-juve-border pb-4">
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Tabela Ligowa</h2>
+                        <p class="text-xs text-slate-400 mt-1">Wybierz sezon, edytuj drużyny lub dodaj nowe wiersze do tabeli.</p>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Sezon:</label>
+                        <select id="admin-season-select" onchange="switchAdminSeason(this.value)" class="bg-black/60 border border-juve-border text-gold text-xs font-black uppercase tracking-widest px-4 py-2.5 rounded-xl focus:outline-none focus:border-gold">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-juve-border text-[10px] font-black uppercase tracking-widest text-slate-400 bg-black/40">
+                                <th class="py-3 px-4 text-center w-16">Poz</th>
+                                <th class="py-3 px-4">Drużyna</th>
+                                <th class="py-3 px-4 text-center w-16">M</th>
+                                <th class="py-3 px-4 text-center w-16 text-gold">Pkt</th>
+                                <th class="py-3 px-4 text-center w-16">Z</th>
+                                <th class="py-3 px-4 text-center w-16">R</th>
+                                <th class="py-3 px-4 text-center w-16">P</th>
+                                <th class="py-3 px-3 text-center w-24">Bramki</th>
+                                <th class="py-3 px-4 text-center w-20">Akcje</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body" class="divide-y divide-juve-border text-xs font-bold"></tbody>
+                    </table>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
+                    <button onclick="addTableRow()" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">+ Dodaj drużynę</button>
+                    <button onclick="saveTableData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz tabelę</button>
                 </div>
             </div>
 
-            <!-- Tabela edycji -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse" id="admin-table-element">
-                    <thead>
-                        <tr class="border-b border-juve-border text-[10px] font-black uppercase tracking-widest text-slate-400 bg-black/40">
-                            <th class="py-3 px-4 text-center w-16">Poz</th>
-                            <th class="py-3 px-4">Drużyna</th>
-                            <th class="py-3 px-4 text-center w-16">M</th>
-                            <th class="py-3 px-4 text-center w-16 text-gold">Pkt</th>
-                            <th class="py-3 px-4 text-center w-16">Z</th>
-                            <th class="py-3 px-4 text-center w-16">R</th>
-                            <th class="py-3 px-4 text-center w-16">P</th>
-                            <th class="py-3 px-3 text-center w-24">Bramki</th>
-                            <th class="py-3 px-4 text-center w-20">Akcje</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body" class="divide-y divide-juve-border text-xs font-bold">
-                        <!-- Generowane dynamicznie -->
-                    </tbody>
-                </table>
+            <!-- SEKCJA 3: ARTYKUŁY -->
+            <div id="sec-articles" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Artykuły i Aktualności</h2>
+                    <p class="text-xs text-slate-400 mt-1">Dodawaj artykuły z zaawansowanym formatowaniem treści.</p>
+                </div>
+
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj nowy artykuł</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="art-title" placeholder="Tytuł artykułu" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="text" id="art-date" placeholder="Data (np. 18.09.2026)" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <input type="text" id="art-img" placeholder="URL zdjęcia głównego (opcjonalnie)" class="w-full bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-slate-300 text-xs font-bold">
+                    
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <button type="button" onclick="formatText('bold')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><b>B</b></button>
+                        <button type="button" onclick="formatText('italic')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><i>I</i></button>
+                        <button type="button" onclick="formatText('underline')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all"><u>U</u></button>
+                        <button type="button" onclick="formatText('insertUnorderedList')" class="bg-zinc-900 border border-juve-border px-3 py-1.5 rounded-lg text-xs font-black text-gold hover:bg-gold hover:text-black transition-all">• Lista</button>
+                    </div>
+
+                    <div id="art-content" contenteditable="true" class="w-full min-h-[150px] bg-black/60 border border-juve-border rounded-xl p-4 text-white text-xs font-normal focus:outline-none focus:border-gold overflow-y-auto" placeholder="Treść artykułu..."></div>
+
+                    <button onclick="addArticle()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Opublikuj artykuł</button>
+                </div>
+
+                <div id="admin-articles-list" class="space-y-3"></div>
             </div>
 
-            <div class="flex flex-wrap items-center justify-between gap-4 pt-2">
-                <button onclick="addTableRow()" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer">
-                    + Dodaj drużynę do tabeli
-                </button>
-                <button onclick="saveTableData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">
-                    Zapisz tabelę
-                </button>
-            </div>
-        </div>
+            <!-- SEKCJA 4: TROFEA -->
+            <div id="sec-trophies" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Trofea i Osiągnięcia</h2>
+                    <p class="text-xs text-slate-400 mt-1">Zarządzaj pucharami i osiągnięciami klubowymi.</p>
+                </div>
 
-        <!-- SEKCJA 2: ZARZĄDZANIE LUDŹMI LEGIONU -->
-        <div class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
-            <div class="border-b border-juve-border pb-4">
-                <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Ludzie Legionu</h2>
-                <p class="text-xs text-slate-400 mt-1">Zarządzaj składem zarządu, sztabu oraz działaczy. Puste sekcje automatycznie znikną ze strony.</p>
-            </div>
+                <div class="space-y-4 bg-black/40 border border-juve-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-black uppercase text-gold">Dodaj trofeum</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="trophy-name" placeholder="Nazwa trofeum" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                        <input type="text" id="trophy-year" placeholder="Rok" class="bg-black/60 border border-juve-border rounded-xl px-4 py-3 text-white text-xs font-bold">
+                    </div>
+                    <button onclick="addTrophy()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Dodaj trofeum</button>
+                </div>
 
-            <div id="admin-people-container" class="space-y-8">
-                <!-- Generowane dynamicznie dla każdej roli -->
+                <div id="admin-trophies-list" class="space-y-3"></div>
             </div>
 
-            <div class="pt-4">
-                <button onclick="savePeopleData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">
-                    Zapisz ludzi Legionu
-                </button>
+            <!-- SEKCJA 5: LUDZIE LEGIONU I DRUŻYNY -->
+            <div id="sec-people" class="bg-[#141414] border border-juve-border rounded-3xl p-8 space-y-6 shadow-2xl">
+                <div class="border-b border-juve-border pb-4">
+                    <h2 class="text-xl md:text-2xl font-black uppercase tracking-wider text-white">Ludzie Legionu, Sztab i Akademia</h2>
+                    <p class="text-xs text-slate-400 mt-1">Brak losowych zdjęć – sekcje wyświetlają się tylko wtedy, gdy kogoś dodasz.</p>
+                </div>
+
+                <div id="admin-people-container" class="space-y-8"></div>
+
+                <div class="pt-4">
+                    <button onclick="savePeopleData()" class="bg-gold hover:bg-gold-light text-black px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-lg">Zapisz zmiany personalne</button>
+                </div>
             </div>
-        </div>
 
-    </main>
+        </main>
 
-    <!-- STOPKA -->
-    <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-8 px-6 text-center text-xs text-slate-500">
-        Legion Białystok CMS &copy; 2026. Wszelkie prawa zastrzeżone.
-    </footer>
+        <!-- STOPKA -->
+        <footer class="w-full bg-[#0b0b0b] border-t border-juve-border py-8 px-6 text-center text-xs text-slate-500">
+            Legion Białystok CMS &copy; 2026. Wszelkie prawa zastrzeżone.
+        </footer>
+    </div>
 
     <!-- SKRYPT PANELU -->
     <script>
         let currentAdminSeason = '2026';
         let tablesBySeason = {};
         let peopleData = {};
+        let articlesData = [];
+        let trophiesData = [];
+        let matchCenterData = {};
+        let usersData = [];
+        let currentUser = null;
 
         const rolesConfig = [
             { key: "zarzad", title: "Zarząd Klubu" },
             { key: "sztab", title: "Sztab Szkolny i Trenerzy" },
-            { key: "dzialacze", title: "Działacze i Administracja" }
+            { key: "dzialacze", title: "Działacze i Administracja" },
+            { key: "druzyna", title: "Pierwsza Drużyna (Zawodnicy)" },
+            { key: "akademia", title: "Akademia (Trenerzy / Młodzież)" }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
+            initUsers();
+            const activeUserLogin = localStorage.getItem('legion_active_user');
+            if (activeUserLogin) {
+                currentUser = usersData.find(u => u.login === activeUserLogin);
+                if (currentUser) {
+                    showAdminPanel();
+                }
+            }
+        });
+
+        function initUsers() {
+            usersData = JSON.parse(localStorage.getItem('legion_users')) || [
+                { login: "mpiotrowski", pass: "Jaga1920.", perms: ["match", "table", "articles", "trophies", "people"] }
+            ];
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+
+            const found = usersData.find(user => user.login === u && user.pass === p);
+            if (found) {
+                currentUser = found;
+                localStorage.setItem('legion_active_user', found.login);
+                showAdminPanel();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('legion_active_user');
+            currentUser = null;
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('admin-main-content').classList.remove('flex');
+            document.getElementById('admin-main-content').classList.add('hidden');
+        }
+
+        function showAdminPanel() {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-main-content').classList.remove('hidden');
+            document.getElementById('admin-main-content').classList.add('flex');
+            document.getElementById('logged-user-badge').innerText = `Zalogowany: ${currentUser.login}`;
+
+            applyPermissions();
             loadAllData();
             renderAdminTable();
             renderAdminPeople();
-        });
+            renderAdminArticles();
+            renderAdminTrophies();
+            renderAdminUsers();
+            loadMatchCenterInputs();
+        }
+
+        function applyPermissions() {
+            const perms = currentUser.perms || [];
+            
+            // Główny admin 'mpiotrowski' lub osoby z pełnymi uprawnieniami widzą sekcję użytkowników
+            if (currentUser.login === 'mpiotrowski') {
+                document.getElementById('sec-users').style.display = 'block';
+            } else {
+                document.getElementById('sec-users').style.display = 'none';
+            }
+
+            document.getElementById('sec-match').style.display = perms.includes('match') ? 'block' : 'none';
+            document.getElementById('sec-table').style.display = perms.includes('table') ? 'block' : 'none';
+            document.getElementById('sec-articles').style.display = perms.includes('articles') ? 'block' : 'none';
+            document.getElementById('sec-trophies').style.display = perms.includes('trophies') ? 'block' : 'none';
+            document.getElementById('sec-people').style.display = perms.includes('people') ? 'block' : 'none';
+        }
 
         function showToast() {
             const toast = document.getElementById('toast');
@@ -158,35 +355,78 @@
             }, 2500);
         }
 
-        // --- OBSŁUGA TABELI ---
-        function loadAllData() {
-            tablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || {
-                "2026": [
-                    { pos: 1, team: "LEGION BIAŁYSTOK", m: 3, pkt: 9, z: 3, r: 0, p: 0, goals: "12:2" },
-                    { pos: 2, team: "Orlęta", m: 3, pkt: 6, z: 2, r: 0, p: 1, goals: "7:5" },
-                    { pos: 3, team: "Krypnianka", m: 3, pkt: 4, z: 1, r: 1, p: 1, goals: "5:6" },
-                    { pos: 4, team: "Wigry II", m: 3, pkt: 1, z: 0, r: 1, p: 2, goals: "3:8" },
-                    { pos: 5, team: "Iskra Narew", m: 3, pkt: 0, z: 0, r: 0, p: 3, goals: "2:9" }
-                ],
-                "2025": [
-                    { pos: 1, team: "MKS Mielnik", m: 22, pkt: 52, z: 16, r: 4, p: 2, goals: "61:20" },
-                    { pos: 2, team: "LEGION BIAŁYSTOK", m: 22, pkt: 49, z: 15, r: 4, p: 3, goals: "55:24" }
-                ],
-                "2024": [
-                    { pos: 1, team: "Start Białystok", m: 18, pkt: 45, z: 14, r: 3, p: 1, goals: "50:15" },
-                    { pos: 2, team: "LEGION BIAŁYSTOK", m: 18, pkt: 38, z: 12, r: 2, p: 4, goals: "42:22" }
-                ]
-            };
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
 
-            peopleData = JSON.parse(localStorage.getItem('legion_people')) || {
-                "zarzad": [
-                    { name: "Mateusz Administrator", role: "Prezes Zarządu", photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" }
-                ],
-                "sztab": [
-                    { name: "Wojciech Nawrocki", role: "Trener Główny", photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" }
-                ],
-                "dzialacze": []
+        // --- ZARZĄDZANIE UŻYTKOWNIKAMI I PERMISJAMI ---
+        function renderAdminUsers() {
+            const list = document.getElementById('admin-users-list');
+            list.innerHTML = '';
+            usersData.forEach((u, idx) => {
+                list.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">${u.login}</h4>
+                            <span class="text-[10px] text-gold font-bold">Permisje: ${u.perms.join(', ') || 'brak'}</span>
+                        </div>
+                        ${u.login !== 'mpiotrowski' ? `<button onclick="removeUser(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń konto</button>` : `<span class="text-[10px] text-slate-500 font-bold uppercase">Główny Admin</span>`}
+                    </div>
+                `;
+            });
+        }
+
+        function addUser() {
+            const login = document.getElementById('new-user-login').value;
+            const pass = document.getElementById('new-user-pass').value;
+            const checkedPerms = document.querySelectorAll('.new-perm:checked');
+            let perms = [];
+            checkedPerms.forEach(cb => perms.push(cb.value));
+
+            if (!login || !pass) return alert('Wpisz login i hasło!');
+            if (usersData.some(u => u.login === login)) return alert('Taki użytkownik już istnieje!');
+
+            usersData.push({ login, pass, perms });
+            localStorage.setItem('legion_users', JSON.stringify(usersData));
+
+            document.getElementById('new-user-login').value = '';
+            document.getElementById('new-user-pass').value = '';
+            document.querySelectorAll('.new-perm').forEach(cb => cb.checked = false);
+
+            renderAdminUsers();
+            showToast();
+        }
+
+        function removeUser(idx) {
+            usersData.splice(idx, 1);
+            localStorage.setItem('legion_users', JSON.stringify(usersData));
+            renderAdminUsers();
+            showToast();
+        }
+
+        // --- ŁADOWANIE POZOSTAŁYCH DANYCH ---
+        function loadAllData() {
+            tablesBySeason = JSON.parse(localStorage.getItem('legion_tables_by_season')) || { "2026": [], "2025": [], "2024": [] };
+            peopleData = JSON.parse(localStorage.getItem('legion_people')) || { "zarzad": [], "sztab": [], "dzialacze": [], "druzyna": [], "akademia": [] };
+            articlesData = JSON.parse(localStorage.getItem('legion_articles')) || [];
+            trophiesData = JSON.parse(localStorage.getItem('legion_trophies')) || [];
+            matchCenterData = JSON.parse(localStorage.getItem('legion_match_center')) || { opponent: "", date: "", score: "" };
+        }
+
+        function loadMatchCenterInputs() {
+            document.getElementById('mc-opponent').value = matchCenterData.opponent || '';
+            document.getElementById('mc-date').value = matchCenterData.date || '';
+            document.getElementById('mc-score').value = matchCenterData.score || '';
+        }
+
+        function saveMatchCenter() {
+            matchCenterData = {
+                opponent: document.getElementById('mc-opponent').value,
+                date: document.getElementById('mc-date').value,
+                score: document.getElementById('mc-score').value
             };
+            localStorage.setItem('legion_match_center', JSON.stringify(matchCenterData));
+            showToast();
         }
 
         function switchAdminSeason(season) {
@@ -198,7 +438,6 @@
             let list = tablesBySeason[currentAdminSeason] || [];
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '';
-
             list.forEach((row, index) => {
                 tbody.innerHTML += `
                     <tr class="border-b border-juve-border/50">
@@ -220,8 +459,7 @@
 
         function addTableRow() {
             if (!tablesBySeason[currentAdminSeason]) tablesBySeason[currentAdminSeason] = [];
-            let list = tablesBySeason[currentAdminSeason];
-            list.push({ pos: list.length + 1, team: "NOWA DRUŻYNA", m: 0, pkt: 0, z: 0, r: 0, p: 0, goals: "0:0" });
+            tablesBySeason[currentAdminSeason].push({ pos: tablesBySeason[currentAdminSeason].length + 1, team: "NOWA DRUŻYNA", m: 0, pkt: 0, z: 0, r: 0, p: 0, goals: "0:0" });
             renderAdminTable();
         }
 
@@ -231,10 +469,8 @@
         }
 
         function saveTableData() {
-            // Zbieramy dane z pól input
             let list = tablesBySeason[currentAdminSeason];
             const rows = document.querySelectorAll('#admin-table-body tr');
-            
             rows.forEach((tr, index) => {
                 list[index].pos = parseInt(tr.querySelector('.t-pos').value) || (index + 1);
                 list[index].team = tr.querySelector('.t-team').value;
@@ -245,30 +481,112 @@
                 list[index].p = parseInt(tr.querySelector('.t-p').value) || 0;
                 list[index].goals = tr.querySelector('.t-goals').value;
             });
-
             localStorage.setItem('legion_tables_by_season', JSON.stringify(tablesBySeason));
             showToast();
         }
 
-        // --- OBSŁUGA LUDZI LEGIONU ---
+        function renderAdminArticles() {
+            const listContainer = document.getElementById('admin-articles-list');
+            listContainer.innerHTML = '';
+            if (articlesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych artykułów.</p>`;
+                return;
+            }
+            articlesData.forEach((art, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">${art.title}</h4>
+                            <span class="text-[10px] text-gold font-bold">${art.date}</span>
+                        </div>
+                        <button onclick="removeArticle(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addArticle() {
+            const title = document.getElementById('art-title').value;
+            const date = document.getElementById('art-date').value;
+            const img = document.getElementById('art-img').value;
+            const content = document.getElementById('art-content').innerHTML;
+
+            if (!title) return alert('Wprowadź tytuł artykułu!');
+            articlesData.unshift({ title, date, img, content });
+            localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+            
+            document.getElementById('art-title').value = '';
+            document.getElementById('art-date').value = '';
+            document.getElementById('art-img').value = '';
+            document.getElementById('art-content').innerHTML = '';
+            renderAdminArticles();
+            showToast();
+        }
+
+        function removeArticle(idx) {
+            articlesData.splice(idx, 1);
+            localStorage.setItem('legion_articles', JSON.stringify(articlesData));
+            renderAdminArticles();
+            showToast();
+        }
+
+        function renderAdminTrophies() {
+            const listContainer = document.getElementById('admin-trophies-list');
+            listContainer.innerHTML = '';
+            if (trophiesData.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 italic">Brak dodanych trofeów.</p>`;
+                return;
+            }
+            trophiesData.forEach((trophy, idx) => {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-black/40 border border-juve-border p-4 rounded-xl">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-white">${trophy.name}</h4>
+                            <span class="text-[10px] text-gold font-bold">Rok: ${trophy.year}</span>
+                        </div>
+                        <button onclick="removeTrophy(${idx})" class="bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer">Usuń</button>
+                    </div>
+                `;
+            });
+        }
+
+        function addTrophy() {
+            const name = document.getElementById('trophy-name').value;
+            const year = document.getElementById('trophy-year').value;
+            if (!name) return alert('Wprowadź nazwę trofeum!');
+
+            trophiesData.push({ name, year });
+            localStorage.setItem('legion_trophies', JSON.stringify(trophiesData));
+            document.getElementById('trophy-name').value = '';
+            document.getElementById('trophy-year').value = '';
+            renderAdminTrophies();
+            showToast();
+        }
+
+        function removeTrophy(idx) {
+            trophiesData.splice(idx, 1);
+            localStorage.setItem('legion_trophies', JSON.stringify(trophiesData));
+            renderAdminTrophies();
+            showToast();
+        }
+
         function renderAdminPeople() {
             const container = document.getElementById('admin-people-container');
             container.innerHTML = '';
 
             rolesConfig.forEach(roleObj => {
                 let list = peopleData[roleObj.key] || [];
-
                 let html = `
                     <div class="space-y-4 border border-juve-border rounded-2xl p-6 bg-black/40">
                         <div class="flex items-center justify-between">
                             <h3 class="text-base font-black uppercase tracking-wider text-gold">${roleObj.title}</h3>
                             <button onclick="addPerson('${roleObj.key}')" class="bg-zinc-900 border border-juve-border hover:border-gold text-slate-300 hover:text-gold px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer">+ Dodaj osobę</button>
                         </div>
-                        <div class="space-y-3" id="role-list-${roleObj.key}">
+                        <div class="space-y-3">
                 `;
 
                 if (list.length === 0) {
-                    html += `<p class="text-xs text-slate-500 italic">Brak osób w tej sekcji (sekcja nie będzie wyświetlana na stronie).</p>`;
+                    html += `<p class="text-xs text-slate-500 italic">Brak osób (sekcja nie będzie wyświetlana na stronie, brak losowych zdjęć).</p>`;
                 } else {
                     list.forEach((p, idx) => {
                         html += `
@@ -278,11 +596,11 @@
                                     <input type="text" value="${p.name}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'name', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
                                 </div>
                                 <div class="md:col-span-4">
-                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Rola / Funkcja</label>
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">Pozycja / Rola</label>
                                     <input type="text" value="${p.role}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'role', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-white text-xs font-bold">
                                 </div>
                                 <div class="md:col-span-3">
-                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">URL zdjęcia</label>
+                                    <label class="block text-[10px] uppercase font-bold text-slate-500 mb-1">URL zdjęcia (opcjonalnie)</label>
                                     <input type="text" value="${p.photo || ''}" oninput="updatePersonData('${roleObj.key}', ${idx}, 'photo', this.value)" class="w-full bg-black/60 border border-juve-border rounded-lg px-3 py-2 text-slate-300 text-xs font-bold">
                                 </div>
                                 <div class="md:col-span-1 flex justify-end pt-4 md:pt-0">
@@ -300,7 +618,7 @@
 
         function addPerson(roleKey) {
             if (!peopleData[roleKey]) peopleData[roleKey] = [];
-            peopleData[roleKey].push({ name: "Nowa Osoba", role: "Stanowisko", photo: "" });
+            peopleData[roleKey].push({ name: "Nowa Osoba", role: "Pozycja / Funkcja", photo: "" });
             renderAdminPeople();
         }
 
