@@ -129,7 +129,7 @@
     <!-- GŁÓWNA SEKCJA ZAWODNIKÓW -->
     <main class="flex-1 max-w-7xl mx-auto w-full px-6 pt-32 pb-20 space-y-12">
         
-        <!-- NAGŁÓWEK ORAZ TAGI PO PRAWEJ STRONIE -->
+        <!-- NAGłÓWEK ORAZ TAGI FILTRUJĄCE -->
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-juve-border pb-6">
             <h1 id="txt-main-title" class="text-3xl md:text-5xl font-black uppercase tracking-wider text-white">Pierwsza Drużyna</h1>
 
@@ -143,9 +143,9 @@
             </div>
         </div>
 
-        <!-- KAFELKI ZAWODNIKÓW (PODZIELONE NA SEKCJE) -->
+        <!-- KAFELKI ZAWODNIKÓW -->
         <div id="team-container" class="space-y-16">
-            <!-- Wstrzykiwane dynamicznie przez JS z panelu (legion_players) -->
+            <!-- Wstrzykiwane dynamicznie z localStorage (legion_people -> druzyna) -->
         </div>
 
     </main>
@@ -196,10 +196,9 @@
         let currentFilter = 'all';
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Bezpieczna zmiana adresu na /zespol (działa idealnie bez błędu 404)
             if (window.location.protocol !== 'file:') {
                 try {
-                    window.history.replaceState({}, '', '/zespol');
+                    window.history.replaceState({}, '', '/druzyna');
                 } catch (e) {
                     console.log(e);
                 }
@@ -216,10 +215,12 @@
             ['all', 'Bramkarze', 'Obrońcy', 'Pomocnicy', 'Napastnicy'].forEach(p => {
                 let btnId = p === 'all' ? 'filter-all' : (p === 'Bramkarze' ? 'filter-gk' : (p === 'Obrońcy' ? 'filter-def' : (p === 'Pomocnicy' ? 'filter-mid' : 'filter-att')));
                 const btn = document.getElementById(btnId);
-                if (p === pos) {
-                    btn.className = "bg-red-600 text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-lg transition-all cursor-pointer";
-                } else {
-                    btn.className = "bg-[#141414] border border-juve-border text-slate-300 hover:text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-colors cursor-pointer";
+                if (btn) {
+                    if (p === pos) {
+                        btn.className = "bg-red-600 text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-lg transition-all cursor-pointer";
+                    } else {
+                        btn.className = "bg-[#141414] border border-juve-border text-slate-300 hover:text-white text-xs font-black uppercase tracking-wider px-4 py-2.5 rounded-xl transition-colors cursor-pointer";
+                    }
                 }
             });
 
@@ -227,23 +228,24 @@
         }
 
         function loadPlayers() {
-            let players = JSON.parse(localStorage.getItem('legion_players')) || [
-                { name: "Jan Kowalski", position: "Bramkarze", number: 1, photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop" },
-                { name: "Piotr Nowak", position: "Obrońcy", number: 4, photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600&auto=format&fit=crop" },
-                { name: "Michał Wiśniewski", position: "Pomocnicy", number: 10, photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=600&auto=format&fit=crop" },
-                { name: "Kamil Wójcik", position: "Napastnicy", number: 9, photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=600&auto=format&fit=crop" }
-            ];
+            const peopleData = JSON.parse(localStorage.getItem('legion_people')) || {};
+            const players = peopleData['druzyna'] || [];
 
             const container = document.getElementById('team-container');
+            if (!container) return;
             container.innerHTML = '';
 
             let categories = ["Bramkarze", "Obrońcy", "Pomocnicy", "Napastnicy"];
             
+            let hasAnyPlayer = false;
+
             categories.forEach(cat => {
                 if (currentFilter !== 'all' && currentFilter !== cat) return;
 
-                let catPlayers = players.filter(p => p.position === cat);
+                let catPlayers = players.filter(p => p.role.trim().toLowerCase() === cat.toLowerCase());
                 if (catPlayers.length === 0) return;
+
+                hasAnyPlayer = true;
 
                 let sectionHtml = `
                     <div class="space-y-6">
@@ -257,16 +259,13 @@
                 catPlayers.forEach(p => {
                     sectionHtml += `
                         <div class="bg-[#141414] border border-juve-border rounded-3xl overflow-hidden group hover:border-gold/50 transition-all shadow-xl flex flex-col justify-between">
-                            <div class="relative h-72 overflow-hidden bg-zinc-900">
-                                <img src="${p.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop'}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="relative h-72 overflow-hidden bg-zinc-900 flex items-center justify-center">
+                                ${p.photo ? `<img src="${p.photo}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : `<span class="text-xs font-bold text-slate-600 uppercase">Brak zdjęcia</span>`}
                                 <div class="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent"></div>
-                                <div class="absolute top-4 left-4 bg-black/60 border border-gold/40 text-gold font-black text-sm px-3 py-1 rounded-xl backdrop-blur-md">
-                                    #${p.number}
-                                </div>
                             </div>
                             <div class="p-6 space-y-2">
                                 <h3 class="text-lg font-black uppercase tracking-wide text-white truncate">${p.name}</h3>
-                                <span class="text-xs font-bold uppercase tracking-widest text-slate-400 block">${p.position}</span>
+                                <span class="text-xs font-bold uppercase tracking-widest text-gold block">${p.role}</span>
                             </div>
                         </div>
                     `;
@@ -275,6 +274,10 @@
                 sectionHtml += `</div></div>`;
                 container.innerHTML += sectionHtml;
             });
+
+            if (!hasAnyPlayer) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic col-span-full">Brak zawodników w tej kategorii lub nie dodano ich jeszcze w panelu administracyjnym.</p>`;
+            }
         }
 
         const translations = {
