@@ -238,6 +238,19 @@
       z-index: 900;
 
       overflow-y: auto;
+
+      /* Firefox */
+      scrollbar-width: none;
+
+      /* IE / stary Edge */
+      -ms-overflow-style: none;
+    }
+
+    /* Chrome / Safari / nowy Edge */
+    .menu-panel::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
     }
 
     .menu-panel.active {
@@ -479,8 +492,6 @@
 
 <body>
 
-  <!-- HEADER -->
-
   <header class="header">
 
     <div class="header-left">
@@ -515,8 +526,6 @@
   </header>
 
 
-  <!-- MENU -->
-
   <aside
     class="menu-panel"
     id="menuPanel"
@@ -525,28 +534,16 @@
     <ul class="menu-list">
 
       <li class="menu-item">
-
-        <a
-          href="aktualnosci.html"
-          class="menu-link"
-        >
+        <a href="aktualnosci.html" class="menu-link">
           Aktualności
         </a>
-
       </li>
-
 
       <li class="menu-item">
-
-        <a
-          href="tabela.html"
-          class="menu-link"
-        >
+        <a href="tabela.html" class="menu-link">
           Tabela
         </a>
-
       </li>
-
 
       <li class="menu-item">
 
@@ -554,10 +551,7 @@
           class="submenu-toggle"
           type="button"
         >
-          <span>
-            Drużyna
-          </span>
-
+          <span>Drużyna</span>
           <span class="plus"></span>
         </button>
 
@@ -579,17 +573,13 @@
 
       </li>
 
-
       <li class="menu-item">
 
         <button
           class="submenu-toggle"
           type="button"
         >
-          <span>
-            Klub
-          </span>
-
+          <span>Klub</span>
           <span class="plus"></span>
         </button>
 
@@ -620,8 +610,6 @@
   </aside>
 
 
-  <!-- OVERLAY -->
-
   <div
     class="overlay"
     id="overlay"
@@ -642,9 +630,7 @@
     function openMenu() {
 
       menuToggle.classList.add("active");
-
       menuPanel.classList.add("active");
-
       overlay.classList.add("active");
 
       document.body.style.overflow = "hidden";
@@ -655,9 +641,7 @@
     function closeMenu() {
 
       menuToggle.classList.remove("active");
-
       menuPanel.classList.remove("active");
-
       overlay.classList.remove("active");
 
       document.body.style.overflow = "";
@@ -719,13 +703,8 @@
             const submenu =
               button.nextElementSibling;
 
-            button.classList.toggle(
-              "active"
-            );
-
-            submenu.classList.toggle(
-              "active"
-            );
+            button.classList.toggle("active");
+            submenu.classList.toggle("active");
 
           }
         );
