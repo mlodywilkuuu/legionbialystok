@@ -234,6 +234,8 @@
         );
 
       z-index: 900;
+
+      overflow-y: auto;
     }
 
     .menu-panel.active {
@@ -360,7 +362,7 @@
     }
 
     .submenu.active {
-      max-height: 260px;
+      max-height: 420px;
       opacity: 1;
     }
 
@@ -526,18 +528,6 @@
       <li class="menu-item">
 
         <a
-          href="match-center.html"
-          class="menu-link"
-        >
-          Match Center
-        </a>
-
-      </li>
-
-
-      <li class="menu-item">
-
-        <a
           href="tabela.html"
           class="menu-link"
         >
@@ -670,13 +660,9 @@
         menuPanel.classList.contains("active");
 
       if (isOpen) {
-
         closeMenu();
-
       } else {
-
         openMenu();
-
       }
 
     }
@@ -699,9 +685,7 @@
       function(event) {
 
         if (event.key === "Escape") {
-
           closeMenu();
-
         }
 
       }
