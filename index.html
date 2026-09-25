@@ -133,6 +133,24 @@
       animation: contentAppear 0.8s 0.35s ease both;
     }
 
+    /* NIEWIDZIALNY PRZYCISK */
+    .secret-home-button {
+      position: fixed;
+      top: 0;
+      right: 0;
+
+      width: 90px;
+      height: 90px;
+
+      background: transparent;
+      border: none;
+
+      opacity: 0;
+
+      cursor: pointer;
+      z-index: 99999;
+    }
+
     @keyframes logoAppear {
       from {
         opacity: 0;
@@ -174,11 +192,23 @@
       .subtitle {
         max-width: 340px;
       }
+
+      .secret-home-button {
+        width: 70px;
+        height: 70px;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <!-- NIEWIDZIALNY PRZYCISK W PRAWYM GÓRNYM ROGU -->
+  <a
+    href="glowna.html"
+    class="secret-home-button"
+    aria-label="Przejdź do strony głównej"
+  ></a>
 
   <main class="content">
 
