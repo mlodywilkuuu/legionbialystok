@@ -16,7 +16,7 @@
     html,
     body {
       width: 100%;
-      height: 100%;
+      min-height: 100%;
     }
 
     body {
@@ -35,41 +35,696 @@
           #14080a 100%
         );
 
-      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #fff;
+
+      overflow-x: hidden;
     }
 
-    .logo {
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
       position: fixed;
 
-      top: 20px;
-      left: 24px;
+      top: 0;
+      left: 0;
 
-      width: 72px;
+      width: 100%;
+      height: 82px;
+
+      padding: 0 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      z-index: 1000;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5, 5, 7, 0.9),
+          rgba(5, 5, 7, 0.45),
+          transparent
+        );
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* =========================
+       HAMBURGER
+    ========================= */
+
+    .menu-toggle {
+      position: relative;
+
+      width: 42px;
+      height: 42px;
+
+      border: 0;
+      background: transparent;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      z-index: 1200;
+    }
+
+    .hamburger {
+      position: relative;
+
+      width: 25px;
+      height: 18px;
+    }
+
+    .hamburger span {
+      position: absolute;
+
+      left: 0;
+
+      width: 25px;
+      height: 2px;
+
+      border-radius: 10px;
+
+      background: #fff;
+
+      transition:
+        top 0.3s ease,
+        transform 0.3s ease,
+        opacity 0.2s ease,
+        width 0.3s ease;
+    }
+
+    .hamburger span:nth-child(1) {
+      top: 0;
+    }
+
+    .hamburger span:nth-child(2) {
+      top: 8px;
+      width: 18px;
+    }
+
+    .hamburger span:nth-child(3) {
+      top: 16px;
+    }
+
+    .menu-toggle:hover .hamburger span:nth-child(2) {
+      width: 25px;
+    }
+
+    /* =========================
+       HAMBURGER -> X
+    ========================= */
+
+    .menu-toggle.active .hamburger span:nth-child(1) {
+      top: 8px;
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(3) {
+      top: 8px;
+      transform: rotate(-45deg);
+    }
+
+    /* =========================
+       LOGO
+    ========================= */
+
+    .logo {
+      width: 64px;
       height: auto;
 
       display: block;
 
       filter:
-        drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
+        drop-shadow(
+          0 8px 20px rgba(0, 0, 0, 0.55)
+        );
     }
 
+    /* =========================
+       LANGUAGE
+    ========================= */
+
+    .language {
+      color: rgba(255, 255, 255, 0.72);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      cursor: pointer;
+    }
+
+    /* =========================
+       MENU PANEL
+    ========================= */
+
+    .menu-panel {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: min(360px, 88vw);
+      height: 100vh;
+
+      padding:
+        125px
+        28px
+        40px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(15, 15, 19, 0.99),
+          rgba(7, 7, 9, 0.99)
+        );
+
+      border-right:
+        1px solid rgba(255, 255, 255, 0.07);
+
+      box-shadow:
+        30px 0 80px rgba(0, 0, 0, 0.45);
+
+      transform: translateX(-105%);
+
+      transition:
+        transform 0.38s cubic-bezier(
+          0.77,
+          0,
+          0.18,
+          1
+        );
+
+      z-index: 900;
+    }
+
+    .menu-panel.active {
+      transform: translateX(0);
+    }
+
+    /* =========================
+       MENU LINKS
+    ========================= */
+
+    .menu-list {
+      list-style: none;
+    }
+
+    .menu-item {
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .menu-link,
+    .submenu-toggle {
+      width: 100%;
+      min-height: 58px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border: 0;
+      background: transparent;
+
+      color: rgba(255, 255, 255, 0.86);
+
+      font-size: 14px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+    }
+
+    .menu-link {
+      text-decoration: none;
+    }
+
+    .menu-link:hover,
+    .submenu-toggle:hover {
+      color: #fff;
+      padding-left: 8px;
+    }
+
+    /* =========================
+       PLUS
+    ========================= */
+
+    .plus {
+      position: relative;
+
+      width: 18px;
+      height: 18px;
+
+      flex-shrink: 0;
+    }
+
+    .plus::before,
+    .plus::after {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      width: 14px;
+      height: 2px;
+
+      background: #fff;
+
+      border-radius: 5px;
+
+      transform:
+        translate(-50%, -50%);
+
+      transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+    }
+
+    .plus::after {
+      transform:
+        translate(-50%, -50%)
+        rotate(90deg);
+    }
+
+    .submenu-toggle.active .plus::after {
+      transform:
+        translate(-50%, -50%)
+        rotate(0deg);
+
+      opacity: 0;
+    }
+
+    /* =========================
+       SUBMENU
+    ========================= */
+
+    .submenu {
+      max-height: 0;
+
+      overflow: hidden;
+
+      opacity: 0;
+
+      transition:
+        max-height 0.32s ease,
+        opacity 0.25s ease;
+    }
+
+    .submenu.active {
+      max-height: 220px;
+      opacity: 1;
+    }
+
+    .submenu a {
+      min-height: 46px;
+
+      padding-left: 16px;
+
+      display: flex;
+      align-items: center;
+
+      color:
+        rgba(255, 255, 255, 0.46);
+
+      font-size: 12px;
+      font-weight: 600;
+
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+    }
+
+    .submenu a:hover {
+      color: #fff;
+      padding-left: 22px;
+    }
+
+    /* =========================
+       OVERLAY
+    ========================= */
+
+    .overlay {
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(0, 0, 0, 0.65);
+
+      backdrop-filter:
+        blur(5px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+      z-index: 800;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
     @media (max-width: 600px) {
-      .logo {
-        top: 16px;
-        left: 16px;
-        width: 60px;
+
+      .header {
+        height: 72px;
+        padding: 0 15px;
       }
+
+      .header-left {
+        gap: 10px;
+      }
+
+      .logo {
+        width: 54px;
+      }
+
+      .menu-panel {
+        width: min(330px, 90vw);
+
+        padding:
+          105px
+          22px
+          30px;
+      }
+
     }
   </style>
 </head>
 
 <body>
 
-  <img
-    src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-    alt="Legion Białystok"
-    class="logo"
+  <!-- HEADER -->
+
+  <header class="header">
+
+    <div class="header-left">
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Otwórz menu"
+      >
+
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+      </button>
+
+      <img
+        src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+        alt="Legion Białystok"
+        class="logo"
+      >
+
+    </div>
+
+    <div class="language">
+      PL
+    </div>
+
+  </header>
+
+
+  <!-- MENU -->
+
+  <aside
+    class="menu-panel"
+    id="menuPanel"
   >
+
+    <ul class="menu-list">
+
+      <li class="menu-item">
+
+        <a
+          href="aktualnosci.html"
+          class="menu-link"
+        >
+          Aktualności
+        </a>
+
+      </li>
+
+
+      <li class="menu-item">
+
+        <a
+          href="match-center.html"
+          class="menu-link"
+        >
+          Match Center
+        </a>
+
+      </li>
+
+
+      <li class="menu-item">
+
+        <a
+          href="tabela.html"
+          class="menu-link"
+        >
+          Tabela
+        </a>
+
+      </li>
+
+
+      <li class="menu-item">
+
+        <button
+          class="submenu-toggle"
+          type="button"
+        >
+          <span>
+            Drużyna
+          </span>
+
+          <span class="plus"></span>
+        </button>
+
+        <div class="submenu">
+
+          <a href="pierwszyzespol.html">
+            I Drużyna
+          </a>
+
+          <a href="drugadruzyna.html">
+            II Drużyna
+          </a>
+
+          <a href="akademia.html">
+            Akademia
+          </a>
+
+        </div>
+
+      </li>
+
+
+      <li class="menu-item">
+
+        <button
+          class="submenu-toggle"
+          type="button"
+        >
+          <span>
+            Klub
+          </span>
+
+          <span class="plus"></span>
+        </button>
+
+        <div class="submenu">
+
+          <a href="o-klubie.html">
+            O klubie
+          </a>
+
+          <a href="ludzie.html">
+            Ludzie Legionu
+          </a>
+
+          <a href="kontakt.html">
+            Kontakt
+          </a>
+
+        </div>
+
+      </li>
+
+    </ul>
+
+  </aside>
+
+
+  <!-- OVERLAY -->
+
+  <div
+    class="overlay"
+    id="overlay"
+  ></div>
+
+
+  <script>
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const menuPanel =
+      document.getElementById("menuPanel");
+
+    const overlay =
+      document.getElementById("overlay");
+
+
+    function openMenu() {
+
+      menuToggle.classList.add("active");
+
+      menuPanel.classList.add("active");
+
+      overlay.classList.add("active");
+
+      document.body.style.overflow = "hidden";
+
+    }
+
+
+    function closeMenu() {
+
+      menuToggle.classList.remove("active");
+
+      menuPanel.classList.remove("active");
+
+      overlay.classList.remove("active");
+
+      document.body.style.overflow = "";
+
+    }
+
+
+    function toggleMenu() {
+
+      const isOpen =
+        menuPanel.classList.contains("active");
+
+      if (isOpen) {
+
+        closeMenu();
+
+      } else {
+
+        openMenu();
+
+      }
+
+    }
+
+
+    menuToggle.addEventListener(
+      "click",
+      toggleMenu
+    );
+
+
+    overlay.addEventListener(
+      "click",
+      closeMenu
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Escape") {
+
+          closeMenu();
+
+        }
+
+      }
+    );
+
+
+    const submenuButtons =
+      document.querySelectorAll(
+        ".submenu-toggle"
+      );
+
+
+    submenuButtons.forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            const submenu =
+              button.nextElementSibling;
+
+            button.classList.toggle(
+              "active"
+            );
+
+            submenu.classList.toggle(
+              "active"
+            );
+
+          }
+        );
+
+      }
+    );
+  </script>
 
 </body>
 </html>
