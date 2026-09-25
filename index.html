@@ -16,102 +16,201 @@
       box-sizing: border-box;
     }
 
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
     body {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
+      padding: 30px 20px;
+
       font-family: "Outfit", sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(255, 60, 60, 0.25), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(255, 120, 0, 0.22), transparent 35%),
-        linear-gradient(135deg, #050505 0%, #111111 45%, #1b0f0f 100%);
       color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 50% 25%,
+          rgba(229, 9, 20, 0.24),
+          transparent 34%
+        ),
+        radial-gradient(
+          circle at 85% 85%,
+          rgba(255, 91, 31, 0.14),
+          transparent 32%
+        ),
+        radial-gradient(
+          circle at 10% 90%,
+          rgba(120, 0, 0, 0.16),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          #050506 0%,
+          #0b0b0e 48%,
+          #16090b 100%
+        );
+
       overflow: hidden;
     }
 
-    .panel {
-      width: min(92%, 700px);
-      padding: 50px 30px;
-      border-radius: 28px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
+    .content {
+      width: min(100%, 760px);
 
-    .logo-wrap {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 28px;
+
+      text-align: center;
     }
 
     .logo {
-      max-width: 260px;
-      width: 100%;
+      width: min(290px, 70vw);
       height: auto;
+
       display: block;
-      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.45));
-    }
 
-    .title {
-      font-size: clamp(34px, 5vw, 64px);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -1.5px;
-      margin-bottom: 14px;
-      background: linear-gradient(90deg, #ffffff 0%, #ffb3b3 45%, #ff6a6a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+      margin-bottom: 28px;
 
-    .subtitle {
-      font-size: clamp(16px, 2vw, 22px);
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.82);
-      line-height: 1.6;
+      filter:
+        drop-shadow(0 15px 35px rgba(0, 0, 0, 0.55))
+        drop-shadow(0 0 28px rgba(229, 9, 20, 0.12));
+
+      animation: logoAppear 0.9s ease both;
     }
 
     .line {
-      width: 110px;
-      height: 4px;
-      margin: 0 auto 24px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #ff3c3c, #ff8a00);
+      width: 100px;
+      height: 3px;
+
+      margin-bottom: 25px;
+
+      border-radius: 100px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #e50914,
+          #ff784f,
+          transparent
+        );
+
+      animation: contentAppear 0.8s 0.15s ease both;
+    }
+
+    .title {
+      font-size: clamp(38px, 7vw, 72px);
+      font-weight: 800;
+
+      line-height: 1;
+      letter-spacing: -2px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff 0%,
+          #ffffff 35%,
+          #ffb3b6 70%,
+          #ff6b72 100%
+        );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      -webkit-text-fill-color: transparent;
+
+      animation: contentAppear 0.8s 0.25s ease both;
+    }
+
+    .subtitle {
+      max-width: 520px;
+
+      margin-top: 18px;
+
+      color: rgba(255, 255, 255, 0.55);
+
+      font-size: clamp(14px, 2vw, 18px);
+      font-weight: 400;
+
+      line-height: 1.65;
+      letter-spacing: 0.15px;
+
+      animation: contentAppear 0.8s 0.35s ease both;
+    }
+
+    @keyframes logoAppear {
+      from {
+        opacity: 0;
+        transform: translateY(-14px) scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes contentAppear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 600px) {
-      .panel {
-        padding: 38px 22px;
-        border-radius: 22px;
+      body {
+        padding: 24px 18px;
       }
 
       .logo {
-        max-width: 200px;
+        width: min(220px, 65vw);
+        margin-bottom: 24px;
+      }
+
+      .title {
+        letter-spacing: -1.3px;
+      }
+
+      .subtitle {
+        max-width: 340px;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="panel">
-    <div class="logo-wrap">
-      <img
-        src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-        alt="Logo"
-        class="logo"
-      />
-    </div>
+
+  <main class="content">
+
+    <img
+      src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+      alt="Legion Białystok"
+      class="logo"
+    >
 
     <div class="line"></div>
 
-    <h1 class="title">Sadus zjadł stronę :(</h1>
+    <h1 class="title">
+      Sadus zjadł stronę :(
+    </h1>
+
     <p class="subtitle">
       Trwają prace naprawcze. Wrócimy za chwilę.
     </p>
-  </div>
+
+  </main>
+
 </body>
 </html>
