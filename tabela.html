@@ -46,7 +46,8 @@
     }
 
     button,
-    a {
+    a,
+    select {
       font-family: inherit;
     }
 
@@ -231,21 +232,18 @@
 
     .hamburger {
       position: relative;
-
       width: 25px;
       height: 18px;
     }
 
     .hamburger span {
       position: absolute;
-
       left: 0;
 
       width: 25px;
       height: 2px;
 
       border-radius: 10px;
-
       background: #fff;
 
       transition:
@@ -294,7 +292,6 @@
     .logo {
       width: 64px;
       height: auto;
-
       display: block;
 
       filter:
@@ -342,7 +339,6 @@
       flex: 0 0 24px;
 
       display: block;
-
       overflow: hidden;
 
       border-radius: 2px;
@@ -395,8 +391,7 @@
       opacity: 0;
       visibility: hidden;
 
-      transform:
-        translateY(-8px);
+      transform: translateY(-8px);
 
       transition:
         opacity 0.2s ease,
@@ -408,8 +403,7 @@
       opacity: 1;
       visibility: visible;
 
-      transform:
-        translateY(0);
+      transform: translateY(0);
     }
 
     .language-option {
@@ -507,8 +501,7 @@
     }
 
     .menu-panel.active {
-      transform:
-        translateX(0);
+      transform: translateX(0);
     }
 
     .menu-list {
@@ -589,7 +582,6 @@
         translate(-50%, -50%);
 
       transition:
-        transform 0.25s ease,
         opacity 0.25s ease;
     }
 
@@ -605,7 +597,9 @@
 
     .submenu {
       max-height: 0;
+
       overflow: hidden;
+
       opacity: 0;
 
       transition:
@@ -615,6 +609,7 @@
 
     .submenu.active {
       max-height: 420px;
+
       opacity: 1;
     }
 
@@ -659,8 +654,7 @@
       background:
         rgba(0, 0, 0, 0.35);
 
-      backdrop-filter:
-        blur(3px);
+      backdrop-filter: blur(3px);
 
       opacity: 0;
       visibility: hidden;
@@ -696,10 +690,16 @@
     }
 
     .page-heading {
-      margin-bottom: 36px;
+      margin-bottom: 34px;
+
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      gap: 20px;
     }
 
-    .page-heading h1 {
+    .heading-left h1 {
       font-size:
         clamp(30px, 4vw, 54px);
 
@@ -722,7 +722,94 @@
     }
 
     /* =========================
-       TABLE CARD
+       SEASON SELECT
+    ========================= */
+
+    .season-selector {
+      display: flex;
+      flex-direction: column;
+
+      gap: 8px;
+
+      min-width: 150px;
+    }
+
+    .season-selector label {
+      color:
+        rgba(255, 255, 255, 0.38);
+
+      font-size: 10px;
+      font-weight: 700;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.8px;
+    }
+
+    .season-select-wrap {
+      position: relative;
+    }
+
+    .season-select {
+      width: 100%;
+      height: 44px;
+
+      padding:
+        0
+        38px
+        0
+        14px;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      border-radius: 10px;
+
+      outline: 0;
+
+      appearance: none;
+      -webkit-appearance: none;
+
+      background:
+        rgba(255, 255, 255, 0.04);
+
+      color: #fff;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .season-select option {
+      color: #fff;
+      background: #111115;
+    }
+
+    .season-select:focus {
+      border-color:
+        rgba(255, 255, 255, 0.2);
+    }
+
+    .season-chevron {
+      position: absolute;
+
+      top: 50%;
+      right: 14px;
+
+      transform:
+        translateY(-50%);
+
+      color:
+        rgba(255, 255, 255, 0.55);
+
+      font-size: 10px;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       TABLE
     ========================= */
 
     .table-card {
@@ -861,31 +948,34 @@
     }
 
     .league-table tbody tr {
+      position: relative;
+
       transition:
         background 0.2s ease;
     }
 
     .league-table tbody tr:hover {
-      background:
-        rgba(255, 255, 255, 0.025);
+      filter: brightness(1.12);
     }
 
-    .league-table .position {
+    .position {
       width: 54px;
 
-      color:
-        rgba(255, 255, 255, 0.36);
+      position: relative;
 
-      font-weight: 700;
+      color:
+        rgba(255, 255, 255, 0.38) !important;
+
+      font-weight: 800;
     }
 
-    .league-table .team-cell {
-      text-align: left;
+    .team-cell {
+      text-align: left !important;
 
       font-weight: 700;
 
       color:
-        rgba(255, 255, 255, 0.85);
+        rgba(255, 255, 255, 0.86) !important;
     }
 
     .team-content {
@@ -952,51 +1042,114 @@
 
     .goal-difference-positive {
       color:
-        rgba(119, 214, 133, 0.88) !important;
+        rgba(119, 214, 133, 0.95) !important;
     }
 
     .goal-difference-negative {
       color:
-        rgba(244, 102, 102, 0.86) !important;
+        rgba(244, 102, 102, 0.95) !important;
     }
 
-    .legion-row {
+    /* =========================
+       PROMOTION - TOP 2
+    ========================= */
+
+    .promotion-row {
       background:
         linear-gradient(
           90deg,
-          rgba(229, 9, 20, 0.15),
-          rgba(229, 9, 20, 0.05)
-        ) !important;
+          rgba(20, 130, 72, 0.20),
+          rgba(20, 130, 72, 0.06)
+        );
     }
 
-    .legion-row td {
-      color: #fff;
+    .promotion-row td {
+      border-top-color:
+        rgba(77, 215, 135, 0.09);
     }
 
-    .legion-row .position {
-      position: relative;
-
-      color: #fff;
+    .promotion-row .position {
+      color:
+        #69dc98 !important;
     }
 
-    .legion-row .position::before {
+    .promotion-row .position::before {
       content: "";
 
       position: absolute;
 
+      top: 11px;
+      bottom: 11px;
       left: 0;
-      top: 12px;
-      bottom: 12px;
 
       width: 3px;
 
-      border-radius: 0 10px 10px 0;
+      border-radius:
+        0
+        10px
+        10px
+        0;
 
-      background: #e50914;
+      background:
+        #37c778;
     }
 
-    .legion-row .team-cell {
+    /* =========================
+       RELEGATION - BOTTOM 2
+    ========================= */
+
+    .relegation-row {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(190, 35, 45, 0.20),
+          rgba(190, 35, 45, 0.06)
+        );
+    }
+
+    .relegation-row td {
+      border-top-color:
+        rgba(255, 90, 90, 0.09);
+    }
+
+    .relegation-row .position {
+      color:
+        #ff7575 !important;
+    }
+
+    .relegation-row .position::before {
+      content: "";
+
+      position: absolute;
+
+      top: 11px;
+      bottom: 11px;
+      left: 0;
+
+      width: 3px;
+
+      border-radius:
+        0
+        10px
+        10px
+        0;
+
+      background:
+        #e33842;
+    }
+
+    /* =========================
+       LEGION
+    ========================= */
+
+    .legion-row .club-name {
+      color: #fff;
       font-weight: 800;
+    }
+
+    .legion-row .club-badge {
+      border-color:
+        rgba(255, 255, 255, 0.20);
     }
 
     /* =========================
@@ -1013,8 +1166,8 @@
       flex-wrap: wrap;
 
       gap:
-        10px
-        22px;
+        14px
+        26px;
 
       border-top:
         1px solid rgba(255, 255, 255, 0.05);
@@ -1024,22 +1177,36 @@
       display: flex;
       align-items: center;
 
-      gap: 8px;
+      gap: 9px;
 
       color:
-        rgba(255, 255, 255, 0.38);
+        rgba(255, 255, 255, 0.48);
 
       font-size: 11px;
+      font-weight: 600;
     }
 
     .legend-dot {
-      width: 7px;
-      height: 7px;
+      width: 9px;
+      height: 9px;
+
+      flex: 0 0 9px;
 
       border-radius: 50%;
+    }
 
-      background:
-        rgba(255, 255, 255, 0.3);
+    .legend-dot.green {
+      background: #37c778;
+
+      box-shadow:
+        0 0 10px rgba(55, 199, 120, 0.28);
+    }
+
+    .legend-dot.red {
+      background: #e33842;
+
+      box-shadow:
+        0 0 10px rgba(227, 56, 66, 0.28);
     }
 
     /* =========================
@@ -1113,6 +1280,20 @@
 
       .page-heading {
         margin-bottom: 28px;
+
+        align-items: flex-start;
+
+        flex-direction: column;
+      }
+
+      .season-selector {
+        width: 100%;
+      }
+
+      .season-select {
+        height: 46px;
+
+        font-size: 16px;
       }
 
       .table-card {
@@ -1138,6 +1319,10 @@
           16px
           18px
           19px;
+
+        flex-direction: column;
+
+        gap: 11px;
       }
 
     }
@@ -1450,18 +1635,48 @@
 
 
 <!-- =========================
-     TABLE PAGE
+     CONTENT
 ========================= -->
 
 <main class="page-content">
 
   <div class="page-heading">
 
-    <h1 data-i18n="pageTitle">
-      Tabela
-    </h1>
+    <div class="heading-left">
 
-    <div class="page-heading-line"></div>
+      <h1 data-i18n="pageTitle">
+        Tabela
+      </h1>
+
+      <div class="page-heading-line"></div>
+
+    </div>
+
+
+    <div class="season-selector">
+
+      <label
+        for="seasonSelect"
+        data-i18n="selectSeason"
+      >
+        Wybierz sezon
+      </label>
+
+
+      <div class="season-select-wrap">
+
+        <select
+          class="season-select"
+          id="seasonSelect"
+        ></select>
+
+        <span class="season-chevron">
+          ▼
+        </span>
+
+      </div>
+
+    </div>
 
   </div>
 
@@ -1479,10 +1694,8 @@
 
       <div
         class="season"
-        id="season"
-      >
-        Sezon 2026/27
-      </div>
+        id="seasonLabel"
+      ></div>
 
     </div>
 
@@ -1548,10 +1761,25 @@
 
       <div class="legend-item">
 
-        <span class="legend-dot"></span>
+        <span
+          class="legend-dot green"
+        ></span>
 
-        <span data-i18n="legendInfo">
-          Tabela demonstracyjna
+        <span data-i18n="promotionLegend">
+          Awans do 1 ligi
+        </span>
+
+      </div>
+
+
+      <div class="legend-item">
+
+        <span
+          class="legend-dot red"
+        ></span>
+
+        <span data-i18n="relegationLegend">
+          Spadek do 2 ligi
         </span>
 
       </div>
@@ -1566,176 +1794,512 @@
 <script>
 
   /* =====================================================
-     DANE TABELI
+     SEZONY / TABELA
 
-     PÓŹNIEJ PANEL ADMINA BĘDZIE EDYTOWAŁ TE DANE
+     PÓŹNIEJ PANEL ADMINA BĘDZIE EDYTOWAŁ WŁAŚNIE TO.
   ===================================================== */
 
-  const leagueData = {
+  const seasonsData = {
 
-    league: "Liga Okręgowa",
+    "2026/27": {
 
-    season: "2026/27",
+      league: "Liga Okręgowa",
 
-    teams: [
+      teams: [
 
-      {
-        position: 1,
-        name: "KS Wasilków",
-        logo: "",
-        played: 8,
-        wins: 7,
-        draws: 0,
-        losses: 1,
-        goalsFor: 21,
-        goalsAgainst: 8,
-        points: 21
-      },
+        {
+          position: 1,
+          name: "KS Wasilków",
+          logo: "",
+          played: 8,
+          wins: 7,
+          draws: 0,
+          losses: 1,
+          goalsFor: 21,
+          goalsAgainst: 8,
+          points: 21
+        },
 
-      {
-        position: 2,
-        name: "Legion Białystok",
-        logo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
-        played: 8,
-        wins: 6,
-        draws: 1,
-        losses: 1,
-        goalsFor: 19,
-        goalsAgainst: 9,
-        points: 19
-      },
+        {
+          position: 2,
+          name: "Legion Białystok",
+          logo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
+          played: 8,
+          wins: 6,
+          draws: 1,
+          losses: 1,
+          goalsFor: 19,
+          goalsAgainst: 9,
+          points: 19
+        },
 
-      {
-        position: 3,
-        name: "Czarni Czarna Białostocka",
-        logo: "",
-        played: 8,
-        wins: 5,
-        draws: 2,
-        losses: 1,
-        goalsFor: 18,
-        goalsAgainst: 10,
-        points: 17
-      },
+        {
+          position: 3,
+          name: "Czarni Czarna Białostocka",
+          logo: "",
+          played: 8,
+          wins: 5,
+          draws: 2,
+          losses: 1,
+          goalsFor: 18,
+          goalsAgainst: 10,
+          points: 17
+        },
 
-      {
-        position: 4,
-        name: "Sparta Augustów",
-        logo: "",
-        played: 8,
-        wins: 4,
-        draws: 3,
-        losses: 1,
-        goalsFor: 16,
-        goalsAgainst: 11,
-        points: 15
-      },
+        {
+          position: 4,
+          name: "Sparta Augustów",
+          logo: "",
+          played: 8,
+          wins: 4,
+          draws: 3,
+          losses: 1,
+          goalsFor: 16,
+          goalsAgainst: 11,
+          points: 15
+        },
 
-      {
-        position: 5,
-        name: "Promień Mońki",
-        logo: "",
-        played: 8,
-        wins: 4,
-        draws: 1,
-        losses: 3,
-        goalsFor: 14,
-        goalsAgainst: 12,
-        points: 13
-      },
+        {
+          position: 5,
+          name: "Promień Mońki",
+          logo: "",
+          played: 8,
+          wins: 4,
+          draws: 1,
+          losses: 3,
+          goalsFor: 14,
+          goalsAgainst: 12,
+          points: 13
+        },
 
-      {
-        position: 6,
-        name: "Pogoń Łapy",
-        logo: "",
-        played: 8,
-        wins: 3,
-        draws: 2,
-        losses: 3,
-        goalsFor: 13,
-        goalsAgainst: 13,
-        points: 11
-      },
+        {
+          position: 6,
+          name: "Pogoń Łapy",
+          logo: "",
+          played: 8,
+          wins: 3,
+          draws: 2,
+          losses: 3,
+          goalsFor: 13,
+          goalsAgainst: 13,
+          points: 11
+        },
 
-      {
-        position: 7,
-        name: "Orzeł Kolno",
-        logo: "",
-        played: 8,
-        wins: 3,
-        draws: 1,
-        losses: 4,
-        goalsFor: 11,
-        goalsAgainst: 14,
-        points: 10
-      },
+        {
+          position: 7,
+          name: "Orzeł Kolno",
+          logo: "",
+          played: 8,
+          wins: 3,
+          draws: 1,
+          losses: 4,
+          goalsFor: 11,
+          goalsAgainst: 14,
+          points: 10
+        },
 
-      {
-        position: 8,
-        name: "Tur Bielsk Podlaski",
-        logo: "",
-        played: 8,
-        wins: 2,
-        draws: 3,
-        losses: 3,
-        goalsFor: 12,
-        goalsAgainst: 15,
-        points: 9
-      },
+        {
+          position: 8,
+          name: "Tur Bielsk Podlaski",
+          logo: "",
+          played: 8,
+          wins: 2,
+          draws: 3,
+          losses: 3,
+          goalsFor: 12,
+          goalsAgainst: 15,
+          points: 9
+        },
 
-      {
-        position: 9,
-        name: "Rudnia Zabłudów",
-        logo: "",
-        played: 8,
-        wins: 2,
-        draws: 2,
-        losses: 4,
-        goalsFor: 9,
-        goalsAgainst: 13,
-        points: 8
-      },
+        {
+          position: 9,
+          name: "Rudnia Zabłudów",
+          logo: "",
+          played: 8,
+          wins: 2,
+          draws: 2,
+          losses: 4,
+          goalsFor: 9,
+          goalsAgainst: 13,
+          points: 8
+        },
 
-      {
-        position: 10,
-        name: "Hetman Tykocin",
-        logo: "",
-        played: 8,
-        wins: 2,
-        draws: 1,
-        losses: 5,
-        goalsFor: 10,
-        goalsAgainst: 17,
-        points: 7
-      },
+        {
+          position: 10,
+          name: "Hetman Tykocin",
+          logo: "",
+          played: 8,
+          wins: 2,
+          draws: 1,
+          losses: 5,
+          goalsFor: 10,
+          goalsAgainst: 17,
+          points: 7
+        },
 
-      {
-        position: 11,
-        name: "Piast Białystok",
-        logo: "",
-        played: 8,
-        wins: 1,
-        draws: 2,
-        losses: 5,
-        goalsFor: 8,
-        goalsAgainst: 18,
-        points: 5
-      },
+        {
+          position: 11,
+          name: "Piast Białystok",
+          logo: "",
+          played: 8,
+          wins: 1,
+          draws: 2,
+          losses: 5,
+          goalsFor: 8,
+          goalsAgainst: 18,
+          points: 5
+        },
 
-      {
-        position: 12,
-        name: "Gryf Gródek",
-        logo: "",
-        played: 8,
-        wins: 1,
-        draws: 1,
-        losses: 6,
-        goalsFor: 7,
-        goalsAgainst: 20,
-        points: 4
-      }
+        {
+          position: 12,
+          name: "Gryf Gródek",
+          logo: "",
+          played: 8,
+          wins: 1,
+          draws: 1,
+          losses: 6,
+          goalsFor: 7,
+          goalsAgainst: 20,
+          points: 4
+        }
 
-    ]
+      ]
+
+    },
+
+
+    "2025/26": {
+
+      league: "Liga Okręgowa",
+
+      teams: [
+
+        {
+          position: 1,
+          name: "Legion Białystok",
+          logo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
+          played: 22,
+          wins: 17,
+          draws: 3,
+          losses: 2,
+          goalsFor: 54,
+          goalsAgainst: 19,
+          points: 54
+        },
+
+        {
+          position: 2,
+          name: "KS Wasilków",
+          logo: "",
+          played: 22,
+          wins: 16,
+          draws: 3,
+          losses: 3,
+          goalsFor: 48,
+          goalsAgainst: 22,
+          points: 51
+        },
+
+        {
+          position: 3,
+          name: "Sparta Augustów",
+          logo: "",
+          played: 22,
+          wins: 13,
+          draws: 4,
+          losses: 5,
+          goalsFor: 39,
+          goalsAgainst: 24,
+          points: 43
+        },
+
+        {
+          position: 4,
+          name: "Promień Mońki",
+          logo: "",
+          played: 22,
+          wins: 11,
+          draws: 5,
+          losses: 6,
+          goalsFor: 36,
+          goalsAgainst: 27,
+          points: 38
+        },
+
+        {
+          position: 5,
+          name: "Pogoń Łapy",
+          logo: "",
+          played: 22,
+          wins: 10,
+          draws: 4,
+          losses: 8,
+          goalsFor: 31,
+          goalsAgainst: 30,
+          points: 34
+        },
+
+        {
+          position: 6,
+          name: "Orzeł Kolno",
+          logo: "",
+          played: 22,
+          wins: 9,
+          draws: 4,
+          losses: 9,
+          goalsFor: 29,
+          goalsAgainst: 31,
+          points: 31
+        },
+
+        {
+          position: 7,
+          name: "Tur Bielsk Podlaski",
+          logo: "",
+          played: 22,
+          wins: 8,
+          draws: 4,
+          losses: 10,
+          goalsFor: 28,
+          goalsAgainst: 35,
+          points: 28
+        },
+
+        {
+          position: 8,
+          name: "Rudnia Zabłudów",
+          logo: "",
+          played: 22,
+          wins: 7,
+          draws: 4,
+          losses: 11,
+          goalsFor: 27,
+          goalsAgainst: 36,
+          points: 25
+        },
+
+        {
+          position: 9,
+          name: "Hetman Tykocin",
+          logo: "",
+          played: 22,
+          wins: 6,
+          draws: 4,
+          losses: 12,
+          goalsFor: 24,
+          goalsAgainst: 38,
+          points: 22
+        },
+
+        {
+          position: 10,
+          name: "Piast Białystok",
+          logo: "",
+          played: 22,
+          wins: 5,
+          draws: 3,
+          losses: 14,
+          goalsFor: 21,
+          goalsAgainst: 42,
+          points: 18
+        },
+
+        {
+          position: 11,
+          name: "Gryf Gródek",
+          logo: "",
+          played: 22,
+          wins: 3,
+          draws: 4,
+          losses: 15,
+          goalsFor: 18,
+          goalsAgainst: 49,
+          points: 13
+        },
+
+        {
+          position: 12,
+          name: "LZS Narewka",
+          logo: "",
+          played: 22,
+          wins: 2,
+          draws: 3,
+          losses: 17,
+          goalsFor: 16,
+          goalsAgainst: 55,
+          points: 9
+        }
+
+      ]
+
+    },
+
+
+    "2024/25": {
+
+      league: "Liga Okręgowa",
+
+      teams: [
+
+        {
+          position: 1,
+          name: "KS Wasilków",
+          logo: "",
+          played: 22,
+          wins: 18,
+          draws: 2,
+          losses: 2,
+          goalsFor: 58,
+          goalsAgainst: 18,
+          points: 56
+        },
+
+        {
+          position: 2,
+          name: "Sparta Augustów",
+          logo: "",
+          played: 22,
+          wins: 15,
+          draws: 4,
+          losses: 3,
+          goalsFor: 47,
+          goalsAgainst: 24,
+          points: 49
+        },
+
+        {
+          position: 3,
+          name: "Legion Białystok",
+          logo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
+          played: 22,
+          wins: 14,
+          draws: 4,
+          losses: 4,
+          goalsFor: 45,
+          goalsAgainst: 25,
+          points: 46
+        },
+
+        {
+          position: 4,
+          name: "Promień Mońki",
+          logo: "",
+          played: 22,
+          wins: 12,
+          draws: 4,
+          losses: 6,
+          goalsFor: 37,
+          goalsAgainst: 28,
+          points: 40
+        },
+
+        {
+          position: 5,
+          name: "Pogoń Łapy",
+          logo: "",
+          played: 22,
+          wins: 10,
+          draws: 5,
+          losses: 7,
+          goalsFor: 34,
+          goalsAgainst: 30,
+          points: 35
+        },
+
+        {
+          position: 6,
+          name: "Orzeł Kolno",
+          logo: "",
+          played: 22,
+          wins: 9,
+          draws: 5,
+          losses: 8,
+          goalsFor: 31,
+          goalsAgainst: 32,
+          points: 32
+        },
+
+        {
+          position: 7,
+          name: "Tur Bielsk Podlaski",
+          logo: "",
+          played: 22,
+          wins: 8,
+          draws: 4,
+          losses: 10,
+          goalsFor: 28,
+          goalsAgainst: 35,
+          points: 28
+        },
+
+        {
+          position: 8,
+          name: "Rudnia Zabłudów",
+          logo: "",
+          played: 22,
+          wins: 7,
+          draws: 4,
+          losses: 11,
+          goalsFor: 27,
+          goalsAgainst: 37,
+          points: 25
+        },
+
+        {
+          position: 9,
+          name: "Hetman Tykocin",
+          logo: "",
+          played: 22,
+          wins: 6,
+          draws: 4,
+          losses: 12,
+          goalsFor: 24,
+          goalsAgainst: 40,
+          points: 22
+        },
+
+        {
+          position: 10,
+          name: "Piast Białystok",
+          logo: "",
+          played: 22,
+          wins: 4,
+          draws: 5,
+          losses: 13,
+          goalsFor: 22,
+          goalsAgainst: 43,
+          points: 17
+        },
+
+        {
+          position: 11,
+          name: "Gryf Gródek",
+          logo: "",
+          played: 22,
+          wins: 3,
+          draws: 3,
+          losses: 16,
+          goalsFor: 17,
+          goalsAgainst: 50,
+          points: 12
+        },
+
+        {
+          position: 12,
+          name: "LZS Narewka",
+          logo: "",
+          played: 22,
+          wins: 2,
+          draws: 2,
+          losses: 18,
+          goalsFor: 14,
+          goalsAgainst: 57,
+          points: 8
+        }
+
+      ]
+
+    }
 
   };
 
@@ -1846,20 +2410,18 @@
 
     pl: {
       language: "Polski",
-
       pageTitle: "Tabela",
+      selectSeason: "Wybierz sezon",
 
       news: "Aktualności",
       table: "Tabela",
 
       team: "Drużyna",
-
       firstTeam: "I Drużyna",
       secondTeam: "II Drużyna",
       academy: "Akademia",
 
       club: "Klub",
-
       aboutClub: "O klubie",
       people: "Ludzie Legionu",
       documents: "Dokumenty",
@@ -1878,27 +2440,28 @@
 
       seasonPrefix: "Sezon",
 
-      legendInfo:
-        "Tabela demonstracyjna"
+      promotionLegend:
+        "Awans do 1 ligi",
+
+      relegationLegend:
+        "Spadek do 2 ligi"
     },
 
 
     en: {
       language: "English",
-
       pageTitle: "Table",
+      selectSeason: "Select season",
 
       news: "News",
       table: "Table",
 
       team: "Team",
-
       firstTeam: "First Team",
       secondTeam: "Second Team",
       academy: "Academy",
 
       club: "Club",
-
       aboutClub: "About the Club",
       people: "Legion People",
       documents: "Documents",
@@ -1917,27 +2480,28 @@
 
       seasonPrefix: "Season",
 
-      legendInfo:
-        "Demonstration table"
+      promotionLegend:
+        "Promotion to the 1st league",
+
+      relegationLegend:
+        "Relegation to the 2nd league"
     },
 
 
     de: {
       language: "Deutsch",
-
       pageTitle: "Tabelle",
+      selectSeason: "Saison wählen",
 
       news: "Aktuelles",
       table: "Tabelle",
 
       team: "Mannschaft",
-
       firstTeam: "1. Mannschaft",
       secondTeam: "2. Mannschaft",
       academy: "Akademie",
 
       club: "Verein",
-
       aboutClub: "Über den Verein",
       people: "Menschen des Legion",
       documents: "Dokumente",
@@ -1956,27 +2520,28 @@
 
       seasonPrefix: "Saison",
 
-      legendInfo:
-        "Beispieltabelle"
+      promotionLegend:
+        "Aufstieg in die 1. Liga",
+
+      relegationLegend:
+        "Abstieg in die 2. Liga"
     },
 
 
     ru: {
       language: "Русский",
-
       pageTitle: "Таблица",
+      selectSeason: "Выберите сезон",
 
       news: "Новости",
       table: "Таблица",
 
       team: "Команда",
-
       firstTeam: "Первая команда",
       secondTeam: "Вторая команда",
       academy: "Академия",
 
       club: "Клуб",
-
       aboutClub: "О клубе",
       people: "Люди Legion",
       documents: "Документы",
@@ -1995,27 +2560,28 @@
 
       seasonPrefix: "Сезон",
 
-      legendInfo:
-        "Демонстрационная таблица"
+      promotionLegend:
+        "Повышение в 1 лигу",
+
+      relegationLegend:
+        "Вылет во 2 лигу"
     },
 
 
     es: {
       language: "Español",
-
       pageTitle: "Clasificación",
+      selectSeason: "Seleccionar temporada",
 
       news: "Noticias",
       table: "Clasificación",
 
       team: "Equipo",
-
       firstTeam: "Primer Equipo",
       secondTeam: "Segundo Equipo",
       academy: "Academia",
 
       club: "Club",
-
       aboutClub: "Sobre el Club",
       people: "Gente de Legion",
       documents: "Documentos",
@@ -2034,8 +2600,11 @@
 
       seasonPrefix: "Temporada",
 
-      legendInfo:
-        "Clasificación de demostración"
+      promotionLegend:
+        "Ascenso a la 1.ª liga",
+
+      relegationLegend:
+        "Descenso a la 2.ª liga"
     }
 
   };
@@ -2049,6 +2618,24 @@
     localStorage.getItem(
       "legion-language"
     ) || "pl";
+
+
+  let currentSeason =
+    localStorage.getItem(
+      "legion-season"
+    ) || "2026/27";
+
+
+  if (
+    !seasonsData[currentSeason]
+  ) {
+
+    currentSeason =
+      Object.keys(
+        seasonsData
+      )[0];
+
+  }
 
 
   /* =========================
@@ -2098,7 +2685,66 @@
 
 
   /* =========================
-     CLUB BADGE
+     SEASON SELECT
+  ========================= */
+
+  const seasonSelect =
+    document.getElementById(
+      "seasonSelect"
+    );
+
+
+  function renderSeasonOptions() {
+
+    seasonSelect.innerHTML =
+      Object.keys(
+        seasonsData
+      )
+        .map(
+          function(season) {
+
+            return `
+              <option
+                value="${season}"
+              >
+                ${season}
+              </option>
+            `;
+
+          }
+        )
+        .join("");
+
+
+    seasonSelect.value =
+      currentSeason;
+
+  }
+
+
+  seasonSelect.addEventListener(
+    "change",
+    function() {
+
+      currentSeason =
+        seasonSelect.value;
+
+
+      localStorage.setItem(
+        "legion-season",
+        currentSeason
+      );
+
+
+      renderTableInfo();
+      renderTable();
+
+    }
+  );
+
+
+  /* =========================
+     BADGE
   ========================= */
 
   function createClubBadge(
@@ -2151,10 +2797,59 @@
 
 
   /* =========================
-     RENDER TABLE
+     TABLE INFO
+  ========================= */
+
+  function renderTableInfo() {
+
+    const seasonData =
+      seasonsData[
+        currentSeason
+      ];
+
+
+    const selectedLanguage =
+      translations[
+        currentLang
+      ];
+
+
+    document.getElementById(
+      "leagueName"
+    ).textContent =
+      seasonData.league;
+
+
+    document.getElementById(
+      "seasonLabel"
+    ).textContent =
+      selectedLanguage
+        .seasonPrefix +
+      " " +
+      currentSeason;
+
+  }
+
+
+  /* =========================
+     TABLE
   ========================= */
 
   function renderTable() {
+
+    const seasonData =
+      seasonsData[
+        currentSeason
+      ];
+
+
+    const teams =
+      seasonData.teams;
+
+
+    const teamCount =
+      teams.length;
+
 
     const tableBody =
       document.getElementById(
@@ -2163,9 +2858,9 @@
 
 
     tableBody.innerHTML =
-      leagueData.teams
+      teams
         .map(
-          function(team) {
+          function(team, index) {
 
             const goalDifference =
               team.goalsFor -
@@ -2197,16 +2892,53 @@
                 : goalDifference;
 
 
-            const legionClass =
+            const classes = [];
+
+
+            /* TOP 2 */
+
+            if (
+              index < 2
+            ) {
+
+              classes.push(
+                "promotion-row"
+              );
+
+            }
+
+
+            /* BOTTOM 2 */
+
+            if (
+              index >=
+              teamCount - 2
+            ) {
+
+              classes.push(
+                "relegation-row"
+              );
+
+            }
+
+
+            /* LEGION */
+
+            if (
               team.name ===
               "Legion Białystok"
-                ? "legion-row"
-                : "";
+            ) {
+
+              classes.push(
+                "legion-row"
+              );
+
+            }
 
 
             return `
 
-              <tr class="${legionClass}">
+              <tr class="${classes.join(" ")}">
 
                 <td class="position">
                   ${team.position}
@@ -2533,26 +3265,13 @@
       );
 
 
-    document.getElementById(
-      "leagueName"
-    ).textContent =
-      leagueData.league;
-
-
-    document.getElementById(
-      "season"
-    ).textContent =
-      selected.seasonPrefix +
-      " " +
-      leagueData.season;
-
-
     languageOptions.forEach(
       function(option) {
 
         option.classList.toggle(
           "active",
-          option.dataset.lang === lang
+          option.dataset.lang ===
+          lang
         );
 
       }
@@ -2563,6 +3282,9 @@
       "legion-language",
       lang
     );
+
+
+    renderTableInfo();
 
 
     closeLanguageMenu();
@@ -2614,11 +3336,13 @@
      START
   ========================= */
 
-  renderTable();
+  renderSeasonOptions();
 
   setLanguage(
     currentLang
   );
+
+  renderTable();
 
 </script>
 
