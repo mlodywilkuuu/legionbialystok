@@ -77,6 +77,10 @@
       gap: 16px;
     }
 
+    .header-right {
+      position: relative;
+    }
+
     /* =========================
        HAMBURGER
     ========================= */
@@ -142,10 +146,6 @@
       width: 25px;
     }
 
-    /* =========================
-       HAMBURGER -> X
-    ========================= */
-
     .menu-toggle.active .hamburger span:nth-child(1) {
       top: 8px;
       transform: rotate(45deg);
@@ -181,15 +181,118 @@
        LANGUAGE
     ========================= */
 
-    .language {
-      color: rgba(255, 255, 255, 0.72);
+    .language-wrapper {
+      position: relative;
+    }
+
+    .language-toggle {
+      min-width: 92px;
+      height: 42px;
+
+      padding: 0 12px;
+
+      border: 0;
+      background: transparent;
+
+      color: rgba(255, 255, 255, 0.82);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
 
       font-size: 12px;
       font-weight: 700;
 
-      letter-spacing: 1px;
+      letter-spacing: 0.7px;
 
       cursor: pointer;
+    }
+
+    .language-arrow {
+      font-size: 10px;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+    .language-toggle.active .language-arrow {
+      transform: rotate(180deg);
+    }
+
+    .language-menu {
+      position: absolute;
+
+      top: 50px;
+      right: 0;
+
+      width: 170px;
+
+      padding: 8px;
+
+      background:
+        rgba(10, 10, 14, 0.72);
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.28);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform: translateY(-8px);
+
+      transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .language-menu.active {
+      opacity: 1;
+      visibility: visible;
+
+      transform: translateY(0);
+    }
+
+    .language-option {
+      width: 100%;
+      min-height: 42px;
+
+      padding: 0 12px;
+
+      border: 0;
+      background: transparent;
+
+      color: rgba(255, 255, 255, 0.66);
+
+      text-align: left;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .language-option:hover,
+    .language-option.active {
+      background:
+        rgba(255, 255, 255, 0.06);
+
+      color: #fff;
     }
 
     /* =========================
@@ -239,14 +342,10 @@
 
       overflow-y: auto;
 
-      /* Firefox */
       scrollbar-width: none;
-
-      /* IE / stary Edge */
       -ms-overflow-style: none;
     }
 
-    /* Chrome / Safari / nowy Edge */
     .menu-panel::-webkit-scrollbar {
       width: 0;
       height: 0;
@@ -466,15 +565,6 @@
           92px
           22px
           30px;
-
-        background:
-          rgba(10, 10, 14, 0.5);
-
-        backdrop-filter:
-          blur(20px);
-
-        -webkit-backdrop-filter:
-          blur(20px);
       }
 
       .menu-link,
@@ -484,6 +574,15 @@
 
       .submenu a {
         min-height: 38px;
+      }
+
+      .language-toggle {
+        min-width: 75px;
+        padding: 0 8px;
+      }
+
+      .language-menu {
+        width: 155px;
       }
 
     }
@@ -502,13 +601,11 @@
         type="button"
         aria-label="Otwórz menu"
       >
-
         <div class="hamburger">
           <span></span>
           <span></span>
           <span></span>
         </div>
-
       </button>
 
       <img
@@ -519,8 +616,74 @@
 
     </div>
 
-    <div class="language">
-      PL
+
+    <div class="header-right">
+
+      <div class="language-wrapper">
+
+        <button
+          class="language-toggle"
+          id="languageToggle"
+          type="button"
+        >
+          <span id="currentLanguage">
+            Polski
+          </span>
+
+          <span class="language-arrow">
+            ▼
+          </span>
+        </button>
+
+        <div
+          class="language-menu"
+          id="languageMenu"
+        >
+
+          <button
+            class="language-option active"
+            data-lang="pl"
+            type="button"
+          >
+            Polski
+          </button>
+
+          <button
+            class="language-option"
+            data-lang="en"
+            type="button"
+          >
+            English
+          </button>
+
+          <button
+            class="language-option"
+            data-lang="de"
+            type="button"
+          >
+            Deutsch
+          </button>
+
+          <button
+            class="language-option"
+            data-lang="ru"
+            type="button"
+          >
+            Русский
+          </button>
+
+          <button
+            class="language-option"
+            data-lang="es"
+            type="button"
+          >
+            Español
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
   </header>
@@ -534,13 +697,21 @@
     <ul class="menu-list">
 
       <li class="menu-item">
-        <a href="aktualnosci.html" class="menu-link">
+        <a
+          href="aktualnosci.html"
+          class="menu-link"
+          data-i18n="news"
+        >
           Aktualności
         </a>
       </li>
 
       <li class="menu-item">
-        <a href="tabela.html" class="menu-link">
+        <a
+          href="tabela.html"
+          class="menu-link"
+          data-i18n="table"
+        >
           Tabela
         </a>
       </li>
@@ -551,21 +722,33 @@
           class="submenu-toggle"
           type="button"
         >
-          <span>Drużyna</span>
+          <span data-i18n="team">
+            Drużyna
+          </span>
+
           <span class="plus"></span>
         </button>
 
         <div class="submenu">
 
-          <a href="pierwszyzespol.html">
+          <a
+            href="pierwszyzespol.html"
+            data-i18n="firstTeam"
+          >
             I Drużyna
           </a>
 
-          <a href="drugadruzyna.html">
+          <a
+            href="drugadruzyna.html"
+            data-i18n="secondTeam"
+          >
             II Drużyna
           </a>
 
-          <a href="akademia.html">
+          <a
+            href="akademia.html"
+            data-i18n="academy"
+          >
             Akademia
           </a>
 
@@ -579,25 +762,40 @@
           class="submenu-toggle"
           type="button"
         >
-          <span>Klub</span>
+          <span data-i18n="club">
+            Klub
+          </span>
+
           <span class="plus"></span>
         </button>
 
         <div class="submenu">
 
-          <a href="o-klubie.html">
+          <a
+            href="o-klubie.html"
+            data-i18n="aboutClub"
+          >
             O klubie
           </a>
 
-          <a href="ludzie.html">
+          <a
+            href="ludzie.html"
+            data-i18n="people"
+          >
             Ludzie Legionu
           </a>
 
-          <a href="dokumenty.html">
+          <a
+            href="dokumenty.html"
+            data-i18n="documents"
+          >
             Dokumenty
           </a>
 
-          <a href="kontakt.html">
+          <a
+            href="kontakt.html"
+            data-i18n="contact"
+          >
             Kontakt
           </a>
 
@@ -617,6 +815,11 @@
 
 
   <script>
+
+    /* =========================
+       MENU
+    ========================= */
+
     const menuToggle =
       document.getElementById("menuToggle");
 
@@ -630,7 +833,9 @@
     function openMenu() {
 
       menuToggle.classList.add("active");
+
       menuPanel.classList.add("active");
+
       overlay.classList.add("active");
 
       document.body.style.overflow = "hidden";
@@ -641,7 +846,9 @@
     function closeMenu() {
 
       menuToggle.classList.remove("active");
+
       menuPanel.classList.remove("active");
+
       overlay.classList.remove("active");
 
       document.body.style.overflow = "";
@@ -651,13 +858,16 @@
 
     function toggleMenu() {
 
-      const isOpen =
-        menuPanel.classList.contains("active");
+      if (
+        menuPanel.classList.contains("active")
+      ) {
 
-      if (isOpen) {
         closeMenu();
+
       } else {
+
         openMenu();
+
       }
 
     }
@@ -680,12 +890,19 @@
       function(event) {
 
         if (event.key === "Escape") {
+
           closeMenu();
+          closeLanguageMenu();
+
         }
 
       }
     );
 
+
+    /* =========================
+       SUBMENU
+    ========================= */
 
     const submenuButtons =
       document.querySelectorAll(
@@ -703,14 +920,264 @@
             const submenu =
               button.nextElementSibling;
 
-            button.classList.toggle("active");
-            submenu.classList.toggle("active");
+            button.classList.toggle(
+              "active"
+            );
+
+            submenu.classList.toggle(
+              "active"
+            );
 
           }
         );
 
       }
     );
+
+
+    /* =========================
+       LANGUAGE MENU
+    ========================= */
+
+    const languageToggle =
+      document.getElementById(
+        "languageToggle"
+      );
+
+    const languageMenu =
+      document.getElementById(
+        "languageMenu"
+      );
+
+    const currentLanguage =
+      document.getElementById(
+        "currentLanguage"
+      );
+
+    const languageOptions =
+      document.querySelectorAll(
+        ".language-option"
+      );
+
+
+    function closeLanguageMenu() {
+
+      languageToggle.classList.remove(
+        "active"
+      );
+
+      languageMenu.classList.remove(
+        "active"
+      );
+
+    }
+
+
+    languageToggle.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+        languageToggle.classList.toggle(
+          "active"
+        );
+
+        languageMenu.classList.toggle(
+          "active"
+        );
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          !languageMenu.contains(event.target) &&
+          !languageToggle.contains(event.target)
+        ) {
+
+          closeLanguageMenu();
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       TRANSLATIONS
+    ========================= */
+
+    const translations = {
+
+      pl: {
+        language: "Polski",
+        news: "Aktualności",
+        table: "Tabela",
+        team: "Drużyna",
+        firstTeam: "I Drużyna",
+        secondTeam: "II Drużyna",
+        academy: "Akademia",
+        club: "Klub",
+        aboutClub: "O klubie",
+        people: "Ludzie Legionu",
+        documents: "Dokumenty",
+        contact: "Kontakt"
+      },
+
+      en: {
+        language: "English",
+        news: "News",
+        table: "Table",
+        team: "Team",
+        firstTeam: "First Team",
+        secondTeam: "Second Team",
+        academy: "Academy",
+        club: "Club",
+        aboutClub: "About the Club",
+        people: "Legion People",
+        documents: "Documents",
+        contact: "Contact"
+      },
+
+      de: {
+        language: "Deutsch",
+        news: "Aktuelles",
+        table: "Tabelle",
+        team: "Mannschaft",
+        firstTeam: "1. Mannschaft",
+        secondTeam: "2. Mannschaft",
+        academy: "Akademie",
+        club: "Verein",
+        aboutClub: "Über den Verein",
+        people: "Menschen des Legion",
+        documents: "Dokumente",
+        contact: "Kontakt"
+      },
+
+      ru: {
+        language: "Русский",
+        news: "Новости",
+        table: "Таблица",
+        team: "Команда",
+        firstTeam: "Первая команда",
+        secondTeam: "Вторая команда",
+        academy: "Академия",
+        club: "Клуб",
+        aboutClub: "О клубе",
+        people: "Люди Legion",
+        documents: "Документы",
+        contact: "Контакты"
+      },
+
+      es: {
+        language: "Español",
+        news: "Noticias",
+        table: "Clasificación",
+        team: "Equipo",
+        firstTeam: "Primer Equipo",
+        secondTeam: "Segundo Equipo",
+        academy: "Academia",
+        club: "Club",
+        aboutClub: "Sobre el Club",
+        people: "Gente de Legion",
+        documents: "Documentos",
+        contact: "Contacto"
+      }
+
+    };
+
+
+    function setLanguage(lang) {
+
+      const selected =
+        translations[lang];
+
+      if (!selected) {
+        return;
+      }
+
+      document.documentElement.lang = lang;
+
+      currentLanguage.textContent =
+        selected.language;
+
+
+      document
+        .querySelectorAll("[data-i18n]")
+        .forEach(
+          function(element) {
+
+            const key =
+              element.dataset.i18n;
+
+            if (selected[key]) {
+
+              element.textContent =
+                selected[key];
+
+            }
+
+          }
+        );
+
+
+      languageOptions.forEach(
+        function(option) {
+
+          option.classList.toggle(
+            "active",
+            option.dataset.lang === lang
+          );
+
+        }
+      );
+
+
+      localStorage.setItem(
+        "legion-language",
+        lang
+      );
+
+      closeLanguageMenu();
+
+    }
+
+
+    languageOptions.forEach(
+      function(option) {
+
+        option.addEventListener(
+          "click",
+          function() {
+
+            setLanguage(
+              option.dataset.lang
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+    /* =========================
+       SAVED LANGUAGE
+    ========================= */
+
+    const savedLanguage =
+      localStorage.getItem(
+        "legion-language"
+      ) || "pl";
+
+
+    setLanguage(savedLanguage);
+
   </script>
 
 </body>
