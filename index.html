@@ -104,6 +104,7 @@
 
     .hamburger {
       position: relative;
+
       width: 25px;
       height: 18px;
     }
@@ -174,7 +175,7 @@
     }
 
     /* =========================
-       LANGUAGES
+       LANGUAGE
     ========================= */
 
     .language-wrapper {
@@ -229,7 +230,9 @@
 
     .language-arrow {
       font-size: 9px;
-      transition: transform 0.25s ease;
+
+      transition:
+        transform 0.25s ease;
     }
 
     .language-toggle.active .language-arrow {
@@ -374,6 +377,10 @@
       transform: translateX(0);
     }
 
+    /* =========================
+       MENU
+    ========================= */
+
     .menu-list {
       list-style: none;
     }
@@ -422,6 +429,10 @@
       padding-left: 8px;
     }
 
+    /* =========================
+       PLUS
+    ========================= */
+
     .plus {
       position: relative;
 
@@ -465,9 +476,15 @@
       opacity: 0;
     }
 
+    /* =========================
+       SUBMENU
+    ========================= */
+
     .submenu {
       max-height: 0;
+
       overflow: hidden;
+
       opacity: 0;
 
       transition:
@@ -509,6 +526,10 @@
       padding-left: 22px;
     }
 
+    /* =========================
+       OVERLAY
+    ========================= */
+
     .overlay {
       position: fixed;
 
@@ -540,376 +561,14 @@
     ========================= */
 
     .page-content {
-      width: 100%;
-      max-width: 1380px;
-
-      margin: 0 auto;
-
-      padding:
-        150px
-        32px
-        80px;
-    }
-
-    /* =========================
-       MATCH CENTER
-    ========================= */
-
-    .match-section {
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 2fr)
-        minmax(310px, 1fr);
-
-      gap: 18px;
-    }
-
-    .matches-area {
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-      gap: 18px;
-    }
-
-    .match-card,
-    .table-card {
-      border:
-        1px solid rgba(255, 255, 255, 0.07);
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.018)
-        );
-
-      backdrop-filter:
-        blur(16px);
-
-      -webkit-backdrop-filter:
-        blur(16px);
-
-      border-radius: 18px;
-    }
-
-    .match-card {
-      min-height: 330px;
-
-      padding: 24px;
-
-      display: flex;
-      flex-direction: column;
-
-      position: relative;
-
-      overflow: hidden;
-    }
-
-    .match-card::before {
-      content: "";
-
-      position: absolute;
-
-      width: 180px;
-      height: 180px;
-
-      right: -80px;
-      top: -80px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(229, 9, 20, 0.10);
-
-      filter: blur(10px);
-
-      pointer-events: none;
-    }
-
-    .match-label {
-      position: relative;
-      z-index: 1;
-
-      font-size: 11px;
-      font-weight: 800;
-
-      letter-spacing: 1.5px;
-
-      color:
-        rgba(255, 255, 255, 0.42);
-
-      text-transform: uppercase;
-    }
-
-    .match-meta {
-      margin-top: 10px;
-
-      position: relative;
-      z-index: 1;
-
-      font-size: 12px;
-
-      color:
-        rgba(255, 255, 255, 0.42);
-    }
-
-    .match-teams {
-      flex: 1;
-
-      display: grid;
-
-      grid-template-columns:
-        minmax(0, 1fr)
-        auto
-        minmax(0, 1fr);
-
-      align-items: center;
-
-      gap: 14px;
-
-      position: relative;
-      z-index: 1;
-
-      margin-top: 20px;
-    }
-
-    .team {
-      min-width: 0;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      gap: 13px;
-
-      text-align: center;
-    }
-
-    .team-logo {
-      width: 78px;
-      height: 78px;
-
-      object-fit: contain;
-
-      display: block;
-    }
-
-    .team-logo-placeholder {
-      width: 78px;
-      height: 78px;
-
-      border-radius: 50%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      background:
-        rgba(255, 255, 255, 0.06);
-
-      border:
-        1px solid rgba(255, 255, 255, 0.08);
-
-      font-size: 24px;
-      font-weight: 800;
-
-      color:
-        rgba(255, 255, 255, 0.65);
-    }
-
-    .team-name {
-      max-width: 145px;
-
-      font-size: 14px;
-      font-weight: 700;
-
-      line-height: 1.3;
-    }
-
-    .match-score {
-      min-width: 74px;
-
-      text-align: center;
-
-      font-size: 34px;
-      font-weight: 800;
-
-      letter-spacing: -1px;
-    }
-
-    .match-time {
-      text-align: center;
-
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .match-status {
-      margin-top: 6px;
-
-      text-align: center;
-
-      font-size: 10px;
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1px;
-
-      color:
-        rgba(255, 255, 255, 0.38);
-    }
-
-    /* =========================
-       TABLE
-    ========================= */
-
-    .table-card {
-      padding: 24px;
-    }
-
-    .table-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      gap: 20px;
-
-      margin-bottom: 18px;
-    }
-
-    .table-label {
-      font-size: 11px;
-      font-weight: 800;
-
-      text-transform: uppercase;
-
-      letter-spacing: 1.5px;
-
-      color:
-        rgba(255, 255, 255, 0.42);
-    }
-
-    .table-link {
-      color:
-        rgba(255, 255, 255, 0.48);
-
-      text-decoration: none;
-
-      font-size: 11px;
-      font-weight: 700;
-
-      transition:
-        color 0.2s ease;
-    }
-
-    .table-link:hover {
-      color: #fff;
-    }
-
-    .league-table {
-      width: 100%;
-
-      border-collapse: collapse;
-
-      table-layout: fixed;
-    }
-
-    .league-table th {
-      height: 34px;
-
-      color:
-        rgba(255, 255, 255, 0.28);
-
-      font-size: 10px;
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      text-align: center;
-    }
-
-    .league-table th:nth-child(1),
-    .league-table td:nth-child(1) {
-      width: 32px;
-    }
-
-    .league-table th:nth-child(2),
-    .league-table td:nth-child(2) {
-      text-align: left;
-    }
-
-    .league-table th:nth-child(3),
-    .league-table td:nth-child(3),
-    .league-table th:nth-child(4),
-    .league-table td:nth-child(4) {
-      width: 40px;
-      text-align: center;
-    }
-
-    .league-table td {
-      height: 47px;
-
-      border-top:
-        1px solid rgba(255, 255, 255, 0.05);
-
-      font-size: 12px;
-
-      color:
-        rgba(255, 255, 255, 0.70);
-    }
-
-    .league-table .position {
-      text-align: center;
-
-      color:
-        rgba(255, 255, 255, 0.34);
-    }
-
-    .league-table .club-name {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-
-      padding-right: 8px;
-
-      font-weight: 600;
-    }
-
-    .league-table .points {
-      font-weight: 800;
-      color: #fff;
-    }
-
-    .league-table tr.legion-row {
-      background:
-        rgba(229, 9, 20, 0.10);
-    }
-
-    .league-table tr.legion-row td {
-      color: #fff;
-    }
-
-    .league-table tr.legion-row .club-name {
-      font-weight: 800;
+      min-height: 100vh;
     }
 
     /* =========================
        MOBILE
     ========================= */
 
-    @media (max-width: 1000px) {
-
-      .match-section {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
 
       .header {
         height: 72px;
@@ -955,49 +614,6 @@
         width: 22px;
         height: 15px;
         flex-basis: 22px;
-      }
-
-      .page-content {
-        padding:
-          115px
-          15px
-          50px;
-      }
-
-      .matches-area {
-        grid-template-columns: 1fr;
-      }
-
-      .match-card {
-        min-height: 295px;
-        padding: 20px;
-      }
-
-      .table-card {
-        padding: 20px;
-      }
-
-    }
-
-    @media (max-width: 420px) {
-
-      .team-logo,
-      .team-logo-placeholder {
-        width: 62px;
-        height: 62px;
-      }
-
-      .team-name {
-        font-size: 12px;
-      }
-
-      .match-score {
-        min-width: 58px;
-        font-size: 28px;
-      }
-
-      .match-time {
-        font-size: 22px;
       }
 
     }
@@ -1125,6 +741,7 @@
   <ul class="menu-list">
 
     <li class="menu-item">
+
       <a
         href="aktualnosci.html"
         class="menu-link"
@@ -1132,9 +749,12 @@
       >
         Aktualności
       </a>
+
     </li>
 
+
     <li class="menu-item">
+
       <a
         href="tabela.html"
         class="menu-link"
@@ -1142,7 +762,9 @@
       >
         Tabela
       </a>
+
     </li>
+
 
     <li class="menu-item">
 
@@ -1150,11 +772,13 @@
         class="submenu-toggle"
         type="button"
       >
+
         <span data-i18n="team">
           Drużyna
         </span>
 
         <span class="plus"></span>
+
       </button>
 
       <div class="submenu">
@@ -1184,17 +808,20 @@
 
     </li>
 
+
     <li class="menu-item">
 
       <button
         class="submenu-toggle"
         type="button"
       >
+
         <span data-i18n="club">
           Klub
         </span>
 
         <span class="plus"></span>
+
       </button>
 
       <div class="submenu">
@@ -1242,135 +869,10 @@
 ></div>
 
 
-<main class="page-content">
-
-  <section class="match-section">
-
-    <div
-      class="matches-area"
-      id="matchesArea"
-    ></div>
-
-    <div class="table-card">
-
-      <div class="table-top">
-
-        <span
-          class="table-label"
-          data-i18n="standings"
-        >
-          Tabela
-        </span>
-
-        <a
-          href="tabela.html"
-          class="table-link"
-          data-i18n="fullTable"
-        >
-          Pełna tabela
-        </a>
-
-      </div>
-
-      <table class="league-table">
-
-        <thead>
-          <tr>
-            <th>#</th>
-            <th data-i18n="clubColumn">
-              Klub
-            </th>
-            <th data-i18n="matchesColumn">
-              M
-            </th>
-            <th data-i18n="pointsColumn">
-              Pkt
-            </th>
-          </tr>
-        </thead>
-
-        <tbody id="tableBody"></tbody>
-
-      </table>
-
-    </div>
-
-  </section>
-
-</main>
+<main class="page-content"></main>
 
 
 <script>
-
-  /* =====================================================
-     DANE STRONY
-     PÓŹNIEJ PANEL ADMINA BĘDZIE EDYTOWAŁ WŁAŚNIE TE DANE
-  ===================================================== */
-
-  const siteData = {
-
-    lastMatch: {
-      date: "20.09.2026",
-      competition: "Liga Okręgowa",
-      homeTeam: "Legion Białystok",
-      awayTeam: "KS Wasilków",
-      homeLogo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
-      awayLogo: "",
-      homeScore: 3,
-      awayScore: 1
-    },
-
-    nextMatch: {
-      date: "27.09.2026",
-      time: "16:00",
-      competition: "Liga Okręgowa",
-      homeTeam: "Czarni Czarna Białostocka",
-      awayTeam: "Legion Białystok",
-      homeLogo: "",
-      awayLogo: "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-    },
-
-    table: [
-      {
-        position: 1,
-        club: "KS Wasilków",
-        matches: 8,
-        points: 21
-      },
-      {
-        position: 2,
-        club: "Legion Białystok",
-        matches: 8,
-        points: 19
-      },
-      {
-        position: 3,
-        club: "Czarni Czarna Białostocka",
-        matches: 8,
-        points: 17
-      },
-      {
-        position: 4,
-        club: "Sparta Augustów",
-        matches: 8,
-        points: 15
-      },
-      {
-        position: 5,
-        club: "Promień Mońki",
-        matches: 8,
-        points: 13
-      },
-      {
-        position: 6,
-        club: "Pogoń Łapy",
-        matches: 8,
-        points: 11
-      }
-    ]
-
-  };
-
 
   /* =========================
      FLAGS
@@ -1467,389 +969,17 @@
 
 
   /* =========================
-     TRANSLATIONS
-  ========================= */
-
-  const translations = {
-
-    pl: {
-      language: "Polski",
-      news: "Aktualności",
-      table: "Tabela",
-      team: "Drużyna",
-      firstTeam: "I Drużyna",
-      secondTeam: "II Drużyna",
-      academy: "Akademia",
-      club: "Klub",
-      aboutClub: "O klubie",
-      people: "Ludzie Legionu",
-      documents: "Dokumenty",
-      contact: "Kontakt",
-
-      lastMatch: "Ostatni mecz",
-      nextMatch: "Następny mecz",
-      finished: "Koniec",
-      upcoming: "Nadchodzący",
-      standings: "Tabela",
-      fullTable: "Pełna tabela",
-      clubColumn: "Klub",
-      matchesColumn: "M",
-      pointsColumn: "Pkt"
-    },
-
-    en: {
-      language: "English",
-      news: "News",
-      table: "Table",
-      team: "Team",
-      firstTeam: "First Team",
-      secondTeam: "Second Team",
-      academy: "Academy",
-      club: "Club",
-      aboutClub: "About the Club",
-      people: "Legion People",
-      documents: "Documents",
-      contact: "Contact",
-
-      lastMatch: "Last match",
-      nextMatch: "Next match",
-      finished: "Full time",
-      upcoming: "Upcoming",
-      standings: "Table",
-      fullTable: "Full table",
-      clubColumn: "Club",
-      matchesColumn: "P",
-      pointsColumn: "Pts"
-    },
-
-    de: {
-      language: "Deutsch",
-      news: "Aktuelles",
-      table: "Tabelle",
-      team: "Mannschaft",
-      firstTeam: "1. Mannschaft",
-      secondTeam: "2. Mannschaft",
-      academy: "Akademie",
-      club: "Verein",
-      aboutClub: "Über den Verein",
-      people: "Menschen des Legion",
-      documents: "Dokumente",
-      contact: "Kontakt",
-
-      lastMatch: "Letztes Spiel",
-      nextMatch: "Nächstes Spiel",
-      finished: "Beendet",
-      upcoming: "Bevorstehend",
-      standings: "Tabelle",
-      fullTable: "Ganze Tabelle",
-      clubColumn: "Verein",
-      matchesColumn: "Sp",
-      pointsColumn: "Pkt"
-    },
-
-    ru: {
-      language: "Русский",
-      news: "Новости",
-      table: "Таблица",
-      team: "Команда",
-      firstTeam: "Первая команда",
-      secondTeam: "Вторая команда",
-      academy: "Академия",
-      club: "Клуб",
-      aboutClub: "О клубе",
-      people: "Люди Legion",
-      documents: "Документы",
-      contact: "Контакты",
-
-      lastMatch: "Последний матч",
-      nextMatch: "Следующий матч",
-      finished: "Завершён",
-      upcoming: "Предстоящий",
-      standings: "Таблица",
-      fullTable: "Полная таблица",
-      clubColumn: "Клуб",
-      matchesColumn: "И",
-      pointsColumn: "Очк"
-    },
-
-    es: {
-      language: "Español",
-      news: "Noticias",
-      table: "Clasificación",
-      team: "Equipo",
-      firstTeam: "Primer Equipo",
-      secondTeam: "Segundo Equipo",
-      academy: "Academia",
-      club: "Club",
-      aboutClub: "Sobre el Club",
-      people: "Gente de Legion",
-      documents: "Documentos",
-      contact: "Contacto",
-
-      lastMatch: "Último partido",
-      nextMatch: "Próximo partido",
-      finished: "Final",
-      upcoming: "Próximo",
-      standings: "Clasificación",
-      fullTable: "Tabla completa",
-      clubColumn: "Club",
-      matchesColumn: "PJ",
-      pointsColumn: "Pts"
-    }
-
-  };
-
-
-  let currentLang =
-    localStorage.getItem(
-      "legion-language"
-    ) || "pl";
-
-
-  /* =========================
-     MATCH RENDERING
-  ========================= */
-
-  function createTeamLogo(
-    logo,
-    name
-  ) {
-
-    if (logo) {
-
-      return `
-        <img
-          src="${logo}"
-          alt="${name}"
-          class="team-logo"
-        >
-      `;
-
-    }
-
-    const initials =
-      name
-        .split(" ")
-        .map(word => word[0])
-        .join("")
-        .slice(0, 2)
-        .toUpperCase();
-
-    return `
-      <div
-        class="team-logo-placeholder"
-        aria-label="${name}"
-      >
-        ${initials}
-      </div>
-    `;
-
-  }
-
-
-  function renderMatches() {
-
-    const language =
-      translations[currentLang];
-
-    const last =
-      siteData.lastMatch;
-
-    const next =
-      siteData.nextMatch;
-
-
-    document.getElementById(
-      "matchesArea"
-    ).innerHTML = `
-
-      <article
-        class="match-card"
-        id="lastMatchCard"
-      >
-
-        <div class="match-label">
-          ${language.lastMatch}
-        </div>
-
-        <div class="match-meta">
-          ${last.date} · ${last.competition}
-        </div>
-
-        <div class="match-teams">
-
-          <div class="team">
-
-            ${createTeamLogo(
-              last.homeLogo,
-              last.homeTeam
-            )}
-
-            <div class="team-name">
-              ${last.homeTeam}
-            </div>
-
-          </div>
-
-          <div>
-
-            <div class="match-score">
-              ${last.homeScore}:${last.awayScore}
-            </div>
-
-            <div class="match-status">
-              ${language.finished}
-            </div>
-
-          </div>
-
-          <div class="team">
-
-            ${createTeamLogo(
-              last.awayLogo,
-              last.awayTeam
-            )}
-
-            <div class="team-name">
-              ${last.awayTeam}
-            </div>
-
-          </div>
-
-        </div>
-
-      </article>
-
-
-      <article class="match-card">
-
-        <div class="match-label">
-          ${language.nextMatch}
-        </div>
-
-        <div class="match-meta">
-          ${next.date} · ${next.competition}
-        </div>
-
-        <div class="match-teams">
-
-          <div class="team">
-
-            ${createTeamLogo(
-              next.homeLogo,
-              next.homeTeam
-            )}
-
-            <div class="team-name">
-              ${next.homeTeam}
-            </div>
-
-          </div>
-
-          <div>
-
-            <div class="match-time">
-              ${next.time}
-            </div>
-
-            <div class="match-status">
-              ${language.upcoming}
-            </div>
-
-          </div>
-
-          <div class="team">
-
-            ${createTeamLogo(
-              next.awayLogo,
-              next.awayTeam
-            )}
-
-            <div class="team-name">
-              ${next.awayTeam}
-            </div>
-
-          </div>
-
-        </div>
-
-      </article>
-
-    `;
-
-  }
-
-
-  /* =========================
-     TABLE RENDERING
-  ========================= */
-
-  function renderTable() {
-
-    const tableBody =
-      document.getElementById(
-        "tableBody"
-      );
-
-    tableBody.innerHTML =
-      siteData.table
-        .map(
-          function(row) {
-
-            const legionClass =
-              row.club === "Legion Białystok"
-                ? "legion-row"
-                : "";
-
-            return `
-
-              <tr class="${legionClass}">
-
-                <td class="position">
-                  ${row.position}
-                </td>
-
-                <td class="club-name">
-                  ${row.club}
-                </td>
-
-                <td>
-                  ${row.matches}
-                </td>
-
-                <td class="points">
-                  ${row.points}
-                </td>
-
-              </tr>
-
-            `;
-
-          }
-        )
-        .join("");
-
-  }
-
-
-  /* =========================
      MENU
   ========================= */
 
   const menuToggle =
-    document.getElementById(
-      "menuToggle"
-    );
+    document.getElementById("menuToggle");
 
   const menuPanel =
-    document.getElementById(
-      "menuPanel"
-    );
+    document.getElementById("menuPanel");
 
   const overlay =
-    document.getElementById(
-      "overlay"
-    );
+    document.getElementById("overlay");
 
 
   function openMenu() {
@@ -1858,8 +988,7 @@
     menuPanel.classList.add("active");
     overlay.classList.add("active");
 
-    document.body.style.overflow =
-      "hidden";
+    document.body.style.overflow = "hidden";
 
   }
 
@@ -1875,25 +1004,26 @@
   }
 
 
-  menuToggle.addEventListener(
-    "click",
-    function() {
+  function toggleMenu() {
 
-      if (
-        menuPanel.classList.contains(
-          "active"
-        )
-      ) {
+    if (
+      menuPanel.classList.contains("active")
+    ) {
 
-        closeMenu();
+      closeMenu();
 
-      } else {
+    } else {
 
-        openMenu();
-
-      }
+      openMenu();
 
     }
+
+  }
+
+
+  menuToggle.addEventListener(
+    "click",
+    toggleMenu
   );
 
 
@@ -1907,33 +1037,35 @@
      SUBMENU
   ========================= */
 
-  document
-    .querySelectorAll(
+  const submenuButtons =
+    document.querySelectorAll(
       ".submenu-toggle"
-    )
-    .forEach(
-      function(button) {
-
-        button.addEventListener(
-          "click",
-          function() {
-
-            const submenu =
-              button.nextElementSibling;
-
-            button.classList.toggle(
-              "active"
-            );
-
-            submenu.classList.toggle(
-              "active"
-            );
-
-          }
-        );
-
-      }
     );
+
+
+  submenuButtons.forEach(
+    function(button) {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          const submenu =
+            button.nextElementSibling;
+
+          button.classList.toggle(
+            "active"
+          );
+
+          submenu.classList.toggle(
+            "active"
+          );
+
+        }
+      );
+
+    }
+  );
 
 
   /* =========================
@@ -2002,12 +1134,8 @@
     function(event) {
 
       if (
-        !languageMenu.contains(
-          event.target
-        ) &&
-        !languageToggle.contains(
-          event.target
-        )
+        !languageMenu.contains(event.target) &&
+        !languageToggle.contains(event.target)
       ) {
 
         closeLanguageMenu();
@@ -2034,8 +1162,88 @@
 
 
   /* =========================
-     SET LANGUAGE
+     TRANSLATIONS
   ========================= */
+
+  const translations = {
+
+    pl: {
+      language: "Polski",
+      news: "Aktualności",
+      table: "Tabela",
+      team: "Drużyna",
+      firstTeam: "I Drużyna",
+      secondTeam: "II Drużyna",
+      academy: "Akademia",
+      club: "Klub",
+      aboutClub: "O klubie",
+      people: "Ludzie Legionu",
+      documents: "Dokumenty",
+      contact: "Kontakt"
+    },
+
+    en: {
+      language: "English",
+      news: "News",
+      table: "Table",
+      team: "Team",
+      firstTeam: "First Team",
+      secondTeam: "Second Team",
+      academy: "Academy",
+      club: "Club",
+      aboutClub: "About the Club",
+      people: "Legion People",
+      documents: "Documents",
+      contact: "Contact"
+    },
+
+    de: {
+      language: "Deutsch",
+      news: "Aktuelles",
+      table: "Tabelle",
+      team: "Mannschaft",
+      firstTeam: "1. Mannschaft",
+      secondTeam: "2. Mannschaft",
+      academy: "Akademie",
+      club: "Verein",
+      aboutClub: "Über den Verein",
+      people: "Menschen des Legion",
+      documents: "Dokumente",
+      contact: "Kontakt"
+    },
+
+    ru: {
+      language: "Русский",
+      news: "Новости",
+      table: "Таблица",
+      team: "Команда",
+      firstTeam: "Первая команда",
+      secondTeam: "Вторая команда",
+      academy: "Академия",
+      club: "Клуб",
+      aboutClub: "О клубе",
+      people: "Люди Legion",
+      documents: "Документы",
+      contact: "Контакты"
+    },
+
+    es: {
+      language: "Español",
+      news: "Noticias",
+      table: "Clasificación",
+      team: "Equipo",
+      firstTeam: "Primer Equipo",
+      secondTeam: "Segundo Equipo",
+      academy: "Academia",
+      club: "Club",
+      aboutClub: "Sobre el Club",
+      people: "Gente de Legion",
+      documents: "Documentos",
+      contact: "Contacto"
+    }
+
+  };
+
 
   function setLanguage(lang) {
 
@@ -2046,10 +1254,7 @@
       return;
     }
 
-    currentLang = lang;
-
-    document.documentElement.lang =
-      lang;
+    document.documentElement.lang = lang;
 
     currentLanguage.textContent =
       selected.language;
@@ -2059,9 +1264,7 @@
 
 
     document
-      .querySelectorAll(
-        "[data-i18n]"
-      )
+      .querySelectorAll("[data-i18n]")
       .forEach(
         function(element) {
 
@@ -2097,9 +1300,6 @@
     );
 
 
-    renderMatches();
-    renderTable();
-
     closeLanguageMenu();
 
   }
@@ -2123,11 +1323,13 @@
   );
 
 
-  /* =========================
-     START
-  ========================= */
+  const savedLanguage =
+    localStorage.getItem(
+      "legion-language"
+    ) || "pl";
 
-  setLanguage(currentLang);
+
+  setLanguage(savedLanguage);
 
 </script>
 
