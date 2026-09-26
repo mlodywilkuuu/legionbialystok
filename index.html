@@ -41,10 +41,6 @@
       overflow-x: hidden;
     }
 
-    /* =========================
-       HEADER
-    ========================= */
-
     .header {
       position: fixed;
       top: 0;
@@ -80,10 +76,6 @@
       position: relative;
     }
 
-    /* =========================
-       HAMBURGER
-    ========================= */
-
     .menu-toggle {
       position: relative;
 
@@ -104,7 +96,6 @@
 
     .hamburger {
       position: relative;
-
       width: 25px;
       height: 18px;
     }
@@ -117,7 +108,6 @@
       height: 2px;
 
       border-radius: 10px;
-
       background: #fff;
 
       transition:
@@ -159,10 +149,6 @@
       transform: rotate(-45deg);
     }
 
-    /* =========================
-       LOGO
-    ========================= */
-
     .logo {
       width: 64px;
       height: auto;
@@ -174,10 +160,6 @@
           0 8px 20px rgba(0, 0, 0, 0.55)
         );
     }
-
-    /* =========================
-       LANGUAGE
-    ========================= */
 
     .language-wrapper {
       position: relative;
@@ -213,7 +195,6 @@
       flex: 0 0 24px;
 
       display: block;
-
       overflow: hidden;
 
       border-radius: 2px;
@@ -221,7 +202,7 @@
       box-shadow:
         0 0 0 1px rgba(255, 255, 255, 0.16);
 
-      background: #fff;
+      background: transparent;
     }
 
     .flag svg {
@@ -320,10 +301,6 @@
       color: #fff;
     }
 
-    /* =========================
-       MENU PANEL
-    ========================= */
-
     .menu-panel {
       position: fixed;
 
@@ -379,10 +356,6 @@
       transform: translateX(0);
     }
 
-    /* =========================
-       MENU
-    ========================= */
-
     .menu-list {
       list-style: none;
     }
@@ -431,10 +404,6 @@
       padding-left: 8px;
     }
 
-    /* =========================
-       PLUS
-    ========================= */
-
     .plus {
       position: relative;
 
@@ -478,15 +447,9 @@
       opacity: 0;
     }
 
-    /* =========================
-       SUBMENU
-    ========================= */
-
     .submenu {
       max-height: 0;
-
       overflow: hidden;
-
       opacity: 0;
 
       transition:
@@ -528,10 +491,6 @@
       padding-left: 22px;
     }
 
-    /* =========================
-       OVERLAY
-    ========================= */
-
     .overlay {
       position: fixed;
 
@@ -557,10 +516,6 @@
       opacity: 1;
       visibility: visible;
     }
-
-    /* =========================
-       MOBILE
-    ========================= */
 
     @media (max-width: 600px) {
 
@@ -865,16 +820,58 @@
 
 <script>
 
-  /* =========================
-     FLAGS
-  ========================= */
-
   const flags = {
 
     pl: `
       <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
         <rect width="3" height="1" y="0" fill="#ffffff"/>
         <rect width="3" height="1" y="1" fill="#dc143c"/>
+      </svg>
+    `,
+
+    en: `
+      <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="30" fill="#012169"/>
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#ffffff"
+          stroke-width="6"
+        />
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#c8102e"
+          stroke-width="2.5"
+        />
+
+        <rect
+          x="25"
+          width="10"
+          height="30"
+          fill="#ffffff"
+        />
+
+        <rect
+          y="10"
+          width="60"
+          height="10"
+          fill="#ffffff"
+        />
+
+        <rect
+          x="27"
+          width="6"
+          height="30"
+          fill="#c8102e"
+        />
+
+        <rect
+          y="12"
+          width="60"
+          height="6"
+          fill="#c8102e"
+        />
       </svg>
     `,
 
@@ -899,67 +896,17 @@
         <rect width="3" height="2" fill="#aa151b"/>
         <rect width="3" height="1" y="0.5" fill="#f1bf00"/>
       </svg>
-    `,
-
-    en: `
-      <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-
-        <rect width="60" height="30" fill="#012169"/>
-
-        <path
-          d="M0 0 L60 30 M60 0 L0 30"
-          stroke="#ffffff"
-          stroke-width="6"
-        />
-
-        <path
-          d="M0 0 L60 30 M60 0 L0 30"
-          stroke="#c8102e"
-          stroke-width="2.5"
-        />
-
-        <path
-          d="M30 0 V30 M0 15 H60"
-          stroke="#ffffff"
-          stroke-width="10"
-        />
-
-        <path
-          d="M30 0 V30 M0 15 H60"
-          stroke="#c8102e"
-          stroke-width="6"
-        />
-
-      </svg>
     `
 
   };
 
 
-  document
-    .querySelector(".flag-pl")
-    .innerHTML = flags.pl;
+  document.querySelector(".flag-pl").innerHTML = flags.pl;
+  document.querySelector(".flag-en").innerHTML = flags.en;
+  document.querySelector(".flag-de").innerHTML = flags.de;
+  document.querySelector(".flag-ru").innerHTML = flags.ru;
+  document.querySelector(".flag-es").innerHTML = flags.es;
 
-  document
-    .querySelector(".flag-en")
-    .innerHTML = flags.en;
-
-  document
-    .querySelector(".flag-de")
-    .innerHTML = flags.de;
-
-  document
-    .querySelector(".flag-ru")
-    .innerHTML = flags.ru;
-
-  document
-    .querySelector(".flag-es")
-    .innerHTML = flags.es;
-
-
-  /* =========================
-     MENU
-  ========================= */
 
   const menuToggle =
     document.getElementById("menuToggle");
@@ -972,28 +919,18 @@
 
 
   function openMenu() {
-
     menuToggle.classList.add("active");
-
     menuPanel.classList.add("active");
-
     overlay.classList.add("active");
-
     document.body.style.overflow = "hidden";
-
   }
 
 
   function closeMenu() {
-
     menuToggle.classList.remove("active");
-
     menuPanel.classList.remove("active");
-
     overlay.classList.remove("active");
-
     document.body.style.overflow = "";
-
   }
 
 
@@ -1002,13 +939,9 @@
     if (
       menuPanel.classList.contains("active")
     ) {
-
       closeMenu();
-
     } else {
-
       openMenu();
-
     }
 
   }
@@ -1026,10 +959,6 @@
   );
 
 
-  /* =========================
-     SUBMENU
-  ========================= */
-
   const submenuButtons =
     document.querySelectorAll(
       ".submenu-toggle"
@@ -1046,13 +975,8 @@
           const submenu =
             button.nextElementSibling;
 
-          button.classList.toggle(
-            "active"
-          );
-
-          submenu.classList.toggle(
-            "active"
-          );
+          button.classList.toggle("active");
+          submenu.classList.toggle("active");
 
         }
       );
@@ -1060,10 +984,6 @@
     }
   );
 
-
-  /* =========================
-     LANGUAGES
-  ========================= */
 
   const languageToggle =
     document.getElementById(
@@ -1093,13 +1013,8 @@
 
   function closeLanguageMenu() {
 
-    languageToggle.classList.remove(
-      "active"
-    );
-
-    languageMenu.classList.remove(
-      "active"
-    );
+    languageToggle.classList.remove("active");
+    languageMenu.classList.remove("active");
 
   }
 
@@ -1153,10 +1068,6 @@
     }
   );
 
-
-  /* =========================
-     TRANSLATIONS
-  ========================= */
 
   const translations = {
 
@@ -1247,13 +1158,10 @@
       return;
     }
 
-
     document.documentElement.lang = lang;
-
 
     currentLanguage.textContent =
       selected.language;
-
 
     currentFlag.innerHTML =
       flags[lang];
@@ -1294,7 +1202,6 @@
       "legion-language",
       lang
     );
-
 
     closeLanguageMenu();
 
