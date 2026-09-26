@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Aktualności | Legion Białystok</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family: Arial, sans-serif;
+      color: #fff;
+
+      background:
+        radial-gradient(
+          circle at 15% 10%,
+          rgba(229, 9, 20, 0.14),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #050506 0%,
+          #0b0b0e 55%,
+          #14080a 100%
+        );
+
+      overflow-x: hidden;
+    }
+
+    body.modal-open,
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    button,
+    a {
+      font-family: inherit;
+    }
+
+    /* =========================
+       LOADER
+    ========================= */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+
+      z-index: 99999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(229, 9, 20, 0.10),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #050506 0%,
+          #09090c 55%,
+          #14080a 100%
+        );
+
+      opacity: 1;
+      visibility: visible;
+
+      transition:
+        opacity 0.6s ease,
+        visibility 0.6s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      gap: 28px;
+    }
+
+    .loader-logo {
+      width: 125px;
+      height: auto;
+
+      display: block;
+
+      animation:
+        loaderPulse 1.4s ease-in-out infinite;
+
+      filter:
+        drop-shadow(
+          0 18px 35px rgba(0, 0, 0, 0.65)
+        );
+    }
+
+    .loader-line {
+      position: relative;
+
+      width: 120px;
+      height: 2px;
+
+      overflow: hidden;
+
+      background:
+        rgba(255, 255, 255, 0.08);
+
+      border-radius: 20px;
+    }
+
+    .loader-line::after {
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -50%;
+
+      width: 50%;
+      height: 100%;
+
+      background: #e50914;
+
+      animation:
+        loaderLine 1.1s ease-in-out infinite;
+    }
+
+    @keyframes loaderPulse {
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.78;
+      }
+
+      50% {
+        transform: scale(1.05);
+        opacity: 1;
+      }
+    }
+
+    @keyframes loaderLine {
+      from {
+        left: -50%;
+      }
+
+      to {
+        left: 100%;
+      }
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 82px;
+
+      padding: 0 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      z-index: 1000;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5, 5, 7, 0.96),
+          rgba(5, 5, 7, 0.72),
+          rgba(5, 5, 7, 0)
+        );
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+
+      gap: 16px;
+    }
+
+    .header-right {
+      position: relative;
+    }
+
+    /* =========================
+       HAMBURGER
+    ========================= */
+
+    .menu-toggle {
+      position: relative;
+
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 0;
+      background: transparent;
+
+      cursor: pointer;
+
+      z-index: 1200;
+    }
+
+    .hamburger {
+      position: relative;
+
+      width: 25px;
+      height: 18px;
+    }
+
+    .hamburger span {
+      position: absolute;
+
+      left: 0;
+
+      width: 25px;
+      height: 2px;
+
+      border-radius: 10px;
+
+      background: #fff;
+
+      transition:
+        top 0.3s ease,
+        transform 0.3s ease,
+        opacity 0.2s ease,
+        width 0.3s ease;
+    }
+
+    .hamburger span:nth-child(1) {
+      top: 0;
+    }
+
+    .hamburger span:nth-child(2) {
+      top: 8px;
+      width: 18px;
+    }
+
+    .hamburger span:nth-child(3) {
+      top: 16px;
+    }
+
+    .menu-toggle:hover .hamburger span:nth-child(2) {
+      width: 25px;
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(1) {
+      top: 8px;
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+
+    .menu-toggle.active .hamburger span:nth-child(3) {
+      top: 8px;
+      transform: rotate(-45deg);
+    }
+
+    /* =========================
+       LOGO
+    ========================= */
+
+    .logo {
+      width: 64px;
+      height: auto;
+
+      display: block;
+
+      filter:
+        drop-shadow(
+          0 8px 20px rgba(0, 0, 0, 0.55)
+        );
+    }
+
+    /* =========================
+       LANGUAGE
+    ========================= */
+
+    .language-wrapper {
+      position: relative;
+    }
+
+    .language-toggle {
+      min-width: 120px;
+      height: 42px;
+
+      padding: 0 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+
+      border: 0;
+      background: transparent;
+
+      color:
+        rgba(255, 255, 255, 0.82);
+
+      font-size: 12px;
+      font-weight: 700;
+
+      cursor: pointer;
+    }
+
+    .flag {
+      width: 24px;
+      height: 16px;
+
+      flex: 0 0 24px;
+
+      display: block;
+
+      overflow: hidden;
+
+      border-radius: 2px;
+
+      background: transparent;
+
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    .flag svg {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+    }
+
+    .language-arrow {
+      font-size: 9px;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+    .language-toggle.active .language-arrow {
+      transform: rotate(180deg);
+    }
+
+    .language-menu {
+      position: absolute;
+
+      top: 50px;
+      right: 0;
+
+      width: 190px;
+
+      padding: 8px;
+
+      background:
+        rgba(10, 10, 14, 0.78);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.28);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transform:
+        translateY(-8px);
+
+      transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .language-menu.active {
+      opacity: 1;
+      visibility: visible;
+
+      transform:
+        translateY(0);
+    }
+
+    .language-option {
+      width: 100%;
+      min-height: 44px;
+
+      padding: 0 12px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      border: 0;
+      background: transparent;
+
+      color:
+        rgba(255, 255, 255, 0.66);
+
+      text-align: left;
+
+      font-size: 12px;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        color 0.2s ease;
+    }
+
+    .language-option:hover,
+    .language-option.active {
+      background:
+        rgba(255, 255, 255, 0.06);
+
+      color: #fff;
+    }
+
+    /* =========================
+       SIDE MENU
+    ========================= */
+
+    .menu-panel {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width:
+        min(360px, 88vw);
+
+      height: 100vh;
+
+      padding:
+        102px
+        28px
+        30px;
+
+      background:
+        rgba(10, 10, 14, 0.42);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      border-right:
+        1px solid rgba(255, 255, 255, 0.08);
+
+      box-shadow:
+        20px 0 60px rgba(0, 0, 0, 0.28);
+
+      transform:
+        translateX(-105%);
+
+      transition:
+        transform
+        0.38s
+        cubic-bezier(
+          0.77,
+          0,
+          0.18,
+          1
+        );
+
+      z-index: 900;
+
+      overflow-y: auto;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .menu-panel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .menu-panel.active {
+      transform:
+        translateX(0);
+    }
+
+    .menu-list {
+      list-style: none;
+    }
+
+    .menu-item {
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .menu-link,
+    .submenu-toggle {
+      width: 100%;
+      min-height: 48px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border: 0;
+      background: transparent;
+
+      color:
+        rgba(255, 255, 255, 0.86);
+
+      font-size: 14px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+    }
+
+    .menu-link {
+      text-decoration: none;
+    }
+
+    .menu-link:hover,
+    .submenu-toggle:hover {
+      color: #fff;
+      padding-left: 8px;
+    }
+
+    .plus {
+      position: relative;
+
+      width: 18px;
+      height: 18px;
+
+      flex-shrink: 0;
+    }
+
+    .plus::before,
+    .plus::after {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+
+      width: 14px;
+      height: 2px;
+
+      background: #fff;
+
+      border-radius: 5px;
+
+      transform:
+        translate(-50%, -50%);
+
+      transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+    }
+
+    .plus::after {
+      transform:
+        translate(-50%, -50%)
+        rotate(90deg);
+    }
+
+    .submenu-toggle.active .plus::after {
+      opacity: 0;
+    }
+
+    .submenu {
+      max-height: 0;
+
+      overflow: hidden;
+
+      opacity: 0;
+
+      transition:
+        max-height 0.32s ease,
+        opacity 0.25s ease;
+    }
+
+    .submenu.active {
+      max-height: 420px;
+
+      opacity: 1;
+    }
+
+    .submenu a {
+      min-height: 40px;
+
+      padding-left: 16px;
+
+      display: flex;
+      align-items: center;
+
+      color:
+        rgba(255, 255, 255, 0.46);
+
+      font-size: 12px;
+      font-weight: 600;
+
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+
+      text-decoration: none;
+
+      transition:
+        color 0.2s ease,
+        padding-left 0.2s ease;
+    }
+
+    .submenu a:hover {
+      color: #fff;
+      padding-left: 22px;
+    }
+
+    /* =========================
+       MENU OVERLAY
+    ========================= */
+
+    .menu-overlay {
+      position: fixed;
+
+      inset: 0;
+
+      background:
+        rgba(0, 0, 0, 0.35);
+
+      backdrop-filter: blur(3px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+
+      z-index: 800;
+    }
+
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* =========================
+       NEWS PAGE
+    ========================= */
+
+    .page-content {
+      width: 100%;
+      max-width: 1380px;
+
+      min-height: 100vh;
+
+      margin: 0 auto;
+
+      padding:
+        145px
+        32px
+        90px;
+    }
+
+    .page-heading {
+      margin-bottom: 42px;
+    }
+
+    .page-heading h1 {
+      font-size:
+        clamp(30px, 4vw, 54px);
+
+      font-weight: 800;
+
+      letter-spacing: -1.5px;
+
+      line-height: 1;
+    }
+
+    .page-heading-line {
+      width: 42px;
+      height: 3px;
+
+      margin-top: 18px;
+
+      background: #e50914;
+
+      border-radius: 20px;
+    }
+
+    .news-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+    }
+
+    .news-card {
+      min-width: 0;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.07);
+
+      border-radius: 16px;
+
+      overflow: hidden;
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
+      cursor: pointer;
+
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease;
+    }
+
+    .news-card:hover {
+      transform:
+        translateY(-4px);
+
+      border-color:
+        rgba(255, 255, 255, 0.14);
+
+      background:
+        rgba(255, 255, 255, 0.04);
+    }
+
+    .news-image {
+      position: relative;
+
+      width: 100%;
+      aspect-ratio: 16 / 10;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          #17171c,
+          #09090c
+        );
+    }
+
+    .news-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      transition:
+        transform 0.4s ease;
+    }
+
+    .news-card:hover
+    .news-image img {
+      transform:
+        scale(1.035);
+    }
+
+    .news-image-placeholder {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(229, 9, 20, 0.16),
+          transparent 45%
+        ),
+        #0c0c10;
+    }
+
+    .news-image-placeholder img {
+      width: 90px;
+      height: auto;
+
+      object-fit: contain;
+
+      opacity: 0.30;
+    }
+
+    .news-card-content {
+      padding: 21px 21px 24px;
+    }
+
+    .news-date {
+      margin-bottom: 11px;
+
+      color:
+        rgba(255, 255, 255, 0.36);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 0.8px;
+
+      text-transform: uppercase;
+    }
+
+    .news-title {
+      color: #fff;
+
+      font-size: 20px;
+      font-weight: 750;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.3px;
+    }
+
+    .news-excerpt {
+      margin-top: 11px;
+
+      color:
+        rgba(255, 255, 255, 0.48);
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    .news-read {
+      margin-top: 18px;
+
+      display: inline-flex;
+      align-items: center;
+
+      gap: 7px;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 0.4px;
+
+      text-transform: uppercase;
+    }
+
+    .news-read-arrow {
+      transition:
+        transform 0.2s ease;
+    }
+
+    .news-card:hover
+    .news-read-arrow {
+      transform:
+        translateX(4px);
+    }
+
+    /* =========================
+       ARTICLE MODAL
+    ========================= */
+
+    .article-modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 5000;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 30px;
+
+      background:
+        rgba(0, 0, 0, 0.72);
+
+      backdrop-filter:
+        blur(10px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    }
+
+    .article-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .article-window {
+      position: relative;
+
+      width:
+        min(900px, 100%);
+
+      max-height:
+        calc(100vh - 60px);
+
+      overflow-y: auto;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+      border-radius: 20px;
+
+      background:
+        rgba(9, 9, 12, 0.97);
+
+      box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.55);
+
+      transform:
+        translateY(25px)
+        scale(0.985);
+
+      transition:
+        transform 0.3s ease;
+
+      scrollbar-width: thin;
+      scrollbar-color:
+        rgba(255, 255, 255, 0.15)
+        transparent;
+    }
+
+    .article-modal.active
+    .article-window {
+      transform:
+        translateY(0)
+        scale(1);
+    }
+
+    .article-window::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .article-window::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .article-window::-webkit-scrollbar-thumb {
+      background:
+        rgba(255, 255, 255, 0.15);
+
+      border-radius: 20px;
+    }
+
+    .article-close {
+      position: absolute;
+
+      top: 18px;
+      right: 18px;
+
+      z-index: 10;
+
+      width: 44px;
+      height: 44px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+      border-radius: 50%;
+
+      background:
+        rgba(5, 5, 7, 0.70);
+
+      backdrop-filter:
+        blur(10px);
+
+      color: #fff;
+
+      font-size: 24px;
+      font-weight: 300;
+
+      cursor: pointer;
+
+      transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .article-close:hover {
+      background:
+        rgba(229, 9, 20, 0.75);
+
+      transform:
+        rotate(90deg);
+    }
+
+    .article-image {
+      width: 100%;
+
+      aspect-ratio: 16 / 8;
+
+      overflow: hidden;
+
+      background: #0c0c10;
+    }
+
+    .article-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+    }
+
+    .article-placeholder {
+      width: 100%;
+      height: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(229, 9, 20, 0.18),
+          transparent 45%
+        ),
+        #0c0c10;
+    }
+
+    .article-placeholder img {
+      width: 120px;
+      height: auto;
+
+      opacity: 0.3;
+    }
+
+    .article-content {
+      padding:
+        42px
+        48px
+        52px;
+    }
+
+    .article-date {
+      margin-bottom: 14px;
+
+      color:
+        rgba(255, 255, 255, 0.38);
+
+      font-size: 11px;
+      font-weight: 700;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+    }
+
+    .article-title {
+      max-width: 760px;
+
+      color: #fff;
+
+      font-size:
+        clamp(29px, 5vw, 48px);
+
+      font-weight: 800;
+
+      line-height: 1.05;
+
+      letter-spacing: -1.2px;
+    }
+
+    .article-text {
+      margin-top: 30px;
+
+      color:
+        rgba(255, 255, 255, 0.72);
+
+      font-size: 15px;
+
+      line-height: 1.8;
+    }
+
+    .article-text p + p {
+      margin-top: 20px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 980px) {
+      .news-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 650px) {
+
+      .loader-logo {
+        width: 105px;
+      }
+
+      .loader-line {
+        width: 105px;
+      }
+
+      .header {
+        height: 72px;
+        padding: 0 15px;
+      }
+
+      .header-left {
+        gap: 10px;
+      }
+
+      .logo {
+        width: 54px;
+      }
+
+      .menu-panel {
+        width:
+          min(330px, 90vw);
+
+        padding:
+          92px
+          22px
+          30px;
+      }
+
+      .menu-link,
+      .submenu-toggle {
+        min-height: 46px;
+      }
+
+      .submenu a {
+        min-height: 38px;
+      }
+
+      .language-toggle {
+        min-width: 105px;
+        padding: 0 8px;
+      }
+
+      .language-menu {
+        width: 175px;
+      }
+
+      .flag {
+        width: 22px;
+        height: 15px;
+
+        flex-basis: 22px;
+      }
+
+      .page-content {
+        padding:
+          115px
+          15px
+          60px;
+      }
+
+      .page-heading {
+        margin-bottom: 28px;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .news-card-content {
+        padding:
+          18px
+          18px
+          22px;
+      }
+
+      .news-title {
+        font-size: 19px;
+      }
+
+      .article-modal {
+        padding: 10px;
+      }
+
+      .article-window {
+        max-height:
+          calc(100vh - 20px);
+
+        border-radius: 16px;
+      }
+
+      .article-close {
+        top: 12px;
+        right: 12px;
+
+        width: 40px;
+        height: 40px;
+      }
+
+      .article-image {
+        aspect-ratio: 16 / 10;
+      }
+
+      .article-content {
+        padding:
+          28px
+          22px
+          36px;
+      }
+
+      .article-title {
+        font-size: 30px;
+      }
+
+      .article-text {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+    }
+
+    @media (
+      prefers-reduced-motion:
+      reduce
+    ) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+      }
+
+      .loader-logo,
+      .loader-line::after {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOADER
+========================= -->
+
+<div
+  class="loader"
+  id="loader"
+>
+
+  <div class="loader-inner">
+
+    <img
+      src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+      alt="Legion Białystok"
+      class="loader-logo"
+    >
+
+    <div class="loader-line"></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+  <div class="header-left">
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Otwórz menu"
+    >
+
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </button>
+
+
+    <a href="/" aria-label="Strona główna">
+
+      <img
+        src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+        alt="Legion Białystok"
+        class="logo"
+      >
+
+    </a>
+
+  </div>
+
+
+  <div class="header-right">
+
+    <div class="language-wrapper">
+
+      <button
+        class="language-toggle"
+        id="languageToggle"
+        type="button"
+      >
+
+        <span
+          class="flag"
+          id="currentFlag"
+        ></span>
+
+        <span id="currentLanguage">
+          Polski
+        </span>
+
+        <span class="language-arrow">
+          ▼
+        </span>
+
+      </button>
+
+
+      <div
+        class="language-menu"
+        id="languageMenu"
+      >
+
+        <button
+          class="language-option active"
+          data-lang="pl"
+          type="button"
+        >
+          <span class="flag flag-pl"></span>
+          <span>Polski</span>
+        </button>
+
+        <button
+          class="language-option"
+          data-lang="en"
+          type="button"
+        >
+          <span class="flag flag-en"></span>
+          <span>English</span>
+        </button>
+
+        <button
+          class="language-option"
+          data-lang="de"
+          type="button"
+        >
+          <span class="flag flag-de"></span>
+          <span>Deutsch</span>
+        </button>
+
+        <button
+          class="language-option"
+          data-lang="ru"
+          type="button"
+        >
+          <span class="flag flag-ru"></span>
+          <span>Русский</span>
+        </button>
+
+        <button
+          class="language-option"
+          data-lang="es"
+          type="button"
+        >
+          <span class="flag flag-es"></span>
+          <span>Español</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MENU
+========================= -->
+
+<aside
+  class="menu-panel"
+  id="menuPanel"
+>
+
+  <ul class="menu-list">
+
+    <li class="menu-item">
+      <a
+        href="/aktualnosci"
+        class="menu-link"
+        data-i18n="news"
+      >
+        Aktualności
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a
+        href="/tabela"
+        class="menu-link"
+        data-i18n="table"
+      >
+        Tabela
+      </a>
+    </li>
+
+    <li class="menu-item">
+
+      <button
+        class="submenu-toggle"
+        type="button"
+      >
+
+        <span data-i18n="team">
+          Drużyna
+        </span>
+
+        <span class="plus"></span>
+
+      </button>
+
+      <div class="submenu">
+
+        <a
+          href="/pierwszyzespol"
+          data-i18n="firstTeam"
+        >
+          I Drużyna
+        </a>
+
+        <a
+          href="/drugadruzyna"
+          data-i18n="secondTeam"
+        >
+          II Drużyna
+        </a>
+
+        <a
+          href="/akademia"
+          data-i18n="academy"
+        >
+          Akademia
+        </a>
+
+      </div>
+
+    </li>
+
+    <li class="menu-item">
+
+      <button
+        class="submenu-toggle"
+        type="button"
+      >
+
+        <span data-i18n="club">
+          Klub
+        </span>
+
+        <span class="plus"></span>
+
+      </button>
+
+      <div class="submenu">
+
+        <a
+          href="/oklubie"
+          data-i18n="aboutClub"
+        >
+          O klubie
+        </a>
+
+        <a
+          href="/ludzielegionu"
+          data-i18n="people"
+        >
+          Ludzie Legionu
+        </a>
+
+        <a
+          href="/dokumenty"
+          data-i18n="documents"
+        >
+          Dokumenty
+        </a>
+
+        <a
+          href="/kontakt"
+          data-i18n="contact"
+        >
+          Kontakt
+        </a>
+
+      </div>
+
+    </li>
+
+  </ul>
+
+</aside>
+
+
+<div
+  class="menu-overlay"
+  id="menuOverlay"
+></div>
+
+
+<!-- =========================
+     NEWS
+========================= -->
+
+<main class="page-content">
+
+  <div class="page-heading">
+
+    <h1 data-i18n="pageTitle">
+      Aktualności
+    </h1>
+
+    <div class="page-heading-line"></div>
+
+  </div>
+
+  <section
+    class="news-grid"
+    id="newsGrid"
+  ></section>
+
+</main>
+
+
+<!-- =========================
+     ARTICLE MODAL
+========================= -->
+
+<div
+  class="article-modal"
+  id="articleModal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+>
+
+  <article
+    class="article-window"
+    id="articleWindow"
+  >
+
+    <button
+      class="article-close"
+      id="articleClose"
+      type="button"
+      aria-label="Zamknij"
+    >
+      ×
+    </button>
+
+
+    <div
+      class="article-image"
+      id="articleImage"
+    ></div>
+
+
+    <div class="article-content">
+
+      <div
+        class="article-date"
+        id="articleDate"
+      ></div>
+
+      <h2
+        class="article-title"
+        id="articleTitle"
+      ></h2>
+
+      <div
+        class="article-text"
+        id="articleText"
+      ></div>
+
+    </div>
+
+  </article>
+
+</div>
+
+
+<script>
+
+  /* =====================================================
+     AKTUALNOŚCI
+     PÓŹNIEJ TE DANE BĘDĄ POBIERANE Z PANELU / BAZY
+  ===================================================== */
+
+  const newsData = [
+
+    {
+      id: 1,
+
+      date: "26.09.2026",
+
+      image: "",
+
+      pl: {
+        title:
+          "Legion przygotowuje się do kolejnego spotkania",
+
+        excerpt:
+          "Drużyna kontynuuje przygotowania do najbliższego meczu ligowego.",
+
+        content: [
+          "Zespół Legionu Białystok kontynuuje przygotowania do kolejnego spotkania ligowego. Drużyna pracuje nad elementami taktycznymi oraz organizacją gry przed najbliższym meczem.",
+          "W kolejnych dniach zaplanowane są następne jednostki treningowe. Szczegółowe informacje dotyczące spotkania zostaną opublikowane na stronie klubu."
+        ]
+      },
+
+      en: {
+        title:
+          "Legion prepares for the next match",
+
+        excerpt:
+          "The team continues preparations for its upcoming league fixture.",
+
+        content: [
+          "Legion Białystok continues preparations for the next league match. The team is working on tactical elements and its organisation of play ahead of the upcoming fixture.",
+          "Further training sessions are scheduled for the coming days. Detailed information about the match will be published on the club website."
+        ]
+      },
+
+      de: {
+        title:
+          "Legion bereitet sich auf das nächste Spiel vor",
+
+        excerpt:
+          "Die Mannschaft setzt die Vorbereitung auf das kommende Ligaspiel fort.",
+
+        content: [
+          "Legion Białystok setzt die Vorbereitung auf das nächste Ligaspiel fort. Die Mannschaft arbeitet an taktischen Elementen und an der Organisation ihres Spiels.",
+          "Für die kommenden Tage sind weitere Trainingseinheiten geplant. Detaillierte Informationen zum Spiel werden auf der Vereinswebsite veröffentlicht."
+        ]
+      },
+
+      ru: {
+        title:
+          "Legion готовится к следующему матчу",
+
+        excerpt:
+          "Команда продолжает подготовку к ближайшей игре чемпионата.",
+
+        content: [
+          "Legion Białystok продолжает подготовку к следующему матчу чемпионата. Команда работает над тактическими элементами и организацией игры.",
+          "В ближайшие дни запланированы дополнительные тренировки. Подробная информация о матче будет опубликована на сайте клуба."
+        ]
+      },
+
+      es: {
+        title:
+          "Legion se prepara para el próximo partido",
+
+        excerpt:
+          "El equipo continúa preparando su próximo encuentro de liga.",
+
+        content: [
+          "Legion Białystok continúa preparando su próximo partido de liga. El equipo trabaja en aspectos tácticos y en la organización del juego.",
+          "Durante los próximos días están previstas nuevas sesiones de entrenamiento. La información detallada sobre el partido será publicada en la web del club."
+        ]
+      }
+    },
+
+
+    {
+      id: 2,
+
+      date: "22.09.2026",
+
+      image: "",
+
+      pl: {
+        title:
+          "Nowy tydzień treningów pierwszego zespołu",
+
+        excerpt:
+          "Pierwsza drużyna rozpoczęła kolejny tydzień pracy.",
+
+        content: [
+          "Pierwszy zespół Legionu Białystok rozpoczął kolejny tydzień treningów. Zawodnicy skupiają się na przygotowaniu fizycznym oraz doskonaleniu elementów zespołowych.",
+          "Sztab szkoleniowy przygotował plan zajęć dostosowany do aktualnego etapu sezonu."
+        ]
+      },
+
+      en: {
+        title:
+          "A new week of first-team training",
+
+        excerpt:
+          "The first team has started another week of work.",
+
+        content: [
+          "Legion Białystok's first team has begun another week of training. The players are focusing on physical preparation and improving team play.",
+          "The coaching staff has prepared a training programme adapted to the current stage of the season."
+        ]
+      },
+
+      de: {
+        title:
+          "Neue Trainingswoche der ersten Mannschaft",
+
+        excerpt:
+          "Die erste Mannschaft hat eine weitere Arbeitswoche begonnen.",
+
+        content: [
+          "Die erste Mannschaft von Legion Białystok hat eine weitere Trainingswoche begonnen. Die Spieler konzentrieren sich auf die körperliche Vorbereitung und das Zusammenspiel.",
+          "Das Trainerteam hat einen Trainingsplan vorbereitet, der an die aktuelle Saisonphase angepasst ist."
+        ]
+      },
+
+      ru: {
+        title:
+          "Новая тренировочная неделя первой команды",
+
+        excerpt:
+          "Первая команда начала очередную рабочую неделю.",
+
+        content: [
+          "Первая команда Legion Białystok начала новую тренировочную неделю. Игроки сосредоточены на физической подготовке и совершенствовании командной игры.",
+          "Тренерский штаб подготовил программу занятий с учётом текущего этапа сезона."
+        ]
+      },
+
+      es: {
+        title:
+          "Nueva semana de entrenamiento del primer equipo",
+
+        excerpt:
+          "El primer equipo ha comenzado una nueva semana de trabajo.",
+
+        content: [
+          "El primer equipo de Legion Białystok ha comenzado una nueva semana de entrenamientos. Los jugadores se centran en la preparación física y en mejorar el juego colectivo.",
+          "El cuerpo técnico ha preparado un programa de trabajo adaptado al momento actual de la temporada."
+        ]
+      }
+    },
+
+
+    {
+      id: 3,
+
+      date: "18.09.2026",
+
+      image: "",
+
+      pl: {
+        title:
+          "Akademia Legionu rozpoczyna kolejny etap sezonu",
+
+        excerpt:
+          "Młodzi zawodnicy wracają do regularnych zajęć i spotkań.",
+
+        content: [
+          "Zespoły Akademii Legionu rozpoczynają kolejny etap sezonu. Młodzi zawodnicy będą regularnie uczestniczyć w treningach oraz rozgrywkach swoich kategorii wiekowych.",
+          "Informacje dotyczące poszczególnych zespołów Akademii będą publikowane na stronie klubu."
+        ]
+      },
+
+      en: {
+        title:
+          "Legion Academy begins the next stage of the season",
+
+        excerpt:
+          "Young players return to regular training and matches.",
+
+        content: [
+          "Legion Academy teams are beginning the next stage of the season. Young players will regularly take part in training sessions and competitions in their respective age groups.",
+          "Information about individual Academy teams will be published on the club website."
+        ]
+      },
+
+      de: {
+        title:
+          "Die Legion-Akademie startet in die nächste Saisonphase",
+
+        excerpt:
+          "Die jungen Spieler kehren zu regelmäßigem Training und Spielen zurück.",
+
+        content: [
+          "Die Mannschaften der Legion-Akademie beginnen die nächste Phase der Saison. Die jungen Spieler nehmen regelmäßig an Trainingseinheiten und Wettbewerben ihrer Altersklassen teil.",
+          "Informationen zu den einzelnen Akademieteams werden auf der Vereinswebsite veröffentlicht."
+        ]
+      },
+
+      ru: {
+        title:
+          "Академия Legion начинает новый этап сезона",
+
+        excerpt:
+          "Юные футболисты возвращаются к регулярным тренировкам и матчам.",
+
+        content: [
+          "Команды Академии Legion начинают новый этап сезона. Молодые игроки будут регулярно участвовать в тренировках и соревнованиях своих возрастных категорий.",
+          "Информация об отдельных командах Академии будет публиковаться на сайте клуба."
+        ]
+      },
+
+      es: {
+        title:
+          "La Academia Legion inicia una nueva etapa de la temporada",
+
+        excerpt:
+          "Los jóvenes jugadores vuelven a los entrenamientos y partidos regulares.",
+
+        content: [
+          "Los equipos de la Academia Legion comienzan una nueva etapa de la temporada. Los jóvenes jugadores participarán regularmente en entrenamientos y competiciones de sus respectivas categorías.",
+          "La información sobre los distintos equipos de la Academia será publicada en la web del club."
+        ]
+      }
+    }
+
+  ];
+
+
+  /* =========================
+     FLAGS
+  ========================= */
+
+  const flags = {
+
+    pl: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="1" y="0" fill="#ffffff"/>
+        <rect width="3" height="1" y="1" fill="#dc143c"/>
+      </svg>
+    `,
+
+    en: `
+      <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+
+        <rect
+          width="60"
+          height="30"
+          fill="#012169"
+        />
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#ffffff"
+          stroke-width="6"
+        />
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#c8102e"
+          stroke-width="2.5"
+        />
+
+        <rect
+          x="25"
+          width="10"
+          height="30"
+          fill="#ffffff"
+        />
+
+        <rect
+          y="10"
+          width="60"
+          height="10"
+          fill="#ffffff"
+        />
+
+        <rect
+          x="27"
+          width="6"
+          height="30"
+          fill="#c8102e"
+        />
+
+        <rect
+          y="12"
+          width="60"
+          height="6"
+          fill="#c8102e"
+        />
+
+      </svg>
+    `,
+
+    de: `
+      <svg viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
+        <rect width="5" height="1" y="0" fill="#000000"/>
+        <rect width="5" height="1" y="1" fill="#dd0000"/>
+        <rect width="5" height="1" y="2" fill="#ffce00"/>
+      </svg>
+    `,
+
+    ru: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="0.6667" y="0" fill="#ffffff"/>
+        <rect width="3" height="0.6667" y="0.6667" fill="#0039a6"/>
+        <rect width="3" height="0.6667" y="1.3334" fill="#d52b1e"/>
+      </svg>
+    `,
+
+    es: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="2" fill="#aa151b"/>
+        <rect width="3" height="1" y="0.5" fill="#f1bf00"/>
+      </svg>
+    `
+
+  };
+
+
+  document.querySelector(
+    ".flag-pl"
+  ).innerHTML = flags.pl;
+
+  document.querySelector(
+    ".flag-en"
+  ).innerHTML = flags.en;
+
+  document.querySelector(
+    ".flag-de"
+  ).innerHTML = flags.de;
+
+  document.querySelector(
+    ".flag-ru"
+  ).innerHTML = flags.ru;
+
+  document.querySelector(
+    ".flag-es"
+  ).innerHTML = flags.es;
+
+
+  /* =========================
+     INTERFACE TRANSLATIONS
+  ========================= */
+
+  const translations = {
+
+    pl: {
+      language: "Polski",
+      pageTitle: "Aktualności",
+      readMore: "Czytaj więcej",
+      news: "Aktualności",
+      table: "Tabela",
+      team: "Drużyna",
+      firstTeam: "I Drużyna",
+      secondTeam: "II Drużyna",
+      academy: "Akademia",
+      club: "Klub",
+      aboutClub: "O klubie",
+      people: "Ludzie Legionu",
+      documents: "Dokumenty",
+      contact: "Kontakt",
+      close: "Zamknij"
+    },
+
+    en: {
+      language: "English",
+      pageTitle: "News",
+      readMore: "Read more",
+      news: "News",
+      table: "Table",
+      team: "Team",
+      firstTeam: "First Team",
+      secondTeam: "Second Team",
+      academy: "Academy",
+      club: "Club",
+      aboutClub: "About the Club",
+      people: "Legion People",
+      documents: "Documents",
+      contact: "Contact",
+      close: "Close"
+    },
+
+    de: {
+      language: "Deutsch",
+      pageTitle: "Aktuelles",
+      readMore: "Weiterlesen",
+      news: "Aktuelles",
+      table: "Tabelle",
+      team: "Mannschaft",
+      firstTeam: "1. Mannschaft",
+      secondTeam: "2. Mannschaft",
+      academy: "Akademie",
+      club: "Verein",
+      aboutClub: "Über den Verein",
+      people: "Menschen des Legion",
+      documents: "Dokumente",
+      contact: "Kontakt",
+      close: "Schließen"
+    },
+
+    ru: {
+      language: "Русский",
+      pageTitle: "Новости",
+      readMore: "Читать далее",
+      news: "Новости",
+      table: "Таблица",
+      team: "Команда",
+      firstTeam: "Первая команда",
+      secondTeam: "Вторая команда",
+      academy: "Академия",
+      club: "Клуб",
+      aboutClub: "О клубе",
+      people: "Люди Legion",
+      documents: "Документы",
+      contact: "Контакты",
+      close: "Закрыть"
+    },
+
+    es: {
+      language: "Español",
+      pageTitle: "Noticias",
+      readMore: "Leer más",
+      news: "Noticias",
+      table: "Clasificación",
+      team: "Equipo",
+      firstTeam: "Primer Equipo",
+      secondTeam: "Segundo Equipo",
+      academy: "Academia",
+      club: "Club",
+      aboutClub: "Sobre el Club",
+      people: "Gente de Legion",
+      documents: "Documentos",
+      contact: "Contacto",
+      close: "Cerrar"
+    }
+
+  };
+
+
+  /* =========================
+     STATE
+  ========================= */
+
+  let currentLang =
+    localStorage.getItem(
+      "legion-language"
+    ) || "pl";
+
+  let currentArticleId = null;
+
+
+  /* =========================
+     LOADER
+  ========================= */
+
+  const loader =
+    document.getElementById(
+      "loader"
+    );
+
+  const loaderStartTime =
+    Date.now();
+
+  const minimumLoaderTime =
+    900;
+
+
+  window.addEventListener(
+    "load",
+    function() {
+
+      const elapsed =
+        Date.now() -
+        loaderStartTime;
+
+      const remaining =
+        Math.max(
+          0,
+          minimumLoaderTime - elapsed
+        );
+
+
+      setTimeout(
+        function() {
+
+          loader.classList.add(
+            "hidden"
+          );
+
+        },
+        remaining
+      );
+
+    }
+  );
+
+
+  /* =========================
+     NEWS IMAGE
+  ========================= */
+
+  function createImage(
+    image,
+    className
+  ) {
+
+    if (image) {
+
+      return `
+        <img
+          src="${image}"
+          alt=""
+        >
+      `;
+
+    }
+
+
+    return `
+      <div class="${className}">
+        <img
+          src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+          alt=""
+        >
+      </div>
+    `;
+
+  }
+
+
+  /* =========================
+     RENDER NEWS
+  ========================= */
+
+  function renderNews() {
+
+    const newsGrid =
+      document.getElementById(
+        "newsGrid"
+      );
+
+    const language =
+      translations[currentLang];
+
+
+    newsGrid.innerHTML =
+      newsData
+        .map(
+          function(news) {
+
+            const article =
+              news[currentLang] ||
+              news.pl;
+
+
+            return `
+              <article
+                class="news-card"
+                data-news-id="${news.id}"
+                tabindex="0"
+                role="button"
+              >
+
+                <div class="news-image">
+
+                  ${
+                    createImage(
+                      news.image,
+                      "news-image-placeholder"
+                    )
+                  }
+
+                </div>
+
+                <div class="news-card-content">
+
+                  <div class="news-date">
+                    ${news.date}
+                  </div>
+
+                  <h2 class="news-title">
+                    ${article.title}
+                  </h2>
+
+                  <p class="news-excerpt">
+                    ${article.excerpt}
+                  </p>
+
+                  <div class="news-read">
+
+                    <span>
+                      ${language.readMore}
+                    </span>
+
+                    <span
+                      class="news-read-arrow"
+                    >
+                      →
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </article>
+            `;
+
+          }
+        )
+        .join("");
+
+
+    document
+      .querySelectorAll(
+        ".news-card"
+      )
+      .forEach(
+        function(card) {
+
+          card.addEventListener(
+            "click",
+            function() {
+
+              openArticle(
+                Number(
+                  card.dataset.newsId
+                )
+              );
+
+            }
+          );
+
+
+          card.addEventListener(
+            "keydown",
+            function(event) {
+
+              if (
+                event.key === "Enter" ||
+                event.key === " "
+              ) {
+
+                event.preventDefault();
+
+                openArticle(
+                  Number(
+                    card.dataset.newsId
+                  )
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  /* =========================
+     ARTICLE MODAL
+  ========================= */
+
+  const articleModal =
+    document.getElementById(
+      "articleModal"
+    );
+
+  const articleWindow =
+    document.getElementById(
+      "articleWindow"
+    );
+
+  const articleClose =
+    document.getElementById(
+      "articleClose"
+    );
+
+  const articleImage =
+    document.getElementById(
+      "articleImage"
+    );
+
+  const articleDate =
+    document.getElementById(
+      "articleDate"
+    );
+
+  const articleTitle =
+    document.getElementById(
+      "articleTitle"
+    );
+
+  const articleText =
+    document.getElementById(
+      "articleText"
+    );
+
+
+  function renderOpenArticle() {
+
+    if (
+      currentArticleId === null
+    ) {
+      return;
+    }
+
+
+    const news =
+      newsData.find(
+        function(item) {
+          return (
+            item.id ===
+            currentArticleId
+          );
+        }
+      );
+
+
+    if (!news) {
+      return;
+    }
+
+
+    const article =
+      news[currentLang] ||
+      news.pl;
+
+
+    articleImage.innerHTML =
+      createImage(
+        news.image,
+        "article-placeholder"
+      );
+
+
+    articleDate.textContent =
+      news.date;
+
+
+    articleTitle.textContent =
+      article.title;
+
+
+    articleText.innerHTML =
+      article.content
+        .map(
+          function(paragraph) {
+            return `
+              <p>
+                ${paragraph}
+              </p>
+            `;
+          }
+        )
+        .join("");
+
+
+    articleClose.setAttribute(
+      "aria-label",
+      translations[currentLang]
+        .close
+    );
+
+  }
+
+
+  function openArticle(id) {
+
+    currentArticleId = id;
+
+    renderOpenArticle();
+
+    articleModal.classList.add(
+      "active"
+    );
+
+    articleModal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "modal-open"
+    );
+
+
+    setTimeout(
+      function() {
+
+        articleClose.focus();
+
+      },
+      100
+    );
+
+  }
+
+
+  function closeArticle() {
+
+    articleModal.classList.remove(
+      "active"
+    );
+
+    articleModal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "modal-open"
+    );
+
+    currentArticleId = null;
+
+  }
+
+
+  articleClose.addEventListener(
+    "click",
+    closeArticle
+  );
+
+
+  articleModal.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target ===
+        articleModal
+      ) {
+
+        closeArticle();
+
+      }
+
+    }
+  );
+
+
+  articleWindow.addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+    }
+  );
+
+
+  /* =========================
+     SIDE MENU
+  ========================= */
+
+  const menuToggle =
+    document.getElementById(
+      "menuToggle"
+    );
+
+  const menuPanel =
+    document.getElementById(
+      "menuPanel"
+    );
+
+  const menuOverlay =
+    document.getElementById(
+      "menuOverlay"
+    );
+
+
+  function openMenu() {
+
+    menuToggle.classList.add(
+      "active"
+    );
+
+    menuPanel.classList.add(
+      "active"
+    );
+
+    menuOverlay.classList.add(
+      "active"
+    );
+
+    document.body.classList.add(
+      "menu-open"
+    );
+
+  }
+
+
+  function closeMenu() {
+
+    menuToggle.classList.remove(
+      "active"
+    );
+
+    menuPanel.classList.remove(
+      "active"
+    );
+
+    menuOverlay.classList.remove(
+      "active"
+    );
+
+    document.body.classList.remove(
+      "menu-open"
+    );
+
+  }
+
+
+  menuToggle.addEventListener(
+    "click",
+    function() {
+
+      if (
+        menuPanel.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeMenu();
+
+      } else {
+
+        openMenu();
+
+      }
+
+    }
+  );
+
+
+  menuOverlay.addEventListener(
+    "click",
+    closeMenu
+  );
+
+
+  /* =========================
+     SUBMENUS
+  ========================= */
+
+  document
+    .querySelectorAll(
+      ".submenu-toggle"
+    )
+    .forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            const submenu =
+              button.nextElementSibling;
+
+            button.classList.toggle(
+              "active"
+            );
+
+            submenu.classList.toggle(
+              "active"
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+  /* =========================
+     LANGUAGE MENU
+  ========================= */
+
+  const languageToggle =
+    document.getElementById(
+      "languageToggle"
+    );
+
+  const languageMenu =
+    document.getElementById(
+      "languageMenu"
+    );
+
+  const currentLanguage =
+    document.getElementById(
+      "currentLanguage"
+    );
+
+  const currentFlag =
+    document.getElementById(
+      "currentFlag"
+    );
+
+  const languageOptions =
+    document.querySelectorAll(
+      ".language-option"
+    );
+
+
+  function closeLanguageMenu() {
+
+    languageToggle.classList.remove(
+      "active"
+    );
+
+    languageMenu.classList.remove(
+      "active"
+    );
+
+  }
+
+
+  languageToggle.addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      languageToggle.classList.toggle(
+        "active"
+      );
+
+      languageMenu.classList.toggle(
+        "active"
+      );
+
+    }
+  );
+
+
+  document.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        !languageMenu.contains(
+          event.target
+        ) &&
+        !languageToggle.contains(
+          event.target
+        )
+      ) {
+
+        closeLanguageMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     LANGUAGE
+  ========================= */
+
+  function setLanguage(lang) {
+
+    const selected =
+      translations[lang];
+
+    if (!selected) {
+      return;
+    }
+
+
+    currentLang = lang;
+
+
+    document.documentElement.lang =
+      lang;
+
+
+    currentLanguage.textContent =
+      selected.language;
+
+
+    currentFlag.innerHTML =
+      flags[lang];
+
+
+    document
+      .querySelectorAll(
+        "[data-i18n]"
+      )
+      .forEach(
+        function(element) {
+
+          const key =
+            element.dataset.i18n;
+
+          if (
+            selected[key]
+          ) {
+
+            element.textContent =
+              selected[key];
+
+          }
+
+        }
+      );
+
+
+    languageOptions.forEach(
+      function(option) {
+
+        option.classList.toggle(
+          "active",
+          option.dataset.lang ===
+          lang
+        );
+
+      }
+    );
+
+
+    localStorage.setItem(
+      "legion-language",
+      lang
+    );
+
+
+    renderNews();
+
+
+    if (
+      currentArticleId !== null
+    ) {
+
+      renderOpenArticle();
+
+    }
+
+
+    closeLanguageMenu();
+
+  }
+
+
+  languageOptions.forEach(
+    function(option) {
+
+      option.addEventListener(
+        "click",
+        function() {
+
+          setLanguage(
+            option.dataset.lang
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  /* =========================
+     ESC
+  ========================= */
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key !==
+        "Escape"
+      ) {
+        return;
+      }
+
+
+      if (
+        articleModal.classList.contains(
+          "active"
+        )
+      ) {
+
+        closeArticle();
+        return;
+
+      }
+
+
+      closeMenu();
+      closeLanguageMenu();
+
+    }
+  );
+
+
+  /* =========================
+     START
+  ========================= */
+
+  setLanguage(
+    currentLang
+  );
+
+</script>
+
+</body>
+</html>
