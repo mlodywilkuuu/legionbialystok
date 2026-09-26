@@ -198,23 +198,40 @@
       align-items: center;
       justify-content: center;
 
-      gap: 8px;
+      gap: 9px;
 
       font-size: 12px;
       font-weight: 700;
 
-      letter-spacing: 0.5px;
-
       cursor: pointer;
     }
 
-    .language-flag {
-      font-size: 18px;
-      line-height: 1;
+    .flag {
+      width: 24px;
+      height: 16px;
+
+      flex: 0 0 24px;
+
+      display: block;
+
+      overflow: hidden;
+
+      border-radius: 2px;
+
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.16);
+
+      background: #fff;
+    }
+
+    .flag svg {
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
     .language-arrow {
-      font-size: 10px;
+      font-size: 9px;
 
       transition:
         transform 0.25s ease;
@@ -281,7 +298,7 @@
       display: flex;
       align-items: center;
 
-      gap: 10px;
+      gap: 11px;
 
       text-align: left;
 
@@ -355,8 +372,6 @@
     }
 
     .menu-panel::-webkit-scrollbar {
-      width: 0;
-      height: 0;
       display: none;
     }
 
@@ -365,7 +380,7 @@
     }
 
     /* =========================
-       MENU LINKS
+       MENU
     ========================= */
 
     .menu-list {
@@ -460,10 +475,6 @@
     }
 
     .submenu-toggle.active .plus::after {
-      transform:
-        translate(-50%, -50%)
-        rotate(0deg);
-
       opacity: 0;
     }
 
@@ -593,627 +604,730 @@
         width: 175px;
       }
 
+      .flag {
+        width: 22px;
+        height: 15px;
+        flex-basis: 22px;
+      }
+
     }
   </style>
 </head>
 
 <body>
 
-  <header class="header">
+<header class="header">
 
-    <div class="header-left">
+  <div class="header-left">
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      type="button"
+      aria-label="Otwórz menu"
+    >
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+
+    <img
+      src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+      alt="Legion Białystok"
+      class="logo"
+    >
+
+  </div>
+
+
+  <div class="header-right">
+
+    <div class="language-wrapper">
 
       <button
-        class="menu-toggle"
-        id="menuToggle"
+        class="language-toggle"
+        id="languageToggle"
         type="button"
-        aria-label="Otwórz menu"
       >
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+
+        <span
+          class="flag"
+          id="currentFlag"
+        ></span>
+
+        <span id="currentLanguage">
+          Polski
+        </span>
+
+        <span class="language-arrow">
+          ▼
+        </span>
+
       </button>
 
-      <img
-        src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-        alt="Legion Białystok"
-        class="logo"
+
+      <div
+        class="language-menu"
+        id="languageMenu"
       >
 
-    </div>
-
-
-    <div class="header-right">
-
-      <div class="language-wrapper">
-
         <button
-          class="language-toggle"
-          id="languageToggle"
+          class="language-option active"
+          data-lang="pl"
           type="button"
         >
-          <span
-            class="language-flag"
-            id="currentFlag"
-          >
-            🇵🇱
-          </span>
-
-          <span id="currentLanguage">
-            Polski
-          </span>
-
-          <span class="language-arrow">
-            ▼
-          </span>
+          <span class="flag flag-pl"></span>
+          <span>Polski</span>
         </button>
 
-
-        <div
-          class="language-menu"
-          id="languageMenu"
+        <button
+          class="language-option"
+          data-lang="en"
+          type="button"
         >
+          <span class="flag flag-en"></span>
+          <span>English</span>
+        </button>
 
-          <button
-            class="language-option active"
-            data-lang="pl"
-            data-flag="🇵🇱"
-            type="button"
-          >
-            <span class="language-flag">🇵🇱</span>
-            <span>Polski</span>
-          </button>
+        <button
+          class="language-option"
+          data-lang="de"
+          type="button"
+        >
+          <span class="flag flag-de"></span>
+          <span>Deutsch</span>
+        </button>
 
-          <button
-            class="language-option"
-            data-lang="en"
-            data-flag="🇬🇧"
-            type="button"
-          >
-            <span class="language-flag">🇬🇧</span>
-            <span>English</span>
-          </button>
+        <button
+          class="language-option"
+          data-lang="ru"
+          type="button"
+        >
+          <span class="flag flag-ru"></span>
+          <span>Русский</span>
+        </button>
 
-          <button
-            class="language-option"
-            data-lang="de"
-            data-flag="🇩🇪"
-            type="button"
-          >
-            <span class="language-flag">🇩🇪</span>
-            <span>Deutsch</span>
-          </button>
-
-          <button
-            class="language-option"
-            data-lang="ru"
-            data-flag="🇷🇺"
-            type="button"
-          >
-            <span class="language-flag">🇷🇺</span>
-            <span>Русский</span>
-          </button>
-
-          <button
-            class="language-option"
-            data-lang="es"
-            data-flag="🇪🇸"
-            type="button"
-          >
-            <span class="language-flag">🇪🇸</span>
-            <span>Español</span>
-          </button>
-
-        </div>
+        <button
+          class="language-option"
+          data-lang="es"
+          type="button"
+        >
+          <span class="flag flag-es"></span>
+          <span>Español</span>
+        </button>
 
       </div>
 
     </div>
 
-  </header>
+  </div>
+
+</header>
 
 
-  <aside
-    class="menu-panel"
-    id="menuPanel"
-  >
+<aside
+  class="menu-panel"
+  id="menuPanel"
+>
 
-    <ul class="menu-list">
+  <ul class="menu-list">
 
-      <li class="menu-item">
+    <li class="menu-item">
+
+      <a
+        href="aktualnosci.html"
+        class="menu-link"
+        data-i18n="news"
+      >
+        Aktualności
+      </a>
+
+    </li>
+
+
+    <li class="menu-item">
+
+      <a
+        href="tabela.html"
+        class="menu-link"
+        data-i18n="table"
+      >
+        Tabela
+      </a>
+
+    </li>
+
+
+    <li class="menu-item">
+
+      <button
+        class="submenu-toggle"
+        type="button"
+      >
+
+        <span data-i18n="team">
+          Drużyna
+        </span>
+
+        <span class="plus"></span>
+
+      </button>
+
+      <div class="submenu">
+
         <a
-          href="aktualnosci.html"
-          class="menu-link"
-          data-i18n="news"
+          href="pierwszyzespol.html"
+          data-i18n="firstTeam"
         >
-          Aktualności
+          I Drużyna
         </a>
-      </li>
 
-      <li class="menu-item">
         <a
-          href="tabela.html"
-          class="menu-link"
-          data-i18n="table"
+          href="drugadruzyna.html"
+          data-i18n="secondTeam"
         >
-          Tabela
+          II Drużyna
         </a>
-      </li>
 
-      <li class="menu-item">
-
-        <button
-          class="submenu-toggle"
-          type="button"
+        <a
+          href="akademia.html"
+          data-i18n="academy"
         >
-          <span data-i18n="team">
-            Drużyna
-          </span>
+          Akademia
+        </a>
 
-          <span class="plus"></span>
-        </button>
+      </div>
 
-        <div class="submenu">
+    </li>
 
-          <a
-            href="pierwszyzespol.html"
-            data-i18n="firstTeam"
-          >
-            I Drużyna
-          </a>
 
-          <a
-            href="drugadruzyna.html"
-            data-i18n="secondTeam"
-          >
-            II Drużyna
-          </a>
+    <li class="menu-item">
 
-          <a
-            href="akademia.html"
-            data-i18n="academy"
-          >
-            Akademia
-          </a>
+      <button
+        class="submenu-toggle"
+        type="button"
+      >
 
-        </div>
+        <span data-i18n="club">
+          Klub
+        </span>
 
-      </li>
+        <span class="plus"></span>
 
-      <li class="menu-item">
+      </button>
 
-        <button
-          class="submenu-toggle"
-          type="button"
+      <div class="submenu">
+
+        <a
+          href="o-klubie.html"
+          data-i18n="aboutClub"
         >
-          <span data-i18n="club">
-            Klub
-          </span>
+          O klubie
+        </a>
 
-          <span class="plus"></span>
-        </button>
+        <a
+          href="ludzie.html"
+          data-i18n="people"
+        >
+          Ludzie Legionu
+        </a>
 
-        <div class="submenu">
+        <a
+          href="dokumenty.html"
+          data-i18n="documents"
+        >
+          Dokumenty
+        </a>
 
-          <a
-            href="o-klubie.html"
-            data-i18n="aboutClub"
-          >
-            O klubie
-          </a>
+        <a
+          href="kontakt.html"
+          data-i18n="contact"
+        >
+          Kontakt
+        </a>
 
-          <a
-            href="ludzie.html"
-            data-i18n="people"
-          >
-            Ludzie Legionu
-          </a>
+      </div>
 
-          <a
-            href="dokumenty.html"
-            data-i18n="documents"
-          >
-            Dokumenty
-          </a>
+    </li>
 
-          <a
-            href="kontakt.html"
-            data-i18n="contact"
-          >
-            Kontakt
-          </a>
+  </ul>
 
-        </div>
-
-      </li>
-
-    </ul>
-
-  </aside>
+</aside>
 
 
-  <div
-    class="overlay"
-    id="overlay"
-  ></div>
+<div
+  class="overlay"
+  id="overlay"
+></div>
 
 
-  <script>
+<script>
 
-    /* =========================
-       MENU
-    ========================= */
+  /* =========================
+     FLAGS
+  ========================= */
 
-    const menuToggle =
-      document.getElementById("menuToggle");
+  const flags = {
 
-    const menuPanel =
-      document.getElementById("menuPanel");
+    pl: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="1" y="0" fill="#ffffff"/>
+        <rect width="3" height="1" y="1" fill="#dc143c"/>
+      </svg>
+    `,
 
-    const overlay =
-      document.getElementById("overlay");
+    de: `
+      <svg viewBox="0 0 5 3" xmlns="http://www.w3.org/2000/svg">
+        <rect width="5" height="1" y="0" fill="#000000"/>
+        <rect width="5" height="1" y="1" fill="#dd0000"/>
+        <rect width="5" height="1" y="2" fill="#ffce00"/>
+      </svg>
+    `,
+
+    ru: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="0.6667" y="0" fill="#ffffff"/>
+        <rect width="3" height="0.6667" y="0.6667" fill="#0039a6"/>
+        <rect width="3" height="0.6667" y="1.3334" fill="#d52b1e"/>
+      </svg>
+    `,
+
+    es: `
+      <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="3" height="2" fill="#aa151b"/>
+        <rect width="3" height="1" y="0.5" fill="#f1bf00"/>
+      </svg>
+    `,
+
+    en: `
+      <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+
+        <rect width="60" height="30" fill="#012169"/>
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#ffffff"
+          stroke-width="6"
+        />
+
+        <path
+          d="M0 0 L60 30 M60 0 L0 30"
+          stroke="#c8102e"
+          stroke-width="2.5"
+        />
+
+        <path
+          d="M30 0 V30 M0 15 H60"
+          stroke="#ffffff"
+          stroke-width="10"
+        />
+
+        <path
+          d="M30 0 V30 M0 15 H60"
+          stroke="#c8102e"
+          stroke-width="6"
+        />
+
+      </svg>
+    `
+
+  };
 
 
-    function openMenu() {
+  document
+    .querySelector(".flag-pl")
+    .innerHTML = flags.pl;
 
-      menuToggle.classList.add("active");
+  document
+    .querySelector(".flag-en")
+    .innerHTML = flags.en;
 
-      menuPanel.classList.add("active");
+  document
+    .querySelector(".flag-de")
+    .innerHTML = flags.de;
 
-      overlay.classList.add("active");
+  document
+    .querySelector(".flag-ru")
+    .innerHTML = flags.ru;
 
-      document.body.style.overflow = "hidden";
+  document
+    .querySelector(".flag-es")
+    .innerHTML = flags.es;
+
+
+  /* =========================
+     MENU
+  ========================= */
+
+  const menuToggle =
+    document.getElementById("menuToggle");
+
+  const menuPanel =
+    document.getElementById("menuPanel");
+
+  const overlay =
+    document.getElementById("overlay");
+
+
+  function openMenu() {
+
+    menuToggle.classList.add("active");
+
+    menuPanel.classList.add("active");
+
+    overlay.classList.add("active");
+
+    document.body.style.overflow = "hidden";
+
+  }
+
+
+  function closeMenu() {
+
+    menuToggle.classList.remove("active");
+
+    menuPanel.classList.remove("active");
+
+    overlay.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  function toggleMenu() {
+
+    if (
+      menuPanel.classList.contains("active")
+    ) {
+
+      closeMenu();
+
+    } else {
+
+      openMenu();
 
     }
 
-
-    function closeMenu() {
-
-      menuToggle.classList.remove("active");
-
-      menuPanel.classList.remove("active");
-
-      overlay.classList.remove("active");
-
-      document.body.style.overflow = "";
-
-    }
+  }
 
 
-    function toggleMenu() {
-
-      if (
-        menuPanel.classList.contains("active")
-      ) {
-
-        closeMenu();
-
-      } else {
-
-        openMenu();
-
-      }
-
-    }
+  menuToggle.addEventListener(
+    "click",
+    toggleMenu
+  );
 
 
-    menuToggle.addEventListener(
-      "click",
-      toggleMenu
+  overlay.addEventListener(
+    "click",
+    closeMenu
+  );
+
+
+  /* =========================
+     SUBMENU
+  ========================= */
+
+  const submenuButtons =
+    document.querySelectorAll(
+      ".submenu-toggle"
     );
 
 
-    overlay.addEventListener(
-      "click",
-      closeMenu
-    );
+  submenuButtons.forEach(
+    function(button) {
 
+      button.addEventListener(
+        "click",
+        function() {
 
-    document.addEventListener(
-      "keydown",
-      function(event) {
+          const submenu =
+            button.nextElementSibling;
 
-        if (event.key === "Escape") {
+          button.classList.toggle(
+            "active"
+          );
 
-          closeMenu();
-          closeLanguageMenu();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       SUBMENU
-    ========================= */
-
-    const submenuButtons =
-      document.querySelectorAll(
-        ".submenu-toggle"
-      );
-
-
-    submenuButtons.forEach(
-      function(button) {
-
-        button.addEventListener(
-          "click",
-          function() {
-
-            const submenu =
-              button.nextElementSibling;
-
-            button.classList.toggle(
-              "active"
-            );
-
-            submenu.classList.toggle(
-              "active"
-            );
-
-          }
-        );
-
-      }
-    );
-
-
-    /* =========================
-       LANGUAGE MENU
-    ========================= */
-
-    const languageToggle =
-      document.getElementById(
-        "languageToggle"
-      );
-
-    const languageMenu =
-      document.getElementById(
-        "languageMenu"
-      );
-
-    const currentLanguage =
-      document.getElementById(
-        "currentLanguage"
-      );
-
-    const currentFlag =
-      document.getElementById(
-        "currentFlag"
-      );
-
-    const languageOptions =
-      document.querySelectorAll(
-        ".language-option"
-      );
-
-
-    function closeLanguageMenu() {
-
-      languageToggle.classList.remove(
-        "active"
-      );
-
-      languageMenu.classList.remove(
-        "active"
-      );
-
-    }
-
-
-    languageToggle.addEventListener(
-      "click",
-      function(event) {
-
-        event.stopPropagation();
-
-        languageToggle.classList.toggle(
-          "active"
-        );
-
-        languageMenu.classList.toggle(
-          "active"
-        );
-
-      }
-    );
-
-
-    document.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          !languageMenu.contains(event.target) &&
-          !languageToggle.contains(event.target)
-        ) {
-
-          closeLanguageMenu();
-
-        }
-
-      }
-    );
-
-
-    /* =========================
-       TRANSLATIONS
-    ========================= */
-
-    const translations = {
-
-      pl: {
-        language: "Polski",
-        flag: "🇵🇱",
-        news: "Aktualności",
-        table: "Tabela",
-        team: "Drużyna",
-        firstTeam: "I Drużyna",
-        secondTeam: "II Drużyna",
-        academy: "Akademia",
-        club: "Klub",
-        aboutClub: "O klubie",
-        people: "Ludzie Legionu",
-        documents: "Dokumenty",
-        contact: "Kontakt"
-      },
-
-      en: {
-        language: "English",
-        flag: "🇬🇧",
-        news: "News",
-        table: "Table",
-        team: "Team",
-        firstTeam: "First Team",
-        secondTeam: "Second Team",
-        academy: "Academy",
-        club: "Club",
-        aboutClub: "About the Club",
-        people: "Legion People",
-        documents: "Documents",
-        contact: "Contact"
-      },
-
-      de: {
-        language: "Deutsch",
-        flag: "🇩🇪",
-        news: "Aktuelles",
-        table: "Tabelle",
-        team: "Mannschaft",
-        firstTeam: "1. Mannschaft",
-        secondTeam: "2. Mannschaft",
-        academy: "Akademie",
-        club: "Verein",
-        aboutClub: "Über den Verein",
-        people: "Menschen des Legion",
-        documents: "Dokumente",
-        contact: "Kontakt"
-      },
-
-      ru: {
-        language: "Русский",
-        flag: "🇷🇺",
-        news: "Новости",
-        table: "Таблица",
-        team: "Команда",
-        firstTeam: "Первая команда",
-        secondTeam: "Вторая команда",
-        academy: "Академия",
-        club: "Клуб",
-        aboutClub: "О клубе",
-        people: "Люди Legion",
-        documents: "Документы",
-        contact: "Контакты"
-      },
-
-      es: {
-        language: "Español",
-        flag: "🇪🇸",
-        news: "Noticias",
-        table: "Clasificación",
-        team: "Equipo",
-        firstTeam: "Primer Equipo",
-        secondTeam: "Segundo Equipo",
-        academy: "Academia",
-        club: "Club",
-        aboutClub: "Sobre el Club",
-        people: "Gente de Legion",
-        documents: "Documentos",
-        contact: "Contacto"
-      }
-
-    };
-
-
-    function setLanguage(lang) {
-
-      const selected =
-        translations[lang];
-
-      if (!selected) {
-        return;
-      }
-
-      document.documentElement.lang = lang;
-
-      currentLanguage.textContent =
-        selected.language;
-
-      currentFlag.textContent =
-        selected.flag;
-
-
-      document
-        .querySelectorAll("[data-i18n]")
-        .forEach(
-          function(element) {
-
-            const key =
-              element.dataset.i18n;
-
-            if (selected[key]) {
-
-              element.textContent =
-                selected[key];
-
-            }
-
-          }
-        );
-
-
-      languageOptions.forEach(
-        function(option) {
-
-          option.classList.toggle(
-            "active",
-            option.dataset.lang === lang
+          submenu.classList.toggle(
+            "active"
           );
 
         }
       );
 
+    }
+  );
 
-      localStorage.setItem(
-        "legion-language",
-        lang
+
+  /* =========================
+     LANGUAGES
+  ========================= */
+
+  const languageToggle =
+    document.getElementById(
+      "languageToggle"
+    );
+
+  const languageMenu =
+    document.getElementById(
+      "languageMenu"
+    );
+
+  const currentLanguage =
+    document.getElementById(
+      "currentLanguage"
+    );
+
+  const currentFlag =
+    document.getElementById(
+      "currentFlag"
+    );
+
+  const languageOptions =
+    document.querySelectorAll(
+      ".language-option"
+    );
+
+
+  function closeLanguageMenu() {
+
+    languageToggle.classList.remove(
+      "active"
+    );
+
+    languageMenu.classList.remove(
+      "active"
+    );
+
+  }
+
+
+  languageToggle.addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      languageToggle.classList.toggle(
+        "active"
       );
 
-      closeLanguageMenu();
+      languageMenu.classList.toggle(
+        "active"
+      );
 
     }
+  );
+
+
+  document.addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        !languageMenu.contains(event.target) &&
+        !languageToggle.contains(event.target)
+      ) {
+
+        closeLanguageMenu();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key === "Escape") {
+
+        closeMenu();
+        closeLanguageMenu();
+
+      }
+
+    }
+  );
+
+
+  /* =========================
+     TRANSLATIONS
+  ========================= */
+
+  const translations = {
+
+    pl: {
+      language: "Polski",
+      news: "Aktualności",
+      table: "Tabela",
+      team: "Drużyna",
+      firstTeam: "I Drużyna",
+      secondTeam: "II Drużyna",
+      academy: "Akademia",
+      club: "Klub",
+      aboutClub: "O klubie",
+      people: "Ludzie Legionu",
+      documents: "Dokumenty",
+      contact: "Kontakt"
+    },
+
+    en: {
+      language: "English",
+      news: "News",
+      table: "Table",
+      team: "Team",
+      firstTeam: "First Team",
+      secondTeam: "Second Team",
+      academy: "Academy",
+      club: "Club",
+      aboutClub: "About the Club",
+      people: "Legion People",
+      documents: "Documents",
+      contact: "Contact"
+    },
+
+    de: {
+      language: "Deutsch",
+      news: "Aktuelles",
+      table: "Tabelle",
+      team: "Mannschaft",
+      firstTeam: "1. Mannschaft",
+      secondTeam: "2. Mannschaft",
+      academy: "Akademie",
+      club: "Verein",
+      aboutClub: "Über den Verein",
+      people: "Menschen des Legion",
+      documents: "Dokumente",
+      contact: "Kontakt"
+    },
+
+    ru: {
+      language: "Русский",
+      news: "Новости",
+      table: "Таблица",
+      team: "Команда",
+      firstTeam: "Первая команда",
+      secondTeam: "Вторая команда",
+      academy: "Академия",
+      club: "Клуб",
+      aboutClub: "О клубе",
+      people: "Люди Legion",
+      documents: "Документы",
+      contact: "Контакты"
+    },
+
+    es: {
+      language: "Español",
+      news: "Noticias",
+      table: "Clasificación",
+      team: "Equipo",
+      firstTeam: "Primer Equipo",
+      secondTeam: "Segundo Equipo",
+      academy: "Academia",
+      club: "Club",
+      aboutClub: "Sobre el Club",
+      people: "Gente de Legion",
+      documents: "Documentos",
+      contact: "Contacto"
+    }
+
+  };
+
+
+  function setLanguage(lang) {
+
+    const selected =
+      translations[lang];
+
+    if (!selected) {
+      return;
+    }
+
+
+    document.documentElement.lang = lang;
+
+
+    currentLanguage.textContent =
+      selected.language;
+
+
+    currentFlag.innerHTML =
+      flags[lang];
+
+
+    document
+      .querySelectorAll("[data-i18n]")
+      .forEach(
+        function(element) {
+
+          const key =
+            element.dataset.i18n;
+
+          if (selected[key]) {
+
+            element.textContent =
+              selected[key];
+
+          }
+
+        }
+      );
 
 
     languageOptions.forEach(
       function(option) {
 
-        option.addEventListener(
-          "click",
-          function() {
-
-            setLanguage(
-              option.dataset.lang
-            );
-
-          }
+        option.classList.toggle(
+          "active",
+          option.dataset.lang === lang
         );
 
       }
     );
 
 
-    const savedLanguage =
-      localStorage.getItem(
-        "legion-language"
-      ) || "pl";
+    localStorage.setItem(
+      "legion-language",
+      lang
+    );
 
 
-    setLanguage(savedLanguage);
+    closeLanguageMenu();
 
-  </script>
+  }
+
+
+  languageOptions.forEach(
+    function(option) {
+
+      option.addEventListener(
+        "click",
+        function() {
+
+          setLanguage(
+            option.dataset.lang
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+  const savedLanguage =
+    localStorage.getItem(
+      "legion-language"
+    ) || "pl";
+
+
+  setLanguage(savedLanguage);
+
+</script>
 
 </body>
 </html>
