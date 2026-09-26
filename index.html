@@ -47,7 +47,6 @@
 
     .header {
       position: fixed;
-
       top: 0;
       left: 0;
 
@@ -112,7 +111,6 @@
 
     .hamburger span {
       position: absolute;
-
       left: 0;
 
       width: 25px;
@@ -186,7 +184,7 @@
     }
 
     .language-toggle {
-      min-width: 92px;
+      min-width: 120px;
       height: 42px;
 
       padding: 0 12px;
@@ -205,9 +203,14 @@
       font-size: 12px;
       font-weight: 700;
 
-      letter-spacing: 0.7px;
+      letter-spacing: 0.5px;
 
       cursor: pointer;
+    }
+
+    .language-flag {
+      font-size: 18px;
+      line-height: 1;
     }
 
     .language-arrow {
@@ -227,7 +230,7 @@
       top: 50px;
       right: 0;
 
-      width: 170px;
+      width: 190px;
 
       padding: 8px;
 
@@ -266,7 +269,7 @@
 
     .language-option {
       width: 100%;
-      min-height: 42px;
+      min-height: 44px;
 
       padding: 0 12px;
 
@@ -274,6 +277,11 @@
       background: transparent;
 
       color: rgba(255, 255, 255, 0.66);
+
+      display: flex;
+      align-items: center;
+
+      gap: 10px;
 
       text-align: left;
 
@@ -577,12 +585,12 @@
       }
 
       .language-toggle {
-        min-width: 75px;
+        min-width: 105px;
         padding: 0 8px;
       }
 
       .language-menu {
-        width: 155px;
+        width: 175px;
       }
 
     }
@@ -626,6 +634,13 @@
           id="languageToggle"
           type="button"
         >
+          <span
+            class="language-flag"
+            id="currentFlag"
+          >
+            🇵🇱
+          </span>
+
           <span id="currentLanguage">
             Polski
           </span>
@@ -635,6 +650,7 @@
           </span>
         </button>
 
+
         <div
           class="language-menu"
           id="languageMenu"
@@ -643,41 +659,51 @@
           <button
             class="language-option active"
             data-lang="pl"
+            data-flag="🇵🇱"
             type="button"
           >
-            Polski
+            <span class="language-flag">🇵🇱</span>
+            <span>Polski</span>
           </button>
 
           <button
             class="language-option"
             data-lang="en"
+            data-flag="🇬🇧"
             type="button"
           >
-            English
+            <span class="language-flag">🇬🇧</span>
+            <span>English</span>
           </button>
 
           <button
             class="language-option"
             data-lang="de"
+            data-flag="🇩🇪"
             type="button"
           >
-            Deutsch
+            <span class="language-flag">🇩🇪</span>
+            <span>Deutsch</span>
           </button>
 
           <button
             class="language-option"
             data-lang="ru"
+            data-flag="🇷🇺"
             type="button"
           >
-            Русский
+            <span class="language-flag">🇷🇺</span>
+            <span>Русский</span>
           </button>
 
           <button
             class="language-option"
             data-lang="es"
+            data-flag="🇪🇸"
             type="button"
           >
-            Español
+            <span class="language-flag">🇪🇸</span>
+            <span>Español</span>
           </button>
 
         </div>
@@ -954,6 +980,11 @@
         "currentLanguage"
       );
 
+    const currentFlag =
+      document.getElementById(
+        "currentFlag"
+      );
+
     const languageOptions =
       document.querySelectorAll(
         ".language-option"
@@ -1016,6 +1047,7 @@
 
       pl: {
         language: "Polski",
+        flag: "🇵🇱",
         news: "Aktualności",
         table: "Tabela",
         team: "Drużyna",
@@ -1031,6 +1063,7 @@
 
       en: {
         language: "English",
+        flag: "🇬🇧",
         news: "News",
         table: "Table",
         team: "Team",
@@ -1046,6 +1079,7 @@
 
       de: {
         language: "Deutsch",
+        flag: "🇩🇪",
         news: "Aktuelles",
         table: "Tabelle",
         team: "Mannschaft",
@@ -1061,6 +1095,7 @@
 
       ru: {
         language: "Русский",
+        flag: "🇷🇺",
         news: "Новости",
         table: "Таблица",
         team: "Команда",
@@ -1076,6 +1111,7 @@
 
       es: {
         language: "Español",
+        flag: "🇪🇸",
         news: "Noticias",
         table: "Clasificación",
         team: "Equipo",
@@ -1105,6 +1141,9 @@
 
       currentLanguage.textContent =
         selected.language;
+
+      currentFlag.textContent =
+        selected.flag;
 
 
       document
@@ -1165,10 +1204,6 @@
       }
     );
 
-
-    /* =========================
-       SAVED LANGUAGE
-    ========================= */
 
     const savedLanguage =
       localStorage.getItem(
