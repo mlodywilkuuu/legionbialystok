@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klub</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080b10;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       HERO / TŁO
+    ========================== */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(70, 110, 255, 0.28),
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(20, 70, 160, 0.22),
+          transparent 40%
+        ),
+        linear-gradient(
+          135deg,
+          #05070b 0%,
+          #0b1220 45%,
+          #080a0f 100%
+        );
+    }
+
+    /* delikatna tekstura */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        repeating-linear-gradient(
+          120deg,
+          transparent 0px,
+          transparent 80px,
+          rgba(255,255,255,0.018) 81px,
+          transparent 82px
+        );
+
+      pointer-events: none;
+    }
+
+    /* poświata */
+    .hero::after {
+      content: "";
+      position: absolute;
+
+      width: 600px;
+      height: 600px;
+
+      left: -200px;
+      top: -200px;
+
+      background: rgba(47, 103, 255, 0.18);
+      filter: blur(120px);
+      border-radius: 50%;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================
+       GÓRNA CZĘŚĆ
+       NIE MA ŻADNEGO PASKA
+    ========================== */
+
+    .top {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      z-index: 100;
+
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      padding: 28px 35px;
+    }
+
+
+    /* =========================
+       HAMBURGER
+    ========================== */
+
+    .menu-btn {
+      width: 50px;
+      height: 50px;
+
+      border: 0;
+      background: transparent;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      gap: 7px;
+
+      cursor: pointer;
+      position: relative;
+
+      z-index: 200;
+    }
+
+    .menu-btn span {
+      width: 32px;
+      height: 3px;
+
+      background: white;
+      border-radius: 20px;
+
+      transition:
+        transform 0.35s ease,
+        opacity 0.25s ease;
+    }
+
+    /* hamburger -> X */
+
+    .menu-btn.active span:nth-child(1) {
+      transform: translateY(10px) rotate(45deg);
+    }
+
+    .menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-btn.active span:nth-child(3) {
+      transform: translateY(-10px) rotate(-45deg);
+    }
+
+
+    /* =========================
+       LOGO
+    ========================== */
+
+    .logo {
+      height: 85px;
+      width: auto;
+
+      object-fit: contain;
+
+      position: relative;
+      z-index: 200;
+
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,.35));
+    }
+
+
+    /* =========================
+       WYSUWANE MENU
+    ========================== */
+
+    .side-menu {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: min(390px, 88vw);
+      height: 100vh;
+
+      padding:
+        150px
+        45px
+        50px;
+
+      z-index: 90;
+
+      background: rgba(5, 8, 14, 0.72);
+
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+
+      transform: translateX(-105%);
+
+      transition:
+        transform 0.45s cubic-bezier(.77,0,.18,1);
+
+      box-shadow:
+        30px 0 80px rgba(0,0,0,.25);
+    }
+
+    .side-menu.open {
+      transform: translateX(0);
+    }
+
+    .side-menu nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .side-menu a {
+      color: rgba(255,255,255,.72);
+
+      text-decoration: none;
+
+      font-size: 27px;
+      font-weight: 700;
+
+      padding: 14px 0;
+
+      transition:
+        color .25s ease,
+        transform .25s ease;
+    }
+
+    .side-menu a:hover {
+      color: white;
+      transform: translateX(10px);
+    }
+
+
+    /* =========================
+       TREŚĆ HERO
+    ========================== */
+
+    .hero-content {
+      min-height: 100vh;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      position: relative;
+      z-index: 2;
+
+      padding:
+        170px
+        8vw
+        80px;
+
+      max-width: 1100px;
+    }
+
+    .small-title {
+      font-size: 14px;
+      font-weight: 700;
+
+      letter-spacing: 5px;
+      text-transform: uppercase;
+
+      opacity: .6;
+
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(55px, 9vw, 135px);
+
+      line-height: .88;
+
+      text-transform: uppercase;
+
+      letter-spacing: -5px;
+
+      max-width: 950px;
+
+      text-shadow:
+        0 15px 50px rgba(0,0,0,.35);
+    }
+
+    .hero-content p {
+      max-width: 550px;
+
+      margin-top: 35px;
+
+      font-size: 18px;
+      line-height: 1.7;
+
+      color: rgba(255,255,255,.65);
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 700px) {
+
+      .top {
+        padding: 20px;
+        gap: 12px;
+      }
+
+      .logo {
+        height: 65px;
+      }
+
+      .menu-btn {
+        width: 45px;
+        height: 45px;
+      }
+
+      .side-menu {
+        width: 100%;
+        padding-left: 35px;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .hero-content {
+        padding-left: 25px;
+        padding-right: 25px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <section class="hero">
+
+    <!--
+      Logo + hamburger są bezpośrednio
+      na tle strony. Nie ma tutaj headera
+      z osobnym kolorem.
+    -->
+
+    <div class="top">
+
+      <button
+        class="menu-btn"
+        id="menuBtn"
+        aria-label="Otwórz menu"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <img
+        class="logo"
+        src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+        alt="Logo klubu"
+      >
+
+    </div>
+
+
+    <!-- MENU -->
+
+    <aside class="side-menu" id="sideMenu">
+
+      <nav>
+        <a href="#">Strona główna</a>
+        <a href="#">Aktualności</a>
+        <a href="#">Drużyna</a>
+        <a href="#">Mecze</a>
+        <a href="#">Tabela</a>
+        <a href="#">Galeria</a>
+        <a href="#">Kontakt</a>
+      </nav>
+
+    </aside>
+
+
+    <!-- GŁÓWNA TREŚĆ -->
+
+    <div class="hero-content">
+
+      <div class="small-title">
+        Oficjalna strona klubu
+      </div>
+
+      <h1>
+        Razem<br>
+        po zwycięstwo.
+      </h1>
+
+      <p>
+        Aktualności, mecze, wyniki i wszystko,
+        czym żyje nasz klub.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sideMenu = document.getElementById("sideMenu");
+
+    menuBtn.addEventListener("click", () => {
+
+      const isOpen = sideMenu.classList.toggle("open");
+
+      menuBtn.classList.toggle("active", isOpen);
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        isOpen
+      );
+
+    });
+
+
+    // Zamknięcie menu po kliknięciu linku
+
+    document.querySelectorAll(".side-menu a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          sideMenu.classList.remove("open");
+          menuBtn.classList.remove("active");
+
+          menuBtn.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        });
+
+      });
+  </script>
+
+</body>
+</html>
