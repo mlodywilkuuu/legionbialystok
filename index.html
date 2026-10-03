@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Klub</title>
 
   <style>
+
+    /* =========================
+       RESET
+    ========================== */
+
     * {
       margin: 0;
       padding: 0;
@@ -18,18 +24,24 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
+
       background: #05070b;
       color: #fff;
+
       overflow-x: hidden;
     }
 
+
     /* =========================
-       HERO
+       GŁÓWNE TŁO
     ========================== */
 
     .hero {
       position: relative;
+
+      width: 100%;
       min-height: 100vh;
+
       overflow: hidden;
 
       background:
@@ -38,11 +50,13 @@
           rgba(65, 105, 255, 0.30),
           transparent 35%
         ),
+
         radial-gradient(
           circle at 85% 75%,
           rgba(0, 100, 255, 0.20),
           transparent 40%
         ),
+
         linear-gradient(
           135deg,
           #040609 0%,
@@ -51,29 +65,40 @@
         );
     }
 
-    /* delikatna tekstura */
+
+    /* =========================
+       TEKSTURA TŁA
+    ========================== */
 
     .hero::before {
       content: "";
+
       position: absolute;
       inset: 0;
 
       background:
         repeating-linear-gradient(
           120deg,
+
           transparent 0px,
           transparent 80px,
-          rgba(255,255,255,0.018) 81px,
+
+          rgba(255, 255, 255, 0.018) 81px,
+
           transparent 82px
         );
 
       pointer-events: none;
     }
 
-    /* niebieska poświata */
+
+    /* =========================
+       NIEBIESKA POŚWIATA
+    ========================== */
 
     .hero::after {
       content: "";
+
       position: absolute;
 
       width: 700px;
@@ -84,7 +109,8 @@
 
       border-radius: 50%;
 
-      background: rgba(45, 95, 255, 0.20);
+      background:
+        rgba(45, 95, 255, 0.20);
 
       filter: blur(130px);
 
@@ -94,6 +120,9 @@
 
     /* =========================
        LOGO + HAMBURGER
+
+       Nie ma tutaj żadnego
+       osobnego paska.
     ========================== */
 
     .top {
@@ -109,7 +138,9 @@
 
       gap: 18px;
 
-      padding: 25px 32px;
+      padding:
+        25px
+        32px;
     }
 
 
@@ -118,6 +149,8 @@
     ========================== */
 
     .menu-btn {
+      position: relative;
+
       width: 50px;
       height: 50px;
 
@@ -127,19 +160,19 @@
       background: transparent;
 
       display: flex;
+
       flex-direction: column;
 
-      justify-content: center;
       align-items: center;
+      justify-content: center;
 
       gap: 7px;
 
       cursor: pointer;
 
-      position: relative;
-
       z-index: 200;
     }
+
 
     .menu-btn span {
       display: block;
@@ -147,7 +180,7 @@
       width: 32px;
       height: 3px;
 
-      background: #fff;
+      background: #ffffff;
 
       border-radius: 20px;
 
@@ -167,9 +200,11 @@
         rotate(45deg);
     }
 
+
     .menu-btn.active span:nth-child(2) {
       opacity: 0;
     }
+
 
     .menu-btn.active span:nth-child(3) {
       transform:
@@ -183,25 +218,25 @@
     ========================== */
 
     .logo {
+      position: relative;
+
       height: 85px;
       width: auto;
 
       object-fit: contain;
-
-      position: relative;
 
       z-index: 200;
 
       filter:
         drop-shadow(
           0 8px 20px
-          rgba(0,0,0,.40)
+          rgba(0, 0, 0, .40)
         );
     }
 
 
     /* =========================
-       MENU BOCZNE
+       WYSUWANE MENU
     ========================== */
 
     .side-menu {
@@ -220,30 +255,54 @@
 
       z-index: 90;
 
+
+      /* przezroczyste tło */
+
       background:
         rgba(5, 8, 14, .72);
 
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
 
-      transform: translateX(-105%);
+      /* rozmycie tego,
+         co znajduje się pod menu */
+
+      backdrop-filter:
+        blur(22px);
+
+      -webkit-backdrop-filter:
+        blur(22px);
+
+
+      /* schowane po lewej */
+
+      transform:
+        translateX(-105%);
+
+
+      /* płynne wysuwanie */
 
       transition:
         transform
         .45s
         cubic-bezier(.77, 0, .18, 1);
 
+
       box-shadow:
         30px 0 80px
-        rgba(0,0,0,.25);
+        rgba(0, 0, 0, .25);
     }
 
+
+    /* otwarte menu */
+
     .side-menu.open {
-      transform: translateX(0);
+      transform:
+        translateX(0);
     }
+
 
     .side-menu nav {
       display: flex;
+
       flex-direction: column;
     }
 
@@ -255,8 +314,10 @@
     .side-menu a {
       position: relative;
 
+      display: block;
+
       color:
-        rgba(255,255,255,.76);
+        rgba(255, 255, 255, .76);
 
       text-decoration: none;
 
@@ -273,7 +334,9 @@
     }
 
 
-    /* separator pod przyciskiem */
+    /* =========================
+       LINIA POD PRZYCISKAMI
+    ========================== */
 
     .side-menu a::after {
       content: "";
@@ -290,8 +353,10 @@
       background:
         linear-gradient(
           90deg,
-          rgba(255,255,255,.38),
-          rgba(255,255,255,.07)
+
+          rgba(255, 255, 255, .38),
+
+          rgba(255, 255, 255, .07)
         );
 
       opacity: .7;
@@ -303,98 +368,22 @@
     }
 
 
-    /* hover */
+    /* =========================
+       HOVER MENU
+    ========================== */
 
     .side-menu a:hover {
-      color: #fff;
+      color: #ffffff;
+
       padding-left: 19px;
     }
+
 
     .side-menu a:hover::after {
       left: 19px;
       right: 0;
 
       opacity: 1;
-    }
-
-
-    /* =========================
-       HERO CONTENT
-    ========================== */
-
-    .hero-content {
-      min-height: 100vh;
-
-      display: flex;
-      flex-direction: column;
-
-      justify-content: center;
-
-      position: relative;
-
-      z-index: 2;
-
-      padding:
-        150px
-        8vw
-        80px;
-
-      max-width: 1200px;
-    }
-
-
-    /* =========================
-       GŁÓWNY NAPIS
-    ========================== */
-
-    h1 {
-      font-size:
-        clamp(
-          58px,
-          9vw,
-          135px
-        );
-
-      line-height: .88;
-
-      text-transform: uppercase;
-
-      letter-spacing: -5px;
-
-      max-width: 1000px;
-
-      font-weight: 900;
-
-
-      /* =====================
-         STATYCZNY GRADIENT
-         BEZ ANIMACJI
-      ====================== */
-
-      background:
-        linear-gradient(
-          110deg,
-          #ffffff 0%,
-          #dbe5ff 25%,
-          #7198ff 55%,
-          #345cff 78%,
-          #8b5cff 100%
-        );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-
-      -webkit-text-fill-color: transparent;
-      color: transparent;
-
-
-      /* delikatna poświata */
-
-      filter:
-        drop-shadow(
-          0 15px 35px
-          rgba(40, 80, 220, .20)
-        );
     }
 
 
@@ -406,21 +395,26 @@
 
       .top {
         padding: 18px;
+
         gap: 10px;
       }
+
 
       .logo {
         height: 65px;
       }
+
 
       .menu-btn {
         width: 45px;
         height: 45px;
       }
 
+
       .menu-btn span {
         width: 29px;
       }
+
 
       .side-menu {
         width: 100%;
@@ -431,6 +425,7 @@
           35px;
       }
 
+
       .side-menu a {
         font-size: 20px;
 
@@ -439,28 +434,30 @@
           10px;
       }
 
-      .hero-content {
-        padding:
-          130px
-          25px
-          60px;
-      }
-
-      h1 {
-        letter-spacing: -3px;
-      }
     }
 
   </style>
 </head>
 
+
 <body>
+
+
+  <!-- =========================
+       GŁÓWNY EKRAN
+  ========================== -->
 
   <section class="hero">
 
-    <!-- LOGO + HAMBURGER -->
+
+    <!-- =========================
+         LOGO + HAMBURGER
+    ========================== -->
 
     <div class="top">
+
+
+      <!-- HAMBURGER -->
 
       <button
         class="menu-btn"
@@ -476,16 +473,21 @@
       </button>
 
 
+      <!-- LOGO -->
+
       <img
         class="logo"
         src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
         alt="Logo klubu"
       >
 
+
     </div>
 
 
-    <!-- MENU -->
+    <!-- =========================
+         MENU
+    ========================== -->
 
     <aside
       class="side-menu"
@@ -494,75 +496,85 @@
 
       <nav>
 
+
         <a href="#">
           Strona główna
         </a>
+
 
         <a href="#">
           Aktualności
         </a>
 
+
         <a href="#">
           Drużyna
         </a>
+
 
         <a href="#">
           Mecze
         </a>
 
+
         <a href="#">
           Tabela
         </a>
+
 
         <a href="#">
           Galeria
         </a>
 
+
         <a href="#">
           Kontakt
         </a>
+
 
       </nav>
 
     </aside>
 
 
-    <!-- GŁÓWNY NAPIS -->
-
-    <div class="hero-content">
-
-      <h1>
-        Więcej<br>
-        niż klub.
-      </h1>
-
-    </div>
-
   </section>
 
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
 
   <script>
 
     const menuBtn =
       document.getElementById("menuBtn");
 
+
     const sideMenu =
       document.getElementById("sideMenu");
 
 
-    /* OTWIERANIE / ZAMYKANIE */
+    /* =========================
+       OTWÓRZ / ZAMKNIJ MENU
+    ========================== */
 
     menuBtn.addEventListener(
       "click",
       () => {
 
         const isOpen =
-          sideMenu.classList.toggle("open");
+          sideMenu
+            .classList
+            .toggle("open");
 
-        menuBtn.classList.toggle(
-          "active",
-          isOpen
-        );
+
+        menuBtn
+          .classList
+          .toggle(
+            "active",
+            isOpen
+          );
+
 
         menuBtn.setAttribute(
           "aria-expanded",
@@ -573,50 +585,65 @@
     );
 
 
-    /* ZAMKNIJ PO KLIKNIĘCIU LINKU */
+    /* =========================
+       KLIKNIĘCIE W LINK
+       ZAMYKA MENU
+    ========================== */
 
     document
-      .querySelectorAll(".side-menu a")
-      .forEach(link => {
+      .querySelectorAll(
+        ".side-menu a"
+      )
+      .forEach(
+        link => {
 
-        link.addEventListener(
-          "click",
-          () => {
+          link.addEventListener(
+            "click",
+            () => {
 
-            sideMenu.classList.remove(
-              "open"
-            );
-
-            menuBtn.classList.remove(
-              "active"
-            );
-
-            menuBtn.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
-      });
+              sideMenu
+                .classList
+                .remove("open");
 
 
-    /* ESC ZAMYKA MENU */
+              menuBtn
+                .classList
+                .remove("active");
+
+
+              menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+    /* =========================
+       ESC ZAMYKA MENU
+    ========================== */
 
     document.addEventListener(
       "keydown",
       event => {
 
-        if (event.key === "Escape") {
+        if (
+          event.key === "Escape"
+        ) {
 
-          sideMenu.classList.remove(
-            "open"
-          );
+          sideMenu
+            .classList
+            .remove("open");
 
-          menuBtn.classList.remove(
-            "active"
-          );
+
+          menuBtn
+            .classList
+            .remove("active");
+
 
           menuBtn.setAttribute(
             "aria-expanded",
@@ -629,6 +656,7 @@
     );
 
   </script>
+
 
 </body>
 </html>
