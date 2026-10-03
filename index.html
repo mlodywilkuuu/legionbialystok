@@ -3,9 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Klub</title>
 
   <style>
+
+    /* =========================
+       RESET
+    ========================== */
+
     * {
       margin: 0;
       padding: 0;
@@ -18,10 +24,11 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background: #080b10;
+      background: #05070b;
       color: white;
       overflow-x: hidden;
     }
+
 
     /* =========================
        HERO / TŁO
@@ -34,26 +41,29 @@
 
       background:
         radial-gradient(
-          circle at 20% 20%,
-          rgba(70, 110, 255, 0.28),
+          circle at 18% 20%,
+          rgba(65, 105, 255, 0.30),
           transparent 35%
         ),
         radial-gradient(
-          circle at 80% 70%,
-          rgba(20, 70, 160, 0.22),
+          circle at 85% 75%,
+          rgba(0, 100, 255, 0.20),
           transparent 40%
         ),
         linear-gradient(
           135deg,
-          #05070b 0%,
-          #0b1220 45%,
-          #080a0f 100%
+          #040609 0%,
+          #0b1220 48%,
+          #05070b 100%
         );
     }
 
-    /* delikatna tekstura */
+
+    /* tekstura tła */
+
     .hero::before {
       content: "";
+
       position: absolute;
       inset: 0;
 
@@ -62,39 +72,46 @@
           120deg,
           transparent 0px,
           transparent 80px,
-          rgba(255,255,255,0.018) 81px,
+          rgba(255, 255, 255, 0.018) 81px,
           transparent 82px
         );
 
       pointer-events: none;
     }
 
-    /* poświata */
+
+    /* duża poświata */
+
     .hero::after {
       content: "";
+
       position: absolute;
 
-      width: 600px;
-      height: 600px;
+      width: 700px;
+      height: 700px;
 
-      left: -200px;
-      top: -200px;
+      left: -250px;
+      top: -250px;
 
-      background: rgba(47, 103, 255, 0.18);
-      filter: blur(120px);
       border-radius: 50%;
+
+      background:
+        rgba(45, 95, 255, 0.20);
+
+      filter: blur(130px);
 
       pointer-events: none;
     }
 
 
     /* =========================
-       GÓRNA CZĘŚĆ
-       NIE MA ŻADNEGO PASKA
+       LOGO + MENU BUTTON
+       BEZ PASKA
     ========================== */
 
     .top {
       position: absolute;
+
       top: 0;
       left: 0;
 
@@ -102,9 +119,10 @@
 
       display: flex;
       align-items: center;
-      gap: 20px;
 
-      padding: 28px 35px;
+      gap: 18px;
+
+      padding: 25px 32px;
     }
 
 
@@ -116,27 +134,35 @@
       width: 50px;
       height: 50px;
 
-      border: 0;
+      border: none;
+      outline: none;
+
       background: transparent;
 
       display: flex;
       flex-direction: column;
-      align-items: center;
+
       justify-content: center;
+      align-items: center;
 
       gap: 7px;
 
       cursor: pointer;
+
       position: relative;
 
       z-index: 200;
     }
 
+
     .menu-btn span {
+      display: block;
+
       width: 32px;
       height: 3px;
 
-      background: white;
+      background: #fff;
+
       border-radius: 20px;
 
       transition:
@@ -144,10 +170,15 @@
         opacity 0.25s ease;
     }
 
-    /* hamburger -> X */
+
+    /* =========================
+       HAMBURGER -> X
+    ========================== */
 
     .menu-btn.active span:nth-child(1) {
-      transform: translateY(10px) rotate(45deg);
+      transform:
+        translateY(10px)
+        rotate(45deg);
     }
 
     .menu-btn.active span:nth-child(2) {
@@ -155,7 +186,9 @@
     }
 
     .menu-btn.active span:nth-child(3) {
-      transform: translateY(-10px) rotate(-45deg);
+      transform:
+        translateY(-10px)
+        rotate(-45deg);
     }
 
 
@@ -170,9 +203,14 @@
       object-fit: contain;
 
       position: relative;
+
       z-index: 200;
 
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,.35));
+      filter:
+        drop-shadow(
+          0 8px 20px
+          rgba(0, 0, 0, .40)
+        );
     }
 
 
@@ -189,60 +227,123 @@
       width: min(390px, 88vw);
       height: 100vh;
 
+      /* menu wyżej */
       padding:
-        150px
-        45px
-        50px;
+        112px
+        35px
+        40px;
 
       z-index: 90;
 
-      background: rgba(5, 8, 14, 0.72);
+      background:
+        rgba(5, 8, 14, 0.72);
 
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+      backdrop-filter:
+        blur(22px);
 
-      transform: translateX(-105%);
+      -webkit-backdrop-filter:
+        blur(22px);
+
+      transform:
+        translateX(-105%);
 
       transition:
-        transform 0.45s cubic-bezier(.77,0,.18,1);
+        transform
+        0.45s
+        cubic-bezier(.77, 0, .18, 1);
 
       box-shadow:
-        30px 0 80px rgba(0,0,0,.25);
+        30px 0 80px
+        rgba(0, 0, 0, .25);
     }
 
+
     .side-menu.open {
-      transform: translateX(0);
+      transform:
+        translateX(0);
     }
+
 
     .side-menu nav {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .side-menu a {
-      color: rgba(255,255,255,.72);
-
-      text-decoration: none;
-
-      font-size: 27px;
-      font-weight: 700;
-
-      padding: 14px 0;
-
-      transition:
-        color .25s ease,
-        transform .25s ease;
-    }
-
-    .side-menu a:hover {
-      color: white;
-      transform: translateX(10px);
     }
 
 
     /* =========================
-       TREŚĆ HERO
+       PRZYCISKI MENU
+    ========================== */
+
+    .side-menu a {
+      position: relative;
+
+      color:
+        rgba(255, 255, 255, .76);
+
+      text-decoration: none;
+
+      font-size: 22px;
+      font-weight: 700;
+
+      padding:
+        15px
+        10px;
+
+      transition:
+        color .25s ease,
+        padding-left .25s ease;
+    }
+
+
+    /* separator */
+
+    .side-menu a::after {
+      content: "";
+
+      position: absolute;
+
+      left: 10px;
+      right: 10px;
+
+      bottom: 0;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, .35),
+          rgba(255, 255, 255, .08)
+        );
+
+      transition:
+        left .25s ease,
+        right .25s ease,
+        opacity .25s ease;
+
+      opacity: .7;
+    }
+
+
+    /* hover */
+
+    .side-menu a:hover {
+      color: white;
+
+      padding-left: 19px;
+    }
+
+
+    .side-menu a:hover::after {
+      left: 19px;
+      right: 0;
+
+      opacity: 1;
+    }
+
+
+    /* =========================
+       GŁÓWNA TREŚĆ
     ========================== */
 
     .hero-content {
@@ -250,33 +351,33 @@
 
       display: flex;
       flex-direction: column;
+
       justify-content: center;
 
       position: relative;
+
       z-index: 2;
 
       padding:
-        170px
+        150px
         8vw
         80px;
 
-      max-width: 1100px;
+      max-width: 1200px;
     }
 
-    .small-title {
-      font-size: 14px;
-      font-weight: 700;
 
-      letter-spacing: 5px;
-      text-transform: uppercase;
-
-      opacity: .6;
-
-      margin-bottom: 20px;
-    }
+    /* =========================
+       RAZEM PO ZWYCIĘSTWO
+    ========================== */
 
     h1 {
-      font-size: clamp(55px, 9vw, 135px);
+      font-size:
+        clamp(
+          58px,
+          9vw,
+          135px
+        );
 
       line-height: .88;
 
@@ -284,21 +385,74 @@
 
       letter-spacing: -5px;
 
-      max-width: 950px;
+      max-width: 1000px;
 
-      text-shadow:
-        0 15px 50px rgba(0,0,0,.35);
+      font-weight: 900;
+
+
+      /* PRZEJŚCIE KOLORÓW */
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          #9ab7ff,
+          #3978ff,
+          #8c5cff,
+          #ffffff
+        );
+
+      background-size:
+        300% 300%;
+
+      -webkit-background-clip:
+        text;
+
+      background-clip:
+        text;
+
+      -webkit-text-fill-color:
+        transparent;
+
+      color: transparent;
+
+
+      /* animacja */
+
+      animation:
+        gradientText
+        7s
+        ease
+        infinite;
+
+
+      filter:
+        drop-shadow(
+          0 15px 35px
+          rgba(20, 70, 200, .25)
+        );
     }
 
-    .hero-content p {
-      max-width: 550px;
 
-      margin-top: 35px;
+    /* animacja kolorów */
 
-      font-size: 18px;
-      line-height: 1.7;
+    @keyframes gradientText {
 
-      color: rgba(255,255,255,.65);
+      0% {
+        background-position:
+          0% 50%;
+      }
+
+      50% {
+        background-position:
+          100% 50%;
+      }
+
+      100% {
+        background-position:
+          0% 50%;
+      }
+
     }
 
 
@@ -309,48 +463,89 @@
     @media (max-width: 700px) {
 
       .top {
-        padding: 20px;
-        gap: 12px;
+        padding:
+          18px
+          18px;
+
+        gap: 10px;
       }
+
 
       .logo {
         height: 65px;
       }
+
 
       .menu-btn {
         width: 45px;
         height: 45px;
       }
 
+
+      .menu-btn span {
+        width: 29px;
+      }
+
+
       .side-menu {
         width: 100%;
-        padding-left: 35px;
+
+        padding:
+          100px
+          25px
+          35px;
       }
+
+
+      .side-menu a {
+        font-size: 20px;
+
+        padding:
+          14px
+          10px;
+      }
+
+
+      .hero-content {
+        padding:
+          130px
+          25px
+          60px;
+      }
+
 
       h1 {
         letter-spacing: -3px;
       }
 
-      .hero-content {
-        padding-left: 25px;
-        padding-right: 25px;
-      }
     }
+
+
   </style>
 </head>
 
 
 <body>
 
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
   <section class="hero">
 
+
     <!--
-      Logo + hamburger są bezpośrednio
-      na tle strony. Nie ma tutaj headera
-      z osobnym kolorem.
+      NIE MA HEADERA / PASKA
+
+      Logo oraz hamburger są
+      bezpośrednio na tle.
     -->
 
     <div class="top">
+
+
+      <!-- HAMBURGER -->
 
       <button
         class="menu-btn"
@@ -358,10 +553,15 @@
         aria-label="Otwórz menu"
         aria-expanded="false"
       >
+
         <span></span>
         <span></span>
         <span></span>
+
       </button>
+
+
+      <!-- LOGO -->
 
       <img
         class="logo"
@@ -369,86 +569,181 @@
         alt="Logo klubu"
       >
 
+
     </div>
 
 
-    <!-- MENU -->
+    <!-- =========================
+         MENU
+    ========================== -->
 
-    <aside class="side-menu" id="sideMenu">
+    <aside
+      class="side-menu"
+      id="sideMenu"
+    >
 
       <nav>
-        <a href="#">Strona główna</a>
-        <a href="#">Aktualności</a>
-        <a href="#">Drużyna</a>
-        <a href="#">Mecze</a>
-        <a href="#">Tabela</a>
-        <a href="#">Galeria</a>
-        <a href="#">Kontakt</a>
+
+        <a href="#">
+          Strona główna
+        </a>
+
+        <a href="#">
+          Aktualności
+        </a>
+
+        <a href="#">
+          Drużyna
+        </a>
+
+        <a href="#">
+          Mecze
+        </a>
+
+        <a href="#">
+          Tabela
+        </a>
+
+        <a href="#">
+          Galeria
+        </a>
+
+        <a href="#">
+          Kontakt
+        </a>
+
       </nav>
 
     </aside>
 
 
-    <!-- GŁÓWNA TREŚĆ -->
+    <!-- =========================
+         TEKST GŁÓWNY
+    ========================== -->
 
     <div class="hero-content">
-
-      <div class="small-title">
-        Oficjalna strona klubu
-      </div>
 
       <h1>
         Razem<br>
         po zwycięstwo.
       </h1>
 
-      <p>
-        Aktualności, mecze, wyniki i wszystko,
-        czym żyje nasz klub.
-      </p>
-
     </div>
+
 
   </section>
 
 
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
   <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const sideMenu = document.getElementById("sideMenu");
 
-    menuBtn.addEventListener("click", () => {
+    const menuBtn =
+      document.getElementById("menuBtn");
 
-      const isOpen = sideMenu.classList.toggle("open");
+    const sideMenu =
+      document.getElementById("sideMenu");
 
-      menuBtn.classList.toggle("active", isOpen);
 
-      menuBtn.setAttribute(
-        "aria-expanded",
-        isOpen
+    /* otwieranie menu */
+
+    menuBtn.addEventListener(
+      "click",
+      () => {
+
+        const isOpen =
+          sideMenu.classList.toggle(
+            "open"
+          );
+
+        menuBtn.classList.toggle(
+          "active",
+          isOpen
+        );
+
+        menuBtn.setAttribute(
+          "aria-expanded",
+          isOpen
+        );
+
+      }
+    );
+
+
+    /* zamykanie po kliknięciu
+       elementu menu */
+
+    document
+      .querySelectorAll(
+        ".side-menu a"
+      )
+      .forEach(
+        link => {
+
+          link.addEventListener(
+            "click",
+            () => {
+
+              sideMenu
+                .classList
+                .remove(
+                  "open"
+                );
+
+              menuBtn
+                .classList
+                .remove(
+                  "active"
+                );
+
+              menuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+              );
+
+            }
+          );
+
+        }
       );
 
-    });
 
+    /* ESC zamyka menu */
 
-    // Zamknięcie menu po kliknięciu linku
+    document.addEventListener(
+      "keydown",
+      event => {
 
-    document.querySelectorAll(".side-menu a")
-      .forEach(link => {
+        if (
+          event.key === "Escape"
+        ) {
 
-        link.addEventListener("click", () => {
+          sideMenu
+            .classList
+            .remove(
+              "open"
+            );
 
-          sideMenu.classList.remove("open");
-          menuBtn.classList.remove("active");
+          menuBtn
+            .classList
+            .remove(
+              "active"
+            );
 
           menuBtn.setAttribute(
             "aria-expanded",
             "false"
           );
 
-        });
+        }
 
-      });
+      }
+    );
+
   </script>
+
 
 </body>
 </html>
