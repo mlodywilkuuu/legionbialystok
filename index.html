@@ -3,15 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Klub</title>
 
   <style>
-
-    /* =========================
-       RESET
-    ========================== */
-
     * {
       margin: 0;
       padding: 0;
@@ -25,18 +19,17 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       background: #05070b;
-      color: white;
+      color: #fff;
       overflow-x: hidden;
     }
 
-
     /* =========================
-       HERO / TŁO
+       HERO
     ========================== */
 
     .hero {
-      min-height: 100vh;
       position: relative;
+      min-height: 100vh;
       overflow: hidden;
 
       background:
@@ -58,12 +51,10 @@
         );
     }
 
-
-    /* tekstura tła */
+    /* delikatna tekstura */
 
     .hero::before {
       content: "";
-
       position: absolute;
       inset: 0;
 
@@ -72,19 +63,17 @@
           120deg,
           transparent 0px,
           transparent 80px,
-          rgba(255, 255, 255, 0.018) 81px,
+          rgba(255,255,255,0.018) 81px,
           transparent 82px
         );
 
       pointer-events: none;
     }
 
-
-    /* duża poświata */
+    /* niebieska poświata */
 
     .hero::after {
       content: "";
-
       position: absolute;
 
       width: 700px;
@@ -95,8 +84,7 @@
 
       border-radius: 50%;
 
-      background:
-        rgba(45, 95, 255, 0.20);
+      background: rgba(45, 95, 255, 0.20);
 
       filter: blur(130px);
 
@@ -105,8 +93,7 @@
 
 
     /* =========================
-       LOGO + MENU BUTTON
-       BEZ PASKA
+       LOGO + HAMBURGER
     ========================== */
 
     .top {
@@ -154,7 +141,6 @@
       z-index: 200;
     }
 
-
     .menu-btn span {
       display: block;
 
@@ -166,8 +152,8 @@
       border-radius: 20px;
 
       transition:
-        transform 0.35s ease,
-        opacity 0.25s ease;
+        transform .35s ease,
+        opacity .25s ease;
     }
 
 
@@ -209,13 +195,13 @@
       filter:
         drop-shadow(
           0 8px 20px
-          rgba(0, 0, 0, .40)
+          rgba(0,0,0,.40)
         );
     }
 
 
     /* =========================
-       WYSUWANE MENU
+       MENU BOCZNE
     ========================== */
 
     .side-menu {
@@ -227,7 +213,6 @@
       width: min(390px, 88vw);
       height: 100vh;
 
-      /* menu wyżej */
       padding:
         112px
         35px
@@ -236,33 +221,26 @@
       z-index: 90;
 
       background:
-        rgba(5, 8, 14, 0.72);
+        rgba(5, 8, 14, .72);
 
-      backdrop-filter:
-        blur(22px);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
 
-      -webkit-backdrop-filter:
-        blur(22px);
-
-      transform:
-        translateX(-105%);
+      transform: translateX(-105%);
 
       transition:
         transform
-        0.45s
+        .45s
         cubic-bezier(.77, 0, .18, 1);
 
       box-shadow:
         30px 0 80px
-        rgba(0, 0, 0, .25);
+        rgba(0,0,0,.25);
     }
-
 
     .side-menu.open {
-      transform:
-        translateX(0);
+      transform: translateX(0);
     }
-
 
     .side-menu nav {
       display: flex;
@@ -278,7 +256,7 @@
       position: relative;
 
       color:
-        rgba(255, 255, 255, .76);
+        rgba(255,255,255,.76);
 
       text-decoration: none;
 
@@ -295,7 +273,7 @@
     }
 
 
-    /* separator */
+    /* separator pod przyciskiem */
 
     .side-menu a::after {
       content: "";
@@ -312,27 +290,25 @@
       background:
         linear-gradient(
           90deg,
-          rgba(255, 255, 255, .35),
-          rgba(255, 255, 255, .08)
+          rgba(255,255,255,.38),
+          rgba(255,255,255,.07)
         );
+
+      opacity: .7;
 
       transition:
         left .25s ease,
         right .25s ease,
         opacity .25s ease;
-
-      opacity: .7;
     }
 
 
     /* hover */
 
     .side-menu a:hover {
-      color: white;
-
+      color: #fff;
       padding-left: 19px;
     }
-
 
     .side-menu a:hover::after {
       left: 19px;
@@ -343,7 +319,7 @@
 
 
     /* =========================
-       GŁÓWNA TREŚĆ
+       HERO CONTENT
     ========================== */
 
     .hero-content {
@@ -368,7 +344,7 @@
 
 
     /* =========================
-       RAZEM PO ZWYCIĘSTWO
+       GŁÓWNY NAPIS
     ========================== */
 
     h1 {
@@ -390,69 +366,35 @@
       font-weight: 900;
 
 
-      /* PRZEJŚCIE KOLORÓW */
+      /* =====================
+         STATYCZNY GRADIENT
+         BEZ ANIMACJI
+      ====================== */
 
       background:
         linear-gradient(
-          90deg,
-          #ffffff,
-          #9ab7ff,
-          #3978ff,
-          #8c5cff,
-          #ffffff
+          110deg,
+          #ffffff 0%,
+          #dbe5ff 25%,
+          #7198ff 55%,
+          #345cff 78%,
+          #8b5cff 100%
         );
 
-      background-size:
-        300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
 
-      -webkit-background-clip:
-        text;
-
-      background-clip:
-        text;
-
-      -webkit-text-fill-color:
-        transparent;
-
+      -webkit-text-fill-color: transparent;
       color: transparent;
 
 
-      /* animacja */
-
-      animation:
-        gradientText
-        7s
-        ease
-        infinite;
-
+      /* delikatna poświata */
 
       filter:
         drop-shadow(
           0 15px 35px
-          rgba(20, 70, 200, .25)
+          rgba(40, 80, 220, .20)
         );
-    }
-
-
-    /* animacja kolorów */
-
-    @keyframes gradientText {
-
-      0% {
-        background-position:
-          0% 50%;
-      }
-
-      50% {
-        background-position:
-          100% 50%;
-      }
-
-      100% {
-        background-position:
-          0% 50%;
-      }
-
     }
 
 
@@ -463,29 +405,22 @@
     @media (max-width: 700px) {
 
       .top {
-        padding:
-          18px
-          18px;
-
+        padding: 18px;
         gap: 10px;
       }
-
 
       .logo {
         height: 65px;
       }
-
 
       .menu-btn {
         width: 45px;
         height: 45px;
       }
 
-
       .menu-btn span {
         width: 29px;
       }
-
 
       .side-menu {
         width: 100%;
@@ -496,7 +431,6 @@
           35px;
       }
 
-
       .side-menu a {
         font-size: 20px;
 
@@ -505,7 +439,6 @@
           10px;
       }
 
-
       .hero-content {
         padding:
           130px
@@ -513,39 +446,21 @@
           60px;
       }
 
-
       h1 {
         letter-spacing: -3px;
       }
-
     }
-
 
   </style>
 </head>
 
-
 <body>
-
-
-  <!-- =========================
-       HERO
-  ========================== -->
 
   <section class="hero">
 
-
-    <!--
-      NIE MA HEADERA / PASKA
-
-      Logo oraz hamburger są
-      bezpośrednio na tle.
-    -->
+    <!-- LOGO + HAMBURGER -->
 
     <div class="top">
-
-
-      <!-- HAMBURGER -->
 
       <button
         class="menu-btn"
@@ -561,21 +476,16 @@
       </button>
 
 
-      <!-- LOGO -->
-
       <img
         class="logo"
         src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
         alt="Logo klubu"
       >
 
-
     </div>
 
 
-    <!-- =========================
-         MENU
-    ========================== -->
+    <!-- MENU -->
 
     <aside
       class="side-menu"
@@ -617,26 +527,19 @@
     </aside>
 
 
-    <!-- =========================
-         TEKST GŁÓWNY
-    ========================== -->
+    <!-- GŁÓWNY NAPIS -->
 
     <div class="hero-content">
 
       <h1>
-        Razem<br>
-        po zwycięstwo.
+        Więcej<br>
+        niż klub.
       </h1>
 
     </div>
 
-
   </section>
 
-
-  <!-- =========================
-       JAVASCRIPT
-  ========================== -->
 
   <script>
 
@@ -647,16 +550,14 @@
       document.getElementById("sideMenu");
 
 
-    /* otwieranie menu */
+    /* OTWIERANIE / ZAMYKANIE */
 
     menuBtn.addEventListener(
       "click",
       () => {
 
         const isOpen =
-          sideMenu.classList.toggle(
-            "open"
-          );
+          sideMenu.classList.toggle("open");
 
         menuBtn.classList.toggle(
           "active",
@@ -672,65 +573,50 @@
     );
 
 
-    /* zamykanie po kliknięciu
-       elementu menu */
+    /* ZAMKNIJ PO KLIKNIĘCIU LINKU */
 
     document
-      .querySelectorAll(
-        ".side-menu a"
-      )
-      .forEach(
-        link => {
+      .querySelectorAll(".side-menu a")
+      .forEach(link => {
 
-          link.addEventListener(
-            "click",
-            () => {
+        link.addEventListener(
+          "click",
+          () => {
 
-              sideMenu
-                .classList
-                .remove(
-                  "open"
-                );
+            sideMenu.classList.remove(
+              "open"
+            );
 
-              menuBtn
-                .classList
-                .remove(
-                  "active"
-                );
+            menuBtn.classList.remove(
+              "active"
+            );
 
-              menuBtn.setAttribute(
-                "aria-expanded",
-                "false"
-              );
+            menuBtn.setAttribute(
+              "aria-expanded",
+              "false"
+            );
 
-            }
-          );
+          }
+        );
 
-        }
-      );
+      });
 
 
-    /* ESC zamyka menu */
+    /* ESC ZAMYKA MENU */
 
     document.addEventListener(
       "keydown",
       event => {
 
-        if (
-          event.key === "Escape"
-        ) {
+        if (event.key === "Escape") {
 
-          sideMenu
-            .classList
-            .remove(
-              "open"
-            );
+          sideMenu.classList.remove(
+            "open"
+          );
 
-          menuBtn
-            .classList
-            .remove(
-              "active"
-            );
+          menuBtn.classList.remove(
+            "active"
+          );
 
           menuBtn.setAttribute(
             "aria-expanded",
@@ -743,7 +629,6 @@
     );
 
   </script>
-
 
 </body>
 </html>
