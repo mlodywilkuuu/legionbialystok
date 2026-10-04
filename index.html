@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="pl">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Legion Białystok</title>
 
@@ -24,7 +18,6 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   >
 
-
   <style>
 
     /* =====================================================
@@ -37,53 +30,39 @@
       box-sizing: border-box;
     }
 
-
     html,
     body {
       width: 100%;
       height: 100%;
     }
 
-
     html {
       overflow: hidden;
     }
 
-
     body {
-      font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+      font-family: Arial, Helvetica, sans-serif;
       background: #05070b;
-
       color: #fff;
-
       overflow: hidden;
     }
-
 
     button,
     a {
       -webkit-tap-highlight-color: transparent;
     }
 
-
     button {
       font-family: inherit;
     }
 
 
-
     /* =====================================================
-       LOGO + MENU
+       LOGO + HAMBURGER
     ===================================================== */
 
     .top {
-
       position: absolute;
-
       top: 0;
       left: 0;
 
@@ -94,29 +73,27 @@
 
       gap: 14px;
 
-      padding:
-        20px
-        28px;
+      padding: 20px 28px;
 
+      pointer-events: none;
     }
 
+    .menu-btn,
+    .logo {
+      pointer-events: auto;
+    }
 
     .logo {
-
       height: 78px;
-
       width: auto;
 
       object-fit: contain;
 
       filter:
         drop-shadow(
-          0 5px 18px
-          rgba(0,0,0,.55)
+          0 5px 18px rgba(0,0,0,.55)
         );
-
     }
-
 
 
     /* =====================================================
@@ -124,18 +101,15 @@
     ===================================================== */
 
     .menu-btn {
-
       position: relative;
 
       width: 48px;
       height: 48px;
 
       border: 0;
-
       background: transparent;
 
       display: flex;
-
       flex-direction: column;
 
       align-items: center;
@@ -146,12 +120,9 @@
       cursor: pointer;
 
       z-index: 1300;
-
     }
 
-
     .menu-btn span {
-
       display: block;
 
       width: 30px;
@@ -162,50 +133,34 @@
       background: #fff;
 
       box-shadow:
-        0 2px 10px
-        rgba(0,0,0,.4);
+        0 2px 10px rgba(0,0,0,.4);
 
       transition:
         transform .3s ease,
         opacity .2s ease,
         width .2s ease;
-
     }
-
 
     .menu-btn span:nth-child(2) {
-
       width: 21px;
-
       margin-right: 9px;
-
     }
 
-
     .menu-btn.active span:nth-child(1) {
-
       transform:
         translateY(10px)
         rotate(45deg);
-
     }
-
 
     .menu-btn.active span:nth-child(2) {
-
       opacity: 0;
-
     }
 
-
     .menu-btn.active span:nth-child(3) {
-
       transform:
         translateY(-10px)
         rotate(-45deg);
-
     }
-
 
 
     /* =====================================================
@@ -213,9 +168,7 @@
     ===================================================== */
 
     .menu-overlay {
-
       position: fixed;
-
       inset: 0;
 
       z-index: 800;
@@ -223,31 +176,21 @@
       background:
         rgba(0,0,0,.58);
 
-      backdrop-filter:
-        blur(5px);
-
-      -webkit-backdrop-filter:
-        blur(5px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
 
       opacity: 0;
-
       visibility: hidden;
 
       transition:
         opacity .3s ease,
         visibility .3s ease;
-
     }
-
 
     .menu-overlay.open {
-
       opacity: 1;
-
       visibility: visible;
-
     }
-
 
 
     /* =====================================================
@@ -255,14 +198,12 @@
     ===================================================== */
 
     .side-menu {
-
       position: fixed;
 
       top: 0;
       left: 0;
 
-      width:
-        min(400px, 92vw);
+      width: min(400px, 92vw);
 
       height: 100vh;
       height: 100dvh;
@@ -270,10 +211,12 @@
       z-index: 1000;
 
       display: flex;
-
       flex-direction: column;
 
-      padding-top: 105px;
+      /*
+        Zostawiamy miejsce na logo + X.
+      */
+      padding-top: 135px;
 
       background:
         linear-gradient(
@@ -283,37 +226,26 @@
         );
 
       border-right:
-        1px solid
-        rgba(255,255,255,.08);
+        1px solid rgba(255,255,255,.08);
 
       box-shadow:
-        30px 0 100px
-        rgba(0,0,0,.50);
+        30px 0 100px rgba(0,0,0,.50);
 
       transform:
         translateX(-105%);
 
       transition:
-        transform
-        .4s
-        cubic-bezier(.77,0,.18,1);
+        transform .4s cubic-bezier(.77,0,.18,1);
 
       /*
-        BRAK SCROLLA W MENU
+        Bez bocznego scrollbara.
       */
-
       overflow: hidden;
-
     }
-
 
     .side-menu.open {
-
-      transform:
-        translateX(0);
-
+      transform: translateX(0);
     }
-
 
 
     /* =====================================================
@@ -321,19 +253,18 @@
     ===================================================== */
 
     .menu-nav {
-
       width: 100%;
 
-      flex: 1;
-
-      min-height: 0;
-
       display: flex;
-
       flex-direction: column;
 
+      /*
+        WAŻNE:
+        nie dajemy flex: 1,
+        dzięki temu sociale nie lecą na sam dół.
+      */
+      flex: none;
     }
-
 
 
     /* =====================================================
@@ -342,76 +273,56 @@
 
     .main-link,
     .dropdown-button {
-
       width: 100%;
 
       min-height: 52px;
 
-      flex-shrink: 0;
-
       display: flex;
-
       align-items: center;
+      justify-content: space-between;
 
-      justify-content:
-        space-between;
-
-      padding:
-        12px
-        25px;
+      padding: 12px 23px;
 
       border: 0;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.10);
+        1px solid rgba(255,255,255,.10);
 
-      background:
-        transparent;
+      background: transparent;
 
       color: #fff;
 
       text-decoration: none;
-
       text-align: left;
 
-      font-size: 20px;
-
+      font-size: 19px;
       line-height: 1;
 
       font-weight: 900;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
       cursor: pointer;
 
       transition:
         background .2s ease,
         padding-left .2s ease;
-
     }
-
 
     .main-link:hover,
     .dropdown-button:hover {
-
       background:
         rgba(255,255,255,.06);
 
-      padding-left:
-        31px;
-
+      padding-left: 29px;
     }
 
 
-
     /* =====================================================
-       STRZAŁKA
+       STRZAŁKI PODMENU
     ===================================================== */
 
     .dropdown-arrow {
-
       position: relative;
 
       width: 13px;
@@ -423,13 +334,10 @@
 
       transition:
         transform .25s ease;
-
     }
-
 
     .dropdown-arrow::before,
     .dropdown-arrow::after {
-
       content: "";
 
       position: absolute;
@@ -441,38 +349,27 @@
 
       background:
         rgba(255,255,255,.75);
-
     }
 
-
     .dropdown-arrow::before {
-
       left: 0;
 
       transform:
         rotate(45deg);
-
     }
 
-
     .dropdown-arrow::after {
-
       right: 1px;
 
       transform:
         rotate(-45deg);
-
     }
-
 
     .dropdown.active
     .dropdown-arrow {
-
       transform:
         rotate(180deg);
-
     }
-
 
 
     /* =====================================================
@@ -480,10 +377,7 @@
     ===================================================== */
 
     .dropdown-content {
-
       max-height: 0;
-
-      flex-shrink: 0;
 
       overflow: hidden;
 
@@ -492,29 +386,20 @@
 
       transition:
         max-height .28s ease;
-
     }
-
 
     .dropdown.active
     .dropdown-content {
-
       max-height: 150px;
-
     }
 
-
     .dropdown-content a {
-
       display: block;
 
-      padding:
-        9px
-        34px;
+      padding: 10px 33px;
 
       border-bottom:
-        1px solid
-        rgba(255,255,255,.055);
+        1px solid rgba(255,255,255,.055);
 
       color:
         rgba(255,255,255,.68);
@@ -522,46 +407,35 @@
       text-decoration: none;
 
       font-size: 12px;
-
       line-height: 1.2;
 
       font-weight: 700;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
       transition:
         color .2s ease,
         background .2s ease,
         padding-left .2s ease;
-
     }
 
-
     .dropdown-content a::before {
-
       content: "—";
 
       margin-right: 10px;
 
       color:
         rgba(255,255,255,.28);
-
     }
 
-
     .dropdown-content a:hover {
-
       color: #fff;
 
       background:
         rgba(255,255,255,.04);
 
-      padding-left:
-        41px;
-
+      padding-left: 41px;
     }
-
 
 
     /* =====================================================
@@ -569,51 +443,45 @@
     ===================================================== */
 
     .socials {
-
-      margin-top: auto;
+      /*
+        Sociale zaraz pod KONTAKTEM.
+      */
+      margin-top: 18px;
 
       flex-shrink: 0;
 
-      min-height: 66px;
-
       padding:
-        12px
-        25px
-        14px;
+        15px
+        23px
+        16px;
 
       border-top:
-        1px solid
-        rgba(255,255,255,.10);
+        1px solid rgba(255,255,255,.10);
+
+      border-bottom:
+        1px solid rgba(255,255,255,.06);
 
       display: flex;
-
       align-items: center;
 
       gap: 11px;
 
       background:
-        rgba(0,0,0,.15);
-
+        rgba(0,0,0,.12);
     }
 
-
     .socials a {
-
       width: 38px;
       height: 38px;
 
-      flex:
-        0 0 38px;
+      flex: 0 0 38px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       border:
-        1px solid
-        rgba(255,255,255,.30);
+        1px solid rgba(255,255,255,.30);
 
       border-radius: 50%;
 
@@ -629,33 +497,27 @@
         border-color .2s ease,
         background .2s ease,
         transform .2s ease;
-
     }
 
-
     .socials a:hover {
-
       color: #fff;
 
       border-color:
-        rgba(255,255,255,.9);
+        rgba(255,255,255,.90);
 
       background:
         rgba(255,255,255,.08);
 
       transform:
         translateY(-2px);
-
     }
 
 
-
     /* =====================================================
-       SLIDER
+       SLIDER ARTYKUŁÓW
     ===================================================== */
 
     .articles-slider {
-
       position: relative;
 
       width: 100vw;
@@ -666,23 +528,18 @@
       overflow: hidden;
 
       background: #05070b;
-
     }
 
 
-
     /* =====================================================
-       SLIDE
+       POJEDYNCZY SLIDE
     ===================================================== */
 
     .slide {
-
       position: absolute;
-
       inset: 0;
 
       opacity: 0;
-
       visibility: hidden;
 
       transform:
@@ -693,29 +550,18 @@
         transform 1s ease,
         visibility .65s ease;
 
-      background-position:
-        center;
-
-      background-size:
-        cover;
-
-      background-repeat:
-        no-repeat;
-
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
     }
 
-
     .slide.active {
-
       opacity: 1;
-
       visibility: visible;
 
       transform:
         scale(1);
-
     }
-
 
 
     /* =====================================================
@@ -723,76 +569,59 @@
     ===================================================== */
 
     .slide-1 {
-
       background:
-
         radial-gradient(
           circle at 72% 28%,
           rgba(43,87,255,.38),
           transparent 35%
         ),
-
         linear-gradient(
           115deg,
           #080d16 0%,
           #172b50 52%,
           #06080d 100%
         );
-
     }
 
-
     .slide-2 {
-
       background:
-
         radial-gradient(
           circle at 75% 30%,
           rgba(100,65,255,.35),
           transparent 35%
         ),
-
         linear-gradient(
           115deg,
           #05070b,
           #1b2044 55%,
           #080910
         );
-
     }
 
-
     .slide-3 {
-
       background:
-
         radial-gradient(
           circle at 70% 30%,
           rgba(36,132,255,.35),
           transparent 35%
         ),
-
         linear-gradient(
           115deg,
           #06090e,
           #102f4f 55%,
           #05070b
         );
-
     }
 
 
-
     /* =====================================================
-       CIEMNE PRZEJŚCIE NA TLE
+       CIEMNE PRZEJŚCIE
     ===================================================== */
 
     .slide::before {
-
       content: "";
 
       position: absolute;
-
       inset: 0;
 
       z-index: 1;
@@ -800,25 +629,17 @@
       background:
         linear-gradient(
           90deg,
-
           rgba(0,0,0,.93) 0%,
-
           rgba(0,0,0,.72) 25%,
-
           rgba(0,0,0,.25) 58%,
-
           rgba(0,0,0,.08) 100%
         );
-
     }
 
-
     .slide::after {
-
       content: "";
 
       position: absolute;
-
       inset: 0;
 
       z-index: 1;
@@ -826,16 +647,11 @@
       background:
         linear-gradient(
           180deg,
-
           rgba(0,0,0,.20),
-
           transparent 40%,
-
           rgba(0,0,0,.72)
         );
-
     }
-
 
 
     /* =====================================================
@@ -843,11 +659,9 @@
     ===================================================== */
 
     .slide-content {
-
       position: absolute;
 
       left: 8vw;
-
       top: 50%;
 
       transform:
@@ -857,12 +671,9 @@
 
       width:
         min(590px, 80vw);
-
     }
 
-
     .slide-category {
-
       display: block;
 
       margin-bottom: 13px;
@@ -871,20 +682,14 @@
         rgba(255,255,255,.72);
 
       font-size: 12px;
-
       font-weight: 800;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
-      letter-spacing:
-        1.4px;
-
+      letter-spacing: 1.4px;
     }
 
-
     .slide h1 {
-
       max-width: 650px;
 
       font-family:
@@ -893,30 +698,20 @@
         serif;
 
       font-size:
-        clamp(
-          42px,
-          5vw,
-          78px
-        );
+        clamp(42px, 5vw, 78px);
 
       line-height: .98;
 
-      letter-spacing:
-        -2.5px;
+      letter-spacing: -2.5px;
 
       font-weight: 700;
 
       text-shadow:
-        0 7px 30px
-        rgba(0,0,0,.35);
-
+        0 7px 30px rgba(0,0,0,.35);
     }
 
-
     .slide-info {
-
       display: flex;
-
       align-items: center;
 
       gap: 8px;
@@ -927,27 +722,19 @@
         rgba(255,255,255,.65);
 
       font-size: 12px;
-
     }
-
 
     .slide-info strong {
-
       color: #fff;
-
     }
-
 
 
     /* =====================================================
-       OTWÓRZ ARTYKUŁ
+       PRZYCISK OTWÓRZ
     ===================================================== */
 
     .open-article {
-
-      display:
-        inline-flex;
-
+      display: inline-flex;
       align-items: center;
 
       gap: 10px;
@@ -967,7 +754,6 @@
       color: #fff;
 
       font-size: 12px;
-
       font-weight: 800;
 
       cursor: pointer;
@@ -975,26 +761,18 @@
       transition:
         transform .2s ease,
         background .2s ease;
-
     }
 
-
     .open-article:hover {
-
       transform:
         translateY(-2px);
 
       background: #e11c24;
-
     }
-
 
     .open-article .arrow {
-
       font-size: 17px;
-
     }
-
 
 
     /* =====================================================
@@ -1002,11 +780,9 @@
     ===================================================== */
 
     .slider-arrows {
-
       position: absolute;
 
       right: 8vw;
-
       top: 53%;
 
       z-index: 20;
@@ -1014,18 +790,14 @@
       display: flex;
 
       gap: 8px;
-
     }
 
-
     .slider-arrow {
-
       width: 46px;
       height: 46px;
 
       border:
-        1px solid
-        rgba(255,255,255,.15);
+        1px solid rgba(255,255,255,.15);
 
       border-radius: 50%;
 
@@ -1047,20 +819,15 @@
       transition:
         background .2s ease,
         transform .2s ease;
-
     }
 
-
     .slider-arrow:hover {
-
       background:
         rgba(255,255,255,.25);
 
       transform:
         scale(1.06);
-
     }
-
 
 
     /* =====================================================
@@ -1068,7 +835,6 @@
     ===================================================== */
 
     .slider-bottom {
-
       position: absolute;
 
       left: 8vw;
@@ -1079,13 +845,10 @@
       z-index: 20;
 
       display: flex;
-
       align-items: center;
 
       gap: 30px;
-
     }
-
 
 
     /* =====================================================
@@ -1093,20 +856,15 @@
     ===================================================== */
 
     .slider-dots {
-
       display: flex;
-
       align-items: center;
 
       gap: 7px;
 
       flex-shrink: 0;
-
     }
 
-
     .dot {
-
       width: 11px;
       height: 11px;
 
@@ -1122,18 +880,13 @@
       transition:
         width .25s ease,
         background .25s ease;
-
     }
 
-
     .dot.active {
-
       width: 45px;
 
       background: #fff;
-
     }
-
 
 
     /* =====================================================
@@ -1141,7 +894,6 @@
     ===================================================== */
 
     .article-tabs {
-
       display: flex;
 
       gap: 10px;
@@ -1149,19 +901,15 @@
       margin-left: auto;
 
       max-width: 720px;
-
     }
 
-
     .article-tab {
-
       width: 220px;
 
       min-height: 62px;
 
       border:
-        1px solid
-        rgba(255,255,255,.08);
+        1px solid rgba(255,255,255,.08);
 
       border-radius: 40px;
 
@@ -1177,7 +925,6 @@
       color: #fff;
 
       display: flex;
-
       align-items: center;
 
       gap: 11px;
@@ -1196,13 +943,10 @@
         background .25s ease,
         transform .25s ease,
         border-color .25s ease;
-
     }
-
 
     .article-tab:hover,
     .article-tab.active {
-
       background:
         rgba(80,80,85,.82);
 
@@ -1211,24 +955,18 @@
 
       transform:
         translateY(-2px);
-
     }
 
-
     .tab-image {
-
       width: 47px;
       height: 47px;
 
-      flex:
-        0 0 47px;
+      flex: 0 0 47px;
 
       border-radius: 50%;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       background:
@@ -1239,45 +977,34 @@
         );
 
       border:
-        2px solid
-        rgba(255,255,255,.8);
+        2px solid rgba(255,255,255,.8);
 
       font-size: 12px;
-
       font-weight: 900;
-
     }
 
-
     .article-tab p {
-
       font-size: 11px;
 
       line-height: 1.35;
 
       color:
         rgba(255,255,255,.88);
-
     }
 
 
-
     /* =====================================================
-       MODAL ARTYKUŁU
+       OKNO ARTYKUŁU
     ===================================================== */
 
     .article-modal {
-
       position: fixed;
-
       inset: 0;
 
       z-index: 3000;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       padding: 25px;
@@ -1292,27 +1019,19 @@
         blur(15px);
 
       opacity: 0;
-
       visibility: hidden;
 
       transition:
         opacity .3s ease,
         visibility .3s ease;
-
     }
-
 
     .article-modal.open {
-
       opacity: 1;
-
       visibility: visible;
-
     }
 
-
     .modal-window {
-
       position: relative;
 
       width:
@@ -1327,8 +1046,7 @@
         60px;
 
       border:
-        1px solid
-        rgba(255,255,255,.10);
+        1px solid rgba(255,255,255,.10);
 
       border-radius: 20px;
 
@@ -1340,14 +1058,10 @@
         );
 
       box-shadow:
-        0 40px 120px
-        rgba(0,0,0,.65);
-
+        0 40px 120px rgba(0,0,0,.65);
     }
 
-
     .close-modal {
-
       position: absolute;
 
       top: 20px;
@@ -1368,29 +1082,20 @@
       font-size: 24px;
 
       cursor: pointer;
-
     }
 
-
     .modal-category {
-
       color: #7f9fff;
 
       font-size: 12px;
-
       font-weight: 800;
 
-      text-transform:
-        uppercase;
+      text-transform: uppercase;
 
-      letter-spacing:
-        1.5px;
-
+      letter-spacing: 1.5px;
     }
 
-
     .modal-window h2 {
-
       margin-top: 13px;
 
       font-family:
@@ -1399,22 +1104,14 @@
         serif;
 
       font-size:
-        clamp(
-          34px,
-          5vw,
-          60px
-        );
+        clamp(34px, 5vw, 60px);
 
       line-height: 1;
 
-      letter-spacing:
-        -2px;
-
+      letter-spacing: -2px;
     }
 
-
     .modal-window p {
-
       margin-top: 28px;
 
       max-width: 720px;
@@ -1425,27 +1122,21 @@
       font-size: 16px;
 
       line-height: 1.8;
-
     }
 
 
-
     /* =====================================================
-       NISKIE EKRANY - MENU NADAL BEZ SCROLLA
+       NISKIE EKRANY
     ===================================================== */
 
     @media (max-height: 750px) {
 
       .side-menu {
-
-        padding-top: 82px;
-
+        padding-top: 110px;
       }
-
 
       .main-link,
       .dropdown-button {
-
         min-height: 43px;
 
         padding:
@@ -1453,54 +1144,39 @@
           23px;
 
         font-size: 17px;
-
       }
 
-
       .dropdown-content a {
-
         padding:
           7px
           31px;
 
         font-size: 10px;
-
       }
-
 
       .dropdown.active
       .dropdown-content {
-
         max-height: 115px;
-
       }
-
 
       .socials {
-
-        min-height: 54px;
+        margin-top: 12px;
 
         padding:
-          8px
+          10px
           23px
-          10px;
-
+          11px;
       }
 
-
       .socials a {
-
         width: 34px;
         height: 34px;
 
         flex-basis: 34px;
 
         font-size: 13px;
-
       }
-
     }
-
 
 
     /* =====================================================
@@ -1510,20 +1186,13 @@
     @media (max-width: 950px) {
 
       .article-tabs {
-
         display: none;
-
       }
-
 
       .slider-arrows {
-
         right: 30px;
-
       }
-
     }
-
 
 
     /* =====================================================
@@ -1533,206 +1202,151 @@
     @media (max-width: 650px) {
 
       .top {
-
         padding:
           14px
           16px;
 
-        gap: 6px;
-
+        gap: 8px;
       }
-
 
       .logo {
-
-        height: 60px;
-
+        height: 74px;
       }
-
 
       .menu-btn {
-
         width: 42px;
         height: 42px;
-
       }
-
 
       .menu-btn span {
-
         width: 27px;
-
       }
 
-
       .menu-btn span:nth-child(2) {
-
         width: 19px;
 
         margin-right: 8px;
-
       }
 
 
-      .side-menu {
+      /* MENU */
 
+      .side-menu {
         width: 100%;
 
         height: 100vh;
         height: 100dvh;
 
-        padding-top: 78px;
+        /*
+          Przyciski nie nachodzą na logo.
+        */
+        padding-top: 125px;
 
         overflow: hidden;
-
       }
-
 
       .main-link,
       .dropdown-button {
-
-        min-height: 46px;
+        min-height: 47px;
 
         padding:
           10px
-          21px;
+          22px;
 
         font-size: 17px;
-
       }
 
-
       .dropdown-content a {
-
         padding:
           8px
           29px;
 
         font-size: 10px;
-
       }
-
 
       .dropdown.active
       .dropdown-content {
-
         max-height: 125px;
-
       }
-
 
       .socials {
-
-        min-height: 57px;
+        margin-top: 15px;
 
         padding:
-          9px
-          21px
-          11px;
-
+          13px
+          22px
+          14px;
       }
 
-
       .socials a {
-
         width: 35px;
         height: 35px;
 
         flex-basis: 35px;
 
         font-size: 14px;
-
       }
 
 
-      .slide::before {
+      /* SLIDER */
 
+      .slide::before {
         background:
           linear-gradient(
             90deg,
             rgba(0,0,0,.91),
             rgba(0,0,0,.28)
           );
-
       }
 
-
       .slide-content {
-
         left: 24px;
         right: 24px;
 
         top: 49%;
 
         width: auto;
-
       }
-
 
       .slide h1 {
-
         font-size:
-          clamp(
-            37px,
-            12vw,
-            59px
-          );
+          clamp(37px, 12vw, 59px);
 
-        letter-spacing:
-          -2px;
-
+        letter-spacing: -2px;
       }
 
-
       .slider-arrows {
-
         top: auto;
 
         right: 20px;
-
         bottom: 88px;
-
       }
-
 
       .slider-arrow {
-
         width: 40px;
         height: 40px;
-
       }
 
-
       .slider-bottom {
-
         left: 24px;
         right: 24px;
 
         bottom: 32px;
-
       }
-
 
       .article-modal {
-
         padding: 12px;
-
       }
 
-
       .modal-window {
-
         padding:
           60px
           24px
           30px;
 
         border-radius: 16px;
-
       }
-
     }
-
 
 
     /* =====================================================
@@ -1744,16 +1358,20 @@
     and
     (max-height: 650px) {
 
-      .side-menu {
-
-        padding-top: 68px;
-
+      .top {
+        padding-top: 8px;
       }
 
+      .logo {
+        height: 60px;
+      }
+
+      .side-menu {
+        padding-top: 92px;
+      }
 
       .main-link,
       .dropdown-button {
-
         min-height: 39px;
 
         padding:
@@ -1761,55 +1379,40 @@
           20px;
 
         font-size: 15px;
-
       }
 
-
       .dropdown-content a {
-
         padding:
           6px
           28px;
 
         font-size: 9px;
-
       }
-
 
       .dropdown.active
       .dropdown-content {
-
         max-height: 100px;
-
       }
-
 
       .socials {
-
-        min-height: 49px;
+        margin-top: 8px;
 
         padding:
-          7px
+          8px
           20px;
-
       }
 
-
       .socials a {
-
         width: 31px;
         height: 31px;
 
         flex-basis: 31px;
 
         font-size: 12px;
-
       }
-
     }
 
   </style>
-
 </head>
 
 
@@ -1829,11 +1432,9 @@
       aria-label="Otwórz menu"
       aria-expanded="false"
     >
-
       <span></span>
       <span></span>
       <span></span>
-
     </button>
 
 
@@ -1846,7 +1447,6 @@
   </div>
 
 
-
   <!-- =====================================================
        OVERLAY
   ===================================================== -->
@@ -1857,9 +1457,8 @@
   ></div>
 
 
-
   <!-- =====================================================
-       MENU BOCZNE
+       MENU
   ===================================================== -->
 
   <aside
@@ -1878,7 +1477,6 @@
       >
         Strona główna
       </a>
-
 
 
       <!-- WIADOMOŚCI -->
@@ -1909,7 +1507,6 @@
             Artykuły
           </a>
 
-
           <a
             href="https://legionbialystok.pl/galeria"
           >
@@ -1919,7 +1516,6 @@
         </div>
 
       </div>
-
 
 
       <!-- DRUŻYNY -->
@@ -1950,7 +1546,6 @@
             Pierwszy Zespół
           </a>
 
-
           <a
             href="https://legionbialystok.pl/drugizespol"
           >
@@ -1960,7 +1555,6 @@
         </div>
 
       </div>
-
 
 
       <!-- KLUB -->
@@ -1991,13 +1585,11 @@
             O nas
           </a>
 
-
           <a
             href="https://legionbialystok.pl/dokumenty"
           >
             Dokumenty
           </a>
-
 
           <a
             href="https://legionbialystok.pl/legion"
@@ -2010,7 +1602,6 @@
       </div>
 
 
-
       <!-- KONTAKT -->
 
       <a
@@ -2021,7 +1612,6 @@
       </a>
 
     </nav>
-
 
 
     <!-- =====================================================
@@ -2067,9 +1657,8 @@
   </aside>
 
 
-
   <!-- =====================================================
-       ARTYKUŁY
+       SLIDER ARTYKUŁÓW
   ===================================================== -->
 
   <main
@@ -2090,11 +1679,9 @@
           Klub
         </span>
 
-
         <h1>
           Nowy rozdział naszego klubu
         </h1>
-
 
         <div class="slide-info">
 
@@ -2102,9 +1689,7 @@
             Aktualności
           </strong>
 
-          <span>
-            •
-          </span>
+          <span>•</span>
 
           <span>
             Dzisiaj
@@ -2132,7 +1717,6 @@
     </article>
 
 
-
     <!-- ARTYKUŁ 2 -->
 
     <article
@@ -2145,11 +1729,9 @@
           Pierwsza drużyna
         </span>
 
-
         <h1>
           Drużyna gotowa na kolejne wyzwanie
         </h1>
-
 
         <div class="slide-info">
 
@@ -2157,9 +1739,7 @@
             Drużyna
           </strong>
 
-          <span>
-            •
-          </span>
+          <span>•</span>
 
           <span>
             1 dzień temu
@@ -2187,7 +1767,6 @@
     </article>
 
 
-
     <!-- ARTYKUŁ 3 -->
 
     <article
@@ -2200,11 +1779,9 @@
           Mecz
         </span>
 
-
         <h1>
           Wszystko gotowe na wielkie spotkanie
         </h1>
-
 
         <div class="slide-info">
 
@@ -2212,9 +1789,7 @@
             Mecze
           </strong>
 
-          <span>
-            •
-          </span>
+          <span>•</span>
 
           <span>
             2 dni temu
@@ -2242,7 +1817,6 @@
     </article>
 
 
-
     <!-- =====================================================
          STRZAŁKI
     ===================================================== -->
@@ -2258,7 +1832,6 @@
         ‹
       </button>
 
-
       <button
         class="slider-arrow"
         id="nextSlide"
@@ -2271,13 +1844,14 @@
     </div>
 
 
-
     <!-- =====================================================
          DÓŁ SLIDERA
     ===================================================== -->
 
     <div class="slider-bottom">
 
+
+      <!-- KROPKI -->
 
       <div class="slider-dots">
 
@@ -2288,14 +1862,12 @@
           aria-label="Artykuł 1"
         ></button>
 
-
         <button
           class="dot"
           data-slide="1"
           type="button"
           aria-label="Artykuł 2"
         ></button>
-
 
         <button
           class="dot"
@@ -2307,11 +1879,9 @@
       </div>
 
 
-
-      <!-- PIGUŁKI -->
+      <!-- PIGUŁKI ARTYKUŁÓW -->
 
       <div class="article-tabs">
-
 
         <button
           class="article-tab active"
@@ -2330,7 +1900,6 @@
         </button>
 
 
-
         <button
           class="article-tab"
           data-slide="1"
@@ -2346,7 +1915,6 @@
           </p>
 
         </button>
-
 
 
         <button
@@ -2370,7 +1938,6 @@
     </div>
 
   </main>
-
 
 
   <!-- =====================================================
@@ -2414,7 +1981,6 @@
   </div>
 
 
-
   <!-- =====================================================
        JAVASCRIPT
   ===================================================== -->
@@ -2426,40 +1992,22 @@
     ===================================================== */
 
     const menuBtn =
-      document.getElementById(
-        "menuBtn"
-      );
-
+      document.getElementById("menuBtn");
 
     const sideMenu =
-      document.getElementById(
-        "sideMenu"
-      );
-
+      document.getElementById("sideMenu");
 
     const menuOverlay =
-      document.getElementById(
-        "menuOverlay"
-      );
-
+      document.getElementById("menuOverlay");
 
 
     function openMenu() {
 
-      sideMenu
-        .classList
-        .add("open");
+      sideMenu.classList.add("open");
 
+      menuOverlay.classList.add("open");
 
-      menuOverlay
-        .classList
-        .add("open");
-
-
-      menuBtn
-        .classList
-        .add("active");
-
+      menuBtn.classList.add("active");
 
       menuBtn.setAttribute(
         "aria-expanded",
@@ -2469,23 +2017,13 @@
     }
 
 
-
     function closeMenu() {
 
-      sideMenu
-        .classList
-        .remove("open");
+      sideMenu.classList.remove("open");
 
+      menuOverlay.classList.remove("open");
 
-      menuOverlay
-        .classList
-        .remove("open");
-
-
-      menuBtn
-        .classList
-        .remove("active");
-
+      menuBtn.classList.remove("active");
 
       menuBtn.setAttribute(
         "aria-expanded",
@@ -2494,24 +2032,18 @@
 
 
       /*
-        Po zamknięciu menu zamykamy też
-        rozwinięte podmenu.
+        Zamykamy też wszystkie podmenu.
       */
 
       document
-        .querySelectorAll(
-          ".dropdown"
-        )
+        .querySelectorAll(".dropdown")
         .forEach(item => {
 
-          item
-            .classList
-            .remove("active");
+          item.classList.remove("active");
 
         });
 
     }
-
 
 
     menuBtn.addEventListener(
@@ -2519,9 +2051,7 @@
       () => {
 
         if (
-          sideMenu
-            .classList
-            .contains("open")
+          sideMenu.classList.contains("open")
         ) {
 
           closeMenu();
@@ -2536,24 +2066,20 @@
     );
 
 
-
     menuOverlay.addEventListener(
       "click",
       closeMenu
     );
 
 
-
     /* =====================================================
        ROZWIJANE MENU
 
-       TYLKO JEDNO MOŻE BYĆ OTWARTE.
+       Tylko jedna sekcja może być otwarta.
     ===================================================== */
 
     document
-      .querySelectorAll(
-        ".dropdown-button"
-      )
+      .querySelectorAll(".dropdown-button")
       .forEach(button => {
 
         button.addEventListener(
@@ -2563,11 +2089,8 @@
             const dropdown =
               button.parentElement;
 
-
             const wasOpen =
-              dropdown
-                .classList
-                .contains("active");
+              dropdown.classList.contains("active");
 
 
             /*
@@ -2575,29 +2098,22 @@
             */
 
             document
-              .querySelectorAll(
-                ".dropdown"
-              )
+              .querySelectorAll(".dropdown")
               .forEach(item => {
 
-                item
-                  .classList
-                  .remove("active");
+                item.classList.remove("active");
 
               });
 
 
             /*
-              Jeżeli kliknięty wcześniej
-              nie był otwarty,
-              otwieramy właśnie jego.
+              Jeżeli kliknięte menu nie było
+              otwarte - otwieramy je.
             */
 
             if (!wasOpen) {
 
-              dropdown
-                .classList
-                .add("active");
+              dropdown.classList.add("active");
 
             }
 
@@ -2607,56 +2123,37 @@
       });
 
 
-
     /* =====================================================
        SLIDER
     ===================================================== */
 
     const slides =
-      document.querySelectorAll(
-        ".slide"
-      );
-
+      document.querySelectorAll(".slide");
 
     const dots =
-      document.querySelectorAll(
-        ".dot"
-      );
-
+      document.querySelectorAll(".dot");
 
     const tabs =
-      document.querySelectorAll(
-        ".article-tab"
-      );
-
+      document.querySelectorAll(".article-tab");
 
     const prevSlide =
-      document.getElementById(
-        "prevSlide"
-      );
-
+      document.getElementById("prevSlide");
 
     const nextSlide =
-      document.getElementById(
-        "nextSlide"
-      );
+      document.getElementById("nextSlide");
 
 
     let currentSlide = 0;
 
 
-
     function showSlide(index) {
 
-      if (
-        index < 0
-      ) {
+      if (index < 0) {
 
         index =
           slides.length - 1;
 
       }
-
 
       if (
         index >= slides.length
@@ -2667,45 +2164,28 @@
       }
 
 
-      currentSlide =
-        index;
+      currentSlide = index;
 
 
+      slides.forEach(slide => {
 
-      slides.forEach(
-        slide => {
+        slide.classList.remove("active");
 
-          slide
-            .classList
-            .remove("active");
-
-        }
-      );
+      });
 
 
+      dots.forEach(dot => {
 
-      dots.forEach(
-        dot => {
+        dot.classList.remove("active");
 
-          dot
-            .classList
-            .remove("active");
-
-        }
-      );
+      });
 
 
+      tabs.forEach(tab => {
 
-      tabs.forEach(
-        tab => {
+        tab.classList.remove("active");
 
-          tab
-            .classList
-            .remove("active");
-
-        }
-      );
-
+      });
 
 
       slides[index]
@@ -2713,10 +2193,7 @@
         .add("active");
 
 
-
-      if (
-        dots[index]
-      ) {
+      if (dots[index]) {
 
         dots[index]
           .classList
@@ -2725,10 +2202,7 @@
       }
 
 
-
-      if (
-        tabs[index]
-      ) {
+      if (tabs[index]) {
 
         tabs[index]
           .classList
@@ -2737,7 +2211,6 @@
       }
 
     }
-
 
 
     nextSlide.addEventListener(
@@ -2752,7 +2225,6 @@
     );
 
 
-
     prevSlide.addEventListener(
       "click",
       () => {
@@ -2765,53 +2237,46 @@
     );
 
 
+    dots.forEach(dot => {
 
-    dots.forEach(
-      dot => {
+      dot.addEventListener(
+        "click",
+        () => {
 
-        dot.addEventListener(
-          "click",
-          () => {
+          showSlide(
+            Number(
+              dot.dataset.slide
+            )
+          );
 
-            showSlide(
-              Number(
-                dot.dataset.slide
-              )
-            );
+        }
+      );
 
-          }
-        );
-
-      }
-    );
+    });
 
 
+    tabs.forEach(tab => {
 
-    tabs.forEach(
-      tab => {
+      tab.addEventListener(
+        "click",
+        () => {
 
-        tab.addEventListener(
-          "click",
-          () => {
+          showSlide(
+            Number(
+              tab.dataset.slide
+            )
+          );
 
-            showSlide(
-              Number(
-                tab.dataset.slide
-              )
-            );
+        }
+      );
 
-          }
-        );
-
-      }
-    );
-
+    });
 
 
     /* =====================================================
-       ARTYKUŁY
+       DANE ARTYKUŁÓW
 
-       PÓŹNIEJ ZASTĄPIMY TO SUPABASE.
+       Później podłączymy Supabase.
     ===================================================== */
 
     const articles = [
@@ -2825,10 +2290,9 @@
           "Nowy rozdział naszego klubu",
 
         text:
-          "Tutaj znajdzie się pełna treść pierwszego artykułu. Później ten artykuł będzie pobierany automatycznie z Supabase i połączony ze stroną artykułów oraz panelem administratora."
+          "Tutaj znajdzie się pełna treść pierwszego artykułu. Później artykuły będą automatycznie pobierane z Supabase i połączone z panelem administratora."
 
       },
-
 
       {
 
@@ -2842,7 +2306,6 @@
           "Tutaj znajdzie się pełna treść artykułu dotyczącego pierwszej drużyny Legionu Białystok."
 
       },
-
 
       {
 
@@ -2860,9 +2323,8 @@
     ];
 
 
-
     /* =====================================================
-       MODAL
+       MODAL ARTYKUŁU
     ===================================================== */
 
     const articleModal =
@@ -2870,30 +2332,25 @@
         "articleModal"
       );
 
-
     const closeModal =
       document.getElementById(
         "closeModal"
       );
-
 
     const modalCategory =
       document.getElementById(
         "modalCategory"
       );
 
-
     const modalTitle =
       document.getElementById(
         "modalTitle"
       );
 
-
     const modalText =
       document.getElementById(
         "modalText"
       );
-
 
 
     function openArticle(index) {
@@ -2910,10 +2367,8 @@
       modalCategory.textContent =
         article.category;
 
-
       modalTitle.textContent =
         article.title;
-
 
       modalText.textContent =
         article.text;
@@ -2926,7 +2381,6 @@
     }
 
 
-
     function closeArticle() {
 
       articleModal
@@ -2936,11 +2390,8 @@
     }
 
 
-
     document
-      .querySelectorAll(
-        ".open-article"
-      )
+      .querySelectorAll(".open-article")
       .forEach(button => {
 
         button.addEventListener(
@@ -2959,12 +2410,10 @@
       });
 
 
-
     closeModal.addEventListener(
       "click",
       closeArticle
     );
-
 
 
     articleModal.addEventListener(
@@ -2972,8 +2421,7 @@
       event => {
 
         if (
-          event.target ===
-          articleModal
+          event.target === articleModal
         ) {
 
           closeArticle();
@@ -2982,7 +2430,6 @@
 
       }
     );
-
 
 
     /* =====================================================
@@ -2994,17 +2441,14 @@
       event => {
 
         if (
-          event.key !==
-          "Escape"
+          event.key !== "Escape"
         ) {
           return;
         }
 
 
         if (
-          articleModal
-            .classList
-            .contains("open")
+          articleModal.classList.contains("open")
         ) {
 
           closeArticle();
@@ -3015,9 +2459,7 @@
 
 
         if (
-          sideMenu
-            .classList
-            .contains("open")
+          sideMenu.classList.contains("open")
         ) {
 
           closeMenu();
@@ -3030,5 +2472,4 @@
   </script>
 
 </body>
-
 </html>
