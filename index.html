@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Legion Białystok</title>
 
@@ -12,53 +18,72 @@
     href="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
   >
 
-  <!-- Font Awesome - ikony social media -->
+  <!-- IKONY SOCIAL MEDIA -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   >
 
+
   <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+
     html,
     body {
       width: 100%;
-      min-height: 100%;
+      height: 100%;
     }
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #05070b;
-      color: #fff;
-      overflow-x: hidden;
-    }
 
-    body.no-scroll {
+    html {
       overflow: hidden;
     }
+
+
+    body {
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background: #05070b;
+
+      color: #fff;
+
+      overflow: hidden;
+    }
+
 
     button,
     a {
       -webkit-tap-highlight-color: transparent;
     }
 
+
     button {
       font-family: inherit;
     }
 
 
-    /* ==================================================
-       LOGO + HAMBURGER
-       BRAK OSOBNEGO PASKA
-    ================================================== */
+
+    /* =====================================================
+       LOGO + MENU
+    ===================================================== */
 
     .top {
+
       position: absolute;
+
       top: 0;
       left: 0;
 
@@ -67,105 +92,130 @@
       display: flex;
       align-items: center;
 
-      gap: 15px;
+      gap: 14px;
 
-      padding: 22px 30px;
+      padding:
+        20px
+        28px;
+
     }
 
-    .logo {
-      position: relative;
 
-      height: 82px;
+    .logo {
+
+      height: 78px;
+
       width: auto;
 
       object-fit: contain;
 
-      z-index: 1200;
-
       filter:
         drop-shadow(
-          0 5px 18px rgba(0,0,0,.55)
+          0 5px 18px
+          rgba(0,0,0,.55)
         );
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        HAMBURGER
-    ================================================== */
+    ===================================================== */
 
     .menu-btn {
+
       position: relative;
 
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
 
       border: 0;
-      outline: 0;
 
       background: transparent;
 
       display: flex;
+
       flex-direction: column;
-      justify-content: center;
+
       align-items: center;
+      justify-content: center;
 
       gap: 7px;
 
       cursor: pointer;
 
       z-index: 1300;
+
     }
 
+
     .menu-btn span {
+
       display: block;
 
-      width: 31px;
+      width: 30px;
       height: 3px;
 
-      border-radius: 50px;
+      border-radius: 20px;
 
       background: #fff;
 
       box-shadow:
-        0 2px 10px rgba(0,0,0,.35);
+        0 2px 10px
+        rgba(0,0,0,.4);
 
       transition:
-        transform .35s ease,
-        opacity .25s ease,
-        width .25s ease;
+        transform .3s ease,
+        opacity .2s ease,
+        width .2s ease;
+
     }
+
 
     .menu-btn span:nth-child(2) {
-      width: 22px;
+
+      width: 21px;
+
       margin-right: 9px;
+
     }
 
 
-    /* hamburger -> X */
-
     .menu-btn.active span:nth-child(1) {
+
       transform:
         translateY(10px)
         rotate(45deg);
+
     }
+
 
     .menu-btn.active span:nth-child(2) {
+
       opacity: 0;
+
     }
 
+
     .menu-btn.active span:nth-child(3) {
+
       transform:
         translateY(-10px)
         rotate(-45deg);
+
     }
 
 
-    /* ==================================================
-       CIEMNE TŁO PO OTWARCIU MENU
-    ================================================== */
+
+    /* =====================================================
+       OVERLAY
+    ===================================================== */
 
     .menu-overlay {
+
       position: fixed;
+
       inset: 0;
 
       z-index: 800;
@@ -173,131 +223,195 @@
       background:
         rgba(0,0,0,.58);
 
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter:
+        blur(5px);
+
+      -webkit-backdrop-filter:
+        blur(5px);
 
       opacity: 0;
+
       visibility: hidden;
 
       transition:
         opacity .3s ease,
         visibility .3s ease;
+
     }
+
 
     .menu-overlay.open {
+
       opacity: 1;
+
       visibility: visible;
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        MENU BOCZNE
-    ================================================== */
+    ===================================================== */
 
     .side-menu {
+
       position: fixed;
 
       top: 0;
       left: 0;
 
-      width: min(400px, 92vw);
+      width:
+        min(400px, 92vw);
+
       height: 100vh;
+      height: 100dvh;
 
       z-index: 1000;
 
       display: flex;
+
       flex-direction: column;
 
-      padding-top: 118px;
+      padding-top: 105px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(15,15,16,.98),
-          rgba(8,10,14,.98)
+          rgba(15,15,16,.985),
+          rgba(7,9,13,.985)
         );
 
       border-right:
-        1px solid rgba(255,255,255,.09);
+        1px solid
+        rgba(255,255,255,.08);
 
       box-shadow:
-        30px 0 90px rgba(0,0,0,.45);
+        30px 0 100px
+        rgba(0,0,0,.50);
 
       transform:
         translateX(-105%);
 
       transition:
-        transform .4s cubic-bezier(.77,0,.18,1);
+        transform
+        .4s
+        cubic-bezier(.77,0,.18,1);
 
-      overflow-y: auto;
+      /*
+        BRAK SCROLLA W MENU
+      */
+
+      overflow: hidden;
+
     }
+
 
     .side-menu.open {
-      transform: translateX(0);
+
+      transform:
+        translateX(0);
+
     }
+
+
+
+    /* =====================================================
+       NAWIGACJA
+    ===================================================== */
 
     .menu-nav {
+
       width: 100%;
+
+      flex: 1;
+
+      min-height: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        GŁÓWNE PRZYCISKI MENU
-    ================================================== */
+    ===================================================== */
 
     .main-link,
     .dropdown-button {
+
       width: 100%;
 
-      min-height: 66px;
+      min-height: 52px;
+
+      flex-shrink: 0;
 
       display: flex;
+
       align-items: center;
-      justify-content: space-between;
+
+      justify-content:
+        space-between;
 
       padding:
-        18px
-        26px;
+        12px
+        25px;
 
       border: 0;
-      border-bottom:
-        1px solid rgba(255,255,255,.10);
 
-      background: transparent;
+      border-bottom:
+        1px solid
+        rgba(255,255,255,.10);
+
+      background:
+        transparent;
 
       color: #fff;
 
       text-decoration: none;
+
       text-align: left;
 
-      font-size: 22px;
+      font-size: 20px;
+
       line-height: 1;
 
       font-weight: 900;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
 
       cursor: pointer;
 
       transition:
         background .2s ease,
         padding-left .2s ease;
+
     }
+
 
     .main-link:hover,
     .dropdown-button:hover {
+
       background:
         rgba(255,255,255,.06);
 
-      padding-left: 32px;
+      padding-left:
+        31px;
+
     }
 
 
-    /* ==================================================
-       STRZAŁKA ROZWIJANEGO MENU
-    ================================================== */
+
+    /* =====================================================
+       STRZAŁKA
+    ===================================================== */
 
     .dropdown-arrow {
+
       position: relative;
 
       width: 13px;
@@ -308,11 +422,14 @@
       flex-shrink: 0;
 
       transition:
-        transform .3s ease;
+        transform .25s ease;
+
     }
+
 
     .dropdown-arrow::before,
     .dropdown-arrow::after {
+
       content: "";
 
       position: absolute;
@@ -324,35 +441,49 @@
 
       background:
         rgba(255,255,255,.75);
+
     }
 
+
     .dropdown-arrow::before {
+
       left: 0;
 
       transform:
         rotate(45deg);
+
     }
 
+
     .dropdown-arrow::after {
+
       right: 1px;
 
       transform:
         rotate(-45deg);
+
     }
+
 
     .dropdown.active
     .dropdown-arrow {
+
       transform:
         rotate(180deg);
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        PODMENU
-    ================================================== */
+    ===================================================== */
 
     .dropdown-content {
+
       max-height: 0;
+
+      flex-shrink: 0;
 
       overflow: hidden;
 
@@ -360,153 +491,198 @@
         rgba(0,0,0,.25);
 
       transition:
-        max-height .35s ease;
+        max-height .28s ease;
+
     }
+
 
     .dropdown.active
     .dropdown-content {
-      max-height: 300px;
+
+      max-height: 150px;
+
     }
 
+
     .dropdown-content a {
-      position: relative;
 
       display: block;
 
       padding:
-        15px
+        9px
         34px;
 
       border-bottom:
-        1px solid rgba(255,255,255,.06);
-
-      color:
-        rgba(255,255,255,.67);
-
-      text-decoration: none;
-
-      font-size: 14px;
-      font-weight: 700;
-
-      text-transform: uppercase;
-
-      transition:
-        color .2s ease,
-        background .2s ease,
-        padding-left .2s ease;
-    }
-
-    .dropdown-content a::before {
-      content: "—";
-
-      margin-right: 11px;
-
-      color:
-        rgba(255,255,255,.27);
-    }
-
-    .dropdown-content a:hover {
-      color: #fff;
-
-      background:
-        rgba(255,255,255,.04);
-
-      padding-left: 42px;
-    }
-
-
-    /* ==================================================
-       SOCIAL MEDIA
-    ================================================== */
-
-    .socials {
-      margin-top: auto;
-
-      padding:
-        22px
-        26px
-        27px;
-
-      border-top:
-        1px solid rgba(255,255,255,.10);
-
-      display: flex;
-      align-items: center;
-
-      gap: 12px;
-    }
-
-    .socials a {
-      width: 42px;
-      height: 42px;
-
-      flex:
-        0 0 42px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border:
-        1px solid rgba(255,255,255,.30);
-
-      border-radius: 50%;
+        1px solid
+        rgba(255,255,255,.055);
 
       color:
         rgba(255,255,255,.68);
 
       text-decoration: none;
 
-      font-size: 17px;
+      font-size: 12px;
+
+      line-height: 1.2;
+
+      font-weight: 700;
+
+      text-transform:
+        uppercase;
+
+      transition:
+        color .2s ease,
+        background .2s ease,
+        padding-left .2s ease;
+
+    }
+
+
+    .dropdown-content a::before {
+
+      content: "—";
+
+      margin-right: 10px;
+
+      color:
+        rgba(255,255,255,.28);
+
+    }
+
+
+    .dropdown-content a:hover {
+
+      color: #fff;
+
+      background:
+        rgba(255,255,255,.04);
+
+      padding-left:
+        41px;
+
+    }
+
+
+
+    /* =====================================================
+       SOCIAL MEDIA
+    ===================================================== */
+
+    .socials {
+
+      margin-top: auto;
+
+      flex-shrink: 0;
+
+      min-height: 66px;
+
+      padding:
+        12px
+        25px
+        14px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.10);
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      background:
+        rgba(0,0,0,.15);
+
+    }
+
+
+    .socials a {
+
+      width: 38px;
+      height: 38px;
+
+      flex:
+        0 0 38px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border:
+        1px solid
+        rgba(255,255,255,.30);
+
+      border-radius: 50%;
+
+      color:
+        rgba(255,255,255,.72);
+
+      text-decoration: none;
+
+      font-size: 15px;
 
       transition:
         color .2s ease,
         border-color .2s ease,
         background .2s ease,
         transform .2s ease;
+
     }
 
+
     .socials a:hover {
+
       color: #fff;
 
       border-color:
-        rgba(255,255,255,.85);
+        rgba(255,255,255,.9);
 
       background:
         rgba(255,255,255,.08);
 
       transform:
-        translateY(-3px);
+        translateY(-2px);
+
     }
 
 
-    /* ==================================================
-       SLIDER ARTYKUŁÓW
-    ================================================== */
+
+    /* =====================================================
+       SLIDER
+    ===================================================== */
 
     .articles-slider {
+
       position: relative;
 
-      width: 100%;
-      height: 100vh;
+      width: 100vw;
 
-      min-height: 650px;
+      height: 100vh;
+      height: 100dvh;
 
       overflow: hidden;
 
       background: #05070b;
+
     }
 
 
-    /* ==================================================
-       POJEDYNCZY ARTYKUŁ
-    ================================================== */
+
+    /* =====================================================
+       SLIDE
+    ===================================================== */
 
     .slide {
+
       position: absolute;
+
       inset: 0;
 
       opacity: 0;
+
       visibility: hidden;
 
       transform:
@@ -517,83 +693,106 @@
         transform 1s ease,
         visibility .65s ease;
 
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
+      background-position:
+        center;
+
+      background-size:
+        cover;
+
+      background-repeat:
+        no-repeat;
+
     }
 
+
     .slide.active {
+
       opacity: 1;
+
       visibility: visible;
 
       transform:
         scale(1);
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        TŁA ARTYKUŁÓW
-
-       Później tutaj damy zdjęcia z Supabase.
-       Na razie możesz też zrobić np.:
-
-       background-image: url("mecz1.jpg");
-    ================================================== */
+    ===================================================== */
 
     .slide-1 {
+
       background:
+
         radial-gradient(
           circle at 72% 28%,
           rgba(43,87,255,.38),
           transparent 35%
         ),
+
         linear-gradient(
           115deg,
           #080d16 0%,
           #172b50 52%,
           #06080d 100%
         );
+
     }
 
+
     .slide-2 {
+
       background:
+
         radial-gradient(
           circle at 75% 30%,
           rgba(100,65,255,.35),
           transparent 35%
         ),
+
         linear-gradient(
           115deg,
           #05070b,
           #1b2044 55%,
           #080910
         );
+
     }
 
+
     .slide-3 {
+
       background:
+
         radial-gradient(
           circle at 70% 30%,
           rgba(36,132,255,.35),
           transparent 35%
         ),
+
         linear-gradient(
           115deg,
           #06090e,
           #102f4f 55%,
           #05070b
         );
+
     }
 
 
-    /* ==================================================
-       CIEMNY GRADIENT NAD ARTYKUŁEM
-    ================================================== */
+
+    /* =====================================================
+       CIEMNE PRZEJŚCIE NA TLE
+    ===================================================== */
 
     .slide::before {
+
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       z-index: 1;
@@ -601,17 +800,25 @@
       background:
         linear-gradient(
           90deg,
+
           rgba(0,0,0,.93) 0%,
+
           rgba(0,0,0,.72) 25%,
+
           rgba(0,0,0,.25) 58%,
+
           rgba(0,0,0,.08) 100%
         );
+
     }
 
+
     .slide::after {
+
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       z-index: 1;
@@ -619,21 +826,28 @@
       background:
         linear-gradient(
           180deg,
-          rgba(0,0,0,.20) 0%,
+
+          rgba(0,0,0,.20),
+
           transparent 40%,
-          rgba(0,0,0,.72) 100%
+
+          rgba(0,0,0,.72)
         );
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        TREŚĆ ARTYKUŁU
-    ================================================== */
+    ===================================================== */
 
     .slide-content {
+
       position: absolute;
 
       left: 8vw;
+
       top: 50%;
 
       transform:
@@ -643,9 +857,12 @@
 
       width:
         min(590px, 80vw);
+
     }
 
+
     .slide-category {
+
       display: block;
 
       margin-bottom: 13px;
@@ -654,14 +871,20 @@
         rgba(255,255,255,.72);
 
       font-size: 12px;
+
       font-weight: 800;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
 
-      letter-spacing: 1.4px;
+      letter-spacing:
+        1.4px;
+
     }
 
+
     .slide h1 {
+
       max-width: 650px;
 
       font-family:
@@ -670,20 +893,30 @@
         serif;
 
       font-size:
-        clamp(42px, 5vw, 78px);
+        clamp(
+          42px,
+          5vw,
+          78px
+        );
 
       line-height: .98;
 
-      letter-spacing: -2.5px;
+      letter-spacing:
+        -2.5px;
 
       font-weight: 700;
 
       text-shadow:
-        0 7px 30px rgba(0,0,0,.35);
+        0 7px 30px
+        rgba(0,0,0,.35);
+
     }
 
+
     .slide-info {
+
       display: flex;
+
       align-items: center;
 
       gap: 8px;
@@ -694,19 +927,27 @@
         rgba(255,255,255,.65);
 
       font-size: 12px;
+
     }
+
 
     .slide-info strong {
+
       color: #fff;
+
     }
 
 
-    /* ==================================================
-       PRZYCISK OTWÓRZ
-    ================================================== */
+
+    /* =====================================================
+       OTWÓRZ ARTYKUŁ
+    ===================================================== */
 
     .open-article {
-      display: inline-flex;
+
+      display:
+        inline-flex;
+
       align-items: center;
 
       gap: 10px;
@@ -718,6 +959,7 @@
         19px;
 
       border: 0;
+
       border-radius: 9px;
 
       background: #c71920;
@@ -725,6 +967,7 @@
       color: #fff;
 
       font-size: 12px;
+
       font-weight: 800;
 
       cursor: pointer;
@@ -732,28 +975,38 @@
       transition:
         transform .2s ease,
         background .2s ease;
+
     }
 
+
     .open-article:hover {
+
       transform:
         translateY(-2px);
 
       background: #e11c24;
+
     }
+
 
     .open-article .arrow {
+
       font-size: 17px;
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        STRZAŁKI SLIDERA
-    ================================================== */
+    ===================================================== */
 
     .slider-arrows {
+
       position: absolute;
 
       right: 8vw;
+
       top: 53%;
 
       z-index: 20;
@@ -761,14 +1014,18 @@
       display: flex;
 
       gap: 8px;
+
     }
 
+
     .slider-arrow {
+
       width: 46px;
       height: 46px;
 
       border:
-        1px solid rgba(255,255,255,.15);
+        1px solid
+        rgba(255,255,255,.15);
 
       border-radius: 50%;
 
@@ -790,51 +1047,66 @@
       transition:
         background .2s ease,
         transform .2s ease;
+
     }
 
+
     .slider-arrow:hover {
+
       background:
         rgba(255,255,255,.25);
 
       transform:
         scale(1.06);
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        DÓŁ SLIDERA
-    ================================================== */
+    ===================================================== */
 
     .slider-bottom {
+
       position: absolute;
 
       left: 8vw;
       right: 8vw;
-      bottom: 45px;
+
+      bottom: 40px;
 
       z-index: 20;
 
       display: flex;
+
       align-items: center;
 
       gap: 30px;
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        KROPKI
-    ================================================== */
+    ===================================================== */
 
     .slider-dots {
+
       display: flex;
+
       align-items: center;
 
       gap: 7px;
 
       flex-shrink: 0;
+
     }
 
+
     .dot {
+
       width: 11px;
       height: 11px;
 
@@ -850,20 +1122,26 @@
       transition:
         width .25s ease,
         background .25s ease;
+
     }
 
+
     .dot.active {
+
       width: 45px;
 
       background: #fff;
+
     }
 
 
-    /* ==================================================
-       DOLNE PIGUŁKI ARTYKUŁÓW
-    ================================================== */
+
+    /* =====================================================
+       PIGUŁKI ARTYKUŁÓW
+    ===================================================== */
 
     .article-tabs {
+
       display: flex;
 
       gap: 10px;
@@ -871,14 +1149,19 @@
       margin-left: auto;
 
       max-width: 720px;
+
     }
 
+
     .article-tab {
+
       width: 220px;
+
       min-height: 62px;
 
       border:
-        1px solid rgba(255,255,255,.08);
+        1px solid
+        rgba(255,255,255,.08);
 
       border-radius: 40px;
 
@@ -894,6 +1177,7 @@
       color: #fff;
 
       display: flex;
+
       align-items: center;
 
       gap: 11px;
@@ -912,10 +1196,13 @@
         background .25s ease,
         transform .25s ease,
         border-color .25s ease;
+
     }
+
 
     .article-tab:hover,
     .article-tab.active {
+
       background:
         rgba(80,80,85,.82);
 
@@ -924,9 +1211,12 @@
 
       transform:
         translateY(-2px);
+
     }
 
+
     .tab-image {
+
       width: 47px;
       height: 47px;
 
@@ -936,7 +1226,9 @@
       border-radius: 50%;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
       background:
@@ -947,34 +1239,45 @@
         );
 
       border:
-        2px solid rgba(255,255,255,.8);
+        2px solid
+        rgba(255,255,255,.8);
 
       font-size: 12px;
+
       font-weight: 900;
+
     }
 
+
     .article-tab p {
+
       font-size: 11px;
 
       line-height: 1.35;
 
       color:
         rgba(255,255,255,.88);
+
     }
 
 
-    /* ==================================================
-       OKNO ARTYKUŁU
-    ================================================== */
+
+    /* =====================================================
+       MODAL ARTYKUŁU
+    ===================================================== */
 
     .article-modal {
+
       position: fixed;
+
       inset: 0;
 
       z-index: 3000;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
       padding: 25px;
@@ -989,19 +1292,27 @@
         blur(15px);
 
       opacity: 0;
+
       visibility: hidden;
 
       transition:
         opacity .3s ease,
         visibility .3s ease;
+
     }
+
 
     .article-modal.open {
+
       opacity: 1;
+
       visibility: visible;
+
     }
 
+
     .modal-window {
+
       position: relative;
 
       width:
@@ -1016,7 +1327,8 @@
         60px;
 
       border:
-        1px solid rgba(255,255,255,.10);
+        1px solid
+        rgba(255,255,255,.10);
 
       border-radius: 20px;
 
@@ -1028,10 +1340,14 @@
         );
 
       box-shadow:
-        0 40px 120px rgba(0,0,0,.65);
+        0 40px 120px
+        rgba(0,0,0,.65);
+
     }
 
+
     .close-modal {
+
       position: absolute;
 
       top: 20px;
@@ -1053,31 +1369,28 @@
 
       cursor: pointer;
 
-      transition:
-        background .2s ease,
-        transform .2s ease;
     }
 
-    .close-modal:hover {
-      background:
-        rgba(255,255,255,.16);
-
-      transform:
-        rotate(90deg);
-    }
 
     .modal-category {
+
       color: #7f9fff;
 
       font-size: 12px;
+
       font-weight: 800;
 
-      text-transform: uppercase;
+      text-transform:
+        uppercase;
 
-      letter-spacing: 1.5px;
+      letter-spacing:
+        1.5px;
+
     }
 
+
     .modal-window h2 {
+
       margin-top: 13px;
 
       font-family:
@@ -1086,14 +1399,22 @@
         serif;
 
       font-size:
-        clamp(34px, 5vw, 60px);
+        clamp(
+          34px,
+          5vw,
+          60px
+        );
 
       line-height: 1;
 
-      letter-spacing: -2px;
+      letter-spacing:
+        -2px;
+
     }
 
+
     .modal-window p {
+
       margin-top: 28px;
 
       max-width: 720px;
@@ -1104,177 +1425,407 @@
       font-size: 16px;
 
       line-height: 1.8;
+
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
+       NISKIE EKRANY - MENU NADAL BEZ SCROLLA
+    ===================================================== */
+
+    @media (max-height: 750px) {
+
+      .side-menu {
+
+        padding-top: 82px;
+
+      }
+
+
+      .main-link,
+      .dropdown-button {
+
+        min-height: 43px;
+
+        padding:
+          9px
+          23px;
+
+        font-size: 17px;
+
+      }
+
+
+      .dropdown-content a {
+
+        padding:
+          7px
+          31px;
+
+        font-size: 10px;
+
+      }
+
+
+      .dropdown.active
+      .dropdown-content {
+
+        max-height: 115px;
+
+      }
+
+
+      .socials {
+
+        min-height: 54px;
+
+        padding:
+          8px
+          23px
+          10px;
+
+      }
+
+
+      .socials a {
+
+        width: 34px;
+        height: 34px;
+
+        flex-basis: 34px;
+
+        font-size: 13px;
+
+      }
+
+    }
+
+
+
+    /* =====================================================
        TABLET
-    ================================================== */
+    ===================================================== */
 
     @media (max-width: 950px) {
 
       .article-tabs {
+
         display: none;
+
       }
 
+
       .slider-arrows {
+
         right: 30px;
+
       }
 
     }
 
 
-    /* ==================================================
+
+    /* =====================================================
        TELEFON
-    ================================================== */
+    ===================================================== */
 
     @media (max-width: 650px) {
 
-      .articles-slider {
-        min-height: 600px;
-      }
-
       .top {
-        padding:
-          16px
-          18px;
 
-        gap: 7px;
+        padding:
+          14px
+          16px;
+
+        gap: 6px;
+
       }
+
 
       .logo {
-        height: 62px;
+
+        height: 60px;
+
       }
+
 
       .menu-btn {
-        width: 44px;
-        height: 44px;
+
+        width: 42px;
+        height: 42px;
+
       }
+
 
       .menu-btn span {
-        width: 28px;
+
+        width: 27px;
+
       }
+
 
       .menu-btn span:nth-child(2) {
-        width: 20px;
+
+        width: 19px;
+
         margin-right: 8px;
+
       }
 
-
-      /* menu na telefonie */
 
       .side-menu {
+
         width: 100%;
 
-        padding-top: 95px;
+        height: 100vh;
+        height: 100dvh;
+
+        padding-top: 78px;
+
+        overflow: hidden;
+
       }
+
 
       .main-link,
       .dropdown-button {
-        min-height: 58px;
+
+        min-height: 46px;
 
         padding:
-          16px
-          24px;
+          10px
+          21px;
 
-        font-size: 20px;
+        font-size: 17px;
+
       }
+
 
       .dropdown-content a {
-        padding:
-          14px
-          31px;
 
-        font-size: 13px;
+        padding:
+          8px
+          29px;
+
+        font-size: 10px;
+
       }
+
+
+      .dropdown.active
+      .dropdown-content {
+
+        max-height: 125px;
+
+      }
+
 
       .socials {
+
+        min-height: 57px;
+
         padding:
-          20px
-          24px
-          25px;
+          9px
+          21px
+          11px;
+
       }
 
 
-      /* slider */
+      .socials a {
+
+        width: 35px;
+        height: 35px;
+
+        flex-basis: 35px;
+
+        font-size: 14px;
+
+      }
+
 
       .slide::before {
+
         background:
           linear-gradient(
             90deg,
-            rgba(0,0,0,.90),
-            rgba(0,0,0,.30)
+            rgba(0,0,0,.91),
+            rgba(0,0,0,.28)
           );
+
       }
 
+
       .slide-content {
+
         left: 24px;
         right: 24px;
 
-        top: 52%;
+        top: 49%;
 
         width: auto;
+
       }
+
 
       .slide h1 {
-        font-size:
-          clamp(38px, 12vw, 60px);
 
-        letter-spacing: -2px;
+        font-size:
+          clamp(
+            37px,
+            12vw,
+            59px
+          );
+
+        letter-spacing:
+          -2px;
+
       }
 
+
       .slider-arrows {
+
         top: auto;
 
         right: 20px;
-        bottom: 95px;
+
+        bottom: 88px;
+
       }
+
 
       .slider-arrow {
+
         width: 40px;
         height: 40px;
+
       }
 
+
       .slider-bottom {
+
         left: 24px;
         right: 24px;
 
-        bottom: 35px;
+        bottom: 32px;
+
       }
 
-
-      /* modal */
 
       .article-modal {
+
         padding: 12px;
+
       }
 
+
       .modal-window {
+
         padding:
-          65px
-          25px
-          35px;
+          60px
+          24px
+          30px;
 
         border-radius: 16px;
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       BARDZO NISKIE TELEFONY
+    ===================================================== */
+
+    @media
+    (max-width: 650px)
+    and
+    (max-height: 650px) {
+
+      .side-menu {
+
+        padding-top: 68px;
+
+      }
+
+
+      .main-link,
+      .dropdown-button {
+
+        min-height: 39px;
+
+        padding:
+          8px
+          20px;
+
+        font-size: 15px;
+
+      }
+
+
+      .dropdown-content a {
+
+        padding:
+          6px
+          28px;
+
+        font-size: 9px;
+
+      }
+
+
+      .dropdown.active
+      .dropdown-content {
+
+        max-height: 100px;
+
+      }
+
+
+      .socials {
+
+        min-height: 49px;
+
+        padding:
+          7px
+          20px;
+
+      }
+
+
+      .socials a {
+
+        width: 31px;
+        height: 31px;
+
+        flex-basis: 31px;
+
+        font-size: 12px;
+
       }
 
     }
 
   </style>
+
 </head>
+
 
 <body>
 
 
-  <!-- ==================================================
+  <!-- =====================================================
        LOGO + HAMBURGER
-  ================================================== -->
+  ===================================================== -->
 
   <div class="top">
 
     <button
       class="menu-btn"
       id="menuBtn"
+      type="button"
       aria-label="Otwórz menu"
       aria-expanded="false"
     >
@@ -1295,9 +1846,10 @@
   </div>
 
 
-  <!-- ==================================================
-       OVERLAY MENU
-  ================================================== -->
+
+  <!-- =====================================================
+       OVERLAY
+  ===================================================== -->
 
   <div
     class="menu-overlay"
@@ -1305,9 +1857,10 @@
   ></div>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        MENU BOCZNE
-  ================================================== -->
+  ===================================================== -->
 
   <aside
     class="side-menu"
@@ -1325,6 +1878,7 @@
       >
         Strona główna
       </a>
+
 
 
       <!-- WIADOMOŚCI -->
@@ -1355,6 +1909,7 @@
             Artykuły
           </a>
 
+
           <a
             href="https://legionbialystok.pl/galeria"
           >
@@ -1364,6 +1919,7 @@
         </div>
 
       </div>
+
 
 
       <!-- DRUŻYNY -->
@@ -1394,6 +1950,7 @@
             Pierwszy Zespół
           </a>
 
+
           <a
             href="https://legionbialystok.pl/drugizespol"
           >
@@ -1403,6 +1960,7 @@
         </div>
 
       </div>
+
 
 
       <!-- KLUB -->
@@ -1433,11 +1991,13 @@
             O nas
           </a>
 
+
           <a
             href="https://legionbialystok.pl/dokumenty"
           >
             Dokumenty
           </a>
+
 
           <a
             href="https://legionbialystok.pl/legion"
@@ -1448,6 +2008,7 @@
         </div>
 
       </div>
+
 
 
       <!-- KONTAKT -->
@@ -1462,9 +2023,10 @@
     </nav>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
          SOCIAL MEDIA
-    ================================================== -->
+    ===================================================== -->
 
     <div class="socials">
 
@@ -1505,9 +2067,10 @@
   </aside>
 
 
-  <!-- ==================================================
-       SLIDER ARTYKUŁÓW
-  ================================================== -->
+
+  <!-- =====================================================
+       ARTYKUŁY
+  ===================================================== -->
 
   <main
     class="articles-slider"
@@ -1515,13 +2078,10 @@
   >
 
 
-    <!-- ==================================================
-         ARTYKUŁ 1
-    ================================================== -->
+    <!-- ARTYKUŁ 1 -->
 
     <article
       class="slide slide-1 active"
-      data-index="0"
     >
 
       <div class="slide-content">
@@ -1529,6 +2089,7 @@
         <span class="slide-category">
           Klub
         </span>
+
 
         <h1>
           Nowy rozdział naszego klubu
@@ -1571,13 +2132,11 @@
     </article>
 
 
-    <!-- ==================================================
-         ARTYKUŁ 2
-    ================================================== -->
+
+    <!-- ARTYKUŁ 2 -->
 
     <article
       class="slide slide-2"
-      data-index="1"
     >
 
       <div class="slide-content">
@@ -1585,6 +2144,7 @@
         <span class="slide-category">
           Pierwsza drużyna
         </span>
+
 
         <h1>
           Drużyna gotowa na kolejne wyzwanie
@@ -1627,13 +2187,11 @@
     </article>
 
 
-    <!-- ==================================================
-         ARTYKUŁ 3
-    ================================================== -->
+
+    <!-- ARTYKUŁ 3 -->
 
     <article
       class="slide slide-3"
-      data-index="2"
     >
 
       <div class="slide-content">
@@ -1641,6 +2199,7 @@
         <span class="slide-category">
           Mecz
         </span>
+
 
         <h1>
           Wszystko gotowe na wielkie spotkanie
@@ -1683,9 +2242,10 @@
     </article>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
          STRZAŁKI
-    ================================================== -->
+    ===================================================== -->
 
     <div class="slider-arrows">
 
@@ -1711,14 +2271,13 @@
     </div>
 
 
-    <!-- ==================================================
+
+    <!-- =====================================================
          DÓŁ SLIDERA
-    ================================================== -->
+    ===================================================== -->
 
     <div class="slider-bottom">
 
-
-      <!-- KROPKI -->
 
       <div class="slider-dots">
 
@@ -1729,12 +2288,14 @@
           aria-label="Artykuł 1"
         ></button>
 
+
         <button
           class="dot"
           data-slide="1"
           type="button"
           aria-label="Artykuł 2"
         ></button>
+
 
         <button
           class="dot"
@@ -1746,7 +2307,8 @@
       </div>
 
 
-      <!-- PIGUŁKI ARTYKUŁÓW -->
+
+      <!-- PIGUŁKI -->
 
       <div class="article-tabs">
 
@@ -1768,6 +2330,7 @@
         </button>
 
 
+
         <button
           class="article-tab"
           data-slide="1"
@@ -1783,6 +2346,7 @@
           </p>
 
         </button>
+
 
 
         <button
@@ -1808,9 +2372,10 @@
   </main>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        OKNO ARTYKUŁU
-  ================================================== -->
+  ===================================================== -->
 
   <div
     class="article-modal"
@@ -1849,24 +2414,34 @@
   </div>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        JAVASCRIPT
-  ================================================== -->
+  ===================================================== -->
 
   <script>
 
-    /* ==================================================
+    /* =====================================================
        MENU
-    ================================================== */
+    ===================================================== */
 
     const menuBtn =
-      document.getElementById("menuBtn");
+      document.getElementById(
+        "menuBtn"
+      );
+
 
     const sideMenu =
-      document.getElementById("sideMenu");
+      document.getElementById(
+        "sideMenu"
+      );
+
 
     const menuOverlay =
-      document.getElementById("menuOverlay");
+      document.getElementById(
+        "menuOverlay"
+      );
+
 
 
     function openMenu() {
@@ -1875,17 +2450,16 @@
         .classList
         .add("open");
 
+
       menuOverlay
         .classList
         .add("open");
+
 
       menuBtn
         .classList
         .add("active");
 
-      document.body
-        .classList
-        .add("no-scroll");
 
       menuBtn.setAttribute(
         "aria-expanded",
@@ -1895,30 +2469,49 @@
     }
 
 
+
     function closeMenu() {
 
       sideMenu
         .classList
         .remove("open");
 
+
       menuOverlay
         .classList
         .remove("open");
+
 
       menuBtn
         .classList
         .remove("active");
 
-      document.body
-        .classList
-        .remove("no-scroll");
 
       menuBtn.setAttribute(
         "aria-expanded",
         "false"
       );
 
+
+      /*
+        Po zamknięciu menu zamykamy też
+        rozwinięte podmenu.
+      */
+
+      document
+        .querySelectorAll(
+          ".dropdown"
+        )
+        .forEach(item => {
+
+          item
+            .classList
+            .remove("active");
+
+        });
+
     }
+
 
 
     menuBtn.addEventListener(
@@ -1943,18 +2536,24 @@
     );
 
 
+
     menuOverlay.addEventListener(
       "click",
       closeMenu
     );
 
 
-    /* ==================================================
+
+    /* =====================================================
        ROZWIJANE MENU
-    ================================================== */
+
+       TYLKO JEDNO MOŻE BYĆ OTWARTE.
+    ===================================================== */
 
     document
-      .querySelectorAll(".dropdown-button")
+      .querySelectorAll(
+        ".dropdown-button"
+      )
       .forEach(button => {
 
         button.addEventListener(
@@ -1965,26 +2564,42 @@
               button.parentElement;
 
 
+            const wasOpen =
+              dropdown
+                .classList
+                .contains("active");
+
+
+            /*
+              Zamykamy wszystkie.
+            */
+
             document
-              .querySelectorAll(".dropdown")
+              .querySelectorAll(
+                ".dropdown"
+              )
               .forEach(item => {
 
-                if (
-                  item !== dropdown
-                ) {
-
-                  item
-                    .classList
-                    .remove("active");
-
-                }
+                item
+                  .classList
+                  .remove("active");
 
               });
 
 
-            dropdown
-              .classList
-              .toggle("active");
+            /*
+              Jeżeli kliknięty wcześniej
+              nie był otwarty,
+              otwieramy właśnie jego.
+            */
+
+            if (!wasOpen) {
+
+              dropdown
+                .classList
+                .add("active");
+
+            }
 
           }
         );
@@ -1992,32 +2607,50 @@
       });
 
 
-    /* ==================================================
-       SLIDER ARTYKUŁÓW
-    ================================================== */
+
+    /* =====================================================
+       SLIDER
+    ===================================================== */
 
     const slides =
-      document.querySelectorAll(".slide");
+      document.querySelectorAll(
+        ".slide"
+      );
+
 
     const dots =
-      document.querySelectorAll(".dot");
+      document.querySelectorAll(
+        ".dot"
+      );
+
 
     const tabs =
-      document.querySelectorAll(".article-tab");
+      document.querySelectorAll(
+        ".article-tab"
+      );
+
 
     const prevSlide =
-      document.getElementById("prevSlide");
+      document.getElementById(
+        "prevSlide"
+      );
+
 
     const nextSlide =
-      document.getElementById("nextSlide");
+      document.getElementById(
+        "nextSlide"
+      );
 
 
     let currentSlide = 0;
 
 
+
     function showSlide(index) {
 
-      if (index < 0) {
+      if (
+        index < 0
+      ) {
 
         index =
           slides.length - 1;
@@ -2034,7 +2667,9 @@
       }
 
 
-      currentSlide = index;
+      currentSlide =
+        index;
+
 
 
       slides.forEach(
@@ -2048,6 +2683,7 @@
       );
 
 
+
       dots.forEach(
         dot => {
 
@@ -2057,6 +2693,7 @@
 
         }
       );
+
 
 
       tabs.forEach(
@@ -2070,17 +2707,28 @@
       );
 
 
+
       slides[index]
         .classList
         .add("active");
 
 
-      dots[index]
-        .classList
-        .add("active");
+
+      if (
+        dots[index]
+      ) {
+
+        dots[index]
+          .classList
+          .add("active");
+
+      }
 
 
-      if (tabs[index]) {
+
+      if (
+        tabs[index]
+      ) {
 
         tabs[index]
           .classList
@@ -2089,6 +2737,7 @@
       }
 
     }
+
 
 
     nextSlide.addEventListener(
@@ -2103,6 +2752,7 @@
     );
 
 
+
     prevSlide.addEventListener(
       "click",
       () => {
@@ -2115,51 +2765,59 @@
     );
 
 
-    dots.forEach(dot => {
 
-      dot.addEventListener(
-        "click",
-        () => {
+    dots.forEach(
+      dot => {
 
-          showSlide(
-            Number(
-              dot.dataset.slide
-            )
-          );
+        dot.addEventListener(
+          "click",
+          () => {
 
-        }
-      );
+            showSlide(
+              Number(
+                dot.dataset.slide
+              )
+            );
 
-    });
+          }
+        );
 
-
-    tabs.forEach(tab => {
-
-      tab.addEventListener(
-        "click",
-        () => {
-
-          showSlide(
-            Number(
-              tab.dataset.slide
-            )
-          );
-
-        }
-      );
-
-    });
+      }
+    );
 
 
-    /* ==================================================
-       TREŚĆ ARTYKUŁÓW
 
-       Później to zastąpimy danymi z Supabase.
-    ================================================== */
+    tabs.forEach(
+      tab => {
+
+        tab.addEventListener(
+          "click",
+          () => {
+
+            showSlide(
+              Number(
+                tab.dataset.slide
+              )
+            );
+
+          }
+        );
+
+      }
+    );
+
+
+
+    /* =====================================================
+       ARTYKUŁY
+
+       PÓŹNIEJ ZASTĄPIMY TO SUPABASE.
+    ===================================================== */
 
     const articles = [
 
       {
+
         category:
           "Klub",
 
@@ -2167,11 +2825,13 @@
           "Nowy rozdział naszego klubu",
 
         text:
-          "Tutaj znajdzie się pełna treść pierwszego artykułu. W przyszłości artykuł będzie automatycznie pobierany z bazy danych i połączony z panelem administratora."
+          "Tutaj znajdzie się pełna treść pierwszego artykułu. Później ten artykuł będzie pobierany automatycznie z Supabase i połączony ze stroną artykułów oraz panelem administratora."
+
       },
 
 
       {
+
         category:
           "Pierwsza drużyna",
 
@@ -2179,11 +2839,13 @@
           "Drużyna gotowa na kolejne wyzwanie",
 
         text:
-          "Tutaj znajdzie się pełna treść artykułu dotyczącego pierwszej drużyny Legionu Białystok. Możesz dodać tutaj relację, informacje przedmeczowe i inne wiadomości."
+          "Tutaj znajdzie się pełna treść artykułu dotyczącego pierwszej drużyny Legionu Białystok."
+
       },
 
 
       {
+
         category:
           "Mecz",
 
@@ -2192,34 +2854,40 @@
 
         text:
           "Tutaj znajdzie się zapowiedź spotkania, informacje dotyczące meczu oraz pozostałe materiały przygotowane dla kibiców."
+
       }
 
     ];
 
 
-    /* ==================================================
-       MODAL ARTYKUŁU
-    ================================================== */
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
 
     const articleModal =
       document.getElementById(
         "articleModal"
       );
 
+
     const closeModal =
       document.getElementById(
         "closeModal"
       );
+
 
     const modalCategory =
       document.getElementById(
         "modalCategory"
       );
 
+
     const modalTitle =
       document.getElementById(
         "modalTitle"
       );
+
 
     const modalText =
       document.getElementById(
@@ -2227,10 +2895,16 @@
       );
 
 
+
     function openArticle(index) {
 
       const article =
         articles[index];
+
+
+      if (!article) {
+        return;
+      }
 
 
       modalCategory.textContent =
@@ -2249,12 +2923,8 @@
         .classList
         .add("open");
 
-
-      document.body
-        .classList
-        .add("no-scroll");
-
     }
+
 
 
     function closeArticle() {
@@ -2263,16 +2933,14 @@
         .classList
         .remove("open");
 
-
-      document.body
-        .classList
-        .remove("no-scroll");
-
     }
 
 
+
     document
-      .querySelectorAll(".open-article")
+      .querySelectorAll(
+        ".open-article"
+      )
       .forEach(button => {
 
         button.addEventListener(
@@ -2291,10 +2959,12 @@
       });
 
 
+
     closeModal.addEventListener(
       "click",
       closeArticle
     );
+
 
 
     articleModal.addEventListener(
@@ -2302,7 +2972,8 @@
       event => {
 
         if (
-          event.target === articleModal
+          event.target ===
+          articleModal
         ) {
 
           closeArticle();
@@ -2313,31 +2984,43 @@
     );
 
 
-    /* ==================================================
+
+    /* =====================================================
        ESC
-    ================================================== */
+    ===================================================== */
 
     document.addEventListener(
       "keydown",
       event => {
 
         if (
-          event.key === "Escape"
+          event.key !==
+          "Escape"
+        ) {
+          return;
+        }
+
+
+        if (
+          articleModal
+            .classList
+            .contains("open")
         ) {
 
-          if (
-            articleModal
-              .classList
-              .contains("open")
-          ) {
+          closeArticle();
 
-            closeArticle();
+          return;
 
-          } else {
+        }
 
-            closeMenu();
 
-          }
+        if (
+          sideMenu
+            .classList
+            .contains("open")
+        ) {
+
+          closeMenu();
 
         }
 
@@ -2347,4 +3030,5 @@
   </script>
 
 </body>
+
 </html>
