@@ -7,11 +7,6 @@
   <title>Klub</title>
 
   <style>
-
-    /* =========================
-       RESET
-    ========================== */
-
     * {
       margin: 0;
       padding: 0;
@@ -24,155 +19,55 @@
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-
       background: #05070b;
       color: #fff;
-
       overflow-x: hidden;
     }
 
-
-    /* =========================
-       GŁÓWNE TŁO
-    ========================== */
-
-    .hero {
-      position: relative;
-
-      width: 100%;
-      min-height: 100vh;
-
+    body.menu-open {
       overflow: hidden;
-
-      background:
-        radial-gradient(
-          circle at 18% 20%,
-          rgba(65, 105, 255, 0.30),
-          transparent 35%
-        ),
-
-        radial-gradient(
-          circle at 85% 75%,
-          rgba(0, 100, 255, 0.20),
-          transparent 40%
-        ),
-
-        linear-gradient(
-          135deg,
-          #040609 0%,
-          #0b1220 48%,
-          #05070b 100%
-        );
     }
 
-
-    /* =========================
-       TEKSTURA TŁA
-    ========================== */
-
-    .hero::before {
-      content: "";
-
-      position: absolute;
-      inset: 0;
-
-      background:
-        repeating-linear-gradient(
-          120deg,
-
-          transparent 0px,
-          transparent 80px,
-
-          rgba(255, 255, 255, 0.018) 81px,
-
-          transparent 82px
-        );
-
-      pointer-events: none;
-    }
-
-
-    /* =========================
-       NIEBIESKA POŚWIATA
-    ========================== */
-
-    .hero::after {
-      content: "";
-
-      position: absolute;
-
-      width: 700px;
-      height: 700px;
-
-      left: -250px;
-      top: -250px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(45, 95, 255, 0.20);
-
-      filter: blur(130px);
-
-      pointer-events: none;
-    }
-
-
-    /* =========================
-       LOGO + HAMBURGER
-
-       Nie ma tutaj żadnego
-       osobnego paska.
-    ========================== */
+    /* ========================================
+       LOGO + MENU
+       BRAK HEADERA / BRAK PASKA
+    ======================================== */
 
     .top {
       position: absolute;
-
       top: 0;
       left: 0;
 
-      z-index: 100;
+      z-index: 1000;
 
       display: flex;
       align-items: center;
-
       gap: 18px;
 
-      padding:
-        25px
-        32px;
+      padding: 24px 32px;
     }
 
-
-    /* =========================
+    /* ========================================
        HAMBURGER
-    ========================== */
+    ======================================== */
 
     .menu-btn {
-      position: relative;
+      width: 52px;
+      height: 52px;
 
-      width: 50px;
-      height: 50px;
-
-      border: none;
-      outline: none;
-
+      border: 0;
       background: transparent;
 
       display: flex;
-
       flex-direction: column;
-
-      align-items: center;
       justify-content: center;
+      align-items: center;
 
       gap: 7px;
 
       cursor: pointer;
-
-      z-index: 200;
+      z-index: 1100;
     }
-
 
     .menu-btn span {
       display: block;
@@ -180,64 +75,84 @@
       width: 32px;
       height: 3px;
 
-      background: #ffffff;
-
+      background: #fff;
       border-radius: 20px;
 
       transition:
         transform .35s ease,
-        opacity .25s ease;
+        opacity .25s ease,
+        width .25s ease;
     }
 
+    /* środkowa kreska krótsza */
 
-    /* =========================
-       HAMBURGER -> X
-    ========================== */
+    .menu-btn span:nth-child(2) {
+      width: 23px;
+      margin-right: 9px;
+    }
+
+    /* HAMBURGER -> X */
 
     .menu-btn.active span:nth-child(1) {
-      transform:
-        translateY(10px)
-        rotate(45deg);
+      transform: translateY(10px) rotate(45deg);
     }
-
 
     .menu-btn.active span:nth-child(2) {
       opacity: 0;
     }
 
-
     .menu-btn.active span:nth-child(3) {
-      transform:
-        translateY(-10px)
-        rotate(-45deg);
+      transform: translateY(-10px) rotate(-45deg);
     }
 
-
-    /* =========================
+    /* ========================================
        LOGO
-    ========================== */
+    ======================================== */
 
     .logo {
-      position: relative;
-
-      height: 85px;
+      height: 82px;
       width: auto;
+
+      position: relative;
+      z-index: 1100;
 
       object-fit: contain;
 
-      z-index: 200;
-
       filter:
-        drop-shadow(
-          0 8px 20px
-          rgba(0, 0, 0, .40)
-        );
+        drop-shadow(0 5px 15px rgba(0,0,0,.45));
     }
 
+    /* ========================================
+       MENU - TŁO
+    ======================================== */
 
-    /* =========================
-       WYSUWANE MENU
-    ========================== */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 800;
+
+      background: rgba(0,0,0,.48);
+
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity .35s ease,
+        visibility .35s ease;
+    }
+
+    .menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ========================================
+       MENU BOCZNE
+    ======================================== */
 
     .side-menu {
       position: fixed;
@@ -245,107 +160,93 @@
       top: 0;
       left: 0;
 
-      width: min(390px, 88vw);
+      width: min(430px, 92vw);
       height: 100vh;
 
+      z-index: 900;
+
       padding:
-        112px
-        35px
+        120px
+        38px
         40px;
 
-      z-index: 90;
-
-
-      /* przezroczyste tło */
-
       background:
-        rgba(5, 8, 14, .72);
+        linear-gradient(
+          145deg,
+          rgba(5,8,15,.97),
+          rgba(11,20,38,.94)
+        );
 
-
-      /* rozmycie tego,
-         co znajduje się pod menu */
-
-      backdrop-filter:
-        blur(22px);
-
-      -webkit-backdrop-filter:
-        blur(22px);
-
-
-      /* schowane po lewej */
-
-      transform:
-        translateX(-105%);
-
-
-      /* płynne wysuwanie */
+      transform: translateX(-105%);
 
       transition:
         transform
         .45s
-        cubic-bezier(.77, 0, .18, 1);
-
+        cubic-bezier(.77,0,.18,1);
 
       box-shadow:
-        30px 0 80px
-        rgba(0, 0, 0, .25);
+        30px 0 100px rgba(0,0,0,.45);
+
+      overflow-y: auto;
     }
-
-
-    /* otwarte menu */
 
     .side-menu.open {
-      transform:
-        translateX(0);
+      transform: translateX(0);
     }
-
 
     .side-menu nav {
       display: flex;
-
       flex-direction: column;
     }
 
-
-    /* =========================
-       PRZYCISKI MENU
-    ========================== */
+    /* ========================================
+       LINKI MENU
+    ======================================== */
 
     .side-menu a {
       position: relative;
 
-      display: block;
+      display: flex;
+      align-items: center;
 
-      color:
-        rgba(255, 255, 255, .76);
+      gap: 15px;
+
+      padding:
+        16px
+        8px;
+
+      color: rgba(255,255,255,.72);
 
       text-decoration: none;
 
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
-
-      padding:
-        15px
-        10px;
 
       transition:
         color .25s ease,
         padding-left .25s ease;
     }
 
+    /* NUMER */
 
-    /* =========================
-       LINIA POD PRZYCISKAMI
-    ========================== */
+    .side-menu a span {
+      width: 25px;
+
+      font-size: 10px;
+      letter-spacing: 1px;
+
+      color: rgba(255,255,255,.32);
+    }
+
+    /* LINIA */
 
     .side-menu a::after {
       content: "";
 
       position: absolute;
 
-      left: 10px;
-      right: 10px;
-
+      left: 8px;
+      right: 8px;
       bottom: 0;
 
       height: 1px;
@@ -353,85 +254,410 @@
       background:
         linear-gradient(
           90deg,
-
-          rgba(255, 255, 255, .38),
-
-          rgba(255, 255, 255, .07)
+          rgba(255,255,255,.30),
+          rgba(255,255,255,.04)
         );
-
-      opacity: .7;
-
-      transition:
-        left .25s ease,
-        right .25s ease,
-        opacity .25s ease;
     }
-
-
-    /* =========================
-       HOVER MENU
-    ========================== */
 
     .side-menu a:hover {
-      color: #ffffff;
-
-      padding-left: 19px;
+      color: #fff;
+      padding-left: 17px;
     }
 
+    /* ========================================
+       ARTYKUŁ GŁÓWNY
+    ======================================== */
 
-    .side-menu a:hover::after {
-      left: 19px;
-      right: 0;
+    .featured {
+      position: relative;
 
-      opacity: 1;
+      min-height: 78vh;
+
+      display: flex;
+      align-items: flex-end;
+
+      overflow: hidden;
+
+      /*
+        TU MOŻESZ PODAĆ SWOJE ZDJĘCIE:
+        background-image: url("artykul1.jpg");
+      */
+
+      background:
+        radial-gradient(
+          circle at 75% 25%,
+          rgba(53,94,255,.45),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #111b31,
+          #05070c 65%
+        );
     }
 
+    /* gradient nad zdjęciem */
 
-    /* =========================
+    .featured::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.05) 10%,
+          rgba(0,0,0,.18) 45%,
+          rgba(0,0,0,.92) 100%
+        );
+
+      z-index: 1;
+    }
+
+    /* dekoracyjne światło */
+
+    .featured::before {
+      content: "";
+
+      position: absolute;
+
+      width: 700px;
+      height: 700px;
+
+      right: -250px;
+      top: -250px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(45,91,255,.22);
+
+      filter: blur(100px);
+    }
+
+    .featured-content {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+
+      padding:
+        80px
+        7vw
+        65px;
+
+      max-width: 1200px;
+    }
+
+    .article-category {
+      display: inline-block;
+
+      margin-bottom: 16px;
+
+      font-size: 12px;
+      font-weight: 800;
+
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      color: #9ab4ff;
+    }
+
+    .featured h1 {
+      max-width: 900px;
+
+      font-size:
+        clamp(42px, 6vw, 88px);
+
+      line-height: .96;
+
+      letter-spacing: -3px;
+
+      text-transform: uppercase;
+
+      font-weight: 900;
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+
+      margin-top: 28px;
+
+      color: #fff;
+
+      text-decoration: none;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      text-transform: uppercase;
+    }
+
+    .read-more::after {
+      content: "→";
+
+      font-size: 20px;
+
+      transition:
+        transform .25s ease;
+    }
+
+    .read-more:hover::after {
+      transform: translateX(7px);
+    }
+
+    /* ========================================
+       LISTA ARTYKUŁÓW
+    ======================================== */
+
+    .news {
+      position: relative;
+
+      z-index: 5;
+
+      padding:
+        60px
+        6vw
+        90px;
+
+      background: #080b11;
+    }
+
+    .news-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 30px;
+    }
+
+    .news-header h2 {
+      font-size:
+        clamp(27px, 4vw, 46px);
+
+      text-transform: uppercase;
+
+      letter-spacing: -1px;
+    }
+
+    .news-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 20px;
+    }
+
+    /* ========================================
+       KARTA
+    ======================================== */
+
+    .article-card {
+      position: relative;
+
+      min-height: 430px;
+
+      overflow: hidden;
+
+      display: flex;
+      align-items: flex-end;
+
+      text-decoration: none;
+
+      color: #fff;
+
+      background:
+        linear-gradient(
+          145deg,
+          #182641,
+          #090d15
+        );
+    }
+
+    .article-card:nth-child(2) {
+      background:
+        linear-gradient(
+          145deg,
+          #111827,
+          #25345d
+        );
+    }
+
+    .article-card:nth-child(3) {
+      background:
+        linear-gradient(
+          145deg,
+          #263b6d,
+          #080b10
+        );
+    }
+
+    .article-card::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent 20%,
+          rgba(0,0,0,.88) 100%
+        );
+
+      z-index: 1;
+    }
+
+    .article-card::after {
+      content: "";
+
+      position: absolute;
+
+      width: 300px;
+      height: 300px;
+
+      right: -100px;
+      top: -100px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(75,112,255,.16);
+
+      filter: blur(70px);
+    }
+
+    .card-content {
+      position: relative;
+
+      z-index: 2;
+
+      padding: 27px;
+    }
+
+    .card-content small {
+      display: block;
+
+      margin-bottom: 12px;
+
+      color: #93adff;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+    }
+
+    .card-content h3 {
+      font-size:
+        clamp(22px, 2.2vw, 32px);
+
+      line-height: 1.05;
+
+      text-transform: uppercase;
+
+      transition:
+        transform .3s ease;
+    }
+
+    .article-card:hover .card-content h3 {
+      transform: translateY(-6px);
+    }
+
+    /* ========================================
        MOBILE
-    ========================== */
+    ======================================== */
 
-    @media (max-width: 700px) {
+    @media (max-width: 900px) {
+
+      .news-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 650px) {
 
       .top {
-        padding: 18px;
+        padding:
+          16px
+          18px;
 
-        gap: 10px;
+        gap: 8px;
       }
-
 
       .logo {
-        height: 65px;
+        height: 62px;
       }
-
 
       .menu-btn {
-        width: 45px;
-        height: 45px;
+        width: 44px;
+        height: 44px;
       }
-
 
       .menu-btn span {
-        width: 29px;
+        width: 28px;
       }
 
+      .menu-btn span:nth-child(2) {
+        width: 20px;
+        margin-right: 8px;
+      }
 
       .side-menu {
         width: 100%;
 
         padding:
-          100px
+          95px
           25px
-          35px;
+          30px;
       }
 
-
       .side-menu a {
-        font-size: 20px;
-
+        font-size: 19px;
         padding:
           14px
-          10px;
+          5px;
+      }
+
+      .featured {
+        min-height: 72vh;
+      }
+
+      .featured-content {
+        padding:
+          120px
+          24px
+          45px;
+      }
+
+      .featured h1 {
+        letter-spacing: -2px;
+      }
+
+      .news {
+        padding:
+          40px
+          18px
+          70px;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .article-card {
+        min-height: 360px;
       }
 
     }
@@ -439,224 +665,329 @@
   </style>
 </head>
 
-
 <body>
 
+  <!-- =====================================
+       LOGO + MENU
+  ====================================== -->
 
-  <!-- =========================
-       GŁÓWNY EKRAN
-  ========================== -->
+  <div class="top">
 
-  <section class="hero">
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Otwórz menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <img
+      class="logo"
+      src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+      alt="Logo klubu"
+    >
+
+  </div>
 
 
-    <!-- =========================
-         LOGO + HAMBURGER
-    ========================== -->
+  <!-- CIEMNE TŁO PO OTWARCIU MENU -->
 
-    <div class="top">
+  <div
+    class="menu-overlay"
+    id="menuOverlay"
+  ></div>
 
 
-      <!-- HAMBURGER -->
+  <!-- =====================================
+       MENU
+  ====================================== -->
 
-      <button
-        class="menu-btn"
-        id="menuBtn"
-        aria-label="Otwórz menu"
-        aria-expanded="false"
+  <aside
+    class="side-menu"
+    id="sideMenu"
+  >
+
+    <nav>
+
+      <a href="#">
+        <span>01</span>
+        Strona główna
+      </a>
+
+      <a href="#aktualnosci">
+        <span>02</span>
+        Aktualności
+      </a>
+
+      <a href="#">
+        <span>03</span>
+        Drużyna
+      </a>
+
+      <a href="#">
+        <span>04</span>
+        Mecze
+      </a>
+
+      <a href="#">
+        <span>05</span>
+        Tabela
+      </a>
+
+      <a href="#">
+        <span>06</span>
+        Galeria
+      </a>
+
+      <a href="#">
+        <span>07</span>
+        Kontakt
+      </a>
+
+    </nav>
+
+  </aside>
+
+
+  <!-- =====================================
+       DUŻY ARTYKUŁ
+
+       ZACZYNA SIĘ OD SAMEJ GÓRY.
+       LOGO I MENU SĄ NAD NIM.
+  ====================================== -->
+
+  <article class="featured">
+
+    <div class="featured-content">
+
+      <span class="article-category">
+        Pierwsza drużyna
+      </span>
+
+      <h1>
+        Wielkie emocje przed kolejnym spotkaniem
+      </h1>
+
+      <a
+        href="#"
+        class="read-more"
       >
+        Czytaj więcej
+      </a>
 
-        <span></span>
-        <span></span>
-        <span></span>
+    </div>
 
-      </button>
+  </article>
 
 
-      <!-- LOGO -->
+  <!-- =====================================
+       AKTUALNOŚCI
+  ====================================== -->
 
-      <img
-        class="logo"
-        src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-        alt="Logo klubu"
-      >
+  <section
+    class="news"
+    id="aktualnosci"
+  >
 
+    <div class="news-header">
+
+      <h2>
+        Aktualności
+      </h2>
 
     </div>
 
 
-    <!-- =========================
-         MENU
-    ========================== -->
-
-    <aside
-      class="side-menu"
-      id="sideMenu"
-    >
-
-      <nav>
+    <div class="news-grid">
 
 
-        <a href="#">
-          Strona główna
-        </a>
+      <!-- ARTYKUŁ 1 -->
+
+      <a
+        href="#"
+        class="article-card"
+      >
+
+        <div class="card-content">
+
+          <small>
+            Klub
+          </small>
+
+          <h3>
+            Najnowsze informacje z życia klubu
+          </h3>
+
+        </div>
+
+      </a>
 
 
-        <a href="#">
-          Aktualności
-        </a>
+      <!-- ARTYKUŁ 2 -->
+
+      <a
+        href="#"
+        class="article-card"
+      >
+
+        <div class="card-content">
+
+          <small>
+            Drużyna
+          </small>
+
+          <h3>
+            Przygotowania do następnego meczu
+          </h3>
+
+        </div>
+
+      </a>
 
 
-        <a href="#">
-          Drużyna
-        </a>
+      <!-- ARTYKUŁ 3 -->
+
+      <a
+        href="#"
+        class="article-card"
+      >
+
+        <div class="card-content">
+
+          <small>
+            Mecz
+          </small>
+
+          <h3>
+            Wszystko gotowe na kolejne spotkanie
+          </h3>
+
+        </div>
+
+      </a>
 
 
-        <a href="#">
-          Mecze
-        </a>
-
-
-        <a href="#">
-          Tabela
-        </a>
-
-
-        <a href="#">
-          Galeria
-        </a>
-
-
-        <a href="#">
-          Kontakt
-        </a>
-
-
-      </nav>
-
-    </aside>
-
+    </div>
 
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================
        JAVASCRIPT
-  ========================== -->
+  ====================================== -->
 
   <script>
 
     const menuBtn =
       document.getElementById("menuBtn");
 
-
     const sideMenu =
       document.getElementById("sideMenu");
 
+    const menuOverlay =
+      document.getElementById("menuOverlay");
 
-    /* =========================
-       OTWÓRZ / ZAMKNIJ MENU
-    ========================== */
+
+    function openMenu() {
+
+      sideMenu.classList.add("open");
+
+      menuOverlay.classList.add("open");
+
+      menuBtn.classList.add("active");
+
+      document.body.classList.add("menu-open");
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+
+
+    function closeMenu() {
+
+      sideMenu.classList.remove("open");
+
+      menuOverlay.classList.remove("open");
+
+      menuBtn.classList.remove("active");
+
+      document.body.classList.remove("menu-open");
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+    }
+
+
+    function toggleMenu() {
+
+      if (
+        sideMenu.classList.contains("open")
+      ) {
+
+        closeMenu();
+
+      } else {
+
+        openMenu();
+
+      }
+
+    }
+
+
+    /* hamburger */
 
     menuBtn.addEventListener(
       "click",
-      () => {
-
-        const isOpen =
-          sideMenu
-            .classList
-            .toggle("open");
-
-
-        menuBtn
-          .classList
-          .toggle(
-            "active",
-            isOpen
-          );
-
-
-        menuBtn.setAttribute(
-          "aria-expanded",
-          isOpen
-        );
-
-      }
+      toggleMenu
     );
 
 
-    /* =========================
-       KLIKNIĘCIE W LINK
-       ZAMYKA MENU
-    ========================== */
+    /* kliknięcie poza menu */
+
+    menuOverlay.addEventListener(
+      "click",
+      closeMenu
+    );
+
+
+    /* linki */
 
     document
-      .querySelectorAll(
-        ".side-menu a"
-      )
-      .forEach(
-        link => {
+      .querySelectorAll(".side-menu a")
+      .forEach(link => {
 
-          link.addEventListener(
-            "click",
-            () => {
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
 
-              sideMenu
-                .classList
-                .remove("open");
+      });
 
 
-              menuBtn
-                .classList
-                .remove("active");
-
-
-              menuBtn.setAttribute(
-                "aria-expanded",
-                "false"
-              );
-
-            }
-          );
-
-        }
-      );
-
-
-    /* =========================
-       ESC ZAMYKA MENU
-    ========================== */
+    /* ESC */
 
     document.addEventListener(
       "keydown",
       event => {
 
-        if (
-          event.key === "Escape"
-        ) {
-
-          sideMenu
-            .classList
-            .remove("open");
-
-
-          menuBtn
-            .classList
-            .remove("active");
-
-
-          menuBtn.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
+        if (event.key === "Escape") {
+          closeMenu();
         }
 
       }
     );
 
   </script>
-
 
 </body>
 </html>
