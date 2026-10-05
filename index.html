@@ -83,8 +83,8 @@ a {
   background-repeat: no-repeat;
 
   transition:
-    opacity .4s ease,
-    visibility .4s ease;
+    opacity .35s ease,
+    visibility .35s ease;
 }
 
 .slide.active {
@@ -94,7 +94,7 @@ a {
 
 
 /* =========================================================
-   TŁA
+   TŁA ARTYKUŁÓW
 ========================================================= */
 
 .slide-1 {
@@ -163,7 +163,7 @@ a {
 
 
 /* =========================================================
-   WARSTWA NA TLE
+   CIEMNA WARSTWA HERO
 ========================================================= */
 
 .slide::before {
@@ -203,7 +203,7 @@ a {
 
 
 /* =========================================================
-   TOP - LOGO + MENU
+   GÓRA - X + LOGO
 ========================================================= */
 
 .top {
@@ -253,7 +253,7 @@ a {
 
 
 /* =========================================================
-   HAMBURGER
+   HAMBURGER / X
 ========================================================= */
 
 .menu-btn {
@@ -262,9 +262,11 @@ a {
 
   flex: 0 0 48px;
 
-  border: 0;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
 
-  background: transparent;
+  background: transparent !important;
 
   display: flex;
   flex-direction: column;
@@ -275,6 +277,13 @@ a {
   gap: 7px;
 
   cursor: pointer;
+}
+
+.menu-btn:focus,
+.menu-btn:active {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
 }
 
 .menu-btn span {
@@ -368,11 +377,11 @@ a {
     linear-gradient(
       145deg,
       rgba(4,6,9,.995),
-      rgba(2,4,7,.985)
+      rgba(2,4,7,.99)
     );
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
   border-right:
     1px solid rgba(255,255,255,.06);
@@ -389,7 +398,7 @@ a {
 
 
 /* =========================================================
-   GÓRNA SEKCJA
+   MIEJSCE NA LOGO + X
 ========================================================= */
 
 .menu-header-space {
@@ -406,45 +415,57 @@ a {
 
 
 /* =========================================================
-   MENU CONTENT
+   CAŁA CZĘŚĆ POD LOGO
 ========================================================= */
 
 .menu-content {
   width: 100%;
 
-  flex: 1;
+  height:
+    calc(100dvh - 88px);
 
   min-height: 0;
 
-  display: flex;
-  flex-direction: column;
+  display: grid;
+
+  grid-template-rows:
+    minmax(0, 1fr)
+    58px;
 
   overflow: hidden;
 }
 
 
 /* =========================================================
-   NAV
+   MENU
+
+   5 pozycji wypełnia CAŁĄ dostępną wysokość
 ========================================================= */
 
 .menu-nav {
   width: 100%;
+  height: 100%;
 
-  flex: 0 0 auto;
+  min-height: 0;
 
-  display: block;
+  display: grid;
+
+  grid-template-rows:
+    repeat(5, minmax(52px, 1fr));
+
+  overflow: hidden;
 }
 
 
 /* =========================================================
-   GŁÓWNY LINK
+   STRONA GŁÓWNA / KONTAKT
 ========================================================= */
 
 .main-link {
   position: relative;
 
   width: 100%;
-  height: 56px;
+  min-height: 0;
 
   padding:
     0
@@ -456,7 +477,12 @@ a {
   border-bottom:
     1px solid rgba(255,255,255,.09);
 
-  background: transparent;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.012),
+      transparent 70%
+    );
 
   color: #fff;
 
@@ -475,7 +501,7 @@ a {
 }
 
 
-/* MAŁY AKCENT */
+/* CZERWONY AKCENT */
 
 .main-link::before {
   content: "";
@@ -488,15 +514,16 @@ a {
   width: 3px;
   height: 0;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   border-radius:
     0
-    3px
-    3px
+    4px
+    4px
     0;
 
-  background: #bd1820;
+  background: #c61d25;
 
   transition:
     height .18s ease;
@@ -508,13 +535,13 @@ a {
   background:
     linear-gradient(
       90deg,
-      rgba(189,24,32,.10),
+      rgba(198,29,37,.10),
       transparent 65%
     );
 }
 
 .main-link:hover::before {
-  height: 26px;
+  height: 28px;
 }
 
 
@@ -526,11 +553,22 @@ a {
   position: relative;
 
   width: 100%;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
 
   border-bottom:
     1px solid rgba(255,255,255,.09);
 
-  background: transparent;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.012),
+      transparent 70%
+    );
 }
 
 
@@ -542,7 +580,10 @@ a {
   position: relative;
 
   width: 100%;
-  height: 56px;
+
+  flex: 1 1 auto;
+
+  min-height: 0;
 
   padding:
     0
@@ -553,6 +594,7 @@ a {
   justify-content: space-between;
 
   border: 0;
+  outline: 0;
 
   background: transparent;
 
@@ -588,51 +630,57 @@ a {
   width: 3px;
   height: 0;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   border-radius:
     0
-    3px
-    3px
+    4px
+    4px
     0;
 
-  background: #bd1820;
+  background: #c61d25;
 
   transition:
     height .18s ease;
 }
 
 .dropdown-button:hover,
-.dropdown.active .dropdown-button {
+.dropdown.active >
+.dropdown-button {
+
   padding-left: 25px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(189,24,32,.10),
+      rgba(198,29,37,.10),
       transparent 65%
     );
 }
 
 .dropdown-button:hover::before,
-.dropdown.active .dropdown-button::before {
-  height: 26px;
+.dropdown.active >
+.dropdown-button::before {
+
+  height: 28px;
 }
 
 
 /* =========================================================
    STRZAŁKA
-
-   BEZ WIELKIEGO KÓŁKA
 ========================================================= */
 
 .dropdown-arrow {
   position: relative;
 
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 
-  flex: 0 0 18px;
+  flex:
+    0
+    0
+    20px;
 
   margin-right: 2px;
 
@@ -645,8 +693,8 @@ a {
 
   position: absolute;
 
-  top: 4px;
-  left: 5px;
+  left: 6px;
+  top: 5px;
 
   width: 6px;
   height: 6px;
@@ -657,12 +705,15 @@ a {
   border-bottom:
     1.5px solid rgba(255,255,255,.70);
 
-  transform: rotate(45deg);
+  transform:
+    rotate(45deg);
 }
 
 .dropdown.active
 .dropdown-arrow {
-  transform: rotate(180deg);
+
+  transform:
+    rotate(180deg);
 }
 
 
@@ -675,35 +726,39 @@ a {
 
   max-height: 0;
 
+  flex:
+    0
+    0
+    auto;
+
   overflow: hidden;
 
   opacity: 0;
 
   background:
-    rgba(255,255,255,.012);
+    rgba(0,0,0,.25);
 
   transition:
-    max-height .25s ease,
+    max-height .22s ease,
     opacity .18s ease;
 }
 
 .dropdown.active
 .dropdown-content {
-  max-height: 150px;
+
+  max-height: 120px;
 
   opacity: 1;
 }
 
 
 /* =========================================================
-   LINK PODMENU
+   LINKI PODMENU
 ========================================================= */
 
 .dropdown-content a {
-  position: relative;
-
   width: 100%;
-  height: 40px;
+  height: 36px;
 
   padding:
     0
@@ -712,20 +767,23 @@ a {
   display: flex;
   align-items: center;
 
-  gap: 12px;
+  gap: 11px;
 
   border-top:
     1px solid rgba(255,255,255,.055);
 
-  background: transparent;
+  background:
+    rgba(255,255,255,.008);
 
   color:
-    rgba(255,255,255,.58);
+    rgba(255,255,255,.60);
 
   text-decoration: none;
 
   font-size: 10px;
   font-weight: 800;
+
+  letter-spacing: .1px;
 
   text-transform: uppercase;
 
@@ -735,19 +793,19 @@ a {
     padding-left .18s ease;
 }
 
-
-/* KRESKA PRZED PODMENU */
-
 .dropdown-content a::before {
   content: "";
 
-  width: 9px;
+  width: 10px;
   height: 1px;
 
-  flex: 0 0 9px;
+  flex:
+    0
+    0
+    10px;
 
   background:
-    rgba(255,255,255,.28);
+    rgba(255,255,255,.35);
 
   transition:
     width .18s ease,
@@ -755,12 +813,12 @@ a {
 }
 
 .dropdown-content a:hover {
-  padding-left: 32px;
+  padding-left: 33px;
 
   color: #fff;
 
   background:
-    rgba(255,255,255,.025);
+    rgba(255,255,255,.035);
 }
 
 .dropdown-content a:hover::before {
@@ -768,27 +826,30 @@ a {
 
   flex-basis: 15px;
 
-  background: #bd1820;
+  background: #c61d25;
 }
 
 
 /* =========================================================
-   SOCIALS
+   ROZWINIĘTE MENU
 
-   ZAWSZE NA DOLE
+   Dzięki JS wysokość gridu zmienia się zależnie
+   od otwartego dropdownu.
+========================================================= */
+
+.menu-nav.has-dropdown {
+  grid-template-rows:
+    repeat(5, minmax(48px, 1fr));
+}
+
+
+/* =========================================================
+   SOCIAL MEDIA
 ========================================================= */
 
 .socials {
   width: 100%;
-
-  height: 64px;
-
-  flex:
-    0
-    0
-    64px;
-
-  margin-top: auto;
+  height: 58px;
 
   padding:
     0
@@ -803,26 +864,28 @@ a {
     1px solid rgba(255,255,255,.10);
 
   background:
-    rgba(0,0,0,.15);
+    rgba(2,4,7,.97);
 }
 
-
-/* =========================================================
-   SOCIAL BUTTON
-========================================================= */
-
 .socials a {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
+
+  flex:
+    0
+    0
+    32px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border:
-    1px solid rgba(255,255,255,.30);
+    1px solid rgba(255,255,255,.28);
 
   border-radius: 50%;
+
+  background: transparent;
 
   color:
     rgba(255,255,255,.72);
@@ -834,7 +897,8 @@ a {
   transition:
     color .18s ease,
     border-color .18s ease,
-    background .18s ease;
+    background .18s ease,
+    transform .18s ease;
 }
 
 .socials a:hover {
@@ -844,7 +908,10 @@ a {
     rgba(255,255,255,.65);
 
   background:
-    rgba(255,255,255,.06);
+    rgba(255,255,255,.07);
+
+  transform:
+    translateY(-2px);
 }
 
 
@@ -860,7 +927,8 @@ a {
   top: 47%;
   left: 8vw;
 
-  transform: translateY(-50%);
+  transform:
+    translateY(-50%);
 
   width:
     min(620px,80vw);
@@ -875,7 +943,6 @@ a {
     rgba(255,255,255,.70);
 
   font-size: 12px;
-
   font-weight: 800;
 
   letter-spacing: 1.4px;
@@ -924,7 +991,7 @@ a {
 
 
 /* =========================================================
-   OTWÓRZ
+   OTWÓRZ ARTYKUŁ
 ========================================================= */
 
 .open-article {
@@ -960,7 +1027,8 @@ a {
 .open-article:hover {
   background: #d31d25;
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 }
 
 .open-article .arrow {
@@ -1029,7 +1097,7 @@ a {
 
 
 /* =========================================================
-   DOTS
+   KROPKI
 ========================================================= */
 
 .slider-dots {
@@ -1067,7 +1135,7 @@ a {
 
 
 /* =========================================================
-   4 ARTYKUŁY
+   4 NAJNOWSZE ARTYKUŁY
 ========================================================= */
 
 .article-tabs {
@@ -1160,7 +1228,7 @@ a {
 
 
 /* =========================================================
-   MODAL
+   MODAL ARTYKUŁU
 ========================================================= */
 
 .article-modal {
@@ -1251,7 +1319,6 @@ a {
   color: #7f9fff;
 
   font-size: 12px;
-
   font-weight: 800;
 
   letter-spacing: 1.5px;
@@ -1350,48 +1417,51 @@ a {
     flex-basis: 88px;
   }
 
+  .menu-content {
+    height:
+      calc(100dvh - 88px);
 
-  /* MENU */
+    grid-template-rows:
+      minmax(0, 1fr)
+      58px;
+  }
+
+  .menu-nav {
+    height: 100%;
+
+    grid-template-rows:
+      repeat(5, minmax(50px, 1fr));
+  }
 
   .main-link,
   .dropdown-button {
-    height: 54px;
-
-    padding:
-      0
-      16px;
+    padding-left: 20px;
 
     font-size: 15px;
   }
 
   .main-link:hover,
   .dropdown-button:hover,
-  .dropdown.active
+  .dropdown.active >
   .dropdown-button {
-    padding-left: 21px;
+
+    padding-left: 25px;
   }
 
   .dropdown-content a {
-    height: 38px;
+    height: 34px;
 
-    padding:
-      0
-      24px;
+    padding-left: 28px;
 
     font-size: 9px;
   }
 
-
-  /* SOCIALS */
-
   .socials {
-    height: 60px;
-
-    flex-basis: 60px;
+    height: 58px;
 
     padding:
       0
-      14px;
+      20px;
   }
 
 
@@ -1464,28 +1534,40 @@ a {
     flex-basis: 76px;
   }
 
+  .menu-content {
+    height:
+      calc(100dvh - 76px);
+
+    grid-template-rows:
+      minmax(0,1fr)
+      50px;
+  }
+
+  .menu-nav {
+    grid-template-rows:
+      repeat(5,minmax(42px,1fr));
+  }
+
   .main-link,
   .dropdown-button {
-    height: 46px;
-
     font-size: 14px;
   }
 
   .dropdown-content a {
-    height: 31px;
+    height: 29px;
 
     font-size: 9px;
   }
 
   .socials {
     height: 50px;
-
-    flex-basis: 50px;
   }
 
   .socials a {
     width: 29px;
     height: 29px;
+
+    flex-basis: 29px;
   }
 
 }
@@ -1498,7 +1580,7 @@ a {
 
 
 <!-- =========================================================
-     ARTYKUŁY
+     HERO / ARTYKUŁY
 ========================================================= -->
 
 <main
@@ -1540,11 +1622,13 @@ a {
       data-article="0"
       type="button"
     >
+
       Otwórz
 
       <span class="arrow">
         →
       </span>
+
     </button>
 
   </div>
@@ -1585,11 +1669,13 @@ a {
       data-article="1"
       type="button"
     >
+
       Otwórz
 
       <span class="arrow">
         →
       </span>
+
     </button>
 
   </div>
@@ -1630,11 +1716,13 @@ a {
       data-article="2"
       type="button"
     >
+
       Otwórz
 
       <span class="arrow">
         →
       </span>
+
     </button>
 
   </div>
@@ -1675,11 +1763,13 @@ a {
       data-article="3"
       type="button"
     >
+
       Otwórz
 
       <span class="arrow">
         →
       </span>
+
     </button>
 
   </div>
@@ -1687,7 +1777,9 @@ a {
 </article>
 
 
-<!-- STRZAŁKI -->
+<!-- =========================================================
+     STRZAŁKI SLIDERA
+========================================================= -->
 
 <div class="slider-arrows">
 
@@ -1712,7 +1804,9 @@ a {
 </div>
 
 
-<!-- DÓŁ -->
+<!-- =========================================================
+     DÓŁ SLIDERA
+========================================================= -->
 
 <div class="slider-bottom">
 
@@ -1745,6 +1839,8 @@ a {
 
   </div>
 
+
+  <!-- 4 NAJNOWSZE ARTYKUŁY -->
 
   <div class="article-tabs">
 
@@ -1825,7 +1921,7 @@ a {
 
 
 <!-- =========================================================
-     OVERLAY
+     OVERLAY MENU
 ========================================================= -->
 
 <div
@@ -1835,7 +1931,7 @@ a {
 
 
 <!-- =========================================================
-     MENU
+     MENU BOCZNE
 ========================================================= -->
 
 <aside
@@ -1843,13 +1939,18 @@ a {
   id="sideMenu"
 >
 
+  <!-- miejsce na logo i X -->
+
   <div class="menu-header-space"></div>
 
 
   <div class="menu-content">
 
 
-    <nav class="menu-nav">
+    <nav
+      class="menu-nav"
+      id="menuNav"
+    >
 
 
       <!-- STRONA GŁÓWNA -->
@@ -1862,7 +1963,9 @@ a {
       </a>
 
 
-      <!-- WIADOMOŚCI -->
+      <!-- ===================================================
+           WIADOMOŚCI
+      ==================================================== -->
 
       <div class="dropdown">
 
@@ -1901,7 +2004,9 @@ a {
       </div>
 
 
-      <!-- DRUŻYNY -->
+      <!-- ===================================================
+           DRUŻYNY
+      ==================================================== -->
 
       <div class="dropdown">
 
@@ -1940,7 +2045,9 @@ a {
       </div>
 
 
-      <!-- KLUB -->
+      <!-- ===================================================
+           KLUB
+      ==================================================== -->
 
       <div class="dropdown">
 
@@ -2004,6 +2111,7 @@ a {
 
     <div class="socials">
 
+
       <a
         href="https://www.facebook.com/profile.php?id=61594618042996"
         target="_blank"
@@ -2036,6 +2144,7 @@ a {
         <i class="fa-brands fa-tiktok"></i>
       </a>
 
+
     </div>
 
 
@@ -2045,7 +2154,7 @@ a {
 
 
 <!-- =========================================================
-     LOGO + HAMBURGER
+     X / HAMBURGER + LOGO
 ========================================================= -->
 
 <div class="top">
@@ -2075,7 +2184,7 @@ a {
 
 
 <!-- =========================================================
-     MODAL
+     MODAL ARTYKUŁU
 ========================================================= -->
 
 <div
@@ -2084,6 +2193,7 @@ a {
 >
 
   <div class="modal-window">
+
 
     <button
       class="close-modal"
@@ -2110,6 +2220,7 @@ a {
       id="modalText"
     ></p>
 
+
   </div>
 
 </div>
@@ -2129,6 +2240,9 @@ const sideMenu =
 
 const menuOverlay =
   document.getElementById("menuOverlay");
+
+const menuNav =
+  document.getElementById("menuNav");
 
 
 function openMenu() {
@@ -2190,7 +2304,7 @@ menuOverlay.addEventListener(
 
 
 /* =========================================================
-   DROPDOWN
+   DROPDOWNY
 ========================================================= */
 
 const dropdownButtons =
@@ -2208,11 +2322,15 @@ dropdownButtons.forEach(button => {
       const currentDropdown =
         button.closest(".dropdown");
 
-      const isOpen =
+      const alreadyOpen =
         currentDropdown
           .classList
           .contains("active");
 
+
+      /*
+       * Najpierw zamykamy wszystkie.
+       */
 
       document
         .querySelectorAll(".dropdown")
@@ -2225,13 +2343,34 @@ dropdownButtons.forEach(button => {
         });
 
 
-      if (!isOpen) {
+      /*
+       * Jeśli kliknięty nie był otwarty,
+       * otwieramy go.
+       */
+
+      if (!alreadyOpen) {
 
         currentDropdown
           .classList
           .add("active");
 
       }
+
+
+      /*
+       * Informacja dla grida.
+       */
+
+      const hasOpenDropdown =
+        document.querySelector(
+          ".dropdown.active"
+        );
+
+
+      menuNav.classList.toggle(
+        "has-dropdown",
+        Boolean(hasOpenDropdown)
+      );
 
     }
   );
@@ -2271,11 +2410,19 @@ let currentSlide = 0;
 function showSlide(index) {
 
   if (index < 0) {
-    index = slides.length - 1;
+
+    index =
+      slides.length - 1;
+
   }
 
-  if (index >= slides.length) {
+
+  if (
+    index >= slides.length
+  ) {
+
     index = 0;
+
   }
 
 
@@ -2397,7 +2544,7 @@ tabs.forEach(tab => {
 /* =========================================================
    ARTYKUŁY
 
-   PÓŹNIEJ SUPABASE
+   PÓŹNIEJ PODŁĄCZYMY TO DO SUPABASE.
 ========================================================= */
 
 const articles = [
@@ -2493,8 +2640,10 @@ function openArticle(index) {
   modalCategory.textContent =
     article.category;
 
+
   modalTitle.textContent =
     article.title;
+
 
   modalText.textContent =
     article.text;
@@ -2568,8 +2717,12 @@ document.addEventListener(
   "keydown",
   event => {
 
-    if (event.key !== "Escape") {
+    if (
+      event.key !== "Escape"
+    ) {
+
       return;
+
     }
 
 
