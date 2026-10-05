@@ -19,9 +19,9 @@
 
 <style>
 
-/* ==================================================
+/* =========================================================
    RESET
-================================================== */
+========================================================= */
 
 * {
   margin: 0;
@@ -49,9 +49,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    HERO
-================================================== */
+========================================================= */
 
 .articles-slider {
   position: fixed;
@@ -67,9 +67,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    SLAJDY
-================================================== */
+========================================================= */
 
 .slide {
   position: absolute;
@@ -93,9 +93,9 @@ a {
 }
 
 
-/* ==================================================
-   TŁA ARTYKUŁÓW
-================================================== */
+/* =========================================================
+   TŁA
+========================================================= */
 
 .slide-1 {
   background:
@@ -162,9 +162,9 @@ a {
 }
 
 
-/* ==================================================
-   CIEMNA WARSTWA HERO
-================================================== */
+/* =========================================================
+   WARSTWA NA TLE
+========================================================= */
 
 .slide::before {
   content: "";
@@ -177,9 +177,9 @@ a {
   background:
     linear-gradient(
       90deg,
-      rgba(0,0,0,.90) 0%,
-      rgba(0,0,0,.62) 30%,
-      rgba(0,0,0,.25) 65%,
+      rgba(0,0,0,.92) 0%,
+      rgba(0,0,0,.64) 30%,
+      rgba(0,0,0,.26) 65%,
       rgba(0,0,0,.08) 100%
     );
 }
@@ -202,9 +202,9 @@ a {
 }
 
 
-/* ==================================================
-   GÓRA - X + LOGO
-================================================== */
+/* =========================================================
+   TOP - LOGO + MENU
+========================================================= */
 
 .top {
   position: fixed;
@@ -235,9 +235,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    LOGO
-================================================== */
+========================================================= */
 
 .logo {
   width: auto;
@@ -252,9 +252,9 @@ a {
 }
 
 
-/* ==================================================
-   HAMBURGER / X
-================================================== */
+/* =========================================================
+   HAMBURGER
+========================================================= */
 
 .menu-btn {
   width: 48px;
@@ -315,9 +315,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    OVERLAY
-================================================== */
+========================================================= */
 
 .menu-overlay {
   position: fixed;
@@ -325,7 +325,7 @@ a {
 
   z-index: 800;
 
-  background: rgba(0,0,0,.20);
+  background: rgba(0,0,0,.18);
 
   opacity: 0;
   visibility: hidden;
@@ -341,9 +341,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    PANEL MENU
-================================================== */
+========================================================= */
 
 .side-menu {
   position: fixed;
@@ -367,21 +367,20 @@ a {
   background:
     linear-gradient(
       145deg,
-      rgba(5,7,10,.995) 0%,
-      rgba(3,5,8,.985) 55%,
-      rgba(8,10,14,.97) 100%
+      rgba(4,6,9,.995),
+      rgba(2,4,7,.985)
     );
 
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 
+  border-right:
+    1px solid rgba(255,255,255,.06);
+
   transform: translateX(-105%);
 
   transition:
     transform .35s cubic-bezier(.77,0,.18,1);
-
-  box-shadow:
-    15px 0 50px rgba(0,0,0,.35);
 }
 
 .side-menu.open {
@@ -389,9 +388,9 @@ a {
 }
 
 
-/* ==================================================
-   MIEJSCE NA LOGO
-================================================== */
+/* =========================================================
+   GÓRNA SEKCJA
+========================================================= */
 
 .menu-header-space {
   width: 100%;
@@ -406,14 +405,14 @@ a {
 }
 
 
-/* ==================================================
-   CONTENT MENU
-================================================== */
+/* =========================================================
+   MENU CONTENT
+========================================================= */
 
 .menu-content {
   width: 100%;
 
-  flex: 1 1 auto;
+  flex: 1;
 
   min-height: 0;
 
@@ -424,83 +423,59 @@ a {
 }
 
 
-/* ==================================================
-   NAWIGACJA
-================================================== */
+/* =========================================================
+   NAV
+========================================================= */
 
 .menu-nav {
   width: 100%;
 
-  flex: 1 1 auto;
+  flex: 0 0 auto;
 
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
+  display: block;
 }
 
 
-/* ==================================================
-   5 GŁÓWNYCH SEKCJI
-================================================== */
-
-.menu-nav > .main-link,
-.menu-nav > .dropdown {
-  flex: 1 1 0;
-
-  min-height: 54px;
-}
-
-
-/* ==================================================
-   STRONA GŁÓWNA / KONTAKT
-================================================== */
+/* =========================================================
+   GŁÓWNY LINK
+========================================================= */
 
 .main-link {
   position: relative;
 
   width: 100%;
+  height: 56px;
 
   padding:
     0
-    18px;
+    20px;
 
   display: flex;
   align-items: center;
 
-  overflow: hidden;
-
-  border: 0;
-
   border-bottom:
     1px solid rgba(255,255,255,.09);
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.025),
-      transparent 80%
-    );
+  background: transparent;
 
   color: #fff;
 
   text-decoration: none;
 
   font-size: 15px;
-
   font-weight: 900;
 
-  letter-spacing: -.2px;
+  letter-spacing: -.15px;
 
   text-transform: uppercase;
 
   transition:
-    background .22s ease,
-    padding-left .22s ease;
+    background .18s ease,
+    padding-left .18s ease;
 }
 
 
-/* CZERWONY PASEK */
+/* MAŁY AKCENT */
 
 .main-link::before {
   content: "";
@@ -508,133 +483,70 @@ a {
   position: absolute;
 
   left: 0;
-  top: 20%;
-  bottom: 20%;
+  top: 50%;
 
   width: 3px;
+  height: 0;
+
+  transform: translateY(-50%);
 
   border-radius:
     0
-    4px
-    4px
+    3px
+    3px
     0;
 
-  background: #c61b24;
-
-  transform:
-    scaleY(0);
+  background: #bd1820;
 
   transition:
-    transform .22s ease;
+    height .18s ease;
 }
 
 .main-link:hover {
-  padding-left: 23px;
+  padding-left: 25px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(198,27,36,.13),
-      rgba(255,255,255,.025) 55%,
-      transparent
+      rgba(189,24,32,.10),
+      transparent 65%
     );
 }
 
 .main-link:hover::before {
-  transform:
-    scaleY(1);
+  height: 26px;
 }
 
 
-/* ==================================================
+/* =========================================================
    DROPDOWN
-================================================== */
+========================================================= */
 
 .dropdown {
   position: relative;
 
   width: 100%;
 
-  min-height: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  overflow: hidden;
-
   border-bottom:
     1px solid rgba(255,255,255,.09);
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.02),
-      transparent 80%
-    );
-
-  transition:
-    flex .25s ease,
-    background .22s ease;
+  background: transparent;
 }
 
 
-/* ==================================================
-   CZERWONY AKCENT DROPDOWNU
-================================================== */
-
-.dropdown::before {
-  content: "";
-
-  position: absolute;
-
-  z-index: 3;
-
-  left: 0;
-  top: 12px;
-
-  width: 3px;
-  height: 30px;
-
-  border-radius:
-    0
-    4px
-    4px
-    0;
-
-  background: #c61b24;
-
-  transform:
-    scaleY(0);
-
-  transform-origin: center;
-
-  transition:
-    transform .22s ease;
-}
-
-.dropdown:hover::before,
-.dropdown.active::before {
-  transform:
-    scaleY(1);
-}
-
-
-/* ==================================================
-   PRZYCISK DROPDOWN
-================================================== */
+/* =========================================================
+   BUTTON DROPDOWN
+========================================================= */
 
 .dropdown-button {
   position: relative;
 
   width: 100%;
-
-  flex: 1 1 auto;
-
-  min-height: 54px;
+  height: 56px;
 
   padding:
     0
-    18px;
+    20px;
 
   display: flex;
   align-items: center;
@@ -649,134 +561,117 @@ a {
   text-align: left;
 
   font-size: 15px;
-
   font-weight: 900;
 
-  letter-spacing: -.2px;
+  letter-spacing: -.15px;
 
   text-transform: uppercase;
 
   cursor: pointer;
 
   transition:
-    padding-left .22s ease,
-    background .22s ease;
+    background .18s ease,
+    padding-left .18s ease;
 }
 
-.dropdown:hover > .dropdown-button,
-.dropdown.active > .dropdown-button {
-  padding-left: 23px;
+
+/* CZERWONY AKCENT */
+
+.dropdown-button::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 3px;
+  height: 0;
+
+  transform: translateY(-50%);
+
+  border-radius:
+    0
+    3px
+    3px
+    0;
+
+  background: #bd1820;
+
+  transition:
+    height .18s ease;
+}
+
+.dropdown-button:hover,
+.dropdown.active .dropdown-button {
+  padding-left: 25px;
 
   background:
     linear-gradient(
       90deg,
-      rgba(198,27,36,.12),
-      rgba(255,255,255,.018) 60%,
-      transparent
+      rgba(189,24,32,.10),
+      transparent 65%
     );
 }
 
+.dropdown-button:hover::before,
+.dropdown.active .dropdown-button::before {
+  height: 26px;
+}
 
-/* ==================================================
+
+/* =========================================================
    STRZAŁKA
-================================================== */
+
+   BEZ WIELKIEGO KÓŁKA
+========================================================= */
 
 .dropdown-arrow {
   position: relative;
 
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
 
-  flex:
-    0
-    0
-    28px;
+  flex: 0 0 18px;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border:
-    1px solid rgba(255,255,255,.09);
-
-  border-radius: 50%;
-
-  background:
-    rgba(255,255,255,.025);
+  margin-right: 2px;
 
   transition:
-    transform .25s ease,
-    background .2s ease,
-    border-color .2s ease;
+    transform .22s ease;
 }
 
 .dropdown-arrow::before {
   content: "";
 
+  position: absolute;
+
+  top: 4px;
+  left: 5px;
+
   width: 6px;
   height: 6px;
 
-  margin-top: -3px;
-
   border-right:
-    1.5px solid rgba(255,255,255,.75);
+    1.5px solid rgba(255,255,255,.70);
 
   border-bottom:
-    1.5px solid rgba(255,255,255,.75);
+    1.5px solid rgba(255,255,255,.70);
 
-  transform:
-    rotate(45deg);
-}
-
-.dropdown:hover .dropdown-arrow {
-  border-color:
-    rgba(255,255,255,.18);
-
-  background:
-    rgba(255,255,255,.06);
+  transform: rotate(45deg);
 }
 
 .dropdown.active
 .dropdown-arrow {
-  transform:
-    rotate(180deg);
-
-  background:
-    rgba(198,27,36,.16);
-
-  border-color:
-    rgba(198,27,36,.35);
+  transform: rotate(180deg);
 }
 
 
-/* ==================================================
-   AKTYWNY DROPDOWN
-================================================== */
-
-.dropdown.active {
-  flex:
-    2.2
-    1
-    0;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(198,27,36,.055),
-      rgba(255,255,255,.015) 60%,
-      transparent
-    );
-}
-
-
-/* ==================================================
+/* =========================================================
    PODMENU
-================================================== */
+========================================================= */
 
 .dropdown-content {
   width: 100%;
-
-  flex: 0 0 auto;
 
   max-height: 0;
 
@@ -785,58 +680,52 @@ a {
   opacity: 0;
 
   background:
-    rgba(0,0,0,.22);
+    rgba(255,255,255,.012);
 
   transition:
     max-height .25s ease,
-    opacity .2s ease;
+    opacity .18s ease;
 }
 
 .dropdown.active
 .dropdown-content {
-  max-height: 160px;
+  max-height: 150px;
 
   opacity: 1;
 }
 
 
-/* ==================================================
-   LINKI PODMENU
-================================================== */
+/* =========================================================
+   LINK PODMENU
+========================================================= */
 
 .dropdown-content a {
   position: relative;
 
   width: 100%;
-
-  height: 38px;
-  min-height: 38px;
+  height: 40px;
 
   padding:
     0
-    25px;
+    28px;
 
   display: flex;
   align-items: center;
 
-  gap: 11px;
+  gap: 12px;
 
   border-top:
     1px solid rgba(255,255,255,.055);
 
-  background:
-    transparent;
+  background: transparent;
 
   color:
-    rgba(255,255,255,.63);
+    rgba(255,255,255,.58);
 
   text-decoration: none;
 
   font-size: 10px;
-
   font-weight: 800;
-
-  letter-spacing: .15px;
 
   text-transform: uppercase;
 
@@ -847,18 +736,15 @@ a {
 }
 
 
-/* MAŁA LINIA PRZY PODMENU */
+/* KRESKA PRZED PODMENU */
 
 .dropdown-content a::before {
   content: "";
 
-  width: 10px;
+  width: 9px;
   height: 1px;
 
-  flex:
-    0
-    0
-    10px;
+  flex: 0 0 9px;
 
   background:
     rgba(255,255,255,.28);
@@ -869,86 +755,74 @@ a {
 }
 
 .dropdown-content a:hover {
-  padding-left: 30px;
+  padding-left: 32px;
 
   color: #fff;
 
   background:
-    linear-gradient(
-      90deg,
-      rgba(198,27,36,.10),
-      transparent
-    );
+    rgba(255,255,255,.025);
 }
 
 .dropdown-content a:hover::before {
-  width: 16px;
+  width: 15px;
 
-  flex-basis: 16px;
+  flex-basis: 15px;
 
-  background: #c61b24;
+  background: #bd1820;
 }
 
 
-/* ==================================================
-   SOCIALE
-================================================== */
+/* =========================================================
+   SOCIALS
+
+   ZAWSZE NA DOLE
+========================================================= */
 
 .socials {
   width: 100%;
 
-  height: 60px;
+  height: 64px;
 
   flex:
     0
     0
-    60px;
+    64px;
+
+  margin-top: auto;
 
   padding:
     0
-    14px;
+    20px;
 
   display: flex;
   align-items: center;
 
-  gap: 10px;
+  gap: 11px;
 
   border-top:
     1px solid rgba(255,255,255,.10);
 
   background:
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.025),
-      transparent
-    );
+    rgba(0,0,0,.15);
 }
 
 
-/* ==================================================
-   IKONY SOCIAL
-================================================== */
+/* =========================================================
+   SOCIAL BUTTON
+========================================================= */
 
 .socials a {
   width: 34px;
   height: 34px;
-
-  flex:
-    0
-    0
-    34px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border:
-    1px solid rgba(255,255,255,.25);
+    1px solid rgba(255,255,255,.30);
 
   border-radius: 50%;
-
-  background:
-    rgba(255,255,255,.02);
 
   color:
     rgba(255,255,255,.72);
@@ -958,29 +832,25 @@ a {
   font-size: 12px;
 
   transition:
-    color .2s ease,
-    border-color .2s ease,
-    background .2s ease,
-    transform .2s ease;
+    color .18s ease,
+    border-color .18s ease,
+    background .18s ease;
 }
 
 .socials a:hover {
   color: #fff;
 
   border-color:
-    rgba(198,27,36,.80);
+    rgba(255,255,255,.65);
 
   background:
-    rgba(198,27,36,.18);
-
-  transform:
-    translateY(-2px);
+    rgba(255,255,255,.06);
 }
 
 
-/* ==================================================
+/* =========================================================
    HERO CONTENT
-================================================== */
+========================================================= */
 
 .slide-content {
   position: absolute;
@@ -990,8 +860,7 @@ a {
   top: 47%;
   left: 8vw;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
   width:
     min(620px,80vw);
@@ -1054,9 +923,9 @@ a {
 }
 
 
-/* ==================================================
-   PRZYCISK OTWÓRZ
-================================================== */
+/* =========================================================
+   OTWÓRZ
+========================================================= */
 
 .open-article {
   display: inline-flex;
@@ -1079,7 +948,6 @@ a {
   color: #fff;
 
   font-size: 12px;
-
   font-weight: 800;
 
   cursor: pointer;
@@ -1092,8 +960,7 @@ a {
 .open-article:hover {
   background: #d31d25;
 
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .open-article .arrow {
@@ -1101,9 +968,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    STRZAŁKI SLIDERA
-================================================== */
+========================================================= */
 
 .slider-arrows {
   position: absolute;
@@ -1130,20 +997,20 @@ a {
   background:
     rgba(255,255,255,.13);
 
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
   color: #fff;
 
   font-size: 19px;
 
   cursor: pointer;
-
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
 }
 
 
-/* ==================================================
+/* =========================================================
    DÓŁ SLIDERA
-================================================== */
+========================================================= */
 
 .slider-bottom {
   position: absolute;
@@ -1161,9 +1028,9 @@ a {
 }
 
 
-/* ==================================================
-   KROPKI
-================================================== */
+/* =========================================================
+   DOTS
+========================================================= */
 
 .slider-dots {
   display: flex;
@@ -1199,9 +1066,9 @@ a {
 }
 
 
-/* ==================================================
-   4 ARTYKUŁY NA DOLE
-================================================== */
+/* =========================================================
+   4 ARTYKUŁY
+========================================================= */
 
 .article-tabs {
   display: flex;
@@ -1279,7 +1146,6 @@ a {
     );
 
   font-size: 10px;
-
   font-weight: 900;
 }
 
@@ -1293,9 +1159,9 @@ a {
 }
 
 
-/* ==================================================
-   MODAL ARTYKUŁU
-================================================== */
+/* =========================================================
+   MODAL
+========================================================= */
 
 .article-modal {
   position: fixed;
@@ -1423,9 +1289,9 @@ a {
 }
 
 
-/* ==================================================
+/* =========================================================
    TABLET
-================================================== */
+========================================================= */
 
 @media (max-width: 1050px) {
 
@@ -1448,9 +1314,9 @@ a {
 }
 
 
-/* ==================================================
-   TELEFON
-================================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 650px) {
 
@@ -1470,17 +1336,11 @@ a {
     height: 62px;
   }
 
-
-  /* MENU PEŁNA SZEROKOŚĆ */
-
   .side-menu {
     width: 100vw;
 
     max-width: none;
   }
-
-
-  /* LOGO */
 
   .menu-header-space {
     height: 88px;
@@ -1493,67 +1353,36 @@ a {
 
   /* MENU */
 
-  .menu-nav > .main-link,
-  .menu-nav > .dropdown {
-    min-height: 50px;
-  }
+  .main-link,
+  .dropdown-button {
+    height: 54px;
 
-  .main-link {
     padding:
       0
-      18px;
+      16px;
 
     font-size: 15px;
   }
 
+  .main-link:hover,
+  .dropdown-button:hover,
+  .dropdown.active
   .dropdown-button {
-    min-height: 50px;
-
-    padding:
-      0
-      18px;
-
-    font-size: 15px;
+    padding-left: 21px;
   }
-
-  .main-link:hover {
-    padding-left: 23px;
-  }
-
-  .dropdown:hover >
-  .dropdown-button,
-  .dropdown.active >
-  .dropdown-button {
-    padding-left: 23px;
-  }
-
-
-  /* ROZWINIĘTY */
-
-  .dropdown.active {
-    flex:
-      2.15
-      1
-      0;
-  }
-
-
-  /* SUBMENU */
 
   .dropdown-content a {
-    height: 37px;
-
-    min-height: 37px;
+    height: 38px;
 
     padding:
       0
-      27px;
+      24px;
 
-    font-size: 10px;
+    font-size: 9px;
   }
 
 
-  /* SOCIALE */
+  /* SOCIALS */
 
   .socials {
     height: 60px;
@@ -1588,7 +1417,6 @@ a {
     top: auto;
 
     right: 20px;
-
     bottom: 88px;
   }
 
@@ -1614,9 +1442,9 @@ a {
 }
 
 
-/* ==================================================
-   NISKI TELEFON
-================================================== */
+/* =========================================================
+   NISKI EKRAN
+========================================================= */
 
 @media (max-height: 620px) {
 
@@ -1625,7 +1453,7 @@ a {
   }
 
   .logo {
-    height: 55px;
+    height: 54px;
   }
 
   .menu-header-space {
@@ -1636,27 +1464,15 @@ a {
     flex-basis: 76px;
   }
 
-  .menu-nav > .main-link,
-  .menu-nav > .dropdown {
-    min-height: 42px;
-  }
-
   .main-link,
   .dropdown-button {
+    height: 46px;
+
     font-size: 14px;
   }
 
-  .dropdown.active {
-    flex:
-      2
-      1
-      0;
-  }
-
   .dropdown-content a {
-    height: 30px;
-
-    min-height: 30px;
+    height: 31px;
 
     font-size: 9px;
   }
@@ -1670,8 +1486,6 @@ a {
   .socials a {
     width: 29px;
     height: 29px;
-
-    flex-basis: 29px;
   }
 
 }
@@ -1683,332 +1497,336 @@ a {
 <body>
 
 
-<!-- ==================================================
-     HERO / ARTYKUŁY
-================================================== -->
+<!-- =========================================================
+     ARTYKUŁY
+========================================================= -->
 
-<main class="articles-slider" id="slider">
+<main
+  class="articles-slider"
+  id="slider"
+>
 
 
-  <!-- ARTYKUŁ 1 -->
+<!-- ARTYKUŁ 1 -->
 
-  <article class="slide slide-1 active">
+<article class="slide slide-1 active">
 
-    <div class="slide-content">
+  <div class="slide-content">
 
-      <span class="slide-category">
-        Klub
+    <span class="slide-category">
+      Klub
+    </span>
+
+    <h1>
+      Nowy rozdział naszego klubu
+    </h1>
+
+    <div class="slide-info">
+
+      <strong>
+        Legion Białystok
+      </strong>
+
+      <span>•</span>
+
+      <span>
+        Dzisiaj
       </span>
 
-      <h1>
+    </div>
+
+    <button
+      class="open-article"
+      data-article="0"
+      type="button"
+    >
+      Otwórz
+
+      <span class="arrow">
+        →
+      </span>
+    </button>
+
+  </div>
+
+</article>
+
+
+<!-- ARTYKUŁ 2 -->
+
+<article class="slide slide-2">
+
+  <div class="slide-content">
+
+    <span class="slide-category">
+      Pierwszy zespół
+    </span>
+
+    <h1>
+      Drużyna gotowa na kolejne wyzwanie
+    </h1>
+
+    <div class="slide-info">
+
+      <strong>
+        Legion Białystok
+      </strong>
+
+      <span>•</span>
+
+      <span>
+        1 dzień temu
+      </span>
+
+    </div>
+
+    <button
+      class="open-article"
+      data-article="1"
+      type="button"
+    >
+      Otwórz
+
+      <span class="arrow">
+        →
+      </span>
+    </button>
+
+  </div>
+
+</article>
+
+
+<!-- ARTYKUŁ 3 -->
+
+<article class="slide slide-3">
+
+  <div class="slide-content">
+
+    <span class="slide-category">
+      Mecz
+    </span>
+
+    <h1>
+      Wszystko gotowe na wielkie spotkanie
+    </h1>
+
+    <div class="slide-info">
+
+      <strong>
+        Legion Białystok
+      </strong>
+
+      <span>•</span>
+
+      <span>
+        2 dni temu
+      </span>
+
+    </div>
+
+    <button
+      class="open-article"
+      data-article="2"
+      type="button"
+    >
+      Otwórz
+
+      <span class="arrow">
+        →
+      </span>
+    </button>
+
+  </div>
+
+</article>
+
+
+<!-- ARTYKUŁ 4 -->
+
+<article class="slide slide-4">
+
+  <div class="slide-content">
+
+    <span class="slide-category">
+      Klub
+    </span>
+
+    <h1>
+      Razem budujemy przyszłość Legionu
+    </h1>
+
+    <div class="slide-info">
+
+      <strong>
+        Legion Białystok
+      </strong>
+
+      <span>•</span>
+
+      <span>
+        3 dni temu
+      </span>
+
+    </div>
+
+    <button
+      class="open-article"
+      data-article="3"
+      type="button"
+    >
+      Otwórz
+
+      <span class="arrow">
+        →
+      </span>
+    </button>
+
+  </div>
+
+</article>
+
+
+<!-- STRZAŁKI -->
+
+<div class="slider-arrows">
+
+  <button
+    class="slider-arrow"
+    id="prevSlide"
+    type="button"
+    aria-label="Poprzedni artykuł"
+  >
+    ‹
+  </button>
+
+  <button
+    class="slider-arrow"
+    id="nextSlide"
+    type="button"
+    aria-label="Następny artykuł"
+  >
+    ›
+  </button>
+
+</div>
+
+
+<!-- DÓŁ -->
+
+<div class="slider-bottom">
+
+
+  <div class="slider-dots">
+
+    <button
+      class="dot active"
+      data-slide="0"
+      type="button"
+    ></button>
+
+    <button
+      class="dot"
+      data-slide="1"
+      type="button"
+    ></button>
+
+    <button
+      class="dot"
+      data-slide="2"
+      type="button"
+    ></button>
+
+    <button
+      class="dot"
+      data-slide="3"
+      type="button"
+    ></button>
+
+  </div>
+
+
+  <div class="article-tabs">
+
+
+    <button
+      class="article-tab active"
+      data-slide="0"
+      type="button"
+    >
+
+      <div class="tab-image">
+        LB
+      </div>
+
+      <p>
         Nowy rozdział naszego klubu
-      </h1>
+      </p>
 
-      <div class="slide-info">
+    </button>
 
-        <strong>
-          Legion Białystok
-        </strong>
 
-        <span>•</span>
+    <button
+      class="article-tab"
+      data-slide="1"
+      type="button"
+    >
 
-        <span>
-          Dzisiaj
-        </span>
-
+      <div class="tab-image">
+        LB
       </div>
 
-      <button
-        class="open-article"
-        data-article="0"
-        type="button"
-      >
-        Otwórz
-
-        <span class="arrow">
-          →
-        </span>
-      </button>
-
-    </div>
-
-  </article>
-
-
-  <!-- ARTYKUŁ 2 -->
-
-  <article class="slide slide-2">
-
-    <div class="slide-content">
-
-      <span class="slide-category">
-        Pierwszy zespół
-      </span>
-
-      <h1>
+      <p>
         Drużyna gotowa na kolejne wyzwanie
-      </h1>
+      </p>
 
-      <div class="slide-info">
+    </button>
 
-        <strong>
-          Legion Białystok
-        </strong>
 
-        <span>•</span>
+    <button
+      class="article-tab"
+      data-slide="2"
+      type="button"
+    >
 
-        <span>
-          1 dzień temu
-        </span>
-
+      <div class="tab-image">
+        LB
       </div>
 
-      <button
-        class="open-article"
-        data-article="1"
-        type="button"
-      >
-        Otwórz
-
-        <span class="arrow">
-          →
-        </span>
-      </button>
-
-    </div>
-
-  </article>
-
-
-  <!-- ARTYKUŁ 3 -->
-
-  <article class="slide slide-3">
-
-    <div class="slide-content">
-
-      <span class="slide-category">
-        Mecz
-      </span>
-
-      <h1>
+      <p>
         Wszystko gotowe na wielkie spotkanie
-      </h1>
+      </p>
 
-      <div class="slide-info">
+    </button>
 
-        <strong>
-          Legion Białystok
-        </strong>
 
-        <span>•</span>
+    <button
+      class="article-tab"
+      data-slide="3"
+      type="button"
+    >
 
-        <span>
-          2 dni temu
-        </span>
-
+      <div class="tab-image">
+        LB
       </div>
 
-      <button
-        class="open-article"
-        data-article="2"
-        type="button"
-      >
-        Otwórz
-
-        <span class="arrow">
-          →
-        </span>
-      </button>
-
-    </div>
-
-  </article>
-
-
-  <!-- ARTYKUŁ 4 -->
-
-  <article class="slide slide-4">
-
-    <div class="slide-content">
-
-      <span class="slide-category">
-        Klub
-      </span>
-
-      <h1>
+      <p>
         Razem budujemy przyszłość Legionu
-      </h1>
+      </p>
 
-      <div class="slide-info">
-
-        <strong>
-          Legion Białystok
-        </strong>
-
-        <span>•</span>
-
-        <span>
-          3 dni temu
-        </span>
-
-      </div>
-
-      <button
-        class="open-article"
-        data-article="3"
-        type="button"
-      >
-        Otwórz
-
-        <span class="arrow">
-          →
-        </span>
-      </button>
-
-    </div>
-
-  </article>
-
-
-  <!-- STRZAŁKI -->
-
-  <div class="slider-arrows">
-
-    <button
-      class="slider-arrow"
-      id="prevSlide"
-      type="button"
-      aria-label="Poprzedni artykuł"
-    >
-      ‹
     </button>
 
-    <button
-      class="slider-arrow"
-      id="nextSlide"
-      type="button"
-      aria-label="Następny artykuł"
-    >
-      ›
-    </button>
 
   </div>
 
-
-  <!-- DÓŁ -->
-
-  <div class="slider-bottom">
-
-    <div class="slider-dots">
-
-      <button
-        class="dot active"
-        data-slide="0"
-        type="button"
-      ></button>
-
-      <button
-        class="dot"
-        data-slide="1"
-        type="button"
-      ></button>
-
-      <button
-        class="dot"
-        data-slide="2"
-        type="button"
-      ></button>
-
-      <button
-        class="dot"
-        data-slide="3"
-        type="button"
-      ></button>
-
-    </div>
-
-
-    <!-- 4 NAJNOWSZE -->
-
-    <div class="article-tabs">
-
-      <button
-        class="article-tab active"
-        data-slide="0"
-        type="button"
-      >
-
-        <div class="tab-image">
-          LB
-        </div>
-
-        <p>
-          Nowy rozdział naszego klubu
-        </p>
-
-      </button>
-
-
-      <button
-        class="article-tab"
-        data-slide="1"
-        type="button"
-      >
-
-        <div class="tab-image">
-          LB
-        </div>
-
-        <p>
-          Drużyna gotowa na kolejne wyzwanie
-        </p>
-
-      </button>
-
-
-      <button
-        class="article-tab"
-        data-slide="2"
-        type="button"
-      >
-
-        <div class="tab-image">
-          LB
-        </div>
-
-        <p>
-          Wszystko gotowe na wielkie spotkanie
-        </p>
-
-      </button>
-
-
-      <button
-        class="article-tab"
-        data-slide="3"
-        type="button"
-      >
-
-        <div class="tab-image">
-          LB
-        </div>
-
-        <p>
-          Razem budujemy przyszłość Legionu
-        </p>
-
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 </main>
 
 
-<!-- ==================================================
+<!-- =========================================================
      OVERLAY
-================================================== -->
+========================================================= -->
 
 <div
   class="menu-overlay"
@@ -2016,9 +1834,9 @@ a {
 ></div>
 
 
-<!-- ==================================================
+<!-- =========================================================
      MENU
-================================================== -->
+========================================================= -->
 
 <aside
   class="side-menu"
@@ -2180,9 +1998,9 @@ a {
     </nav>
 
 
-    <!-- ==================================================
+    <!-- =====================================================
          SOCIALE
-    ================================================== -->
+    ====================================================== -->
 
     <div class="socials">
 
@@ -2226,9 +2044,9 @@ a {
 </aside>
 
 
-<!-- ==================================================
-     X + LOGO
-================================================== -->
+<!-- =========================================================
+     LOGO + HAMBURGER
+========================================================= -->
 
 <div class="top">
 
@@ -2256,9 +2074,9 @@ a {
 </div>
 
 
-<!-- ==================================================
-     MODAL ARTYKUŁU
-================================================== -->
+<!-- =========================================================
+     MODAL
+========================================================= -->
 
 <div
   class="article-modal"
@@ -2271,18 +2089,22 @@ a {
       class="close-modal"
       id="closeModal"
       type="button"
+      aria-label="Zamknij artykuł"
     >
       ×
     </button>
+
 
     <span
       class="modal-category"
       id="modalCategory"
     ></span>
 
+
     <h2
       id="modalTitle"
     ></h2>
+
 
     <p
       id="modalText"
@@ -2295,9 +2117,9 @@ a {
 
 <script>
 
-/* ==================================================
+/* =========================================================
    MENU
-================================================== */
+========================================================= */
 
 const menuBtn =
   document.getElementById("menuBtn");
@@ -2367,9 +2189,9 @@ menuOverlay.addEventListener(
 );
 
 
-/* ==================================================
-   DROPDOWNY
-================================================== */
+/* =========================================================
+   DROPDOWN
+========================================================= */
 
 const dropdownButtons =
   document.querySelectorAll(
@@ -2417,9 +2239,9 @@ dropdownButtons.forEach(button => {
 });
 
 
-/* ==================================================
+/* =========================================================
    SLIDER
-================================================== */
+========================================================= */
 
 const slides =
   document.querySelectorAll(".slide");
@@ -2572,15 +2394,17 @@ tabs.forEach(tab => {
 });
 
 
-/* ==================================================
+/* =========================================================
    ARTYKUŁY
-   PÓŹNIEJ PODŁĄCZYMY SUPABASE
-================================================== */
+
+   PÓŹNIEJ SUPABASE
+========================================================= */
 
 const articles = [
 
   {
-    category: "Klub",
+    category:
+      "Klub",
 
     title:
       "Nowy rozdział naszego klubu",
@@ -2625,9 +2449,9 @@ const articles = [
 ];
 
 
-/* ==================================================
+/* =========================================================
    MODAL
-================================================== */
+========================================================= */
 
 const articleModal =
   document.getElementById(
@@ -2736,9 +2560,9 @@ articleModal.addEventListener(
 );
 
 
-/* ==================================================
+/* =========================================================
    ESC
-================================================== */
+========================================================= */
 
 document.addEventListener(
   "keydown",
