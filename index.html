@@ -1,2537 +1,2666 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Legion Białystok</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-  >
-
-  <style>
-
-    /* =========================================
-       RESET
-    ========================================= */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #030508;
-      color: #fff;
-    }
-
-    button,
-    a {
-      font: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-
-    /* =========================================
-       HERO / ARTYKUŁY
-    ========================================= */
-
-    .articles-slider {
-      position: fixed;
-      inset: 0;
-
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-
-      overflow: hidden;
-      background: #030508;
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-
-      opacity: 0;
-      visibility: hidden;
-
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-
-      transition:
-        opacity .4s ease,
-        visibility .4s ease;
-    }
-
-    .slide.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-
-    /* =========================================
-       TŁA ARTYKUŁÓW
-    ========================================= */
-
-    .slide-1 {
-      background:
-        radial-gradient(
-          circle at 72% 30%,
-          rgba(45, 78, 150, .52),
-          transparent 36%
-        ),
-        linear-gradient(
-          120deg,
-          #030508 0%,
-          #101725 40%,
-          #263b61 68%,
-          #05070a 100%
-        );
-    }
-
-    .slide-2 {
-      background:
-        radial-gradient(
-          circle at 70% 30%,
-          rgba(100, 60, 160, .48),
-          transparent 36%
-        ),
-        linear-gradient(
-          120deg,
-          #030508 0%,
-          #171325 40%,
-          #39285e 70%,
-          #05070a 100%
-        );
-    }
-
-    .slide-3 {
-      background:
-        radial-gradient(
-          circle at 72% 30%,
-          rgba(35, 115, 175, .50),
-          transparent 36%
-        ),
-        linear-gradient(
-          120deg,
-          #030508 0%,
-          #0d202d 40%,
-          #174965 70%,
-          #05070a 100%
-        );
-    }
-
-    .slide-4 {
-      background:
-        radial-gradient(
-          circle at 72% 30%,
-          rgba(170, 35, 45, .43),
-          transparent 36%
-        ),
-        linear-gradient(
-          120deg,
-          #030508 0%,
-          #211013 40%,
-          #552028 70%,
-          #05070a 100%
-        );
-    }
-
-    .slide::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-
-      background:
-        linear-gradient(
-          90deg,
-          rgba(0,0,0,.88) 0%,
-          rgba(0,0,0,.62) 28%,
-          rgba(0,0,0,.25) 60%,
-          rgba(0,0,0,.08) 100%
-        );
-    }
-
-    .slide::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0,0,0,.15),
-          transparent 42%,
-          rgba(0,0,0,.72)
-        );
-    }
-
-
-    /* =========================================
-       GÓRA - X + LOGO
-    ========================================= */
-
-    .top {
-      position: fixed;
-      top: 0;
-      left: 0;
-
-      z-index: 1200;
-
-      width: 400px;
-      max-width: 100vw;
-
-      height: 88px;
-
-      display: flex;
-      align-items: center;
-
-      gap: 20px;
-
-      padding: 7px 22px;
-
-      pointer-events: none;
-    }
-
-    .menu-btn,
-    .logo {
-      pointer-events: auto;
-    }
-
-
-    /* =========================================
-       LOGO
-    ========================================= */
-
-    .logo {
-      width: auto;
-      height: 64px;
-
-      object-fit: contain;
-
-      filter:
-        drop-shadow(
-          0 5px 15px rgba(0,0,0,.7)
-        );
-    }
-
-
-    /* =========================================
-       HAMBURGER / X
-    ========================================= */
-
-    .menu-btn {
-      position: relative;
-
-      width: 48px;
-      height: 48px;
-
-      flex: 0 0 48px;
-
-      border: 0;
-      background: transparent;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      gap: 7px;
-
-      cursor: pointer;
-    }
-
-    .menu-btn span {
-      display: block;
-
-      width: 29px;
-      height: 3px;
-
-      border-radius: 20px;
-
-      background: #fff;
-
-      transition:
-        transform .25s ease,
-        opacity .2s ease,
-        width .2s ease;
-    }
-
-    .menu-btn span:nth-child(2) {
-      width: 20px;
-      margin-right: 9px;
-    }
-
-    .menu-btn.active span:nth-child(1) {
-      transform:
-        translateY(10px)
-        rotate(45deg);
-    }
-
-    .menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .menu-btn.active span:nth-child(3) {
-      transform:
-        translateY(-10px)
-        rotate(-45deg);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Legion Białystok</title>
+
+<link
+  rel="icon"
+  type="image/png"
+  href="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+/* ==================================================
+   RESET
+================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #030508;
+  color: #fff;
+}
+
+button,
+a {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ==================================================
+   HERO
+================================================== */
+
+.articles-slider {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background: #030508;
+}
+
+
+/* ==================================================
+   SLAJDY
+================================================== */
+
+.slide {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition:
+    opacity .4s ease,
+    visibility .4s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* ==================================================
+   TŁA ARTYKUŁÓW
+================================================== */
+
+.slide-1 {
+  background:
+    radial-gradient(
+      circle at 72% 30%,
+      rgba(45,78,150,.52),
+      transparent 36%
+    ),
+    linear-gradient(
+      120deg,
+      #030508 0%,
+      #101725 40%,
+      #263b61 68%,
+      #05070a 100%
+    );
+}
+
+.slide-2 {
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(100,60,160,.48),
+      transparent 36%
+    ),
+    linear-gradient(
+      120deg,
+      #030508 0%,
+      #171325 40%,
+      #39285e 70%,
+      #05070a 100%
+    );
+}
+
+.slide-3 {
+  background:
+    radial-gradient(
+      circle at 72% 30%,
+      rgba(35,115,175,.50),
+      transparent 36%
+    ),
+    linear-gradient(
+      120deg,
+      #030508 0%,
+      #0d202d 40%,
+      #174965 70%,
+      #05070a 100%
+    );
+}
+
+.slide-4 {
+  background:
+    radial-gradient(
+      circle at 72% 30%,
+      rgba(170,35,45,.43),
+      transparent 36%
+    ),
+    linear-gradient(
+      120deg,
+      #030508 0%,
+      #211013 40%,
+      #552028 70%,
+      #05070a 100%
+    );
+}
+
+
+/* ==================================================
+   PRZYCIEMNIENIE HERO
+================================================== */
+
+.slide::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.90) 0%,
+      rgba(0,0,0,.62) 30%,
+      rgba(0,0,0,.25) 65%,
+      rgba(0,0,0,.08) 100%
+    );
+}
+
+.slide::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.15),
+      transparent 42%,
+      rgba(0,0,0,.72)
+    );
+}
+
+
+/* ==================================================
+   GÓRA
+   X + LOGO
+================================================== */
+
+.top {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  z-index: 1200;
+
+  width: 400px;
+  max-width: 100vw;
+
+  height: 88px;
+
+  padding: 7px 22px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+
+  pointer-events: none;
+}
+
+.menu-btn,
+.logo {
+  pointer-events: auto;
+}
+
+
+/* ==================================================
+   LOGO
+================================================== */
+
+.logo {
+  width: auto;
+  height: 64px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 5px 15px rgba(0,0,0,.7)
+    );
+}
+
+
+/* ==================================================
+   HAMBURGER / X
+================================================== */
+
+.menu-btn {
+  width: 48px;
+  height: 48px;
+
+  flex: 0 0 48px;
+
+  border: 0;
 
-
-    /* =========================================
-       OVERLAY
-    ========================================= */
+  background: transparent;
 
-    .menu-overlay {
-      position: fixed;
-      inset: 0;
+  display: flex;
+  flex-direction: column;
 
-      z-index: 800;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  cursor: pointer;
+}
 
-      background:
-        rgba(0,0,0,.22);
+.menu-btn span {
+  display: block;
 
-      opacity: 0;
-      visibility: hidden;
+  width: 29px;
+  height: 3px;
 
-      transition:
-        opacity .25s ease,
-        visibility .25s ease;
-    }
+  border-radius: 20px;
 
-    .menu-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
+  background: #fff;
+
+  transition:
+    transform .25s ease,
+    opacity .2s ease,
+    width .2s ease;
+}
 
+.menu-btn span:nth-child(2) {
+  width: 20px;
+  margin-right: 9px;
+}
 
-    /* =========================================
-       MENU
-    ========================================= */
+.menu-btn.active span:nth-child(1) {
+  transform:
+    translateY(10px)
+    rotate(45deg);
+}
 
-    .side-menu {
-      position: fixed;
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
 
-      top: 0;
-      left: 0;
+.menu-btn.active span:nth-child(3) {
+  transform:
+    translateY(-10px)
+    rotate(-45deg);
+}
 
-      z-index: 1000;
 
-      width: 400px;
-      max-width: 100vw;
+/* ==================================================
+   OVERLAY
+================================================== */
 
-      height: 100vh;
-      height: 100dvh;
+.menu-overlay {
+  position: fixed;
+  inset: 0;
 
-      display: flex;
-      flex-direction: column;
+  z-index: 800;
 
-      overflow: hidden;
+  background:
+    rgba(0,0,0,.20);
 
-      background:
-        linear-gradient(
-          90deg,
-          rgba(3,5,8,.99) 0%,
-          rgba(3,5,8,.98) 70%,
-          rgba(3,5,8,.95) 100%
-        );
+  opacity: 0;
+  visibility: hidden;
 
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
 
-      transform: translateX(-105%);
+.menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
 
-      transition:
-        transform .35s cubic-bezier(.77,0,.18,1);
-    }
 
-    .side-menu.open {
-      transform: translateX(0);
-    }
+/* ==================================================
+   PANEL MENU
+================================================== */
 
+.side-menu {
+  position: fixed;
 
-    /* =========================================
-       MIEJSCE NA X + LOGO
+  top: 0;
+  left: 0;
 
-       Nawigacja zaczyna się dopiero poniżej.
-    ========================================= */
+  z-index: 1000;
 
-    .menu-header-space {
-      width: 100%;
+  width: 400px;
+  max-width: 100vw;
 
-      height: 88px;
-      min-height: 88px;
+  height: 100vh;
+  height: 100dvh;
 
-      flex: 0 0 88px;
+  display: flex;
+  flex-direction: column;
 
-      border-bottom:
-        1px solid rgba(255,255,255,.11);
-    }
+  overflow: hidden;
 
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3,5,8,.995),
+      rgba(3,5,8,.98)
+    );
 
-    /* =========================================
-       CONTENT MENU
-    ========================================= */
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 
-    .menu-content {
-      width: 100%;
+  transform:
+    translateX(-105%);
 
-      flex: 1 1 auto;
+  transition:
+    transform .35s cubic-bezier(.77,0,.18,1);
+}
 
-      min-height: 0;
+.side-menu.open {
+  transform:
+    translateX(0);
+}
 
-      display: flex;
-      flex-direction: column;
 
-      overflow: hidden;
-    }
+/* ==================================================
+   MIEJSCE NA LOGO + X
+================================================== */
 
+.menu-header-space {
+  width: 100%;
 
-    /* =========================================
-       NAWIGACJA
-    ========================================= */
+  height: 88px;
+  min-height: 88px;
 
-    .menu-nav {
-      width: 100%;
+  flex: 0 0 88px;
 
-      display: flex;
-      flex-direction: column;
+  border-bottom:
+    1px solid rgba(255,255,255,.11);
+}
 
-      flex: 0 0 auto;
 
-      margin: 0;
-      padding: 0;
-    }
+/* ==================================================
+   MENU CONTENT
 
+   Ta sekcja zajmuje wszystko pomiędzy
+   logo a dolnymi socialami.
+================================================== */
 
-    /* =========================================
-       GŁÓWNE PRZYCISKI
-       CAŁA SZEROKOŚĆ
-    ========================================= */
+.menu-content {
+  width: 100%;
 
-    .main-link,
-    .dropdown-button {
-      position: relative;
+  flex: 1 1 auto;
 
-      width: 100%;
+  min-height: 0;
 
-      height: 42px;
-      min-height: 42px;
+  display: flex;
+  flex-direction: column;
 
-      margin: 0;
+  overflow: hidden;
+}
 
-      padding:
-        0
-        10px;
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+/* ==================================================
+   NAV
 
-      flex: 0 0 42px;
+   WYPEŁNIA CAŁĄ DOSTĘPNĄ WYSOKOŚĆ
+================================================== */
 
-      border: 0;
+.menu-nav {
+  width: 100%;
 
-      border-bottom:
-        1px solid rgba(255,255,255,.11);
+  flex: 1 1 auto;
 
-      border-radius: 0;
+  min-height: 0;
 
-      background:
-        rgba(0,0,0,.07);
+  display: flex;
+  flex-direction: column;
 
-      color: #fff;
+  margin: 0;
+  padding: 0;
+}
 
-      text-decoration: none;
-      text-align: left;
 
-      font-size: 16px;
-      line-height: 1;
+/* ==================================================
+   5 GŁÓWNYCH SEKCJI
 
-      font-weight: 900;
+   Każda dostaje równą część dostępnego miejsca.
+================================================== */
 
-      text-transform: uppercase;
+.menu-nav > .main-link,
+.menu-nav > .dropdown {
+  flex: 1 1 0;
 
-      cursor: pointer;
+  min-height: 52px;
+}
 
-      transition:
-        background .18s ease;
-    }
 
-    .main-link:hover,
-    .dropdown-button:hover {
-      background:
-        rgba(255,255,255,.055);
-    }
+/* ==================================================
+   STRONA GŁÓWNA / KONTAKT
+================================================== */
 
+.main-link {
+  width: 100%;
 
-    /* =========================================
-       DROPDOWN
-    ========================================= */
+  height: auto;
 
-    .dropdown {
-      position: relative;
+  margin: 0;
 
-      width: 100%;
+  padding:
+    0
+    18px;
 
-      margin: 0;
-      padding: 0;
+  display: flex;
+  align-items: center;
 
-      flex-shrink: 0;
-    }
+  border: 0;
 
-    .dropdown-button {
-      width: 100%;
-    }
+  border-bottom:
+    1px solid rgba(255,255,255,.11);
 
+  border-radius: 0;
 
-    /* =========================================
-       STRZAŁKA
-    ========================================= */
+  background:
+    rgba(0,0,0,.04);
 
-    .dropdown-arrow {
-      position: relative;
+  color: #fff;
 
-      width: 13px;
-      height: 13px;
+  text-decoration: none;
+  text-align: left;
 
-      margin-right: 4px;
+  font-size: 16px;
+  line-height: 1;
 
-      flex-shrink: 0;
+  font-weight: 900;
 
-      transition:
-        transform .2s ease;
-    }
+  text-transform: uppercase;
 
-    .dropdown-arrow::before,
-    .dropdown-arrow::after {
-      content: "";
+  cursor: pointer;
 
-      position: absolute;
+  transition:
+    background .18s ease;
+}
 
-      top: 6px;
+.main-link:hover {
+  background:
+    rgba(255,255,255,.055);
+}
 
-      width: 7px;
-      height: 1px;
 
-      background:
-        rgba(255,255,255,.75);
-    }
+/* ==================================================
+   DROPDOWN
+================================================== */
 
-    .dropdown-arrow::before {
-      left: 0;
-      transform: rotate(45deg);
-    }
+.dropdown {
+  position: relative;
 
-    .dropdown-arrow::after {
-      right: 0;
-      transform: rotate(-45deg);
-    }
+  width: 100%;
 
-    .dropdown.active
-    .dropdown-arrow {
-      transform: rotate(180deg);
-    }
+  min-height: 0;
 
+  display: flex;
+  flex-direction: column;
 
-    /* =========================================
-       PODMENU
-    ========================================= */
+  overflow: hidden;
 
-    .dropdown-content {
-      position: relative;
+  margin: 0;
+  padding: 0;
 
-      width: 100%;
+  border-bottom:
+    1px solid rgba(255,255,255,.11);
 
-      max-height: 0;
+  transition:
+    flex .25s ease;
+}
 
-      margin: 0;
-      padding: 0;
 
-      overflow: hidden;
+/* ==================================================
+   GŁÓWNY PRZYCISK DROPDOWNU
+================================================== */
 
-      opacity: 0;
+.dropdown-button {
+  width: 100%;
 
-      background:
-        rgba(0,0,0,.24);
+  flex: 1 1 auto;
 
-      transition:
-        max-height .25s ease,
-        opacity .18s ease;
-    }
+  min-height: 48px;
 
-    .dropdown.active
-    .dropdown-content {
-      max-height: 180px;
+  padding:
+    0
+    18px;
 
-      opacity: 1;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
+  border: 0;
 
-    /* =========================================
-       LINKI PODMENU
-       TEŻ CAŁA SZEROKOŚĆ
-    ========================================= */
+  background:
+    rgba(0,0,0,.04);
 
-    .dropdown-content a {
-      width: 100%;
+  color: #fff;
 
-      height: 36px;
-      min-height: 36px;
+  text-align: left;
 
-      margin: 0;
+  font-size: 16px;
+  line-height: 1;
 
-      padding:
-        0
-        25px;
+  font-weight: 900;
 
-      display: flex;
-      align-items: center;
+  text-transform: uppercase;
 
-      border: 0;
+  cursor: pointer;
 
-      border-bottom:
-        1px solid rgba(255,255,255,.07);
+  transition:
+    background .18s ease;
+}
 
-      border-radius: 0;
+.dropdown-button:hover {
+  background:
+    rgba(255,255,255,.055);
+}
 
-      background:
-        rgba(0,0,0,.13);
 
-      color:
-        rgba(255,255,255,.75);
+/* ==================================================
+   STRZAŁKA
+================================================== */
 
-      text-decoration: none;
+.dropdown-arrow {
+  position: relative;
 
-      font-size: 10px;
-      line-height: 1;
+  width: 13px;
+  height: 13px;
 
-      font-weight: 800;
+  margin-right: 4px;
 
-      text-transform: uppercase;
+  flex: 0 0 13px;
 
-      transition:
-        color .18s ease,
-        background .18s ease;
-    }
+  transition:
+    transform .2s ease;
+}
 
-    .dropdown-content a::before {
-      content: "—";
+.dropdown-arrow::before,
+.dropdown-arrow::after {
+  content: "";
 
-      margin-right: 10px;
+  position: absolute;
 
-      color:
-        rgba(255,255,255,.28);
-    }
+  top: 6px;
 
-    .dropdown-content a:hover {
-      color: #fff;
+  width: 7px;
+  height: 1px;
 
-      background:
-        rgba(255,255,255,.055);
-    }
+  background:
+    rgba(255,255,255,.75);
+}
 
+.dropdown-arrow::before {
+  left: 0;
 
-    /* =========================================
-       SOCIALE
-       ZAWSZE NA SAMYM DOLE
-    ========================================= */
+  transform:
+    rotate(45deg);
+}
 
-    .socials {
-      width: 100%;
+.dropdown-arrow::after {
+  right: 0;
 
-      margin-top: auto;
+  transform:
+    rotate(-45deg);
+}
 
-      flex-shrink: 0;
+.dropdown.active
+.dropdown-arrow {
+  transform:
+    rotate(180deg);
+}
 
-      min-height: 60px;
 
-      padding:
-        12px
-        10px;
+/* ==================================================
+   ROZWIJANE PODMENU
+================================================== */
 
-      display: flex;
-      align-items: center;
+.dropdown-content {
+  width: 100%;
 
-      gap: 11px;
+  flex: 0 0 auto;
 
-      border-top:
-        1px solid rgba(255,255,255,.11);
+  max-height: 0;
 
-      background:
-        rgba(0,0,0,.18);
-    }
+  overflow: hidden;
 
-    .socials a {
-      width: 32px;
-      height: 32px;
+  opacity: 0;
 
-      flex: 0 0 32px;
+  background:
+    rgba(255,255,255,.018);
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  transition:
+    max-height .25s ease,
+    opacity .18s ease;
+}
 
-      border:
-        1px solid rgba(255,255,255,.36);
 
-      border-radius: 50%;
+/* ==================================================
+   AKTYWNY DROPDOWN
 
-      background:
-        transparent;
+   Dostaje więcej miejsca.
+================================================== */
 
-      color:
-        rgba(255,255,255,.75);
+.dropdown.active {
+  flex: 2.2 1 0;
+}
 
-      text-decoration: none;
+.dropdown.active
+.dropdown-content {
+  max-height: 160px;
 
-      font-size: 12px;
+  opacity: 1;
+}
 
-      transition:
-        background .18s ease,
-        border-color .18s ease,
-        color .18s ease;
-    }
 
-    .socials a:hover {
-      color: #fff;
+/* ==================================================
+   LINKI PODMENU
+================================================== */
 
-      border-color: #fff;
+.dropdown-content a {
+  width: 100%;
 
-      background:
-        rgba(255,255,255,.08);
-    }
+  height: 38px;
+  min-height: 38px;
 
+  padding:
+    0
+    28px;
 
-    /* =========================================
-       HERO CONTENT
-    ========================================= */
+  display: flex;
+  align-items: center;
 
-    .slide-content {
-      position: absolute;
+  border-top:
+    1px solid rgba(255,255,255,.07);
 
-      z-index: 5;
+  background:
+    rgba(0,0,0,.20);
 
-      top: 47%;
-      left: 8vw;
+  color:
+    rgba(255,255,255,.72);
 
-      transform:
-        translateY(-50%);
+  text-decoration: none;
 
-      width:
-        min(620px, 80vw);
-    }
+  font-size: 11px;
+  line-height: 1;
 
-    .slide-category {
-      display: block;
+  font-weight: 800;
 
-      margin-bottom: 12px;
+  text-transform: uppercase;
 
-      color:
-        rgba(255,255,255,.70);
+  transition:
+    color .18s ease,
+    background .18s ease;
+}
 
-      font-size: 12px;
+.dropdown-content a::before {
+  content: "—";
 
-      font-weight: 800;
+  margin-right: 10px;
 
-      letter-spacing: 1.4px;
+  color:
+    rgba(255,255,255,.30);
+}
 
-      text-transform: uppercase;
-    }
+.dropdown-content a:hover {
+  color: #fff;
 
-    .slide h1 {
-      max-width: 680px;
+  background:
+    rgba(255,255,255,.06);
+}
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
 
-      font-size:
-        clamp(42px, 5vw, 76px);
+/* ==================================================
+   SOCIALE
 
-      line-height: .98;
+   PRZYKLEJONE DO SAMEGO DOŁU
+================================================== */
 
-      letter-spacing: -2.5px;
+.socials {
+  width: 100%;
 
-      font-weight: 700;
+  height: 60px;
 
-      text-shadow:
-        0 8px 30px rgba(0,0,0,.45);
-    }
+  flex:
+    0
+    0
+    60px;
 
-    .slide-info {
-      display: flex;
-      align-items: center;
+  margin: 0;
 
-      gap: 8px;
+  padding:
+    0
+    10px;
 
-      margin-top: 18px;
+  display: flex;
+  align-items: center;
 
-      color:
-        rgba(255,255,255,.62);
+  gap: 11px;
 
-      font-size: 12px;
-    }
+  border-top:
+    1px solid rgba(255,255,255,.11);
 
-    .slide-info strong {
-      color: #fff;
-    }
+  background:
+    rgba(0,0,0,.18);
+}
 
 
-    /* =========================================
-       PRZYCISK ARTYKUŁU
-    ========================================= */
+/* ==================================================
+   IKONY SOCIALI
+================================================== */
 
-    .open-article {
-      display: inline-flex;
-      align-items: center;
+.socials a {
+  width: 32px;
+  height: 32px;
 
-      gap: 10px;
+  flex:
+    0
+    0
+    32px;
 
-      margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      padding:
-        13px
-        19px;
+  border:
+    1px solid rgba(255,255,255,.36);
 
-      border: 0;
+  border-radius: 50%;
 
-      border-radius: 8px;
+  background: transparent;
 
-      background: #bd1820;
+  color:
+    rgba(255,255,255,.78);
 
-      color: #fff;
+  text-decoration: none;
 
-      font-size: 12px;
-      font-weight: 800;
+  font-size: 12px;
 
-      cursor: pointer;
+  transition:
+    background .18s ease,
+    border-color .18s ease,
+    color .18s ease,
+    transform .18s ease;
+}
 
-      transition:
-        background .18s ease,
-        transform .18s ease;
-    }
+.socials a:hover {
+  color: #fff;
 
-    .open-article:hover {
-      background: #d31d25;
+  border-color: #fff;
 
-      transform:
-        translateY(-2px);
-    }
+  background:
+    rgba(255,255,255,.08);
 
-    .open-article .arrow {
-      font-size: 17px;
-    }
+  transform:
+    translateY(-2px);
+}
 
 
-    /* =========================================
-       STRZAŁKI SLIDERA
-    ========================================= */
+/* ==================================================
+   HERO CONTENT
+================================================== */
 
-    .slider-arrows {
-      position: absolute;
+.slide-content {
+  position: absolute;
 
-      z-index: 20;
+  z-index: 5;
 
-      top: 52%;
-      right: 8vw;
+  top: 47%;
+  left: 8vw;
 
-      display: flex;
+  transform:
+    translateY(-50%);
 
-      gap: 8px;
-    }
+  width:
+    min(620px,80vw);
+}
 
-    .slider-arrow {
-      width: 44px;
-      height: 44px;
+.slide-category {
+  display: block;
 
-      border:
-        1px solid rgba(255,255,255,.15);
+  margin-bottom: 12px;
 
-      border-radius: 50%;
+  color:
+    rgba(255,255,255,.70);
 
-      background:
-        rgba(255,255,255,.13);
+  font-size: 12px;
 
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+  font-weight: 800;
 
-      color: #fff;
+  letter-spacing: 1.4px;
 
-      font-size: 19px;
+  text-transform: uppercase;
+}
 
-      cursor: pointer;
-    }
+.slide h1 {
+  max-width: 680px;
 
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-    /* =========================================
-       DÓŁ SLIDERA
-    ========================================= */
+  font-size:
+    clamp(42px,5vw,76px);
 
-    .slider-bottom {
-      position: absolute;
+  line-height: .98;
 
-      z-index: 20;
+  letter-spacing: -2.5px;
 
-      left: 8vw;
-      right: 8vw;
-      bottom: 38px;
+  font-weight: 700;
 
-      display: flex;
-      align-items: center;
+  text-shadow:
+    0 8px 30px rgba(0,0,0,.45);
+}
 
-      gap: 28px;
-    }
+.slide-info {
+  display: flex;
+  align-items: center;
 
-    .slider-dots {
-      display: flex;
-      align-items: center;
+  gap: 8px;
 
-      gap: 7px;
+  margin-top: 18px;
 
-      flex-shrink: 0;
-    }
+  color:
+    rgba(255,255,255,.62);
 
-    .dot {
-      width: 10px;
-      height: 10px;
+  font-size: 12px;
+}
 
-      border: 0;
+.slide-info strong {
+  color: #fff;
+}
 
-      border-radius: 20px;
 
-      background:
-        rgba(255,255,255,.30);
+/* ==================================================
+   OTWÓRZ ARTYKUŁ
+================================================== */
 
-      cursor: pointer;
+.open-article {
+  display: inline-flex;
+  align-items: center;
 
-      transition:
-        width .22s ease,
-        background .22s ease;
-    }
+  gap: 10px;
 
-    .dot.active {
-      width: 42px;
+  margin-top: 24px;
 
-      background: #fff;
-    }
+  padding:
+    13px
+    19px;
 
+  border: 0;
 
-    /* =========================================
-       4 NAJNOWSZE ARTYKUŁY
-    ========================================= */
+  border-radius: 8px;
 
-    .article-tabs {
-      display: flex;
+  background: #bd1820;
 
-      gap: 9px;
+  color: #fff;
 
-      margin-left: auto;
-    }
+  font-size: 12px;
+  font-weight: 800;
 
-    .article-tab {
-      width: 185px;
-      min-height: 58px;
+  cursor: pointer;
 
-      padding:
-        6px
-        12px
-        6px
-        6px;
+  transition:
+    background .18s ease,
+    transform .18s ease;
+}
 
-      display: flex;
-      align-items: center;
+.open-article:hover {
+  background: #d31d25;
 
-      gap: 9px;
+  transform:
+    translateY(-2px);
+}
 
-      border:
-        1px solid rgba(255,255,255,.10);
+.open-article .arrow {
+  font-size: 17px;
+}
 
-      border-radius: 40px;
 
-      background:
-        rgba(50,50,55,.66);
+/* ==================================================
+   STRZAŁKI SLIDERA
+================================================== */
 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+.slider-arrows {
+  position: absolute;
 
-      color: #fff;
+  z-index: 20;
 
-      cursor: pointer;
+  top: 52%;
+  right: 8vw;
 
-      text-align: left;
+  display: flex;
 
-      transition:
-        background .18s ease,
-        border-color .18s ease,
-        transform .18s ease;
-    }
+  gap: 8px;
+}
 
-    .article-tab:hover,
-    .article-tab.active {
-      background:
-        rgba(80,80,85,.80);
+.slider-arrow {
+  width: 44px;
+  height: 44px;
 
-      border-color:
-        rgba(255,255,255,.55);
+  border:
+    1px solid rgba(255,255,255,.15);
 
-      transform:
-        translateY(-2px);
-    }
+  border-radius: 50%;
 
-    .tab-image {
-      width: 44px;
-      height: 44px;
+  background:
+    rgba(255,255,255,.13);
 
-      flex: 0 0 44px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  color: #fff;
 
-      border:
-        2px solid rgba(255,255,255,.75);
+  font-size: 19px;
 
-      border-radius: 50%;
+  cursor: pointer;
+}
 
-      background:
-        linear-gradient(
-          145deg,
-          #354463,
-          #10141d
-        );
 
-      font-size: 10px;
-      font-weight: 900;
-    }
+/* ==================================================
+   DÓŁ SLIDERA
+================================================== */
 
-    .article-tab p {
-      color:
-        rgba(255,255,255,.88);
+.slider-bottom {
+  position: absolute;
 
-      font-size: 10px;
+  z-index: 20;
 
-      line-height: 1.3;
-    }
+  left: 8vw;
+  right: 8vw;
+  bottom: 38px;
 
+  display: flex;
+  align-items: center;
 
-    /* =========================================
-       MODAL ARTYKUŁU
-    ========================================= */
+  gap: 28px;
+}
 
-    .article-modal {
-      position: fixed;
-      inset: 0;
 
-      z-index: 3000;
+/* ==================================================
+   KROPKI
+================================================== */
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+.slider-dots {
+  display: flex;
+  align-items: center;
 
-      padding: 25px;
+  gap: 7px;
 
-      background:
-        rgba(0,0,0,.82);
+  flex-shrink: 0;
+}
 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+.dot {
+  width: 10px;
+  height: 10px;
 
-      opacity: 0;
-      visibility: hidden;
+  border: 0;
 
-      transition:
-        opacity .25s ease,
-        visibility .25s ease;
-    }
+  border-radius: 20px;
 
-    .article-modal.open {
-      opacity: 1;
-      visibility: visible;
-    }
+  background:
+    rgba(255,255,255,.30);
 
-    .modal-window {
-      position: relative;
+  cursor: pointer;
 
-      width:
-        min(900px, 100%);
+  transition:
+    width .22s ease,
+    background .22s ease;
+}
 
-      max-height: 88vh;
+.dot.active {
+  width: 42px;
 
-      overflow-y: auto;
+  background: #fff;
+}
 
-      padding:
-        65px
-        60px;
 
-      border:
-        1px solid rgba(255,255,255,.10);
+/* ==================================================
+   4 NAJNOWSZE ARTYKUŁY
+================================================== */
 
-      border-radius: 18px;
+.article-tabs {
+  display: flex;
 
-      background:
-        linear-gradient(
-          145deg,
-          #111722,
-          #080b10
-        );
+  gap: 9px;
 
-      box-shadow:
-        0 40px 120px rgba(0,0,0,.65);
-    }
+  margin-left: auto;
+}
 
-    .close-modal {
-      position: absolute;
+.article-tab {
+  width: 185px;
 
-      top: 20px;
-      right: 20px;
+  min-height: 58px;
 
-      width: 42px;
-      height: 42px;
+  padding:
+    6px
+    12px
+    6px
+    6px;
 
-      border: 0;
+  display: flex;
+  align-items: center;
 
-      border-radius: 50%;
+  gap: 9px;
 
-      background:
-        rgba(255,255,255,.08);
+  border:
+    1px solid rgba(255,255,255,.10);
 
-      color: #fff;
+  border-radius: 40px;
 
-      font-size: 24px;
+  background:
+    rgba(50,50,55,.66);
 
-      cursor: pointer;
-    }
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 
-    .modal-category {
-      color: #7f9fff;
+  color: #fff;
 
-      font-size: 12px;
+  cursor: pointer;
 
-      font-weight: 800;
+  text-align: left;
 
-      letter-spacing: 1.5px;
+  transition:
+    background .18s ease,
+    border-color .18s ease;
+}
 
-      text-transform: uppercase;
-    }
+.article-tab:hover,
+.article-tab.active {
+  background:
+    rgba(80,80,85,.80);
 
-    .modal-window h2 {
-      margin-top: 13px;
+  border-color:
+    rgba(255,255,255,.55);
+}
 
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+.tab-image {
+  width: 44px;
+  height: 44px;
 
-      font-size:
-        clamp(34px, 5vw, 60px);
+  flex:
+    0
+    0
+    44px;
 
-      line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      letter-spacing: -2px;
-    }
+  border:
+    2px solid rgba(255,255,255,.75);
 
-    .modal-window p {
-      max-width: 720px;
+  border-radius: 50%;
 
-      margin-top: 28px;
+  background:
+    linear-gradient(
+      145deg,
+      #354463,
+      #10141d
+    );
 
-      color:
-        rgba(255,255,255,.72);
+  font-size: 10px;
 
-      font-size: 16px;
+  font-weight: 900;
+}
 
-      line-height: 1.8;
-    }
+.article-tab p {
+  color:
+    rgba(255,255,255,.88);
 
+  font-size: 10px;
 
-    /* =========================================
-       TABLET
-    ========================================= */
+  line-height: 1.3;
+}
 
-    @media (max-width: 1050px) {
 
-      .article-tab {
-        width: 160px;
-      }
+/* ==================================================
+   MODAL ARTYKUŁU
+================================================== */
 
-    }
+.article-modal {
+  position: fixed;
+  inset: 0;
 
+  z-index: 3000;
 
-    @media (max-width: 900px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-      .article-tabs {
-        display: none;
-      }
+  padding: 25px;
 
-      .slider-arrows {
-        right: 28px;
-      }
+  background:
+    rgba(0,0,0,.82);
 
-    }
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 
+  opacity: 0;
+  visibility: hidden;
 
-    /* =========================================
-       TELEFON
-    ========================================= */
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
 
-    @media (max-width: 650px) {
+.article-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
 
-      .top {
-        width: 100%;
+.modal-window {
+  position: relative;
 
-        height: 88px;
+  width:
+    min(900px,100%);
 
-        padding:
-          6px
-          20px;
+  max-height: 88vh;
 
-        gap: 18px;
-      }
+  overflow-y: auto;
 
-      .logo {
-        height: 62px;
-      }
+  padding:
+    65px
+    60px;
 
-      .menu-btn {
-        width: 48px;
-        height: 48px;
+  border:
+    1px solid rgba(255,255,255,.10);
 
-        flex-basis: 48px;
-      }
+  border-radius: 18px;
 
+  background:
+    linear-gradient(
+      145deg,
+      #111722,
+      #080b10
+    );
 
-      /* MENU PEŁNY EKRAN */
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.65);
+}
 
-      .side-menu {
-        width: 100vw;
-        max-width: none;
+.close-modal {
+  position: absolute;
 
-        height: 100vh;
-        height: 100dvh;
-      }
+  top: 20px;
+  right: 20px;
 
+  width: 42px;
+  height: 42px;
 
-      /* MIEJSCE NA LOGO + X */
+  border: 0;
 
-      .menu-header-space {
-        height: 88px;
-        min-height: 88px;
+  border-radius: 50%;
 
-        flex-basis: 88px;
-      }
+  background:
+    rgba(255,255,255,.08);
 
+  color: #fff;
 
-      /* GŁÓWNE PRZYCISKI */
+  font-size: 24px;
 
-      .main-link,
-      .dropdown-button {
-        width: 100%;
+  cursor: pointer;
+}
 
-        height: 42px;
-        min-height: 42px;
+.modal-category {
+  color: #7f9fff;
 
-        flex-basis: 42px;
+  font-size: 12px;
 
-        padding:
-          0
-          10px;
+  font-weight: 800;
 
-        font-size: 15px;
-      }
+  letter-spacing: 1.5px;
 
+  text-transform: uppercase;
+}
 
-      /* PODMENU */
+.modal-window h2 {
+  margin-top: 13px;
 
-      .dropdown-content a {
-        width: 100%;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
-        height: 35px;
-        min-height: 35px;
+  font-size:
+    clamp(34px,5vw,60px);
 
-        padding:
-          0
-          23px;
+  line-height: 1;
 
-        font-size: 10px;
-      }
+  letter-spacing: -2px;
+}
 
+.modal-window p {
+  max-width: 720px;
 
-      /* SOCIALE NA SAMYM DOLE */
+  margin-top: 28px;
 
-      .socials {
-        width: 100%;
+  color:
+    rgba(255,255,255,.72);
 
-        margin-top: auto;
+  font-size: 16px;
 
-        min-height: 60px;
+  line-height: 1.8;
+}
 
-        padding:
-          12px
-          10px;
-      }
 
-      .socials a {
-        width: 31px;
-        height: 31px;
+/* ==================================================
+   TABLET
+================================================== */
 
-        flex-basis: 31px;
-      }
+@media (max-width:1050px) {
 
+  .article-tab {
+    width: 160px;
+  }
 
-      /* HERO */
+}
 
-      .slide::before {
-        background:
-          linear-gradient(
-            90deg,
-            rgba(0,0,0,.90),
-            rgba(0,0,0,.58) 50%,
-            rgba(0,0,0,.20)
-          );
-      }
+@media (max-width:900px) {
 
-      .slide-content {
-        top: 47%;
+  .article-tabs {
+    display: none;
+  }
 
-        left: 24px;
-        right: 24px;
+  .slider-arrows {
+    right: 28px;
+  }
 
-        width: auto;
-      }
+}
 
-      .slide h1 {
-        font-size:
-          clamp(36px, 11vw, 57px);
 
-        letter-spacing: -2px;
-      }
+/* ==================================================
+   TELEFON
+================================================== */
 
-      .slider-arrows {
-        top: auto;
+@media (max-width:650px) {
 
-        right: 20px;
-        bottom: 88px;
-      }
+  /* GÓRA */
 
-      .slider-arrow {
-        width: 39px;
-        height: 39px;
-      }
+  .top {
+    width: 100%;
 
-      .slider-bottom {
-        left: 24px;
-        right: 24px;
+    height: 88px;
 
-        bottom: 32px;
-      }
+    padding:
+      6px
+      20px;
 
-      .modal-window {
-        padding:
-          58px
-          23px
-          28px;
+    gap: 18px;
+  }
 
-        border-radius: 15px;
-      }
+  .logo {
+    height: 62px;
+  }
 
-    }
+  .menu-btn {
+    width: 48px;
+    height: 48px;
 
+    flex-basis: 48px;
+  }
 
-    /* =========================================
-       NISKI TELEFON
-    ========================================= */
 
-    @media (max-height: 620px) {
+  /* PANEL MENU */
 
-      .top {
-        height: 76px;
-      }
+  .side-menu {
+    width: 100vw;
 
-      .logo {
-        height: 55px;
-      }
+    max-width: none;
 
-      .menu-header-space {
-        height: 76px;
-        min-height: 76px;
+    height: 100vh;
+    height: 100dvh;
+  }
 
-        flex-basis: 76px;
-      }
 
-      .main-link,
-      .dropdown-button {
-        height: 36px;
-        min-height: 36px;
+  /* MIEJSCE NA LOGO */
 
-        flex-basis: 36px;
+  .menu-header-space {
+    height: 88px;
 
-        font-size: 14px;
-      }
+    min-height: 88px;
 
-      .dropdown-content a {
-        height: 29px;
-        min-height: 29px;
+    flex-basis: 88px;
+  }
 
-        font-size: 9px;
-      }
 
-      .socials {
-        min-height: 48px;
+  /* 5 SEKCJI WYPEŁNIA CAŁE MIEJSCE */
 
-        padding:
-          8px
-          10px;
-      }
+  .menu-nav > .main-link,
+  .menu-nav > .dropdown {
+    flex:
+      1
+      1
+      0;
 
-      .socials a {
-        width: 29px;
-        height: 29px;
+    min-height: 48px;
+  }
 
-        flex-basis: 29px;
-      }
 
-    }
+  /* GŁÓWNE PRZYCISKI */
 
-  </style>
+  .main-link,
+  .dropdown-button {
+    padding:
+      0
+      10px;
+
+    font-size: 15px;
+  }
+
+
+  /* ROZWINIĘTY DROPDOWN */
+
+  .dropdown.active {
+    flex:
+      2.15
+      1
+      0;
+  }
+
+
+  /* PODMENU */
+
+  .dropdown-content a {
+    height: 36px;
+
+    min-height: 36px;
+
+    padding:
+      0
+      22px;
+
+    font-size: 10px;
+  }
+
+
+  /* SOCIALE */
+
+  .socials {
+    height: 60px;
+
+    flex-basis: 60px;
+
+    padding:
+      0
+      10px;
+  }
+
+  .socials a {
+    width: 31px;
+    height: 31px;
+
+    flex-basis: 31px;
+  }
+
+
+  /* HERO */
+
+  .slide::before {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,0,0,.90),
+        rgba(0,0,0,.58) 50%,
+        rgba(0,0,0,.20)
+      );
+  }
+
+  .slide-content {
+    top: 47%;
+
+    left: 24px;
+    right: 24px;
+
+    width: auto;
+  }
+
+  .slide h1 {
+    font-size:
+      clamp(36px,11vw,57px);
+
+    letter-spacing: -2px;
+  }
+
+  .slider-arrows {
+    top: auto;
+
+    right: 20px;
+    bottom: 88px;
+  }
+
+  .slider-arrow {
+    width: 39px;
+    height: 39px;
+  }
+
+  .slider-bottom {
+    left: 24px;
+    right: 24px;
+
+    bottom: 32px;
+  }
+
+  .modal-window {
+    padding:
+      58px
+      23px
+      28px;
+
+    border-radius: 15px;
+  }
+
+}
+
+
+/* ==================================================
+   NISKI TELEFON
+================================================== */
+
+@media (max-height:620px) {
+
+  .top {
+    height: 76px;
+  }
+
+  .logo {
+    height: 55px;
+  }
+
+  .menu-header-space {
+    height: 76px;
+
+    min-height: 76px;
+
+    flex-basis: 76px;
+  }
+
+  .menu-nav > .main-link,
+  .menu-nav > .dropdown {
+    min-height: 42px;
+  }
+
+  .main-link,
+  .dropdown-button {
+    font-size: 14px;
+  }
+
+  .dropdown.active {
+    flex:
+      2
+      1
+      0;
+  }
+
+  .dropdown-content a {
+    height: 30px;
+
+    min-height: 30px;
+
+    font-size: 9px;
+  }
+
+  .socials {
+    height: 50px;
+
+    flex-basis: 50px;
+  }
+
+  .socials a {
+    width: 29px;
+    height: 29px;
+
+    flex-basis: 29px;
+  }
+
+}
+
+</style>
 </head>
-
 
 <body>
 
 
-  <!-- =========================================
-       HERO
-  ========================================= -->
+<!-- ==================================================
+     ARTYKUŁY
+================================================== -->
 
-  <main
-    class="articles-slider"
-    id="slider"
-  >
+<main
+  class="articles-slider"
+  id="slider"
+>
 
 
-    <!-- ARTYKUŁ 1 -->
+  <!-- ARTYKUŁ 1 -->
 
-    <article class="slide slide-1 active">
+  <article class="slide slide-1 active">
 
-      <div class="slide-content">
+    <div class="slide-content">
 
-        <span class="slide-category">
-          Klub
+      <span class="slide-category">
+        Klub
+      </span>
+
+      <h1>
+        Nowy rozdział naszego klubu
+      </h1>
+
+      <div class="slide-info">
+
+        <strong>
+          Legion Białystok
+        </strong>
+
+        <span>•</span>
+
+        <span>
+          Dzisiaj
         </span>
 
-        <h1>
-          Nowy rozdział naszego klubu
-        </h1>
-
-        <div class="slide-info">
-
-          <strong>
-            Legion Białystok
-          </strong>
-
-          <span>•</span>
-
-          <span>
-            Dzisiaj
-          </span>
-
-        </div>
-
-        <button
-          class="open-article"
-          data-article="0"
-          type="button"
-        >
-          Otwórz
-
-          <span class="arrow">
-            →
-          </span>
-        </button>
-
       </div>
-
-    </article>
-
-
-    <!-- ARTYKUŁ 2 -->
-
-    <article class="slide slide-2">
-
-      <div class="slide-content">
-
-        <span class="slide-category">
-          Pierwszy zespół
-        </span>
-
-        <h1>
-          Drużyna gotowa na kolejne wyzwanie
-        </h1>
-
-        <div class="slide-info">
-
-          <strong>
-            Legion Białystok
-          </strong>
-
-          <span>•</span>
-
-          <span>
-            1 dzień temu
-          </span>
-
-        </div>
-
-        <button
-          class="open-article"
-          data-article="1"
-          type="button"
-        >
-          Otwórz
-
-          <span class="arrow">
-            →
-          </span>
-        </button>
-
-      </div>
-
-    </article>
-
-
-    <!-- ARTYKUŁ 3 -->
-
-    <article class="slide slide-3">
-
-      <div class="slide-content">
-
-        <span class="slide-category">
-          Mecz
-        </span>
-
-        <h1>
-          Wszystko gotowe na wielkie spotkanie
-        </h1>
-
-        <div class="slide-info">
-
-          <strong>
-            Legion Białystok
-          </strong>
-
-          <span>•</span>
-
-          <span>
-            2 dni temu
-          </span>
-
-        </div>
-
-        <button
-          class="open-article"
-          data-article="2"
-          type="button"
-        >
-          Otwórz
-
-          <span class="arrow">
-            →
-          </span>
-        </button>
-
-      </div>
-
-    </article>
-
-
-    <!-- ARTYKUŁ 4 -->
-
-    <article class="slide slide-4">
-
-      <div class="slide-content">
-
-        <span class="slide-category">
-          Klub
-        </span>
-
-        <h1>
-          Razem budujemy przyszłość Legionu
-        </h1>
-
-        <div class="slide-info">
-
-          <strong>
-            Legion Białystok
-          </strong>
-
-          <span>•</span>
-
-          <span>
-            3 dni temu
-          </span>
-
-        </div>
-
-        <button
-          class="open-article"
-          data-article="3"
-          type="button"
-        >
-          Otwórz
-
-          <span class="arrow">
-            →
-          </span>
-        </button>
-
-      </div>
-
-    </article>
-
-
-    <!-- STRZAŁKI -->
-
-    <div class="slider-arrows">
 
       <button
-        class="slider-arrow"
-        id="prevSlide"
+        class="open-article"
+        data-article="0"
         type="button"
-        aria-label="Poprzedni artykuł"
       >
-        ‹
-      </button>
+        Otwórz
 
-      <button
-        class="slider-arrow"
-        id="nextSlide"
-        type="button"
-        aria-label="Następny artykuł"
-      >
-        ›
+        <span class="arrow">
+          →
+        </span>
       </button>
 
     </div>
 
+  </article>
 
-    <!-- DÓŁ SLIDERA -->
 
-    <div class="slider-bottom">
+  <!-- ARTYKUŁ 2 -->
 
-      <div class="slider-dots">
+  <article class="slide slide-2">
 
-        <button
-          class="dot active"
-          data-slide="0"
-          type="button"
-          aria-label="Artykuł 1"
-        ></button>
+    <div class="slide-content">
 
-        <button
-          class="dot"
-          data-slide="1"
-          type="button"
-          aria-label="Artykuł 2"
-        ></button>
+      <span class="slide-category">
+        Pierwszy zespół
+      </span>
 
-        <button
-          class="dot"
-          data-slide="2"
-          type="button"
-          aria-label="Artykuł 3"
-        ></button>
+      <h1>
+        Drużyna gotowa na kolejne wyzwanie
+      </h1>
 
-        <button
-          class="dot"
-          data-slide="3"
-          type="button"
-          aria-label="Artykuł 4"
-        ></button>
+      <div class="slide-info">
+
+        <strong>
+          Legion Białystok
+        </strong>
+
+        <span>•</span>
+
+        <span>
+          1 dzień temu
+        </span>
 
       </div>
 
+      <button
+        class="open-article"
+        data-article="1"
+        type="button"
+      >
+        Otwórz
 
-      <!-- 4 NAJNOWSZE ARTYKUŁY -->
-
-      <div class="article-tabs">
-
-        <button
-          class="article-tab active"
-          data-slide="0"
-          type="button"
-        >
-
-          <div class="tab-image">
-            LB
-          </div>
-
-          <p>
-            Nowy rozdział naszego klubu
-          </p>
-
-        </button>
-
-
-        <button
-          class="article-tab"
-          data-slide="1"
-          type="button"
-        >
-
-          <div class="tab-image">
-            LB
-          </div>
-
-          <p>
-            Drużyna gotowa na kolejne wyzwanie
-          </p>
-
-        </button>
-
-
-        <button
-          class="article-tab"
-          data-slide="2"
-          type="button"
-        >
-
-          <div class="tab-image">
-            LB
-          </div>
-
-          <p>
-            Wszystko gotowe na wielkie spotkanie
-          </p>
-
-        </button>
-
-
-        <button
-          class="article-tab"
-          data-slide="3"
-          type="button"
-        >
-
-          <div class="tab-image">
-            LB
-          </div>
-
-          <p>
-            Razem budujemy przyszłość Legionu
-          </p>
-
-        </button>
-
-      </div>
+        <span class="arrow">
+          →
+        </span>
+      </button>
 
     </div>
 
-  </main>
+  </article>
 
 
-  <!-- =========================================
-       OVERLAY
-  ========================================= -->
+  <!-- ARTYKUŁ 3 -->
 
-  <div
-    class="menu-overlay"
-    id="menuOverlay"
-  ></div>
+  <article class="slide slide-3">
 
+    <div class="slide-content">
 
-  <!-- =========================================
-       MENU
-  ========================================= -->
+      <span class="slide-category">
+        Mecz
+      </span>
 
-  <aside
-    class="side-menu"
-    id="sideMenu"
-  >
+      <h1>
+        Wszystko gotowe na wielkie spotkanie
+      </h1>
 
-    <!--
-      Puste miejsce przeznaczone tylko
-      dla X i logo.
-    -->
+      <div class="slide-info">
 
-    <div class="menu-header-space"></div>
+        <strong>
+          Legion Białystok
+        </strong>
 
+        <span>•</span>
 
-    <div class="menu-content">
-
-
-      <!-- NAWIGACJA -->
-
-      <nav class="menu-nav">
-
-
-        <!-- STRONA GŁÓWNA -->
-
-        <a
-          href="https://legionbialystok.pl/"
-          class="main-link"
-        >
-          Strona główna
-        </a>
-
-
-        <!-- WIADOMOŚCI -->
-
-        <div class="dropdown">
-
-          <button
-            class="dropdown-button"
-            type="button"
-          >
-
-            <span>
-              Wiadomości
-            </span>
-
-            <span
-              class="dropdown-arrow"
-            ></span>
-
-          </button>
-
-
-          <div class="dropdown-content">
-
-            <a
-              href="https://www.legionbialystok.pl/artykuły"
-            >
-              Artykuły
-            </a>
-
-            <a
-              href="https://legionbialystok.pl/galeria"
-            >
-              Galeria
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- DRUŻYNY -->
-
-        <div class="dropdown">
-
-          <button
-            class="dropdown-button"
-            type="button"
-          >
-
-            <span>
-              Drużyny
-            </span>
-
-            <span
-              class="dropdown-arrow"
-            ></span>
-
-          </button>
-
-
-          <div class="dropdown-content">
-
-            <a
-              href="https://legionbialystok.pl/pierwszyzespol"
-            >
-              Pierwszy Zespół
-            </a>
-
-            <a
-              href="https://legionbialystok.pl/drugizespol"
-            >
-              Drugi Zespół
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- KLUB -->
-
-        <div class="dropdown">
-
-          <button
-            class="dropdown-button"
-            type="button"
-          >
-
-            <span>
-              Klub
-            </span>
-
-            <span
-              class="dropdown-arrow"
-            ></span>
-
-          </button>
-
-
-          <div class="dropdown-content">
-
-            <a
-              href="https://legionbialystok.pl/onas"
-            >
-              O nas
-            </a>
-
-            <a
-              href="https://legionbialystok.pl/dokumenty"
-            >
-              Dokumenty
-            </a>
-
-            <a
-              href="https://legionbialystok.pl/legion"
-            >
-              Ludzie Legionu
-            </a>
-
-          </div>
-
-        </div>
-
-
-        <!-- KONTAKT -->
-
-        <a
-          href="https://legionbialystok.pl/kontakt"
-          class="main-link"
-        >
-          Kontakt
-        </a>
-
-      </nav>
-
-
-      <!-- =====================================
-           SOCIALE - ZAWSZE NA DOLE
-      ====================================== -->
-
-      <div class="socials">
-
-        <a
-          href="https://www.facebook.com/profile.php?id=61594618042996"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Facebook"
-          title="Facebook"
-        >
-          <i class="fa-brands fa-facebook-f"></i>
-        </a>
-
-
-        <a
-          href="https://www.instagram.com/mlodywilkuu/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          title="Instagram"
-        >
-          <i class="fa-brands fa-instagram"></i>
-        </a>
-
-
-        <a
-          href="https://www.tiktok.com/@kslegionbialystok"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="TikTok"
-          title="TikTok"
-        >
-          <i class="fa-brands fa-tiktok"></i>
-        </a>
+        <span>
+          2 dni temu
+        </span>
 
       </div>
 
+      <button
+        class="open-article"
+        data-article="2"
+        type="button"
+      >
+        Otwórz
+
+        <span class="arrow">
+          →
+        </span>
+      </button>
+
     </div>
 
-  </aside>
+  </article>
 
 
-  <!-- =========================================
-       X / HAMBURGER + LOGO
-  ========================================= -->
+  <!-- ARTYKUŁ 4 -->
 
-  <div class="top">
+  <article class="slide slide-4">
+
+    <div class="slide-content">
+
+      <span class="slide-category">
+        Klub
+      </span>
+
+      <h1>
+        Razem budujemy przyszłość Legionu
+      </h1>
+
+      <div class="slide-info">
+
+        <strong>
+          Legion Białystok
+        </strong>
+
+        <span>•</span>
+
+        <span>
+          3 dni temu
+        </span>
+
+      </div>
+
+      <button
+        class="open-article"
+        data-article="3"
+        type="button"
+      >
+        Otwórz
+
+        <span class="arrow">
+          →
+        </span>
+      </button>
+
+    </div>
+
+  </article>
+
+
+  <!-- STRZAŁKI -->
+
+  <div class="slider-arrows">
 
     <button
-      class="menu-btn"
-      id="menuBtn"
+      class="slider-arrow"
+      id="prevSlide"
       type="button"
-      aria-label="Otwórz menu"
-      aria-expanded="false"
+      aria-label="Poprzedni artykuł"
     >
-      <span></span>
-      <span></span>
-      <span></span>
+      ‹
+    </button>
+
+    <button
+      class="slider-arrow"
+      id="nextSlide"
+      type="button"
+      aria-label="Następny artykuł"
+    >
+      ›
+    </button>
+
+  </div>
+
+
+  <!-- DÓŁ SLIDERA -->
+
+  <div class="slider-bottom">
+
+
+    <div class="slider-dots">
+
+      <button
+        class="dot active"
+        data-slide="0"
+        type="button"
+      ></button>
+
+      <button
+        class="dot"
+        data-slide="1"
+        type="button"
+      ></button>
+
+      <button
+        class="dot"
+        data-slide="2"
+        type="button"
+      ></button>
+
+      <button
+        class="dot"
+        data-slide="3"
+        type="button"
+      ></button>
+
+    </div>
+
+
+    <!-- 4 NAJNOWSZE -->
+
+    <div class="article-tabs">
+
+
+      <button
+        class="article-tab active"
+        data-slide="0"
+        type="button"
+      >
+
+        <div class="tab-image">
+          LB
+        </div>
+
+        <p>
+          Nowy rozdział naszego klubu
+        </p>
+
+      </button>
+
+
+      <button
+        class="article-tab"
+        data-slide="1"
+        type="button"
+      >
+
+        <div class="tab-image">
+          LB
+        </div>
+
+        <p>
+          Drużyna gotowa na kolejne wyzwanie
+        </p>
+
+      </button>
+
+
+      <button
+        class="article-tab"
+        data-slide="2"
+        type="button"
+      >
+
+        <div class="tab-image">
+          LB
+        </div>
+
+        <p>
+          Wszystko gotowe na wielkie spotkanie
+        </p>
+
+      </button>
+
+
+      <button
+        class="article-tab"
+        data-slide="3"
+        type="button"
+      >
+
+        <div class="tab-image">
+          LB
+        </div>
+
+        <p>
+          Razem budujemy przyszłość Legionu
+        </p>
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- ==================================================
+     OVERLAY
+================================================== -->
+
+<div
+  class="menu-overlay"
+  id="menuOverlay"
+></div>
+
+
+<!-- ==================================================
+     MENU
+================================================== -->
+
+<aside
+  class="side-menu"
+  id="sideMenu"
+>
+
+  <!-- REZERWACJA MIEJSCA NA X + LOGO -->
+
+  <div class="menu-header-space"></div>
+
+
+  <div class="menu-content">
+
+
+    <!-- NAWIGACJA -->
+
+    <nav class="menu-nav">
+
+
+      <!-- STRONA GŁÓWNA -->
+
+      <a
+        href="https://legionbialystok.pl/"
+        class="main-link"
+      >
+        Strona główna
+      </a>
+
+
+      <!-- WIADOMOŚCI -->
+
+      <div class="dropdown">
+
+        <button
+          class="dropdown-button"
+          type="button"
+        >
+
+          <span>
+            Wiadomości
+          </span>
+
+          <span
+            class="dropdown-arrow"
+          ></span>
+
+        </button>
+
+
+        <div class="dropdown-content">
+
+          <a
+            href="https://www.legionbialystok.pl/artykuły"
+          >
+            Artykuły
+          </a>
+
+          <a
+            href="https://legionbialystok.pl/galeria"
+          >
+            Galeria
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- DRUŻYNY -->
+
+      <div class="dropdown">
+
+        <button
+          class="dropdown-button"
+          type="button"
+        >
+
+          <span>
+            Drużyny
+          </span>
+
+          <span
+            class="dropdown-arrow"
+          ></span>
+
+        </button>
+
+
+        <div class="dropdown-content">
+
+          <a
+            href="https://legionbialystok.pl/pierwszyzespol"
+          >
+            Pierwszy Zespół
+          </a>
+
+          <a
+            href="https://legionbialystok.pl/drugizespol"
+          >
+            Drugi Zespół
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- KLUB -->
+
+      <div class="dropdown">
+
+        <button
+          class="dropdown-button"
+          type="button"
+        >
+
+          <span>
+            Klub
+          </span>
+
+          <span
+            class="dropdown-arrow"
+          ></span>
+
+        </button>
+
+
+        <div class="dropdown-content">
+
+          <a
+            href="https://legionbialystok.pl/onas"
+          >
+            O nas
+          </a>
+
+          <a
+            href="https://legionbialystok.pl/dokumenty"
+          >
+            Dokumenty
+          </a>
+
+          <a
+            href="https://legionbialystok.pl/legion"
+          >
+            Ludzie Legionu
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- KONTAKT -->
+
+      <a
+        href="https://legionbialystok.pl/kontakt"
+        class="main-link"
+      >
+        Kontakt
+      </a>
+
+
+    </nav>
+
+
+    <!-- ==================================================
+         SOCIALE
+    ================================================== -->
+
+    <div class="socials">
+
+      <a
+        href="https://www.facebook.com/profile.php?id=61594618042996"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Facebook"
+        title="Facebook"
+      >
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+
+
+      <a
+        href="https://www.instagram.com/mlodywilkuu/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        title="Instagram"
+      >
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+
+
+      <a
+        href="https://www.tiktok.com/@kslegionbialystok"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="TikTok"
+        title="TikTok"
+      >
+        <i class="fa-brands fa-tiktok"></i>
+      </a>
+
+    </div>
+
+
+  </div>
+
+</aside>
+
+
+<!-- ==================================================
+     X / HAMBURGER + LOGO
+================================================== -->
+
+<div class="top">
+
+  <button
+    class="menu-btn"
+    id="menuBtn"
+    type="button"
+    aria-label="Otwórz menu"
+    aria-expanded="false"
+  >
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+  </button>
+
+
+  <img
+    class="logo"
+    src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+    alt="Legion Białystok"
+  >
+
+</div>
+
+
+<!-- ==================================================
+     MODAL ARTYKUŁU
+================================================== -->
+
+<div
+  class="article-modal"
+  id="articleModal"
+>
+
+  <div class="modal-window">
+
+    <button
+      class="close-modal"
+      id="closeModal"
+      type="button"
+    >
+      ×
     </button>
 
 
-    <img
-      class="logo"
-      src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
-      alt="Legion Białystok"
-    >
+    <span
+      class="modal-category"
+      id="modalCategory"
+    ></span>
+
+
+    <h2
+      id="modalTitle"
+    ></h2>
+
+
+    <p
+      id="modalText"
+    ></p>
 
   </div>
 
-
-  <!-- =========================================
-       MODAL ARTYKUŁU
-  ========================================= -->
-
-  <div
-    class="article-modal"
-    id="articleModal"
-  >
-
-    <div class="modal-window">
-
-      <button
-        class="close-modal"
-        id="closeModal"
-        type="button"
-        aria-label="Zamknij artykuł"
-      >
-        ×
-      </button>
-
-      <span
-        class="modal-category"
-        id="modalCategory"
-      ></span>
-
-      <h2
-        id="modalTitle"
-      ></h2>
-
-      <p
-        id="modalText"
-      ></p>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <script>
+<script>
 
-    /* =========================================
-       MENU
-    ========================================= */
+/* ==================================================
+   MENU
+================================================== */
 
-    const menuBtn =
-      document.getElementById("menuBtn");
+const menuBtn =
+  document.getElementById("menuBtn");
 
-    const sideMenu =
-      document.getElementById("sideMenu");
+const sideMenu =
+  document.getElementById("sideMenu");
 
-    const menuOverlay =
-      document.getElementById("menuOverlay");
+const menuOverlay =
+  document.getElementById("menuOverlay");
 
 
-    function openMenu() {
+function openMenu() {
 
-      sideMenu.classList.add("open");
+  sideMenu.classList.add("open");
 
-      menuOverlay.classList.add("open");
+  menuOverlay.classList.add("open");
 
-      menuBtn.classList.add("active");
+  menuBtn.classList.add("active");
 
-      menuBtn.setAttribute(
-        "aria-expanded",
-        "true"
-      );
+  menuBtn.setAttribute(
+    "aria-expanded",
+    "true"
+  );
+
+}
+
+
+function closeMenu() {
+
+  sideMenu.classList.remove("open");
+
+  menuOverlay.classList.remove("open");
+
+  menuBtn.classList.remove("active");
+
+  menuBtn.setAttribute(
+    "aria-expanded",
+    "false"
+  );
+
+}
+
+
+menuBtn.addEventListener(
+  "click",
+  () => {
+
+    if (
+      sideMenu.classList.contains("open")
+    ) {
+
+      closeMenu();
+
+    } else {
+
+      openMenu();
 
     }
 
-
-    function closeMenu() {
-
-      sideMenu.classList.remove("open");
-
-      menuOverlay.classList.remove("open");
-
-      menuBtn.classList.remove("active");
-
-      menuBtn.setAttribute(
-        "aria-expanded",
-        "false"
-      );
-
-    }
+  }
+);
 
 
-    menuBtn.addEventListener(
-      "click",
-      () => {
-
-        if (
-          sideMenu.classList.contains("open")
-        ) {
-
-          closeMenu();
-
-        } else {
-
-          openMenu();
-
-        }
-
-      }
-    );
+menuOverlay.addEventListener(
+  "click",
+  closeMenu
+);
 
 
-    menuOverlay.addEventListener(
-      "click",
-      closeMenu
-    );
+/* ==================================================
+   DROPDOWNY
+================================================== */
+
+const dropdownButtons =
+  document.querySelectorAll(
+    ".dropdown-button"
+  );
 
 
-    /* =========================================
-       DROPDOWNY
+dropdownButtons.forEach(button => {
 
-       Tylko jeden rozwinięty jednocześnie.
-       Pozostałe elementy są przesuwane w dół.
-    ========================================= */
+  button.addEventListener(
+    "click",
+    () => {
 
-    const dropdownButtons =
-      document.querySelectorAll(
-        ".dropdown-button"
-      );
+      const currentDropdown =
+        button.closest(".dropdown");
 
-
-    dropdownButtons.forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          const currentDropdown =
-            button.closest(".dropdown");
-
-          const isOpen =
-            currentDropdown
-              .classList
-              .contains("active");
-
-
-          document
-            .querySelectorAll(".dropdown")
-            .forEach(dropdown => {
-
-              dropdown
-                .classList
-                .remove("active");
-
-            });
-
-
-          if (!isOpen) {
-
-            currentDropdown
-              .classList
-              .add("active");
-
-          }
-
-        }
-      );
-
-    });
-
-
-    /* =========================================
-       SLIDER
-    ========================================= */
-
-    const slides =
-      document.querySelectorAll(".slide");
-
-    const dots =
-      document.querySelectorAll(".dot");
-
-    const tabs =
-      document.querySelectorAll(
-        ".article-tab"
-      );
-
-    const prevSlide =
-      document.getElementById(
-        "prevSlide"
-      );
-
-    const nextSlide =
-      document.getElementById(
-        "nextSlide"
-      );
-
-
-    let currentSlide = 0;
-
-
-    function showSlide(index) {
-
-      if (index < 0) {
-        index = slides.length - 1;
-      }
-
-      if (index >= slides.length) {
-        index = 0;
-      }
-
-
-      currentSlide = index;
-
-
-      slides.forEach(slide => {
-
-        slide
+      const isOpen =
+        currentDropdown
           .classList
-          .remove("active");
-
-      });
+          .contains("active");
 
 
-      dots.forEach(dot => {
+      document
+        .querySelectorAll(".dropdown")
+        .forEach(dropdown => {
 
-        dot
-          .classList
-          .remove("active");
+          dropdown
+            .classList
+            .remove("active");
 
-      });
-
-
-      tabs.forEach(tab => {
-
-        tab
-          .classList
-          .remove("active");
-
-      });
+        });
 
 
-      slides[index]
-        .classList
-        .add("active");
+      if (!isOpen) {
 
-
-      if (dots[index]) {
-
-        dots[index]
-          .classList
-          .add("active");
-
-      }
-
-
-      if (tabs[index]) {
-
-        tabs[index]
+        currentDropdown
           .classList
           .add("active");
 
       }
 
     }
+  );
+
+});
 
 
-    prevSlide.addEventListener(
+/* ==================================================
+   SLIDER
+================================================== */
+
+const slides =
+  document.querySelectorAll(".slide");
+
+const dots =
+  document.querySelectorAll(".dot");
+
+const tabs =
+  document.querySelectorAll(
+    ".article-tab"
+  );
+
+const prevSlide =
+  document.getElementById(
+    "prevSlide"
+  );
+
+const nextSlide =
+  document.getElementById(
+    "nextSlide"
+  );
+
+
+let currentSlide = 0;
+
+
+function showSlide(index) {
+
+  if (index < 0) {
+    index = slides.length - 1;
+  }
+
+  if (index >= slides.length) {
+    index = 0;
+  }
+
+
+  currentSlide = index;
+
+
+  slides.forEach(slide => {
+
+    slide
+      .classList
+      .remove("active");
+
+  });
+
+
+  dots.forEach(dot => {
+
+    dot
+      .classList
+      .remove("active");
+
+  });
+
+
+  tabs.forEach(tab => {
+
+    tab
+      .classList
+      .remove("active");
+
+  });
+
+
+  slides[index]
+    .classList
+    .add("active");
+
+
+  if (dots[index]) {
+
+    dots[index]
+      .classList
+      .add("active");
+
+  }
+
+
+  if (tabs[index]) {
+
+    tabs[index]
+      .classList
+      .add("active");
+
+  }
+
+}
+
+
+prevSlide.addEventListener(
+  "click",
+  () => {
+
+    showSlide(
+      currentSlide - 1
+    );
+
+  }
+);
+
+
+nextSlide.addEventListener(
+  "click",
+  () => {
+
+    showSlide(
+      currentSlide + 1
+    );
+
+  }
+);
+
+
+dots.forEach(dot => {
+
+  dot.addEventListener(
+    "click",
+    () => {
+
+      showSlide(
+        Number(
+          dot.dataset.slide
+        )
+      );
+
+    }
+  );
+
+});
+
+
+tabs.forEach(tab => {
+
+  tab.addEventListener(
+    "click",
+    () => {
+
+      showSlide(
+        Number(
+          tab.dataset.slide
+        )
+      );
+
+    }
+  );
+
+});
+
+
+/* ==================================================
+   DANE ARTYKUŁÓW
+
+   Później tutaj podepniemy Supabase.
+================================================== */
+
+const articles = [
+
+  {
+    category:
+      "Klub",
+
+    title:
+      "Nowy rozdział naszego klubu",
+
+    text:
+      "Tutaj znajdzie się pełna treść artykułu. Po podłączeniu Supabase cztery najnowsze artykuły będą automatycznie pobierane z panelu administratora."
+  },
+
+  {
+    category:
+      "Pierwszy zespół",
+
+    title:
+      "Drużyna gotowa na kolejne wyzwanie",
+
+    text:
+      "Tutaj znajdzie się pełna treść artykułu dotyczącego pierwszego zespołu Legionu Białystok."
+  },
+
+  {
+    category:
+      "Mecz",
+
+    title:
+      "Wszystko gotowe na wielkie spotkanie",
+
+    text:
+      "Tutaj znajdzie się zapowiedź spotkania oraz najważniejsze informacje dla kibiców."
+  },
+
+  {
+    category:
+      "Klub",
+
+    title:
+      "Razem budujemy przyszłość Legionu",
+
+    text:
+      "Tutaj znajdzie się treść czwartego najnowszego artykułu Legionu Białystok."
+  }
+
+];
+
+
+/* ==================================================
+   MODAL ARTYKUŁU
+================================================== */
+
+const articleModal =
+  document.getElementById(
+    "articleModal"
+  );
+
+const closeModal =
+  document.getElementById(
+    "closeModal"
+  );
+
+const modalCategory =
+  document.getElementById(
+    "modalCategory"
+  );
+
+const modalTitle =
+  document.getElementById(
+    "modalTitle"
+  );
+
+const modalText =
+  document.getElementById(
+    "modalText"
+  );
+
+
+function openArticle(index) {
+
+  const article =
+    articles[index];
+
+
+  if (!article) {
+    return;
+  }
+
+
+  modalCategory.textContent =
+    article.category;
+
+  modalTitle.textContent =
+    article.title;
+
+  modalText.textContent =
+    article.text;
+
+
+  articleModal
+    .classList
+    .add("open");
+
+}
+
+
+function closeArticle() {
+
+  articleModal
+    .classList
+    .remove("open");
+
+}
+
+
+document
+  .querySelectorAll(
+    ".open-article"
+  )
+  .forEach(button => {
+
+    button.addEventListener(
       "click",
       () => {
 
-        showSlide(
-          currentSlide - 1
+        openArticle(
+          Number(
+            button.dataset.article
+          )
         );
 
       }
     );
 
-
-    nextSlide.addEventListener(
-      "click",
-      () => {
-
-        showSlide(
-          currentSlide + 1
-        );
-
-      }
-    );
+  });
 
 
-    dots.forEach(dot => {
-
-      dot.addEventListener(
-        "click",
-        () => {
-
-          showSlide(
-            Number(
-              dot.dataset.slide
-            )
-          );
-
-        }
-      );
-
-    });
+closeModal.addEventListener(
+  "click",
+  closeArticle
+);
 
 
-    tabs.forEach(tab => {
+articleModal.addEventListener(
+  "click",
+  event => {
 
-      tab.addEventListener(
-        "click",
-        () => {
+    if (
+      event.target === articleModal
+    ) {
 
-          showSlide(
-            Number(
-              tab.dataset.slide
-            )
-          );
+      closeArticle();
 
-        }
-      );
+    }
 
-    });
+  }
+);
 
 
-    /* =========================================
-       ARTYKUŁY
+/* ==================================================
+   ESC
+================================================== */
 
-       Na razie lokalne dane.
-       Później podłączymy tutaj Supabase.
-    ========================================= */
+document.addEventListener(
+  "keydown",
+  event => {
 
-    const articles = [
-
-      {
-        category:
-          "Klub",
-
-        title:
-          "Nowy rozdział naszego klubu",
-
-        text:
-          "Tutaj znajdzie się pełna treść artykułu. Po podłączeniu Supabase cztery najnowsze artykuły będą automatycznie pobierane z panelu administratora."
-      },
-
-      {
-        category:
-          "Pierwszy zespół",
-
-        title:
-          "Drużyna gotowa na kolejne wyzwanie",
-
-        text:
-          "Tutaj znajdzie się pełna treść artykułu dotyczącego pierwszego zespołu Legionu Białystok."
-      },
-
-      {
-        category:
-          "Mecz",
-
-        title:
-          "Wszystko gotowe na wielkie spotkanie",
-
-        text:
-          "Tutaj znajdzie się zapowiedź spotkania oraz najważniejsze informacje dla kibiców."
-      },
-
-      {
-        category:
-          "Klub",
-
-        title:
-          "Razem budujemy przyszłość Legionu",
-
-        text:
-          "Tutaj znajdzie się treść czwartego najnowszego artykułu Legionu Białystok."
-      }
-
-    ];
+    if (event.key !== "Escape") {
+      return;
+    }
 
 
-    /* =========================================
-       MODAL
-    ========================================= */
-
-    const articleModal =
-      document.getElementById(
-        "articleModal"
-      );
-
-    const closeModal =
-      document.getElementById(
-        "closeModal"
-      );
-
-    const modalCategory =
-      document.getElementById(
-        "modalCategory"
-      );
-
-    const modalTitle =
-      document.getElementById(
-        "modalTitle"
-      );
-
-    const modalText =
-      document.getElementById(
-        "modalText"
-      );
-
-
-    function openArticle(index) {
-
-      const article =
-        articles[index];
-
-
-      if (!article) {
-        return;
-      }
-
-
-      modalCategory.textContent =
-        article.category;
-
-      modalTitle.textContent =
-        article.title;
-
-      modalText.textContent =
-        article.text;
-
-
+    if (
       articleModal
         .classList
-        .add("open");
+        .contains("open")
+    ) {
+
+      closeArticle();
+
+      return;
 
     }
 
 
-    function closeArticle() {
-
-      articleModal
+    if (
+      sideMenu
         .classList
-        .remove("open");
+        .contains("open")
+    ) {
+
+      closeMenu();
 
     }
 
+  }
+);
 
-    document
-      .querySelectorAll(
-        ".open-article"
-      )
-      .forEach(button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            openArticle(
-              Number(
-                button.dataset.article
-              )
-            );
-
-          }
-        );
-
-      });
-
-
-    closeModal.addEventListener(
-      "click",
-      closeArticle
-    );
-
-
-    articleModal.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target === articleModal
-        ) {
-
-          closeArticle();
-
-        }
-
-      }
-    );
-
-
-    /* =========================================
-       ESC
-    ========================================= */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if (event.key !== "Escape") {
-          return;
-        }
-
-
-        if (
-          articleModal
-            .classList
-            .contains("open")
-        ) {
-
-          closeArticle();
-
-          return;
-
-        }
-
-
-        if (
-          sideMenu
-            .classList
-            .contains("open")
-        ) {
-
-          closeMenu();
-
-        }
-
-      }
-    );
-
-  </script>
+</script>
 
 </body>
 </html>
