@@ -163,7 +163,7 @@ a {
 
 
 /* ==================================================
-   PRZYCIEMNIENIE HERO
+   CIEMNA WARSTWA HERO
 ================================================== */
 
 .slide::before {
@@ -203,8 +203,7 @@ a {
 
 
 /* ==================================================
-   GÓRA
-   X + LOGO
+   GÓRA - X + LOGO
 ================================================== */
 
 .top {
@@ -326,8 +325,7 @@ a {
 
   z-index: 800;
 
-  background:
-    rgba(0,0,0,.20);
+  background: rgba(0,0,0,.20);
 
   opacity: 0;
   visibility: hidden;
@@ -368,29 +366,31 @@ a {
 
   background:
     linear-gradient(
-      90deg,
-      rgba(3,5,8,.995),
-      rgba(3,5,8,.98)
+      145deg,
+      rgba(5,7,10,.995) 0%,
+      rgba(3,5,8,.985) 55%,
+      rgba(8,10,14,.97) 100%
     );
 
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 
-  transform:
-    translateX(-105%);
+  transform: translateX(-105%);
 
   transition:
     transform .35s cubic-bezier(.77,0,.18,1);
+
+  box-shadow:
+    15px 0 50px rgba(0,0,0,.35);
 }
 
 .side-menu.open {
-  transform:
-    translateX(0);
+  transform: translateX(0);
 }
 
 
 /* ==================================================
-   MIEJSCE NA LOGO + X
+   MIEJSCE NA LOGO
 ================================================== */
 
 .menu-header-space {
@@ -402,15 +402,12 @@ a {
   flex: 0 0 88px;
 
   border-bottom:
-    1px solid rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.10);
 }
 
 
 /* ==================================================
-   MENU CONTENT
-
-   Ta sekcja zajmuje wszystko pomiędzy
-   logo a dolnymi socialami.
+   CONTENT MENU
 ================================================== */
 
 .menu-content {
@@ -428,9 +425,7 @@ a {
 
 
 /* ==================================================
-   NAV
-
-   WYPEŁNIA CAŁĄ DOSTĘPNĄ WYSOKOŚĆ
+   NAWIGACJA
 ================================================== */
 
 .menu-nav {
@@ -442,23 +437,18 @@ a {
 
   display: flex;
   flex-direction: column;
-
-  margin: 0;
-  padding: 0;
 }
 
 
 /* ==================================================
    5 GŁÓWNYCH SEKCJI
-
-   Każda dostaje równą część dostępnego miejsca.
 ================================================== */
 
 .menu-nav > .main-link,
 .menu-nav > .dropdown {
   flex: 1 1 0;
 
-  min-height: 52px;
+  min-height: 54px;
 }
 
 
@@ -467,11 +457,9 @@ a {
 ================================================== */
 
 .main-link {
+  position: relative;
+
   width: 100%;
-
-  height: auto;
-
-  margin: 0;
 
   padding:
     0
@@ -480,37 +468,81 @@ a {
   display: flex;
   align-items: center;
 
+  overflow: hidden;
+
   border: 0;
 
   border-bottom:
-    1px solid rgba(255,255,255,.11);
-
-  border-radius: 0;
+    1px solid rgba(255,255,255,.09);
 
   background:
-    rgba(0,0,0,.04);
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025),
+      transparent 80%
+    );
 
   color: #fff;
 
   text-decoration: none;
-  text-align: left;
 
-  font-size: 16px;
-  line-height: 1;
+  font-size: 15px;
 
   font-weight: 900;
 
+  letter-spacing: -.2px;
+
   text-transform: uppercase;
 
-  cursor: pointer;
+  transition:
+    background .22s ease,
+    padding-left .22s ease;
+}
+
+
+/* CZERWONY PASEK */
+
+.main-link::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+
+  width: 3px;
+
+  border-radius:
+    0
+    4px
+    4px
+    0;
+
+  background: #c61b24;
+
+  transform:
+    scaleY(0);
 
   transition:
-    background .18s ease;
+    transform .22s ease;
 }
 
 .main-link:hover {
+  padding-left: 23px;
+
   background:
-    rgba(255,255,255,.055);
+    linear-gradient(
+      90deg,
+      rgba(198,27,36,.13),
+      rgba(255,255,255,.025) 55%,
+      transparent
+    );
+}
+
+.main-link:hover::before {
+  transform:
+    scaleY(1);
 }
 
 
@@ -530,27 +562,75 @@ a {
 
   overflow: hidden;
 
-  margin: 0;
-  padding: 0;
-
   border-bottom:
-    1px solid rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.09);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.02),
+      transparent 80%
+    );
 
   transition:
-    flex .25s ease;
+    flex .25s ease,
+    background .22s ease;
 }
 
 
 /* ==================================================
-   GŁÓWNY PRZYCISK DROPDOWNU
+   CZERWONY AKCENT DROPDOWNU
+================================================== */
+
+.dropdown::before {
+  content: "";
+
+  position: absolute;
+
+  z-index: 3;
+
+  left: 0;
+  top: 12px;
+
+  width: 3px;
+  height: 30px;
+
+  border-radius:
+    0
+    4px
+    4px
+    0;
+
+  background: #c61b24;
+
+  transform:
+    scaleY(0);
+
+  transform-origin: center;
+
+  transition:
+    transform .22s ease;
+}
+
+.dropdown:hover::before,
+.dropdown.active::before {
+  transform:
+    scaleY(1);
+}
+
+
+/* ==================================================
+   PRZYCISK DROPDOWN
 ================================================== */
 
 .dropdown-button {
+  position: relative;
+
   width: 100%;
 
   flex: 1 1 auto;
 
-  min-height: 48px;
+  min-height: 54px;
 
   padding:
     0
@@ -562,29 +642,38 @@ a {
 
   border: 0;
 
-  background:
-    rgba(0,0,0,.04);
+  background: transparent;
 
   color: #fff;
 
   text-align: left;
 
-  font-size: 16px;
-  line-height: 1;
+  font-size: 15px;
 
   font-weight: 900;
+
+  letter-spacing: -.2px;
 
   text-transform: uppercase;
 
   cursor: pointer;
 
   transition:
-    background .18s ease;
+    padding-left .22s ease,
+    background .22s ease;
 }
 
-.dropdown-button:hover {
+.dropdown:hover > .dropdown-button,
+.dropdown.active > .dropdown-button {
+  padding-left: 23px;
+
   background:
-    rgba(255,255,255,.055);
+    linear-gradient(
+      90deg,
+      rgba(198,27,36,.12),
+      rgba(255,255,255,.018) 60%,
+      transparent
+    );
 }
 
 
@@ -595,55 +684,93 @@ a {
 .dropdown-arrow {
   position: relative;
 
-  width: 13px;
-  height: 13px;
+  width: 28px;
+  height: 28px;
 
-  margin-right: 4px;
+  flex:
+    0
+    0
+    28px;
 
-  flex: 0 0 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  transition:
-    transform .2s ease;
-}
+  border:
+    1px solid rgba(255,255,255,.09);
 
-.dropdown-arrow::before,
-.dropdown-arrow::after {
-  content: "";
-
-  position: absolute;
-
-  top: 6px;
-
-  width: 7px;
-  height: 1px;
+  border-radius: 50%;
 
   background:
-    rgba(255,255,255,.75);
+    rgba(255,255,255,.025);
+
+  transition:
+    transform .25s ease,
+    background .2s ease,
+    border-color .2s ease;
 }
 
 .dropdown-arrow::before {
-  left: 0;
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  margin-top: -3px;
+
+  border-right:
+    1.5px solid rgba(255,255,255,.75);
+
+  border-bottom:
+    1.5px solid rgba(255,255,255,.75);
 
   transform:
     rotate(45deg);
 }
 
-.dropdown-arrow::after {
-  right: 0;
+.dropdown:hover .dropdown-arrow {
+  border-color:
+    rgba(255,255,255,.18);
 
-  transform:
-    rotate(-45deg);
+  background:
+    rgba(255,255,255,.06);
 }
 
 .dropdown.active
 .dropdown-arrow {
   transform:
     rotate(180deg);
+
+  background:
+    rgba(198,27,36,.16);
+
+  border-color:
+    rgba(198,27,36,.35);
 }
 
 
 /* ==================================================
-   ROZWIJANE PODMENU
+   AKTYWNY DROPDOWN
+================================================== */
+
+.dropdown.active {
+  flex:
+    2.2
+    1
+    0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(198,27,36,.055),
+      rgba(255,255,255,.015) 60%,
+      transparent
+    );
+}
+
+
+/* ==================================================
+   PODMENU
 ================================================== */
 
 .dropdown-content {
@@ -658,22 +785,11 @@ a {
   opacity: 0;
 
   background:
-    rgba(255,255,255,.018);
+    rgba(0,0,0,.22);
 
   transition:
     max-height .25s ease,
-    opacity .18s ease;
-}
-
-
-/* ==================================================
-   AKTYWNY DROPDOWN
-
-   Dostaje więcej miejsca.
-================================================== */
-
-.dropdown.active {
-  flex: 2.2 1 0;
+    opacity .2s ease;
 }
 
 .dropdown.active
@@ -689,6 +805,8 @@ a {
 ================================================== */
 
 .dropdown-content a {
+  position: relative;
+
   width: 100%;
 
   height: 38px;
@@ -696,55 +814,84 @@ a {
 
   padding:
     0
-    28px;
+    25px;
 
   display: flex;
   align-items: center;
 
+  gap: 11px;
+
   border-top:
-    1px solid rgba(255,255,255,.07);
+    1px solid rgba(255,255,255,.055);
 
   background:
-    rgba(0,0,0,.20);
+    transparent;
 
   color:
-    rgba(255,255,255,.72);
+    rgba(255,255,255,.63);
 
   text-decoration: none;
 
-  font-size: 11px;
-  line-height: 1;
+  font-size: 10px;
 
   font-weight: 800;
+
+  letter-spacing: .15px;
 
   text-transform: uppercase;
 
   transition:
     color .18s ease,
+    background .18s ease,
+    padding-left .18s ease;
+}
+
+
+/* MAŁA LINIA PRZY PODMENU */
+
+.dropdown-content a::before {
+  content: "";
+
+  width: 10px;
+  height: 1px;
+
+  flex:
+    0
+    0
+    10px;
+
+  background:
+    rgba(255,255,255,.28);
+
+  transition:
+    width .18s ease,
     background .18s ease;
 }
 
-.dropdown-content a::before {
-  content: "—";
-
-  margin-right: 10px;
-
-  color:
-    rgba(255,255,255,.30);
-}
-
 .dropdown-content a:hover {
+  padding-left: 30px;
+
   color: #fff;
 
   background:
-    rgba(255,255,255,.06);
+    linear-gradient(
+      90deg,
+      rgba(198,27,36,.10),
+      transparent
+    );
+}
+
+.dropdown-content a:hover::before {
+  width: 16px;
+
+  flex-basis: 16px;
+
+  background: #c61b24;
 }
 
 
 /* ==================================================
    SOCIALE
-
-   PRZYKLEJONE DO SAMEGO DOŁU
 ================================================== */
 
 .socials {
@@ -757,70 +904,74 @@ a {
     0
     60px;
 
-  margin: 0;
-
   padding:
     0
-    10px;
+    14px;
 
   display: flex;
   align-items: center;
 
-  gap: 11px;
+  gap: 10px;
 
   border-top:
-    1px solid rgba(255,255,255,.11);
+    1px solid rgba(255,255,255,.10);
 
   background:
-    rgba(0,0,0,.18);
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.025),
+      transparent
+    );
 }
 
 
 /* ==================================================
-   IKONY SOCIALI
+   IKONY SOCIAL
 ================================================== */
 
 .socials a {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
 
   flex:
     0
     0
-    32px;
+    34px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   border:
-    1px solid rgba(255,255,255,.36);
+    1px solid rgba(255,255,255,.25);
 
   border-radius: 50%;
 
-  background: transparent;
+  background:
+    rgba(255,255,255,.02);
 
   color:
-    rgba(255,255,255,.78);
+    rgba(255,255,255,.72);
 
   text-decoration: none;
 
   font-size: 12px;
 
   transition:
-    background .18s ease,
-    border-color .18s ease,
-    color .18s ease,
-    transform .18s ease;
+    color .2s ease,
+    border-color .2s ease,
+    background .2s ease,
+    transform .2s ease;
 }
 
 .socials a:hover {
   color: #fff;
 
-  border-color: #fff;
+  border-color:
+    rgba(198,27,36,.80);
 
   background:
-    rgba(255,255,255,.08);
+    rgba(198,27,36,.18);
 
   transform:
     translateY(-2px);
@@ -904,7 +1055,7 @@ a {
 
 
 /* ==================================================
-   OTWÓRZ ARTYKUŁ
+   PRZYCISK OTWÓRZ
 ================================================== */
 
 .open-article {
@@ -928,6 +1079,7 @@ a {
   color: #fff;
 
   font-size: 12px;
+
   font-weight: 800;
 
   cursor: pointer;
@@ -978,14 +1130,14 @@ a {
   background:
     rgba(255,255,255,.13);
 
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-
   color: #fff;
 
   font-size: 19px;
 
   cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 
@@ -1048,7 +1200,7 @@ a {
 
 
 /* ==================================================
-   4 NAJNOWSZE ARTYKUŁY
+   4 ARTYKUŁY NA DOLE
 ================================================== */
 
 .article-tabs {
@@ -1091,19 +1243,14 @@ a {
   cursor: pointer;
 
   text-align: left;
-
-  transition:
-    background .18s ease,
-    border-color .18s ease;
 }
 
-.article-tab:hover,
 .article-tab.active {
-  background:
-    rgba(80,80,85,.80);
-
   border-color:
     rgba(255,255,255,.55);
+
+  background:
+    rgba(80,80,85,.80);
 }
 
 .tab-image {
@@ -1280,7 +1427,7 @@ a {
    TABLET
 ================================================== */
 
-@media (max-width:1050px) {
+@media (max-width: 1050px) {
 
   .article-tab {
     width: 160px;
@@ -1288,7 +1435,7 @@ a {
 
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
 
   .article-tabs {
     display: none;
@@ -1305,9 +1452,7 @@ a {
    TELEFON
 ================================================== */
 
-@media (max-width:650px) {
-
-  /* GÓRA */
+@media (max-width: 650px) {
 
   .top {
     width: 100%;
@@ -1325,27 +1470,17 @@ a {
     height: 62px;
   }
 
-  .menu-btn {
-    width: 48px;
-    height: 48px;
 
-    flex-basis: 48px;
-  }
-
-
-  /* PANEL MENU */
+  /* MENU PEŁNA SZEROKOŚĆ */
 
   .side-menu {
     width: 100vw;
 
     max-width: none;
-
-    height: 100vh;
-    height: 100dvh;
   }
 
 
-  /* MIEJSCE NA LOGO */
+  /* LOGO */
 
   .menu-header-space {
     height: 88px;
@@ -1356,32 +1491,44 @@ a {
   }
 
 
-  /* 5 SEKCJI WYPEŁNIA CAŁE MIEJSCE */
+  /* MENU */
 
   .menu-nav > .main-link,
   .menu-nav > .dropdown {
-    flex:
-      1
-      1
-      0;
-
-    min-height: 48px;
+    min-height: 50px;
   }
 
-
-  /* GŁÓWNE PRZYCISKI */
-
-  .main-link,
-  .dropdown-button {
+  .main-link {
     padding:
       0
-      10px;
+      18px;
 
     font-size: 15px;
   }
 
+  .dropdown-button {
+    min-height: 50px;
 
-  /* ROZWINIĘTY DROPDOWN */
+    padding:
+      0
+      18px;
+
+    font-size: 15px;
+  }
+
+  .main-link:hover {
+    padding-left: 23px;
+  }
+
+  .dropdown:hover >
+  .dropdown-button,
+  .dropdown.active >
+  .dropdown-button {
+    padding-left: 23px;
+  }
+
+
+  /* ROZWINIĘTY */
 
   .dropdown.active {
     flex:
@@ -1391,16 +1538,16 @@ a {
   }
 
 
-  /* PODMENU */
+  /* SUBMENU */
 
   .dropdown-content a {
-    height: 36px;
+    height: 37px;
 
-    min-height: 36px;
+    min-height: 37px;
 
     padding:
       0
-      22px;
+      27px;
 
     font-size: 10px;
   }
@@ -1415,28 +1562,11 @@ a {
 
     padding:
       0
-      10px;
-  }
-
-  .socials a {
-    width: 31px;
-    height: 31px;
-
-    flex-basis: 31px;
+      14px;
   }
 
 
   /* HERO */
-
-  .slide::before {
-    background:
-      linear-gradient(
-        90deg,
-        rgba(0,0,0,.90),
-        rgba(0,0,0,.58) 50%,
-        rgba(0,0,0,.20)
-      );
-  }
 
   .slide-content {
     top: 47%;
@@ -1458,6 +1588,7 @@ a {
     top: auto;
 
     right: 20px;
+
     bottom: 88px;
   }
 
@@ -1478,8 +1609,6 @@ a {
       58px
       23px
       28px;
-
-    border-radius: 15px;
   }
 
 }
@@ -1489,7 +1618,7 @@ a {
    NISKI TELEFON
 ================================================== */
 
-@media (max-height:620px) {
+@media (max-height: 620px) {
 
   .top {
     height: 76px;
@@ -1550,17 +1679,15 @@ a {
 </style>
 </head>
 
+
 <body>
 
 
 <!-- ==================================================
-     ARTYKUŁY
+     HERO / ARTYKUŁY
 ================================================== -->
 
-<main
-  class="articles-slider"
-  id="slider"
->
+<main class="articles-slider" id="slider">
 
 
   <!-- ARTYKUŁ 1 -->
@@ -1768,10 +1895,9 @@ a {
   </div>
 
 
-  <!-- DÓŁ SLIDERA -->
+  <!-- DÓŁ -->
 
   <div class="slider-bottom">
-
 
     <div class="slider-dots">
 
@@ -1805,7 +1931,6 @@ a {
     <!-- 4 NAJNOWSZE -->
 
     <div class="article-tabs">
-
 
       <button
         class="article-tab active"
@@ -1874,7 +1999,6 @@ a {
 
       </button>
 
-
     </div>
 
   </div>
@@ -1901,15 +2025,11 @@ a {
   id="sideMenu"
 >
 
-  <!-- REZERWACJA MIEJSCA NA X + LOGO -->
-
   <div class="menu-header-space"></div>
 
 
   <div class="menu-content">
 
-
-    <!-- NAWIGACJA -->
 
     <nav class="menu-nav">
 
@@ -2107,7 +2227,7 @@ a {
 
 
 <!-- ==================================================
-     X / HAMBURGER + LOGO
+     X + LOGO
 ================================================== -->
 
 <div class="top">
@@ -2155,17 +2275,14 @@ a {
       ×
     </button>
 
-
     <span
       class="modal-category"
       id="modalCategory"
     ></span>
 
-
     <h2
       id="modalTitle"
     ></h2>
-
 
     <p
       id="modalText"
@@ -2456,16 +2573,14 @@ tabs.forEach(tab => {
 
 
 /* ==================================================
-   DANE ARTYKUŁÓW
-
-   Później tutaj podepniemy Supabase.
+   ARTYKUŁY
+   PÓŹNIEJ PODŁĄCZYMY SUPABASE
 ================================================== */
 
 const articles = [
 
   {
-    category:
-      "Klub",
+    category: "Klub",
 
     title:
       "Nowy rozdział naszego klubu",
@@ -2511,7 +2626,7 @@ const articles = [
 
 
 /* ==================================================
-   MODAL ARTYKUŁU
+   MODAL
 ================================================== */
 
 const articleModal =
