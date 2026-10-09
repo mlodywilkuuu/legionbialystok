@@ -1,0 +1,4679 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legion Białystok</title>
+
+<link rel="icon" type="image/png" href="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#070709;
+    --line:rgba(255,255,255,.12);
+    --muted:rgba(255,255,255,.62);
+    --muted2:rgba(255,255,255,.38);
+    --red:#e50914;
+    --red2:#ff3942;
+    --max:1360px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,
+body{
+    min-height:100%;
+}
+
+body{
+    background:var(--bg);
+    color:#fff;
+    font-family:"Outfit",sans-serif;
+    overflow-x:hidden;
+}
+
+body.lock{
+    overflow:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    color:inherit;
+    font:inherit;
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+.shell{
+    width:min(var(--max),calc(100% - 44px));
+    margin:0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:fixed;
+    inset:0 0 auto 0;
+    z-index:10000;
+
+    height:82px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.54),
+            transparent
+        );
+}
+
+.header.scrolled{
+    background:rgba(7,7,9,.78);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.header-inner{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+}
+
+.menu-btn{
+    width:44px;
+    height:44px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:rgba(0,0,0,.28);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(8px);
+}
+
+.menu-btn span{
+    width:18px;
+    height:2px;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    transition:.2s ease;
+}
+
+.menu-btn.active span:first-child{
+    transform:translateY(3.5px) rotate(45deg);
+}
+
+.menu-btn.active span:last-child{
+    transform:translateY(-3.5px) rotate(-45deg);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    height:54px;
+    width:auto;
+
+    filter:
+        drop-shadow(
+            0 7px 20px rgba(0,0,0,.50)
+        );
+}
+
+
+/* =====================================================
+   FULLSCREEN MENU
+===================================================== */
+
+.menu{
+    position:fixed;
+    inset:0;
+
+    z-index:9990;
+
+    padding:
+        115px
+        22px
+        36px;
+
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    background:
+        radial-gradient(
+            circle at 80% 18%,
+            rgba(229,9,20,.24),
+            transparent 27%
+        ),
+        #070709;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.26s ease;
+}
+
+.menu.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.menu::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.menu-grid{
+    width:min(980px,100%);
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        8px
+        28px;
+}
+
+.menu-main-link,
+.menu-group-btn{
+    width:100%;
+    min-height:86px;
+
+    padding:0;
+
+    border:0;
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-size:
+        clamp(25px,4vw,48px);
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.menu-main-link:hover,
+.menu-group-btn:hover,
+.menu-group-btn.active{
+    color:#ff3a43;
+
+    padding-left:10px;
+}
+
+.menu-plus{
+    margin-left:20px;
+
+    color:
+        rgba(255,255,255,.44);
+
+    font-size:34px;
+    font-weight:400;
+
+    line-height:1;
+
+    transition:.22s ease;
+}
+
+.menu-group-btn.active
+.menu-plus{
+    color:#ff3a43;
+
+    transform:
+        rotate(45deg);
+}
+
+.menu-sub{
+    display:grid;
+
+    grid-template-rows:0fr;
+
+    opacity:0;
+
+    transition:
+        grid-template-rows .28s ease,
+        opacity .22s ease;
+}
+
+.menu-sub.active{
+    grid-template-rows:1fr;
+    opacity:1;
+}
+
+.menu-sub-inner{
+    overflow:hidden;
+}
+
+.menu-sub a{
+    min-height:56px;
+
+    padding:
+        0
+        0
+        0
+        22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display:flex;
+    align-items:center;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:15px;
+    font-weight:800;
+
+    letter-spacing:.3px;
+
+    text-transform:uppercase;
+
+    transition:.2s ease;
+}
+
+.menu-sub a:hover{
+    color:#fff;
+
+    padding-left:32px;
+}
+
+
+/* =====================================================
+   ARTICLES HERO
+===================================================== */
+
+.articles-hero{
+    position:relative;
+
+    min-height:100svh;
+
+    overflow:hidden;
+
+    background:#111;
+
+    isolation:isolate;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+
+    z-index:-3;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.01);
+
+    transition:
+        opacity .30s ease,
+        transform .75s ease;
+}
+
+.articles-hero.changing
+.hero-bg{
+    opacity:.42;
+
+    transform:scale(1.04);
+}
+
+.hero-fallback{
+    position:absolute;
+    inset:0;
+
+    z-index:-4;
+
+    background:
+        radial-gradient(
+            circle at 75% 20%,
+            rgba(255,92,49,.75),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 55% 58%,
+            #1d3d63,
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #101826,
+            #70243a 55%,
+            #f36531
+        );
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+
+    z-index:-2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.16) 0%,
+            rgba(0,0,0,.08) 22%,
+            rgba(0,0,0,.26) 58%,
+            rgba(7,7,9,.96) 100%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.68),
+            rgba(0,0,0,.24) 48%,
+            transparent 75%
+        );
+}
+
+.hero-content{
+    min-height:100svh;
+
+    padding:
+        122px
+        0
+        175px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+
+.hero-category{
+    color:#ff6971;
+
+    font-size:11px;
+    font-weight:900;
+
+    letter-spacing:2.3px;
+
+    text-transform:uppercase;
+}
+
+.hero-title{
+    max-width:1050px;
+
+    cursor:pointer;
+
+    margin-top:12px;
+
+    font-size:
+        clamp(55px,8.5vw,132px);
+
+    font-weight:900;
+
+    line-height:.84;
+
+    letter-spacing:-5px;
+
+    text-wrap:balance;
+}
+
+.hero-meta{
+    margin-top:19px;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.hero-actions{
+    margin-top:27px;
+
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    min-height:48px;
+
+    padding:
+        0
+        20px;
+
+    border-radius:100px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:.8px;
+
+    text-transform:uppercase;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.primary-btn{
+    border:0;
+
+    background:#fff;
+
+    color:#09090b;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+
+
+.article-previews{
+    position:absolute;
+
+    left:50%;
+    bottom:24px;
+
+    z-index:5;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            var(--max),
+            calc(100% - 44px)
+        );
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,minmax(0,1fr));
+
+    gap:10px;
+}
+
+.article-preview{
+    position:relative;
+
+    min-width:0;
+    height:156px;
+
+    padding:0;
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#111;
+
+    color:#fff;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.22);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.article-preview:hover{
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,255,255,.30);
+
+    box-shadow:
+        0 26px 60px rgba(0,0,0,.34);
+}
+
+.article-preview-image{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+        transform .45s ease,
+        filter .45s ease;
+}
+
+.article-preview:hover
+.article-preview-image{
+    transform:
+        scale(1.055);
+
+    filter:
+        saturate(1.08)
+        contrast(1.04);
+}
+
+.article-preview-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.04) 10%,
+            rgba(0,0,0,.18) 42%,
+            rgba(0,0,0,.88) 100%
+        );
+}
+
+.article-preview-content{
+    position:absolute;
+
+    inset:
+        auto
+        13px
+        12px
+        13px;
+
+    z-index:2;
+}
+
+.preview-topline{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:8px;
+}
+
+.preview-category{
+    color:#ff7178;
+
+    font-size:8px;
+    font-weight:900;
+
+    letter-spacing:.9px;
+
+    text-transform:uppercase;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+}
+
+.preview-date{
+    flex:0 0 auto;
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size:8px;
+    font-weight:700;
+}
+
+.preview-title{
+    display:-webkit-box;
+
+    margin-top:7px;
+
+    overflow:hidden;
+
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+
+    font-size:14px;
+    font-weight:900;
+
+    line-height:1.05;
+
+    letter-spacing:-.25px;
+}
+
+.preview-open{
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    z-index:3;
+
+    width:31px;
+    height:31px;
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.34);
+
+    backdrop-filter:
+        blur(8px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:14px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.article-preview:hover
+.preview-open{
+    background:
+        rgba(255,255,255,.15);
+
+    transform:
+        translate(2px,-2px);
+}
+
+.hero-loading{
+    position:absolute;
+    inset:0;
+
+    z-index:30;
+
+    background:#070709;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    transition:.25s ease;
+}
+
+.hero-loading.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   ARTICLE MODAL
+===================================================== */
+
+.article-modal{
+    position:fixed;
+    inset:0;
+
+    z-index:20000;
+
+    padding:18px;
+
+    background:
+        rgba(0,0,0,.90);
+
+    backdrop-filter:
+        blur(16px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.24s ease;
+}
+
+.article-modal.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.article-window{
+    position:relative;
+
+    width:min(1040px,100%);
+
+    max-height:92vh;
+
+    overflow:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    border:
+        1px solid rgba(255,255,255,.11);
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #101014,
+            #09090c
+        );
+
+    box-shadow:
+        0 44px 120px rgba(0,0,0,.68);
+}
+
+.article-window::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.article-close{
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    z-index:5;
+
+    width:44px;
+    height:44px;
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.68);
+
+    color:#fff;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+.article-image-wrap{
+    position:relative;
+
+    height:430px;
+
+    overflow:hidden;
+
+    background:#151515;
+}
+
+.article-image-wrap::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 54%,
+            rgba(9,9,12,.88) 100%
+        );
+}
+
+.article-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.article-body-wrap{
+    position:relative;
+
+    margin-top:-34px;
+
+    z-index:2;
+
+    padding:
+        0
+        44px
+        50px;
+}
+
+.article-category{
+    color:#ff4b55;
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.article-title{
+    max-width:840px;
+
+    margin-top:10px;
+
+    padding-right:48px;
+
+    font-size:
+        clamp(36px,5.2vw,68px);
+
+    line-height:.93;
+
+    letter-spacing:-2.7px;
+
+    font-weight:900;
+}
+
+.article-date{
+    margin-top:14px;
+
+    color:
+        rgba(255,255,255,.38);
+
+    font-size:11px;
+}
+
+.article-excerpt{
+    max-width:780px;
+
+    margin-top:27px;
+
+    color:
+        rgba(255,255,255,.90);
+
+    font-size:19px;
+
+    font-weight:500;
+
+    line-height:1.55;
+}
+
+.article-content{
+    margin-top:25px;
+
+    color:
+        rgba(255,255,255,.72);
+
+    font-size:15px;
+
+    line-height:1.8;
+}
+
+.article-content p{
+    margin-bottom:17px;
+}
+
+.article-content h2,
+.article-content h3{
+    margin:
+        28px
+        0
+        12px;
+
+    color:#fff;
+
+    line-height:1.1;
+}
+
+.article-content ul,
+.article-content ol{
+    margin:
+        16px
+        0
+        20px
+        23px;
+}
+
+.article-content a{
+    color:#fff;
+
+    text-decoration:underline;
+
+    text-decoration-color:
+        var(--red);
+
+    text-underline-offset:3px;
+}
+
+
+
+/* =====================================================
+   MATCH CENTER
+===================================================== */
+
+.match-center{
+    position:relative;
+    padding:88px 0 110px;
+    overflow:hidden;
+    background:
+        linear-gradient(180deg,#070709 0%,#0a0a0e 100%);
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.match-center::before{
+    content:"";
+    position:absolute;
+    left:50%;
+    top:0;
+    width:1px;
+    height:100%;
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            rgba(255,255,255,.06) 18%,
+            rgba(255,255,255,.06) 82%,
+            transparent
+        );
+    pointer-events:none;
+}
+
+.match-head{
+    position:relative;
+    z-index:2;
+    margin-bottom:30px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:28px;
+}
+
+.match-eyebrow{
+    color:#ff5961;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+}
+
+.match-title{
+    margin-top:7px;
+    font-size:clamp(48px,6.5vw,88px);
+    font-weight:900;
+    line-height:.86;
+    letter-spacing:-4px;
+    text-transform:uppercase;
+}
+
+.match-status{
+    max-width:360px;
+    color:rgba(255,255,255,.42);
+    font-size:11px;
+    line-height:1.55;
+    text-align:right;
+}
+
+.match-stage{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);
+    gap:12px;
+}
+
+.match-last{
+    min-width:0;
+    min-height:420px;
+    padding:26px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.035),
+            rgba(255,255,255,.012)
+        );
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.match-last-top,
+.match-next-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+}
+
+.match-kicker{
+    color:rgba(255,255,255,.48);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+}
+
+.match-last-date,
+.match-next-date{
+    color:rgba(255,255,255,.38);
+    font-size:10px;
+    font-weight:800;
+    text-align:right;
+}
+
+.match-last-scoreboard{
+    margin:30px 0;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    align-items:center;
+    gap:12px;
+}
+
+.match-mini-team{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.match-mini-logo{
+    width:72px;
+    height:72px;
+    object-fit:contain;
+    filter:drop-shadow(0 10px 25px rgba(0,0,0,.35));
+}
+
+.match-mini-name{
+    margin-top:11px;
+    max-width:150px;
+    font-size:13px;
+    font-weight:900;
+    line-height:1.05;
+}
+
+.match-last-score{
+    min-width:96px;
+    font-size:52px;
+    font-weight:900;
+    letter-spacing:-3px;
+    text-align:center;
+}
+
+.match-last-meta{
+    min-height:18px;
+    color:rgba(255,255,255,.35);
+    font-size:10px;
+    font-weight:700;
+    text-align:center;
+}
+
+.match-next{
+    position:relative;
+    min-width:0;
+    min-height:420px;
+    padding:28px 30px 26px;
+    border-radius:24px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 85% 15%,rgba(229,9,20,.32),transparent 26%),
+        linear-gradient(135deg,#15151a 0%,#101014 58%,#171014 100%);
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:0 28px 90px rgba(0,0,0,.28);
+}
+
+.match-next::before{
+    content:"NEXT";
+    position:absolute;
+    right:-18px;
+    bottom:-34px;
+    color:rgba(255,255,255,.035);
+    font-size:150px;
+    font-weight:900;
+    letter-spacing:-7px;
+    line-height:.8;
+    pointer-events:none;
+}
+
+.match-next-content{
+    position:relative;
+    z-index:2;
+    min-height:315px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.match-next-teams{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    align-items:center;
+    gap:18px;
+}
+
+.match-feature-team{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.match-feature-logo{
+    width:108px;
+    height:108px;
+    object-fit:contain;
+    filter:drop-shadow(0 14px 30px rgba(0,0,0,.42));
+}
+
+.match-feature-name{
+    margin-top:14px;
+    max-width:190px;
+    font-size:18px;
+    font-weight:900;
+    line-height:1.04;
+}
+
+.match-versus{
+    min-width:64px;
+    color:rgba(255,255,255,.30);
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:2px;
+    text-align:center;
+}
+
+.match-next-meta{
+    margin-top:24px;
+    min-height:18px;
+    color:rgba(255,255,255,.43);
+    font-size:10px;
+    font-weight:800;
+    text-align:center;
+}
+
+.match-countdown-line{
+    position:relative;
+    z-index:2;
+    margin-top:4px;
+    padding-top:19px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+}
+
+.match-countdown-label{
+    color:rgba(255,255,255,.42);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.match-countdown{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.match-countdown-item{
+    min-width:52px;
+    padding:8px 8px 7px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    background:rgba(255,255,255,.035);
+    text-align:center;
+}
+
+.match-countdown-value{
+    display:block;
+    font-size:18px;
+    font-weight:900;
+    line-height:1;
+}
+
+.match-countdown-unit{
+    display:block;
+    margin-top:4px;
+    color:rgba(255,255,255,.34);
+    font-size:6px;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+@media(max-width:860px){
+    .match-center{
+        padding:70px 0 82px;
+    }
+
+    .match-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .match-status{
+        text-align:left;
+    }
+
+    .match-stage{
+        grid-template-columns:1fr;
+    }
+
+    .match-last,
+    .match-next{
+        min-height:auto;
+    }
+}
+
+@media(max-width:560px){
+    .match-title{
+        font-size:46px;
+        letter-spacing:-2.5px;
+    }
+
+    .match-last{
+        padding:20px;
+    }
+
+    .match-last-scoreboard{
+        gap:8px;
+    }
+
+    .match-mini-logo{
+        width:58px;
+        height:58px;
+    }
+
+    .match-mini-name{
+        font-size:11px;
+    }
+
+    .match-last-score{
+        min-width:76px;
+        font-size:42px;
+    }
+
+    .match-next{
+        padding:22px 18px 20px;
+    }
+
+    .match-next-content{
+        min-height:270px;
+    }
+
+    .match-feature-logo{
+        width:76px;
+        height:76px;
+    }
+
+    .match-feature-name{
+        font-size:13px;
+    }
+
+    .match-versus{
+        min-width:42px;
+    }
+
+    .match-countdown-line{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .match-countdown{
+        width:100%;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .match-countdown-item{
+        min-width:0;
+    }
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px){
+
+    .article-previews{
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+
+    .article-preview:nth-child(n+4){
+        display:none;
+    }
+
+}
+
+@media(max-width:720px){
+
+    .shell{
+        width:
+            min(
+                var(--max),
+                calc(100% - 28px)
+            );
+    }
+
+    .header{
+        height:74px;
+    }
+
+    .logo img{
+        height:46px;
+    }
+
+    .menu{
+        padding:
+            104px
+            14px
+            24px;
+    }
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .menu-main-link,
+    .menu-group-btn{
+        min-height:70px;
+    }
+
+    .menu-sub a{
+        min-height:47px;
+    }
+
+    .hero-content{
+        padding:
+            112px
+            0
+            285px;
+    }
+
+    .hero-title{
+        font-size:52px;
+
+        line-height:.88;
+
+        letter-spacing:-2.2px;
+    }
+
+    .article-previews{
+        bottom:14px;
+
+        width:
+            calc(100% - 28px);
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:7px;
+    }
+
+    .article-preview{
+        height:112px;
+
+        border-radius:14px;
+    }
+
+    .article-preview:nth-child(n+5){
+        display:none;
+    }
+
+    .article-preview-content{
+        left:10px;
+        right:10px;
+        bottom:9px;
+    }
+
+    .preview-date{
+        display:none;
+    }
+
+    .preview-title{
+        font-size:11px;
+    }
+
+    .preview-open{
+        width:27px;
+        height:27px;
+
+        top:8px;
+        right:8px;
+
+        font-size:12px;
+    }
+
+    .article-modal{
+        padding:8px;
+    }
+
+    .article-image-wrap{
+        height:260px;
+    }
+
+    .article-body-wrap{
+        margin-top:-24px;
+
+        padding:
+            0
+            20px
+            38px;
+    }
+
+    .article-title{
+        font-size:36px;
+        letter-spacing:-1.5px;
+    }
+
+}
+
+
+
+
+/* =====================================================
+   FLOATING LANGUAGE + SOCIALS
+===================================================== */
+
+.floating-tools{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:16px;
+
+    z-index:12000;
+
+    height:46px;
+
+    pointer-events:none;
+}
+
+.language-corner{
+    position:absolute;
+    left:18px;
+    bottom:0;
+
+    pointer-events:auto;
+}
+
+.language-trigger{
+    min-width:58px;
+    height:46px;
+
+    padding:0 14px;
+
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+
+    background:rgba(0,0,0,.16);
+
+    backdrop-filter:blur(10px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:7px;
+
+    color:#fff;
+
+    font-size:11px;
+    font-weight:900;
+
+    letter-spacing:.6px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.language-trigger:hover{
+    background:rgba(255,255,255,.08);
+
+    border-color:rgba(255,255,255,.30);
+
+    transform:translateY(-2px);
+}
+
+.language-trigger-arrow{
+    color:rgba(255,255,255,.45);
+
+    font-size:9px;
+
+    transition:transform .2s ease;
+}
+
+.language-corner.active
+.language-trigger-arrow{
+    transform:rotate(180deg);
+}
+
+.language-popup{
+    position:absolute;
+    left:0;
+    bottom:56px;
+
+    width:min(330px,calc(100vw - 24px));
+    max-height:66vh;
+
+    padding:8px;
+
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:16px;
+
+    background:rgba(8,8,15,.88);
+
+    backdrop-filter:blur(16px);
+
+    box-shadow:0 22px 60px rgba(0,0,0,.40);
+
+    overflow:auto;
+
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(8px);
+
+    transition:.2s ease;
+}
+
+.language-popup::-webkit-scrollbar{
+    display:none;
+
+    width:0;
+    height:0;
+}
+
+.language-corner.active
+.language-popup{
+    opacity:1;
+    visibility:visible;
+
+    transform:none;
+}
+
+.language-popup-title{
+    padding:6px 8px 10px;
+
+    color:rgba(255,255,255,.42);
+
+    font-size:9px;
+    font-weight:900;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+}
+
+.language-popup-option{
+    width:100%;
+    min-height:44px;
+
+    padding:0 12px;
+
+    border:0;
+    border-radius:10px;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:16px;
+
+    color:rgba(255,255,255,.68);
+
+    font-size:11px;
+    font-weight:800;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.18s ease;
+}
+
+.language-popup-option:hover,
+.language-popup-option.active{
+    color:#fff;
+
+    background:rgba(255,255,255,.07);
+}
+
+.language-popup-dot{
+    position:relative;
+
+    flex:0 0 auto;
+
+    width:12px;
+    height:12px;
+
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:50%;
+}
+
+.language-popup-option.active
+.language-popup-dot{
+    border-color:#fff;
+}
+
+.language-popup-option.active
+.language-popup-dot::after{
+    content:"";
+
+    position:absolute;
+    inset:3px;
+
+    border-radius:50%;
+
+    background:#fff;
+}
+
+
+
+
+
+@media(max-width:720px){
+
+    .floating-tools{
+        bottom:12px;
+
+        height:42px;
+    }
+
+    .language-corner{
+        left:12px;
+    }
+
+    .language-trigger{
+        min-width:54px;
+        height:42px;
+
+        padding:0 12px;
+    }
+
+    .language-popup{
+        bottom:50px;
+
+        width:min(310px,calc(100vw - 24px));
+        max-height:64vh;
+    }
+}
+
+
+.menu-socials{
+    grid-column:1 / -1;
+
+    margin-top:24px;
+    padding-top:22px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:10px;
+}
+
+.menu-social{
+    width:46px;
+    height:46px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.menu-social:hover{
+    transform:translateY(-3px);
+
+    background:rgba(255,255,255,.08);
+
+    border-color:rgba(255,255,255,.30);
+}
+
+.menu-social svg{
+    width:19px;
+    height:19px;
+
+    fill:currentColor;
+}
+
+@media(max-width:720px){
+    .menu-socials{
+        margin-top:18px;
+        padding-top:18px;
+    }
+
+    .menu-social{
+        width:42px;
+        height:42px;
+    }
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script src="/supabase-api.js"></script>
+<script src="/clean-url.js" defer></script>
+</head>
+
+<body>
+
+
+<header class="header" id="header">
+
+<div class="shell header-inner">
+
+    <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Menu"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <a
+        class="logo"
+        href="/"
+    >
+        <img
+            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+            alt="Legion Białystok"
+        >
+    </a>
+
+</div>
+
+</header>
+
+
+<nav
+    class="menu"
+    id="menu"
+>
+
+<div class="menu-grid">
+
+    <a
+        class="menu-main-link"
+        href="/aktualnosci"
+        data-i18n="news"
+    >
+        Aktualności
+    </a>
+
+
+    <a
+        class="menu-main-link"
+        href="/tabela"
+        data-i18n="table"
+    >
+        Tabela
+    </a>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="teamMenuBtn"
+            type="button"
+        >
+            <span data-i18n="team">
+                Drużyna
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="teamMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/pierwszyzespol" data-i18n="firstTeam">
+                    I Drużyna
+                </a>
+
+                <a href="/drugadruzyna" data-i18n="secondTeam">
+                    II Drużyna
+                </a>
+
+                <a href="/akademia" data-i18n="academy">
+                    Akademia
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="clubMenuBtn"
+            type="button"
+        >
+            <span data-i18n="club">
+                Klub
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="clubMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/ludzie" data-i18n="people">
+                    Ludzie Legionu
+                </a>
+
+                <a href="/kontakt" data-i18n="contact">
+                    Kontakt
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-socials">
+
+        <a
+            class="menu-social"
+            href="https://www.instagram.com/legionbialystok/"
+            aria-label="Instagram"
+            title="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.facebook.com/profile.php?id=61594618042996"
+            aria-label="Facebook"
+            title="Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13.7 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5H17V4.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V14h2.8v8h3.4Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.tiktok.com/@kslegionbialystok?_r=1&_t=ZN-9APj9d7DECE"
+            aria-label="TikTok"
+            title="TikTok"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.4 2h3.1c.2 1.6 1.1 3 2.5 3.9A6.7 6.7 0 0 0 23 7v3.2a9.6 9.6 0 0 1-5.5-1.8v7.1a6.5 6.5 0 1 1-5.6-6.4v3.2a3.3 3.3 0 1 0 2.5 3.2V2Z"/>
+            </svg>
+        </a>
+
+    </div>
+
+</div>
+
+</nav>
+
+
+<main>
+
+<section
+    class="articles-hero"
+    id="articlesHero"
+>
+
+    <div class="hero-fallback"></div>
+
+    <img
+        class="hero-bg"
+        id="heroImage"
+        src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+        alt=""
+    >
+
+    <div class="hero-overlay"></div>
+
+
+    <div class="shell hero-content">
+
+        <div
+            class="hero-category"
+            id="heroCategory"
+        >
+            Legion Białystok
+        </div>
+
+
+        <h1
+            class="hero-title"
+            id="heroTitle"
+        >
+            Legion Białystok
+        </h1>
+
+
+        <div
+            class="hero-meta"
+            id="heroDate"
+        ></div>
+
+
+        <div class="hero-actions">
+
+            <button
+                class="primary-btn"
+                id="heroRead"
+                type="button"
+                data-i18n="readArticle"
+            >
+                Czytaj artykuł
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="article-previews"
+        id="articlePreviews"
+    ></div>
+
+
+    <div
+        class="hero-loading"
+        id="heroLoading"
+        data-i18n="loadingNews"
+    >
+        Ładowanie aktualności...
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MATCH CENTER
+===================================================== -->
+
+<section class="match-center">
+
+<div class="shell">
+
+    <div class="match-head">
+
+        <div>
+
+            <div
+                class="match-eyebrow"
+                data-i18n="matches"
+            >
+                Mecze
+            </div>
+
+            <h2
+                class="match-title"
+                data-i18n="matchCenter"
+            >
+                Match Center
+            </h2>
+
+        </div>
+
+
+        <div
+            class="match-status"
+            id="matchStatus"
+            data-i18n="matchCenterDescription"
+        >
+            Ostatni wynik i najbliższy mecz Legionu Białystok.
+        </div>
+
+    </div>
+
+
+    <div class="match-stage">
+
+        <article class="match-last">
+
+            <div class="match-last-top">
+
+                <div
+                    class="match-kicker"
+                    data-i18n="lastMatch"
+                >
+                    Ostatni mecz
+                </div>
+
+                <div
+                    class="match-last-date"
+                    id="lastMatchDate"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="match-last-scoreboard">
+
+                <div class="match-mini-team">
+
+                    <img
+                        class="match-mini-logo"
+                        id="lastHomeLogo"
+                        src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+                        alt=""
+                    >
+
+                    <div
+                        class="match-mini-name"
+                        id="lastHomeName"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="match-last-score"
+                    id="lastScore"
+                >
+                    — : —
+                </div>
+
+
+                <div class="match-mini-team">
+
+                    <img
+                        class="match-mini-logo"
+                        id="lastAwayLogo"
+                        src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+                        alt=""
+                    >
+
+                    <div
+                        class="match-mini-name"
+                        id="lastAwayName"
+                    >
+                        —
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="match-last-meta"
+                id="lastMatchMeta"
+            ></div>
+
+        </article>
+
+
+        <article class="match-next">
+
+            <div class="match-next-top">
+
+                <div
+                    class="match-kicker"
+                    data-i18n="nextMatch"
+                >
+                    Następny mecz
+                </div>
+
+                <div
+                    class="match-next-date"
+                    id="nextMatchDate"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="match-next-content">
+
+                <div class="match-next-teams">
+
+                    <div class="match-feature-team">
+
+                        <img
+                            class="match-feature-logo"
+                            id="nextHomeLogo"
+                            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+                            alt=""
+                        >
+
+                        <div
+                            class="match-feature-name"
+                            id="nextHomeName"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <div class="match-versus">
+                        VS
+                    </div>
+
+
+                    <div class="match-feature-team">
+
+                        <img
+                            class="match-feature-logo"
+                            id="nextAwayLogo"
+                            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+                            alt=""
+                        >
+
+                        <div
+                            class="match-feature-name"
+                            id="nextAwayName"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="match-next-meta"
+                    id="nextMatchMeta"
+                ></div>
+
+            </div>
+
+
+            <div class="match-countdown-line">
+
+                <div
+                    class="match-countdown-label"
+                    data-i18n="kickoffIn"
+                >
+                    Do pierwszego gwizdka
+                </div>
+
+
+                <div class="match-countdown">
+
+                    <div class="match-countdown-item">
+
+                        <span
+                            class="match-countdown-value"
+                            id="countdownDays"
+                        >
+                            00
+                        </span>
+
+                        <span
+                            class="match-countdown-unit"
+                            data-i18n="days"
+                        >
+                            Dni
+                        </span>
+
+                    </div>
+
+
+                    <div class="match-countdown-item">
+
+                        <span
+                            class="match-countdown-value"
+                            id="countdownHours"
+                        >
+                            00
+                        </span>
+
+                        <span
+                            class="match-countdown-unit"
+                            data-i18n="hours"
+                        >
+                            Godz.
+                        </span>
+
+                    </div>
+
+
+                    <div class="match-countdown-item">
+
+                        <span
+                            class="match-countdown-value"
+                            id="countdownMinutes"
+                        >
+                            00
+                        </span>
+
+                        <span
+                            class="match-countdown-unit"
+                            data-i18n="minutes"
+                        >
+                            Min.
+                        </span>
+
+                    </div>
+
+
+                    <div class="match-countdown-item">
+
+                        <span
+                            class="match-countdown-value"
+                            id="countdownSeconds"
+                        >
+                            00
+                        </span>
+
+                        <span
+                            class="match-countdown-unit"
+                            data-i18n="seconds"
+                        >
+                            Sek.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+
+
+
+<!-- =====================================================
+     FLOATING LANGUAGE + SOCIALS
+===================================================== -->
+
+<div class="floating-tools">
+
+    <div
+        class="language-corner"
+        id="languageCorner"
+    >
+
+        <button
+            class="language-trigger"
+            id="languageTrigger"
+            type="button"
+            aria-label="Zmień język"
+        >
+            <span id="languageCode">
+                PL
+            </span>
+
+            <span class="language-trigger-arrow">
+                ▲
+            </span>
+        </button>
+
+
+        <div
+            class="language-popup"
+            id="languagePopup"
+        >
+
+            <div
+                class="language-popup-title"
+                data-i18n="chooseLanguage"
+            >
+                Wybierz język
+            </div>
+
+            <button class="language-popup-option" type="button" data-lang="pl">
+                <span>Polski</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="en">
+                <span>English</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="de">
+                <span>Deutsch</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="es">
+                <span>Español</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="ru">
+                <span>Русский</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="it">
+                <span>Italiano</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="zh">
+                <span>中文（简体）</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="article-modal"
+    id="articleModal"
+>
+
+    <article class="article-window">
+
+        <button
+            class="article-close"
+            id="articleClose"
+            type="button"
+            aria-label="Zamknij"
+        >
+            ×
+        </button>
+
+
+        <div class="article-image-wrap">
+
+            <img
+                class="article-image"
+                id="modalImage"
+                src=""
+                alt=""
+            >
+
+        </div>
+
+
+        <div class="article-body-wrap">
+
+            <div
+                class="article-category"
+                id="modalCategory"
+            ></div>
+
+
+            <h2
+                class="article-title"
+                id="modalTitle"
+            ></h2>
+
+
+            <div
+                class="article-date"
+                id="modalDate"
+            ></div>
+
+
+            <p
+                class="article-excerpt"
+                id="modalExcerpt"
+            ></p>
+
+
+            <div
+                class="article-content"
+                id="modalContent"
+            ></div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+<script>
+"use strict";
+
+
+const ARTICLES_API =
+    "/api/articles.php";
+
+
+const MATCHES_API =
+    "/api/matches.php";
+
+
+const CLUB_LOGO =
+    "/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png";
+
+
+let articles =
+    [];
+
+
+let activeArticle =
+    0;
+
+
+const TRANSLATIONS = {
+    pl:{
+        news:"Aktualności",
+        table:"Tabela",
+        team:"Drużyna",
+        firstTeam:"I Drużyna",
+        secondTeam:"II Drużyna",
+        academy:"Akademia",
+        club:"Klub",
+        people:"Ludzie Legionu",
+        contact:"Kontakt",
+        readArticle:"Czytaj artykuł",
+        allNews:"Wszystkie aktualności",
+        loadingNews:"Ładowanie aktualności...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Aktualności z życia klubu.",
+        fallbackContent:"<p>Aktualności pojawią się tutaj po dodaniu ich w panelu.</p>",chooseLanguage:"Wybierz język",
+        matches:"Mecze",
+        matchCenter:"Match Center",
+        matchCenterDescription:"Ostatni wynik i najbliższy mecz Legionu Białystok.",
+        lastMatch:"Ostatni mecz",
+        nextMatch:"Następny mecz",
+        kickoffIn:"Do pierwszego gwizdka",
+        days:"Dni",
+        hours:"Godz.",
+        minutes:"Min.",
+        seconds:"Sek.",
+        noMatchData:"Brak danych meczowych"
+    },
+
+    en:{
+        news:"News",
+        table:"Table",
+        team:"Team",
+        firstTeam:"First Team",
+        secondTeam:"Second Team",
+        academy:"Academy",
+        club:"Club",
+        people:"Club People",
+        contact:"Contact",
+        readArticle:"Read article",
+        allNews:"All news",
+        loadingNews:"Loading news...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Latest news from the club.",
+        fallbackContent:"<p>News will appear here after it is added in the admin panel.</p>",chooseLanguage:"Choose language",
+        matches:"Matches",
+        matchCenter:"Match Center",
+        matchCenterDescription:"The latest result and the next Legion Białystok match.",
+        lastMatch:"Last match",
+        nextMatch:"Next match",
+        kickoffIn:"Kick-off in",
+        days:"Days",
+        hours:"Hrs",
+        minutes:"Min",
+        seconds:"Sec",
+        noMatchData:"No match data"
+    },
+
+    de:{
+        news:"Aktuelles",
+        table:"Tabelle",
+        team:"Mannschaft",
+        firstTeam:"Erste Mannschaft",
+        secondTeam:"Zweite Mannschaft",
+        academy:"Akademie",
+        club:"Verein",
+        people:"Menschen im Verein",
+        contact:"Kontakt",
+        readArticle:"Artikel lesen",
+        allNews:"Alle Meldungen",
+        loadingNews:"Aktuelles wird geladen...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Aktuelles aus dem Vereinsleben.",
+        fallbackContent:"<p>Aktuelles erscheint hier, sobald es im Admin-Panel hinzugefügt wurde.</p>",chooseLanguage:"Sprache wählen",
+        matches:"Spiele",
+        matchCenter:"Match Center",
+        matchCenterDescription:"Das letzte Ergebnis und das nächste Spiel von Legion Białystok.",
+        lastMatch:"Letztes Spiel",
+        nextMatch:"Nächstes Spiel",
+        kickoffIn:"Anpfiff in",
+        days:"Tage",
+        hours:"Std.",
+        minutes:"Min.",
+        seconds:"Sek.",
+        noMatchData:"Keine Spieldaten"
+    },
+
+    es:{
+        news:"Noticias",
+        table:"Clasificación",
+        team:"Equipo",
+        firstTeam:"Primer Equipo",
+        secondTeam:"Segundo Equipo",
+        academy:"Academia",
+        club:"Club",
+        people:"Personas del club",
+        contact:"Contacto",
+        readArticle:"Leer artículo",
+        allNews:"Todas las noticias",
+        loadingNews:"Cargando noticias...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Noticias de la vida del club.",
+        fallbackContent:"<p>Las noticias aparecerán aquí después de añadirlas en el panel de administración.</p>",chooseLanguage:"Elegir idioma",
+        matches:"Partidos",
+        matchCenter:"Match Center",
+        matchCenterDescription:"El último resultado y el próximo partido de Legion Białystok.",
+        lastMatch:"Último partido",
+        nextMatch:"Próximo partido",
+        kickoffIn:"Comienza en",
+        days:"Días",
+        hours:"Hrs.",
+        minutes:"Min.",
+        seconds:"Seg.",
+        noMatchData:"Sin datos del partido"
+    },
+
+    ru:{
+        news:"Новости",
+        table:"Таблица",
+        team:"Команда",
+        firstTeam:"Первая команда",
+        secondTeam:"Вторая команда",
+        academy:"Академия",
+        club:"Клуб",
+        people:"Люди клуба",
+        contact:"Контакты",
+        readArticle:"Читать статью",
+        allNews:"Все новости",
+        loadingNews:"Загрузка новостей...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Новости из жизни клуба.",
+        fallbackContent:"<p>Новости появятся здесь после добавления в панели администратора.</p>",chooseLanguage:"Выберите язык",
+        matches:"Матчи",
+        matchCenter:"Матч-центр",
+        matchCenterDescription:"Последний результат и ближайший матч Legion Białystok.",
+        lastMatch:"Последний матч",
+        nextMatch:"Следующий матч",
+        kickoffIn:"До начала матча",
+        days:"Дни",
+        hours:"Часы",
+        minutes:"Мин.",
+        seconds:"Сек.",
+        noMatchData:"Нет данных о матче"
+    },
+
+    it:{
+        news:"Notizie",
+        table:"Classifica",
+        team:"Squadra",
+        firstTeam:"Prima Squadra",
+        secondTeam:"Seconda Squadra",
+        academy:"Accademia",
+        club:"Club",
+        people:"Persone del club",
+        contact:"Contatti",
+        readArticle:"Leggi articolo",
+        allNews:"Tutte le notizie",
+        loadingNews:"Caricamento notizie...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Notizie dalla vita del club.",
+        fallbackContent:"<p>Le notizie appariranno qui dopo essere state aggiunte nel pannello di amministrazione.</p>",
+        chooseLanguage:"Scegli la lingua",
+        matches:"Partite",
+        matchCenter:"Match Center",
+        matchCenterDescription:"L'ultimo risultato e la prossima partita del Legion Białystok.",
+        lastMatch:"Ultima partita",
+        nextMatch:"Prossima partita",
+        kickoffIn:"Calcio d'inizio tra",
+        days:"Giorni",
+        hours:"Ore",
+        minutes:"Min.",
+        seconds:"Sec.",
+        noMatchData:"Nessun dato sulla partita"
+    },
+
+    zh:{
+        news:"新闻",
+        table:"积分榜",
+        team:"球队",
+        firstTeam:"一线队",
+        secondTeam:"二队",
+        academy:"青训学院",
+        club:"俱乐部",
+        people:"俱乐部成员",
+        contact:"联系我们",
+        readArticle:"阅读文章",
+        allNews:"全部新闻",
+        loadingNews:"正在加载新闻...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"俱乐部最新动态。",
+        fallbackContent:"<p>在管理面板中添加新闻后，内容将显示在这里。</p>",
+        chooseLanguage:"选择语言",
+        matches:"比赛",
+        matchCenter:"比赛中心",
+        matchCenterDescription:"Legion Białystok 的最近赛果和下一场比赛。",
+        lastMatch:"上一场比赛",
+        nextMatch:"下一场比赛",
+        kickoffIn:"距离开球",
+        days:"天",
+        hours:"小时",
+        minutes:"分钟",
+        seconds:"秒",
+        noMatchData:"暂无比赛数据"
+    }
+};
+
+const LANGUAGE_CODES = {
+    pl:"PL",
+    en:"EN",
+    de:"DE",
+    es:"ES",
+    ru:"RU",
+    it:"IT",
+    zh:"中文"
+};
+
+let selectedLanguage =
+    localStorage.getItem("legion_language")
+    ||
+    "pl";
+
+if(!TRANSLATIONS[selectedLanguage]){
+    selectedLanguage="pl";
+}
+
+function uiText(key){
+    return TRANSLATIONS[selectedLanguage]?.[key]
+        || TRANSLATIONS.pl[key]
+        || key;
+}
+
+function applyStaticTranslations(){
+
+    document.documentElement.lang =
+        selectedLanguage;
+
+    document.querySelectorAll("[data-i18n]").forEach(element=>{
+
+        const key =
+            element.dataset.i18n;
+
+        const value =
+            uiText(key);
+
+        if(value){
+            element.textContent =
+                value;
+        }
+
+    });
+
+    const languageCodeElement =
+        document.getElementById(
+            "languageCode"
+        );
+
+    if(languageCodeElement){
+
+        languageCodeElement.textContent =
+            LANGUAGE_CODES[selectedLanguage];
+
+    }
+
+    document.querySelectorAll(".language-popup-option").forEach(button=>{
+
+        button.classList.toggle(
+            "active",
+            button.dataset.lang === selectedLanguage
+        );
+
+    });
+
+}
+
+
+function changeLanguage(language){
+
+    if(!TRANSLATIONS[language]){
+        return;
+    }
+
+    selectedLanguage =
+        language;
+
+    localStorage.setItem(
+        "legion_language",
+        language
+    );
+
+    applyStaticTranslations();
+
+    if(articles.length){
+
+        renderArticle(
+            activeArticle,
+            false
+        );
+
+    }
+
+    if(
+        typeof articleModal !== "undefined"
+        &&
+        articleModal
+        &&
+        articleModal.classList.contains("active")
+        &&
+        typeof currentModalArticle !== "undefined"
+        &&
+        currentModalArticle
+    ){
+
+        fillArticleModal(
+            currentModalArticle
+        );
+
+    }
+
+    if(
+        typeof matchData !== "undefined"
+        &&
+        matchData
+    ){
+
+        renderMatches();
+
+    }
+
+}
+
+
+applyStaticTranslations();
+
+
+const languageCorner =
+    document.getElementById(
+        "languageCorner"
+    );
+
+const languageTrigger =
+    document.getElementById(
+        "languageTrigger"
+    );
+
+
+languageTrigger.addEventListener(
+    "click",
+    event=>{
+
+        event.stopPropagation();
+
+        languageCorner.classList.toggle(
+            "active"
+        );
+
+    }
+);
+
+
+document.querySelectorAll(".language-popup-option").forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        event=>{
+
+            event.stopPropagation();
+
+            changeLanguage(
+                button.dataset.lang
+            );
+
+            languageCorner.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+});
+
+
+document.addEventListener(
+    "click",
+    event=>{
+
+        if(
+            languageCorner
+            &&
+            !languageCorner.contains(
+                event.target
+            )
+        ){
+
+            languageCorner.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+const menuBtn =
+    document.getElementById(
+        "menuBtn"
+    );
+
+const menu =
+    document.getElementById(
+        "menu"
+    );
+
+const header =
+    document.getElementById(
+        "header"
+    );
+
+const teamMenuBtn =
+    document.getElementById(
+        "teamMenuBtn"
+    );
+
+const teamMenuSub =
+    document.getElementById(
+        "teamMenuSub"
+    );
+
+const clubMenuBtn =
+    document.getElementById(
+        "clubMenuBtn"
+    );
+
+const clubMenuSub =
+    document.getElementById(
+        "clubMenuSub"
+    );
+
+
+function closeSubmenus() {
+
+    teamMenuBtn
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    teamMenuSub
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    clubMenuBtn
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    clubMenuSub
+        .classList
+        .remove(
+            "active"
+        );
+
+}
+
+
+menuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            menu
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        menuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        document.body
+            .classList
+            .toggle(
+                "lock",
+                open
+            );
+
+
+        if (!open) {
+
+            closeSubmenus();
+
+        }
+
+    }
+);
+
+
+teamMenuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            teamMenuSub
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        teamMenuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        clubMenuBtn
+            .classList
+            .remove(
+                "active"
+            );
+
+
+        clubMenuSub
+            .classList
+            .remove(
+                "active"
+            );
+
+    }
+);
+
+
+clubMenuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            clubMenuSub
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        clubMenuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        teamMenuBtn
+            .classList
+            .remove(
+                "active"
+            );
+
+
+        teamMenuSub
+            .classList
+            .remove(
+                "active"
+            );
+
+    }
+);
+
+
+menu
+    .querySelectorAll(
+        "a"
+    )
+    .forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    menu
+                        .classList
+                        .remove(
+                            "active"
+                        );
+
+
+                    menuBtn
+                        .classList
+                        .remove(
+                            "active"
+                        );
+
+
+                    document.body
+                        .classList
+                        .remove(
+                            "lock"
+                        );
+
+
+                    closeSubmenus();
+
+                }
+            );
+
+        }
+    );
+
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        header
+            .classList
+            .toggle(
+                "scrolled",
+                window.scrollY > 30
+            );
+
+    }
+);
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function localized(
+    item,
+    field
+) {
+
+    if (!item) {
+        return "";
+    }
+
+    return (
+        item.translations
+            ?.[selectedLanguage]
+            ?.[field]
+        ||
+        item.translations
+            ?.pl
+            ?.[field]
+        ||
+        item[
+            field + "_pl"
+        ]
+        ||
+        item[field]
+        ||
+        ""
+    );
+
+}
+
+
+function formatDate(
+    value
+) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+        ({
+            pl:"pl-PL",
+            en:"en-GB",
+            de:"de-DE",
+            es:"es-ES",
+            ru:"ru-RU",
+            it:"it-IT",
+            zh:"zh-CN"
+        }[selectedLanguage] || "pl-PL"),
+        {
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value
+        ||
+        ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   ARTICLES
+===================================================== */
+
+const articlesHero =
+    document.getElementById(
+        "articlesHero"
+    );
+
+const heroImage =
+    document.getElementById(
+        "heroImage"
+    );
+
+const heroCategory =
+    document.getElementById(
+        "heroCategory"
+    );
+
+const heroTitle =
+    document.getElementById(
+        "heroTitle"
+    );
+
+const heroDate =
+    document.getElementById(
+        "heroDate"
+    );
+
+const previews =
+    document.getElementById(
+        "articlePreviews"
+    );
+
+
+
+async function fetchWithTimeout(
+    url,
+    options = {},
+    timeoutMs = 8000
+) {
+
+    const controller =
+        new AbortController();
+
+    const timer =
+        setTimeout(
+            ()=>controller.abort(),
+            timeoutMs
+        );
+
+    try {
+
+        return await fetch(
+            url,
+            {
+                ...options,
+                signal:controller.signal
+            }
+        );
+
+    }
+    finally {
+
+        clearTimeout(
+            timer
+        );
+
+    }
+
+}
+
+
+async function loadArticles(
+    preserve = false
+) {
+
+    const oldId =
+        preserve
+        &&
+        articles[
+            activeArticle
+        ]
+        ? articles[
+            activeArticle
+        ].id
+        : null;
+
+
+    try {
+
+        const response =
+            await fetchWithTimeout(
+                ARTICLES_API
+                +
+                "?status=published&limit=12",
+                {
+                    cache:
+                        "no-store"
+                },
+                8000
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error();
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const list =
+            Array.isArray(
+                data
+            )
+            ? data
+            : data.articles;
+
+
+        if (
+            Array.isArray(
+                list
+            )
+            &&
+            list.length
+        ) {
+
+            articles =
+                list
+                .sort(
+                    function(a,b) {
+
+                        return (
+                            new Date(
+                                b.published_at
+                                ||
+                                b.date
+                                ||
+                                0
+                            )
+                            -
+                            new Date(
+                                a.published_at
+                                ||
+                                a.date
+                                ||
+                                0
+                            )
+                        );
+
+                    }
+                )
+                .slice(
+                    0,
+                    6
+                );
+
+        }
+
+    }
+    catch(error) {
+
+        console.log(
+            "Articles:",
+            error
+        );
+
+    }
+
+
+    if (
+        !articles.length
+    ) {
+
+        articles = [
+            {
+                id:
+                    "fallback",
+
+                image:
+                    CLUB_LOGO,
+
+                published_at:
+                    new Date()
+                    .toISOString(),
+
+                translations:{
+                    pl:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Aktualności z życia klubu.",
+                        content:"<p>Aktualności pojawią się tutaj po dodaniu ich w panelu.</p>"
+                    },
+                    en:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Latest news from the club.",
+                        content:"<p>News will appear here after it is added in the admin panel.</p>"
+                    },
+                    de:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Aktuelles aus dem Vereinsleben.",
+                        content:"<p>Aktuelles erscheint hier, sobald es im Admin-Panel hinzugefügt wurde.</p>"
+                    },
+                    es:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Noticias de la vida del club.",
+                        content:"<p>Las noticias aparecerán aquí después de añadirlas en el panel de administración.</p>"
+                    },
+                    ru:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Новости из жизни клуба.",
+                        content:"<p>Новости появятся здесь после добавления в панели администратора.</p>"
+                    },
+                    it:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Notizie dalla vita del club.",
+                        content:"<p>Le notizie appariranno qui dopo essere state aggiunte nel pannello di amministrazione.</p>"
+                    },
+                    zh:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"俱乐部最新动态。",
+                        content:"<p>在管理面板中添加新闻后，内容将显示在这里。</p>"
+                    }
+                }
+            }
+        ];
+
+    }
+
+
+    let nextIndex =
+        0;
+
+
+    if (
+        oldId !== null
+    ) {
+
+        const found =
+            articles
+                .findIndex(
+                    function(article) {
+
+                        return (
+                            String(
+                                article.id
+                            )
+                            ===
+                            String(
+                                oldId
+                            )
+                        );
+
+                    }
+                );
+
+
+        if (
+            found >= 0
+        ) {
+
+            nextIndex =
+                found;
+
+        }
+
+    }
+
+
+    renderArticle(
+        nextIndex,
+        false
+    );
+
+    const heroLoading =
+        document.getElementById(
+            "heroLoading"
+        );
+
+    if(heroLoading){
+        heroLoading
+            .classList
+            .add(
+                "hidden"
+            );
+    }
+
+}
+
+
+function renderArticle(
+    index,
+    animate = true
+) {
+
+    if (
+        !articles.length
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        index < 0
+    ) {
+
+        index =
+            articles.length - 1;
+
+    }
+
+
+    if (
+        index >=
+        articles.length
+    ) {
+
+        index = 0;
+
+    }
+
+
+    activeArticle =
+        index;
+
+
+    const article =
+        articles[index];
+
+
+    const update =
+        function() {
+
+            heroImage.src =
+                article.image
+                ||
+                article.thumbnail
+                ||
+                CLUB_LOGO;
+
+
+            heroImage.alt =
+                localized(
+                    article,
+                    "title"
+                );
+
+
+            heroCategory.textContent =
+                localized(
+                    article,
+                    "category"
+                )
+                ||
+                uiText("fallbackCategory");
+
+
+            heroTitle.textContent =
+                localized(
+                    article,
+                    "title"
+                )
+                ||
+                uiText("fallbackTitle");
+
+
+            heroDate.textContent =
+                formatDate(
+                    article.published_at
+                    ||
+                    article.date
+                );
+
+
+            renderPreviews();
+
+
+            articlesHero
+                .classList
+                .remove(
+                    "changing"
+                );
+
+        };
+
+
+    if (
+        animate
+    ) {
+
+        articlesHero
+            .classList
+            .add(
+                "changing"
+            );
+
+
+        setTimeout(
+            update,
+            130
+        );
+
+    }
+    else {
+
+        update();
+
+    }
+
+}
+
+
+function renderPreviews() {
+
+    previews.innerHTML =
+        "";
+
+
+    articles
+        .map(
+            function(
+                article,
+                index
+            ) {
+
+                return {
+                    article,
+                    index
+                };
+
+            }
+        )
+        .filter(
+            function(item) {
+
+                return (
+                    item.index
+                    !==
+                    activeArticle
+                );
+
+            }
+        )
+        .slice(
+            0,
+            5
+        )
+        .forEach(
+            function(item) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "article-preview";
+
+
+                const image =
+                    item.article.image
+                    ||
+                    item.article.thumbnail
+                    ||
+                    CLUB_LOGO;
+
+
+                const category =
+                    localized(
+                        item.article,
+                        "category"
+                    )
+                    ||
+                    uiText(
+                        "fallbackCategory"
+                    );
+
+
+                const title =
+                    localized(
+                        item.article,
+                        "title"
+                    )
+                    ||
+                    uiText(
+                        "fallbackTitle"
+                    );
+
+
+                const date =
+                    formatDate(
+                        item.article.published_at
+                        ||
+                        item.article.date
+                    );
+
+
+                button.innerHTML =
+                    `
+                        <img
+                            class="article-preview-image"
+                            src="${escapeHtml(image)}"
+                            alt=""
+                        >
+
+                        <span class="article-preview-overlay"></span>
+
+                        <span class="preview-open">
+                            ↗
+                        </span>
+
+                        <span class="article-preview-content">
+
+                            <span class="preview-topline">
+
+                                <span class="preview-category">
+                                    ${escapeHtml(category)}
+                                </span>
+
+                                <span class="preview-date">
+                                    ${escapeHtml(date)}
+                                </span>
+
+                            </span>
+
+                            <span class="preview-title">
+                                ${escapeHtml(title)}
+                            </span>
+
+                        </span>
+                    `;
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        openArticle(
+                            item.article
+                        );
+
+                    }
+                );
+
+
+                previews.appendChild(
+                    button
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ARTICLE MODAL
+===================================================== */
+
+const articleModal =
+    document.getElementById(
+        "articleModal"
+    );
+
+let currentModalArticle = null;
+
+
+function fillArticleModal(
+    article
+) {
+
+    if (!article) {
+        return;
+    }
+
+    document
+        .getElementById(
+            "modalImage"
+        )
+        .src =
+            article.image
+            ||
+            article.thumbnail
+            ||
+            CLUB_LOGO;
+
+    document
+        .getElementById(
+            "modalCategory"
+        )
+        .textContent =
+            localized(
+                article,
+                "category"
+            )
+            ||
+            uiText("fallbackCategory");
+
+    document
+        .getElementById(
+            "modalTitle"
+        )
+        .textContent =
+            localized(
+                article,
+                "title"
+            )
+            ||
+            uiText("fallbackTitle");
+
+    document
+        .getElementById(
+            "modalDate"
+        )
+        .textContent =
+            formatDate(
+                article.published_at
+                ||
+                article.date
+            );
+
+    document
+        .getElementById(
+            "modalExcerpt"
+        )
+        .textContent =
+            localized(
+                article,
+                "excerpt"
+            )
+            ||
+            "";
+
+    const content =
+        localized(
+            article,
+            "content"
+        )
+        ||
+        "";
+
+    document
+        .getElementById(
+            "modalContent"
+        )
+        .innerHTML =
+            window.LegionSupabase
+                ?.sanitizeRichHtml
+            ? window.LegionSupabase
+                .sanitizeRichHtml(
+                    content
+                )
+            : content;
+
+}
+
+
+function openArticle(
+    article
+) {
+
+    if (!article) {
+        return;
+    }
+
+    currentModalArticle =
+        article;
+
+    fillArticleModal(
+        article
+    );
+
+    articleModal
+        .classList
+        .add(
+            "active"
+        );
+
+    document.body
+        .classList
+        .add(
+            "lock"
+        );
+
+}
+
+
+function closeArticle() {
+
+    currentModalArticle = null;
+
+    articleModal
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    document.body
+        .classList
+        .remove(
+            "lock"
+        );
+
+}
+
+
+document
+    .getElementById(
+        "heroRead"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            openArticle(
+                articles[
+                    activeArticle
+                ]
+            );
+
+        }
+    );
+
+heroTitle.addEventListener(
+    "click",
+    function() {
+
+        openArticle(
+            articles[
+                activeArticle
+            ]
+        );
+
+    }
+);
+
+
+document
+    .getElementById(
+        "articleClose"
+    )
+    .addEventListener(
+        "click",
+        closeArticle
+    );
+
+
+articleModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            articleModal
+        ) {
+
+            closeArticle();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            if (
+                articleModal
+                    .classList
+                    .contains(
+                        "active"
+                    )
+            ) {
+
+                closeArticle();
+
+            }
+            else if (
+                menu
+                    .classList
+                    .contains(
+                        "active"
+                    )
+            ) {
+
+                menu
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+
+                menuBtn
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+
+                document.body
+                    .classList
+                    .remove(
+                        "lock"
+                    );
+
+
+                closeSubmenus();
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   MATCH CENTER
+===================================================== */
+
+let matchData =
+    null;
+
+let countdownTimer =
+    null;
+
+
+function matchLocale() {
+
+    return ({
+        pl:"pl-PL",
+        en:"en-GB",
+        de:"de-DE",
+        es:"es-ES",
+        ru:"ru-RU",
+        it:"it-IT",
+        zh:"zh-CN"
+    }[selectedLanguage] || "pl-PL");
+
+}
+
+
+function formatMatchDate(
+    value
+) {
+
+    if (!value) {
+        return "—";
+    }
+
+    const date =
+        new Date(
+            value
+        );
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return "—";
+    }
+
+    return new Intl.DateTimeFormat(
+        matchLocale(),
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+function matchMetaText(
+    match
+) {
+
+    return [
+        match?.competition,
+        match?.venue
+    ]
+    .filter(Boolean)
+    .join(" • ");
+
+}
+
+
+function resetCountdown() {
+
+    document.getElementById("countdownDays").textContent =
+        "00";
+
+    document.getElementById("countdownHours").textContent =
+        "00";
+
+    document.getElementById("countdownMinutes").textContent =
+        "00";
+
+    document.getElementById("countdownSeconds").textContent =
+        "00";
+
+}
+
+
+function startCountdown(
+    value
+) {
+
+    clearInterval(
+        countdownTimer
+    );
+
+    resetCountdown();
+
+    const target =
+        new Date(
+            value
+        )
+        .getTime();
+
+    if (
+        !Number.isFinite(
+            target
+        )
+    ) {
+        return;
+    }
+
+    function update() {
+
+        const difference =
+            Math.max(
+                0,
+                target - Date.now()
+            );
+
+        const days =
+            Math.floor(
+                difference / 86400000
+            );
+
+        const hours =
+            Math.floor(
+                (
+                    difference % 86400000
+                )
+                /
+                3600000
+            );
+
+        const minutes =
+            Math.floor(
+                (
+                    difference % 3600000
+                )
+                /
+                60000
+            );
+
+        const seconds =
+            Math.floor(
+                (
+                    difference % 60000
+                )
+                /
+                1000
+            );
+
+        document.getElementById("countdownDays").textContent =
+            String(days).padStart(2,"0");
+
+        document.getElementById("countdownHours").textContent =
+            String(hours).padStart(2,"0");
+
+        document.getElementById("countdownMinutes").textContent =
+            String(minutes).padStart(2,"0");
+
+        document.getElementById("countdownSeconds").textContent =
+            String(seconds).padStart(2,"0");
+
+        if (
+            difference <= 0
+        ) {
+
+            clearInterval(
+                countdownTimer
+            );
+
+        }
+
+    }
+
+    update();
+
+    countdownTimer =
+        setInterval(
+            update,
+            1000
+        );
+
+}
+
+
+function renderEmptyLastMatch() {
+
+    document.getElementById("lastMatchDate").textContent =
+        "—";
+
+    document.getElementById("lastHomeName").textContent =
+        uiText("noMatchData");
+
+    document.getElementById("lastAwayName").textContent =
+        "—";
+
+    document.getElementById("lastHomeLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("lastAwayLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("lastScore").textContent =
+        "— : —";
+
+    document.getElementById("lastMatchMeta").textContent =
+        "";
+
+}
+
+
+function renderEmptyNextMatch() {
+
+    document.getElementById("nextMatchDate").textContent =
+        "—";
+
+    document.getElementById("nextHomeName").textContent =
+        uiText("noMatchData");
+
+    document.getElementById("nextAwayName").textContent =
+        "—";
+
+    document.getElementById("nextHomeLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("nextAwayLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("nextMatchMeta").textContent =
+        "";
+
+    clearInterval(
+        countdownTimer
+    );
+
+    resetCountdown();
+
+}
+
+
+function renderMatches() {
+
+    const last =
+        matchData
+        ?.last_match
+        ||
+        null;
+
+    const next =
+        matchData
+        ?.next_match
+        ||
+        null;
+
+
+    if (last) {
+
+        document.getElementById("lastMatchDate").textContent =
+            formatMatchDate(
+                last.date
+            );
+
+        document.getElementById("lastHomeName").textContent =
+            last.home_team
+            ||
+            "—";
+
+        document.getElementById("lastAwayName").textContent =
+            last.away_team
+            ||
+            "—";
+
+        document.getElementById("lastHomeLogo").src =
+            last.home_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("lastAwayLogo").src =
+            last.away_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("lastScore").textContent =
+            `${
+                last.home_score
+                ??
+                "—"
+            } : ${
+                last.away_score
+                ??
+                "—"
+            }`;
+
+        document.getElementById("lastMatchMeta").textContent =
+            matchMetaText(
+                last
+            );
+
+    }
+    else {
+
+        renderEmptyLastMatch();
+
+    }
+
+
+    if (next) {
+
+        document.getElementById("nextMatchDate").textContent =
+            formatMatchDate(
+                next.date
+            );
+
+        document.getElementById("nextHomeName").textContent =
+            next.home_team
+            ||
+            "—";
+
+        document.getElementById("nextAwayName").textContent =
+            next.away_team
+            ||
+            "—";
+
+        document.getElementById("nextHomeLogo").src =
+            next.home_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("nextAwayLogo").src =
+            next.away_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("nextMatchMeta").textContent =
+            matchMetaText(
+                next
+            );
+
+        startCountdown(
+            next.date
+        );
+
+    }
+    else {
+
+        renderEmptyNextMatch();
+
+    }
+
+}
+
+
+async function loadMatches() {
+
+    try {
+
+        const response =
+            await fetchWithTimeout(
+                MATCHES_API,
+                {
+                    cache:"no-store"
+                },
+                8000
+            );
+
+        if (
+            !response.ok
+        ) {
+            throw new Error();
+        }
+
+        const data =
+            await response.json();
+
+        matchData = {
+            last_match:
+                data.last_match
+                ||
+                data.last
+                ||
+                null,
+
+            next_match:
+                data.next_match
+                ||
+                data.next
+                ||
+                null
+        };
+
+    }
+    catch(error) {
+
+        console.log(
+            "Matches:",
+            error
+        );
+
+        matchData = {
+            last_match:null,
+            next_match:null
+        };
+
+    }
+
+    renderMatches();
+
+}
+
+
+
+/* =====================================================
+   START
+===================================================== */
+
+
+setTimeout(()=>{
+    const loading =
+        document.getElementById("heroLoading");
+
+    if(loading){
+        loading.classList.add("hidden");
+    }
+},9000);
+
+loadArticles();
+loadMatches();
+
+
+setInterval(
+    function() {
+
+        loadArticles(
+            true
+        );
+
+    },
+    60000
+);
+
+
+setInterval(
+    loadMatches,
+    60000
+);
+
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.visibilityState
+            ===
+            "visible"
+        ) {
+
+            loadArticles(
+                true
+            );
+
+            loadMatches();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
