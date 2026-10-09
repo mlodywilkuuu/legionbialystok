@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legion Białystok</title>
+<link rel="icon" type="image/png" href="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070709;--panel:#0e0f13;--text:#fff;--muted:rgba(255,255,255,.62);--muted2:rgba(255,255,255,.34);--line:rgba(255,255,255,.10);--red:#e50914;--orange:#ff6a2a;--max:1360px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:#070709;color:#fff;font-family:Outfit,sans-serif;overflow-x:hidden}body.lock{overflow:hidden}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}img{display:block;max-width:100%}.shell{width:min(var(--max),calc(100% - 44px));margin:auto}
+.header{position:fixed;inset:0 0 auto;z-index:10000;height:82px;transition:.28s}.header.scrolled{background:rgba(7,7,9,.80);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}.header-inner{height:100%;display:flex;align-items:center;justify-content:flex-start;gap:16px}.header-left{display:flex;align-items:center;gap:10px}.brand{display:flex;align-items:center}.brand img{height:52px;filter:drop-shadow(0 8px 22px rgba(0,0,0,.45))}.menu-btn{width:44px;height:44px;border:1px solid rgba(255,255,255,.12);border-radius:50%;background:rgba(0,0,0,.25);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer}.menu-btn span{width:18px;height:2px;background:#fff;border-radius:10px;transition:.2s}.menu-btn.active span:first-child{transform:translateY(3.5px) rotate(45deg)}.menu-btn.active span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.menu{position:fixed;inset:0;z-index:9990;padding:120px 22px 36px;background:radial-gradient(circle at 80% 20%,rgba(229,9,20,.24),transparent 28%),#070709;opacity:0;visibility:hidden;transition:.28s}.menu.active{opacity:1;visibility:visible}.menu-grid{width:min(980px,100%);margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}.menu a{min-height:86px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.10);font-size:clamp(25px,4vw,48px);font-weight:900;letter-spacing:-1.5px;transition:.2s}.menu a:hover{color:#ff3a43;padding-left:10px}
+.hero{position:relative;min-height:100svh;overflow:hidden;background:#111}.hero-fallback{position:absolute;inset:0;background:radial-gradient(circle at 74% 28%,#f25338 0%,#9a2536 20%,transparent 47%),radial-gradient(circle at 56% 60%,#183d62 0%,#0d1b32 26%,transparent 54%),linear-gradient(145deg,#141929 0%,#651e33 46%,#ff6b2d 100%)}.hero-media{position:absolute;inset:0}.hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.02)}.hero-media:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.24),rgba(0,0,0,.08) 34%,rgba(7,7,9,.34) 65%,#070709 100%),linear-gradient(90deg,rgba(0,0,0,.62),transparent 62%),radial-gradient(circle at 75% 20%,rgba(255,104,42,.22),transparent 26%)}.hero-inner{position:relative;z-index:2;min-height:100svh;padding:135px 0 60px;display:flex;flex-direction:column;justify-content:flex-end}.hero-kicker{font-size:11px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase}.hero-title{max-width:1150px;margin-top:10px;font-size:clamp(72px,12vw,190px);font-weight:900;letter-spacing:-7px;line-height:.75;text-transform:uppercase;text-wrap:balance}.hero-bottom{margin-top:34px;display:flex;align-items:flex-end;justify-content:space-between;gap:28px}.hero-copy{max-width:600px;color:rgba(255,255,255,.75);font-size:15px;line-height:1.65}.hero-cta{min-height:52px;padding:0 24px;border:2px solid #fff;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.8px;transition:.2s;white-space:nowrap}.hero-cta:hover{background:#fff;color:#09090b}.scroll-tag{position:absolute;right:22px;bottom:80px;z-index:3;color:rgba(255,255,255,.46);writing-mode:vertical-rl;font-size:9px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase}
+.statement{padding:160px 0 140px;background:#070709}.statement p{max-width:1180px;font-size:clamp(43px,7vw,94px);line-height:.95;letter-spacing:-3.5px;font-weight:900}.statement .dim{color:rgba(255,255,255,.22)}
+.panel{position:relative;min-height:92svh;overflow:hidden}.panel-fallback{position:absolute;inset:0;background:radial-gradient(circle at 70% 28%,rgba(255,73,66,.68),transparent 26%),linear-gradient(135deg,#0e1929,#382237 55%,#d34b30)}.panel:nth-of-type(even) .panel-fallback{background:radial-gradient(circle at 25% 35%,rgba(229,9,20,.35),transparent 22%),linear-gradient(135deg,#080b10,#142738 55%,#421923)}.panel-media{position:absolute;inset:0}.panel-media img{width:100%;height:100%;object-fit:cover}.panel-media:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent 58%),linear-gradient(90deg,rgba(0,0,0,.58),transparent 55%)}.panel-content{position:relative;z-index:2;min-height:92svh;padding:70px 0;display:flex;align-items:flex-end}.panel-copy{max-width:760px}.panel-number{margin-bottom:14px;color:rgba(255,255,255,.48);font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase}.panel-title{font-size:clamp(58px,9vw,136px);line-height:.82;letter-spacing:-5px;font-weight:900;text-transform:uppercase}.panel-text{max-width:560px;margin-top:24px;color:rgba(255,255,255,.72);font-size:15px;line-height:1.65}.panel-link{margin-top:26px;display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase}.panel-link:after{content:"→";transition:transform .2s}.panel-link:hover:after{transform:translateX(5px)}
+.news{padding:130px 0 150px;background:#f2eee8;color:#111}.news-head{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:42px}.news-eyebrow{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:#7e7770}.news-title{margin-top:9px;font-size:clamp(48px,7vw,96px);line-height:.86;letter-spacing:-4px;font-weight:900;text-transform:uppercase}.news-all{min-height:46px;padding:0 18px;border:1px solid rgba(0,0,0,.16);border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;text-transform:uppercase}.news-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.news-card{min-width:0;border-radius:20px;overflow:hidden;background:#fff;transition:.25s}.news-card:hover{transform:translateY(-7px);box-shadow:0 18px 45px rgba(0,0,0,.12)}.news-img{aspect-ratio:16/11;background:#1b1b1b;overflow:hidden}.news-img img{width:100%;height:100%;object-fit:cover;transition:transform .45s}.news-card:hover .news-img img{transform:scale(1.035)}.news-body{min-height:190px;padding:20px;display:flex;flex-direction:column}.news-cat{color:#e50914;font-size:9px;font-weight:900;letter-spacing:1.1px;text-transform:uppercase}.news-card-title{margin-top:9px;font-size:22px;line-height:1.05;letter-spacing:-.7px;font-weight:900}.news-date{margin-top:auto;padding-top:20px;color:#8d877f;font-size:10px;font-weight:700}
+.club-cta{position:relative;min-height:78svh;overflow:hidden;background:radial-gradient(circle at 55% 25%,rgba(255,91,47,.55),transparent 25%),linear-gradient(135deg,#721e34,#e64b30 58%,#f8a14a)}.club-cta:before{content:"LEGION";position:absolute;left:50%;top:50%;transform:translate(-50%,-54%);font-size:clamp(130px,29vw,460px);font-weight:900;letter-spacing:-20px;color:rgba(255,255,255,.055);white-space:nowrap}.cta-inner{position:relative;z-index:2;min-height:78svh;padding:80px 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}.cta-logo{width:min(180px,38vw);margin-bottom:30px}.cta-title{max-width:920px;font-size:clamp(54px,9vw,132px);line-height:.82;letter-spacing:-5px;font-weight:900;text-transform:uppercase}.cta-links{margin-top:32px;display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+footer{padding:50px 0 26px;background:#070709}.footer-top{display:flex;align-items:center;justify-content:space-between;gap:30px}.footer-brand{display:flex;align-items:center;gap:12px}.footer-brand img{height:48px}.footer-brand strong{font-size:13px;font-weight:900}.footer-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:18px}.footer-links a{color:rgba(255,255,255,.58);font-size:10px;font-weight:800;text-transform:uppercase}.footer-bottom{margin-top:36px;padding-top:17px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;gap:20px;color:rgba(255,255,255,.28);font-size:10px}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:900px){.menu-grid{grid-template-columns:1fr}.hero-title{letter-spacing:-4px}.hero-bottom{align-items:flex-start;flex-direction:column}.statement{padding:110px 0}.news-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.shell{width:min(var(--max),calc(100% - 28px))}.header{height:74px}.brand img{height:46px}.hero-inner{padding:120px 0 42px}.hero-title{font-size:72px;letter-spacing:-3px;line-height:.78}.hero-copy{font-size:13px}.scroll-tag{display:none}.statement{padding:88px 0}.statement p{font-size:42px;letter-spacing:-2px}.panel{min-height:82svh}.panel-content{min-height:82svh;padding:46px 0}.panel-title{font-size:62px;letter-spacing:-3px}.news{padding:90px 0}.news-head{align-items:flex-start;flex-direction:column}.news-grid{grid-template-columns:1fr}.club-cta,.cta-inner{min-height:70svh}.cta-title{font-size:58px;letter-spacing:-3px}.footer-top,.footer-bottom{align-items:flex-start;flex-direction:column}.footer-links{justify-content:flex-start}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script src="/supabase-api.js"></script>
+<script src="/clean-url.js" defer></script>
+</head>
+<body>
+<header class="header" id="header">
+  <div class="shell header-inner">
+    <div class="header-left">
+
+<button class="menu-btn" id="menuBtn" type="button" aria-label="Menu"><span></span><span></span></button>
+
+<a class="brand" href="/">
+      <img src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Legion Białystok">
+    </a>
+
+</div>
+    </div>
+  </div>
+</header>
+
+<nav class="menu" id="menu">
+  <div class="menu-grid">
+    <a href="/aktualnosci">Aktualności</a>
+    <a href="/tabela">Tabela</a>
+    <a href="/pierwszyzespol">I Drużyna</a>
+    <a href="/drugadruzyna">II Drużyna</a>
+    <a href="/akademia">Akademia</a>
+    <a href="/ludzie">Ludzie Legionu</a>
+    <a href="/urlopy">Urlopy</a>
+    <a href="/kontakt">Kontakt</a>
+  </div>
+</nav>
+
+<main>
+<section class="hero">
+  <div class="hero-fallback"></div>
+  <div class="hero-media"><img id="heroImage" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt=""></div>
+  <div class="shell hero-inner">
+    <div class="hero-kicker reveal">Legion Białystok</div>
+    <h1 class="hero-title reveal">Tu zaczyna się Legion.</h1>
+    <div class="hero-bottom reveal">
+      <p class="hero-copy" id="heroCopy">Klub. Miasto. Ludzie. Jedna drużyna. Poznaj Legion Białystok od środka.</p>
+      <a class="hero-cta" href="/pierwszyzespol">Poznaj drużynę</a>
+    </div>
+  </div>
+  <div class="scroll-tag">Przewiń niżej</div>
+</section>
+
+<section class="statement">
+  <div class="shell">
+    <p class="reveal">Białystok to nasze miasto. <span class="dim">Boisko to nasze miejsce.</span> Legion to ludzie, którzy chcą czegoś więcej.</p>
+  </div>
+</section>
+
+<section class="panel" id="panelOne">
+  <div class="panel-fallback"></div>
+  <div class="panel-media"><img id="panelOneImage" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt=""></div>
+  <div class="shell panel-content">
+    <div class="panel-copy reveal">
+      <div class="panel-number">01 — Pierwsza drużyna</div>
+      <h2 class="panel-title">Jeden herb.<br>Jeden cel.</h2>
+      <p class="panel-text">Poznaj zawodników pierwszego zespołu, ich profile i ludzi, którzy tworzą Legion na boisku.</p>
+      <a class="panel-link" href="/pierwszyzespol">Zobacz I Drużynę</a>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="panelTwo">
+  <div class="panel-fallback"></div>
+  <div class="panel-media"><img id="panelTwoImage" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt=""></div>
+  <div class="shell panel-content">
+    <div class="panel-copy reveal">
+      <div class="panel-number">02 — Akademia</div>
+      <h2 class="panel-title">Przyszłość<br>zaczyna się dziś.</h2>
+      <p class="panel-text">Akademia Legionu to miejsce rozwoju, rywalizacji i budowania kolejnych pokoleń zawodników.</p>
+      <a class="panel-link" href="/akademia">Poznaj Akademię</a>
+    </div>
+  </div>
+</section>
+
+<section class="news">
+  <div class="shell">
+    <div class="news-head reveal">
+      <div><div class="news-eyebrow">Legion News</div><h2 class="news-title">Najnowsze<br>aktualności</h2></div>
+      <a class="news-all" href="/aktualnosci">Zobacz wszystkie</a>
+    </div>
+    <div class="news-grid" id="newsGrid"></div>
+  </div>
+</section>
+
+<section class="club-cta">
+  <div class="shell cta-inner">
+    <img class="cta-logo reveal" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Legion Białystok">
+    <h2 class="cta-title reveal">Legion Białystok</h2>
+    <div class="cta-links reveal">
+      <a class="hero-cta" href="/kontakt">Kontakt</a>
+      <a class="hero-cta" href="/ludzie">Ludzie Legionu</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="footer-top">
+      <a class="footer-brand" href="/"><img src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt=""><strong>Legion Białystok</strong></a>
+      <div class="footer-links"><a href="/aktualnosci">Aktualności</a><a href="/pierwszyzespol">Drużyna</a><a href="/akademia">Akademia</a><a href="/kontakt">Kontakt</a></div>
+    </div>
+    <div class="footer-bottom"><span id="copyright"></span><span>legionbialystok.pl</span></div>
+  </div>
+</footer>
+
+<script>
+"use strict";
+const ARTICLES_API="/api/articles.php";
+const GALLERY_API="/api/gallery.php";
+const CLUB_LOGO="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png";
+const menuBtn=document.getElementById("menuBtn");
+const menu=document.getElementById("menu");
+const header=document.getElementById("header");
+menuBtn.addEventListener("click",()=>{const open=menu.classList.toggle("active");menuBtn.classList.toggle("active",open);document.body.classList.toggle("lock",open)});
+menu.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{menu.classList.remove("active");menuBtn.classList.remove("active");document.body.classList.remove("lock")}));
+window.addEventListener("scroll",()=>header.classList.toggle("scrolled",window.scrollY>30));
+function localized(item,field){if(!item)return "";const lang=localStorage.getItem("legion_language")||"pl";return item.translations?.[lang]?.[field]||item.translations?.pl?.[field]||item[field+"_pl"]||item[field]||""}
+function formatDate(value){if(!value)return "";const d=new Date(value);if(Number.isNaN(d.getTime()))return "";return new Intl.DateTimeFormat("pl-PL",{day:"2-digit",month:"2-digit",year:"numeric"}).format(d)}
+async function loadContent(){
+  let articles=[],gallery=[];
+  try{const r=await fetch(ARTICLES_API+"?status=published&limit=6",{cache:"no-store"});if(r.ok){const d=await r.json();articles=Array.isArray(d)?d:(d.articles||[])}}catch(e){console.log("Articles:",e)}
+  try{const r=await fetch(GALLERY_API+"?limit=6",{cache:"no-store"});if(r.ok){const d=await r.json();gallery=Array.isArray(d)?d:(d.photos||[])}}catch(e){console.log("Gallery:",e)}
+  articles.sort((a,b)=>new Date(b.published_at||b.date||0)-new Date(a.published_at||a.date||0));
+  const heroArticle=articles[0];
+  if(heroArticle){const img=heroArticle.image||heroArticle.thumbnail;if(img)document.getElementById("heroImage").src=img;const excerpt=localized(heroArticle,"excerpt");if(excerpt)document.getElementById("heroCopy").textContent=excerpt}
+  const p1=gallery[0]?.image||gallery[0]?.url||articles[1]?.image||articles[1]?.thumbnail;
+  const p2=gallery[1]?.image||gallery[1]?.url||articles[2]?.image||articles[2]?.thumbnail;
+  if(p1)document.getElementById("panelOneImage").src=p1;if(p2)document.getElementById("panelTwoImage").src=p2;
+  renderNews(articles.slice(0,3));
+}
+function renderNews(items){
+  const root=document.getElementById("newsGrid");root.innerHTML="";
+  if(!items.length){for(let i=0;i<3;i++){const card=document.createElement("article");card.className="news-card";card.innerHTML=`<div class="news-img"><img src="${CLUB_LOGO}" alt=""></div><div class="news-body"><div class="news-cat">Legion Białystok</div><div class="news-card-title">Aktualności pojawią się tutaj po dodaniu ich w panelu.</div><div class="news-date">legionbialystok.pl</div></div>`;root.appendChild(card)}return}
+  items.forEach(article=>{const card=document.createElement("a");card.className="news-card";card.href="/aktualnosci";card.innerHTML=`<div class="news-img"><img src="${article.image||article.thumbnail||CLUB_LOGO}" alt=""></div><div class="news-body"><div class="news-cat">${localized(article,"category")||"Legion Białystok"}</div><div class="news-card-title">${localized(article,"title")||"Aktualność"}</div><div class="news-date">${formatDate(article.published_at||article.date)}</div></div>`;root.appendChild(card)})
+}
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}})},{threshold:.14});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+document.getElementById("copyright").textContent="© "+new Date().getFullYear()+" Legion Białystok";
+loadContent();
+</script>
+</body>
+</html>
