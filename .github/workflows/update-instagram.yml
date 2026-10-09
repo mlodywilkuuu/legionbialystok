@@ -1,0 +1,114 @@
+name: Update Instagram feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-feed
+  cancel-in-progress: true
+
+jobs:
+  update-instagram:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch latest Instagram posts
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -z "${IG_USER_ID:-}" ] || [ -z "${IG_ACCESS_TOKEN:-}" ]; then
+            echo "Brakuje sekretu IG_USER_ID albo IG_ACCESS_TOKEN."
+            exit 1
+          fi
+
+          FIELDS="id,caption,media_type,media_url,thumbnail_url,permalink,timestamp"
+          TMP_RESPONSE="$(mktemp)"
+
+          # Najpierw próbujemy oficjalnego Instagram API.
+          HTTP_CODE="$(
+            curl -sS -o "$TMP_RESPONSE" -w "%{http_code}" -G \
+              "https://graph.instagram.com/${IG_USER_ID}/media" \
+              --data-urlencode "fields=${FIELDS}" \
+              --data-urlencode "limit=12" \
+              --data-urlencode "access_token=${IG_ACCESS_TOKEN}"
+          )"
+
+          # Fallback dla kont podłączonych przez Meta / Facebook Graph API.
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Instagram API zwróciło HTTP ${HTTP_CODE}. Próbuję Meta Graph API..."
+
+            HTTP_CODE="$(
+              curl -sS -o "$TMP_RESPONSE" -w "%{http_code}" -G \
+                "https://graph.facebook.com/${IG_USER_ID}/media" \
+                --data-urlencode "fields=${FIELDS}" \
+                --data-urlencode "limit=12" \
+                --data-urlencode "access_token=${IG_ACCESS_TOKEN}"
+            )"
+          fi
+
+          if [ "$HTTP_CODE" -lt 200 ] || [ "$HTTP_CODE" -ge 300 ]; then
+            echo "Nie udało się pobrać postów. HTTP ${HTTP_CODE}"
+            jq -r '.error.message // "Nieznany błąd API"' "$TMP_RESPONSE" 2>/dev/null || true
+            exit 1
+          fi
+
+          jq '
+            {
+              updated_at: (now | todateiso8601),
+              posts: [
+                .data[]
+                | {
+                    id,
+                    caption: (.caption // ""),
+                    media_type: (.media_type // "IMAGE"),
+                    media_url: (.media_url // ""),
+                    thumbnail_url: (.thumbnail_url // ""),
+                    permalink: (.permalink // ""),
+                    timestamp: (.timestamp // "")
+                  }
+                | select(
+                    (.permalink | length) > 0
+                    and
+                    (
+                      (.media_url | length) > 0
+                      or
+                      (.thumbnail_url | length) > 0
+                    )
+                  )
+              ][0:6]
+            }
+          ' "$TMP_RESPONSE" > instagram-feed.json
+
+          rm -f "$TMP_RESPONSE"
+
+          echo "Zapisano najnowsze posty:"
+          jq -r '.posts[] | "- \(.timestamp) | \(.media_type) | \(.permalink)"' instagram-feed.json
+
+      - name: Commit updated feed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet -- instagram-feed.json; then
+            echo "Brak zmian w instagram-feed.json."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add instagram-feed.json
+          git commit -m "Update Instagram feed"
+          git push
