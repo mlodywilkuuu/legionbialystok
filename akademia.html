@@ -1,0 +1,4130 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Akademia | Legion Białystok</title>
+
+<link rel="icon" type="image/png"
+href="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: #08080a;
+    color: #fff;
+    font-family: "Outfit", sans-serif;
+    overflow-x: hidden;
+}
+
+button,
+a {
+    font-family: inherit;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 88px;
+
+    padding: 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: linear-gradient(
+        180deg,
+        rgba(5,5,7,.96),
+        rgba(5,5,7,.74) 68%,
+        transparent
+    );
+
+    z-index: 5000;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.right {
+    margin-left: auto;
+    position: relative;
+}
+
+.menu-toggle {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    gap: 6px;
+
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    height: 2px;
+
+    background: #fff;
+    border-radius: 20px;
+
+    transition:
+        width .25s ease,
+        transform .25s ease,
+        opacity .2s ease;
+}
+
+.menu-toggle span:nth-child(1),
+.menu-toggle span:nth-child(3) {
+    width: 27px;
+}
+
+.menu-toggle span:nth-child(2) {
+    width: 19px;
+}
+
+.menu-toggle:hover span:nth-child(2) {
+    width: 27px;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+.logo img {
+    display: block;
+    height: 54px;
+    width: auto;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 4px 14px rgba(0,0,0,.4));
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.dropdown {
+    position: absolute;
+    top: 65px;
+    left: -14px;
+
+    width: 330px;
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(10,10,12,.98);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 28px 70px rgba(0,0,0,.55);
+
+    backdrop-filter: blur(22px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-10px);
+
+    transition:
+        opacity .22s ease,
+        visibility .22s ease,
+        transform .22s ease;
+}
+
+.dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.btn,
+.submenu a {
+    font-size: 14px;
+    font-weight: 600;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn {
+    position: relative;
+
+    width: 100%;
+    min-height: 48px;
+
+    padding: 14px 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 0;
+    border-bottom:
+        1px solid rgba(255,255,255,.07);
+
+    background: transparent;
+    color: #fff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        padding-left .2s ease,
+        background .2s ease;
+}
+
+.btn:hover {
+    padding-left: 14px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,.06),
+        transparent 75%
+    );
+}
+
+.btn::before {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    width: 0;
+    height: 2px;
+
+    background: #fff;
+
+    transition:
+        width .2s ease;
+}
+
+.btn:hover::before {
+    width: 42px;
+}
+
+.arrow {
+    display: inline-block;
+
+    margin-left: 20px;
+
+    font-size: 20px;
+
+    transition:
+        transform .25s ease;
+}
+
+.btn.active .arrow {
+    transform: rotate(45deg);
+}
+
+.submenu {
+    display: grid;
+    grid-template-rows: 0fr;
+
+    opacity: 0;
+
+    transition:
+        grid-template-rows .25s ease,
+        opacity .2s ease;
+}
+
+.submenu.active {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.submenu-inner {
+    overflow: hidden;
+}
+
+.submenu a {
+    min-height: 44px;
+
+    padding: 12px 8px 12px 20px;
+
+    display: flex;
+    align-items: center;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.05);
+
+    transition:
+        padding-left .2s ease,
+        background .2s ease;
+}
+
+.submenu a:hover {
+    padding-left: 26px;
+    background:
+        rgba(255,255,255,.04);
+}
+
+/* =====================================================
+   JĘZYKI
+===================================================== */
+
+.language-wrapper {
+    position: relative;
+}
+
+.language-toggle {
+    min-width: 72px;
+    height: 42px;
+
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    border: 0;
+    background: transparent;
+
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.language-chevron {
+    font-size: 9px;
+
+    transition:
+        transform .2s ease;
+}
+
+.language-toggle.active .language-chevron {
+    transform: rotate(180deg);
+}
+
+.language-menu {
+    position: absolute;
+
+    top: 50px;
+    right: 0;
+
+    width: 160px;
+
+    padding: 8px;
+
+    background:
+        rgba(10,10,12,.98);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-8px);
+
+    transition:
+        opacity .2s ease,
+        visibility .2s ease,
+        transform .2s ease;
+}
+
+.language-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-option {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 0;
+    background: transparent;
+
+    color: #fff;
+
+    text-align: left;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.language-option:hover,
+.language-option.active {
+    background:
+        rgba(255,255,255,.07);
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.team-hero {
+    position: relative;
+
+    min-height: 430px;
+
+    padding:
+        150px
+        70px
+        70px;
+
+    display: flex;
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 82% 35%,
+            rgba(255,255,255,.055),
+            transparent 26%
+        ),
+        linear-gradient(
+            110deg,
+            #070709 0%,
+            #0b0b0e 58%,
+            #111116 100%
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.055);
+}
+
+.team-hero::after {
+    content: "";
+
+    position: absolute;
+
+    top: 112px;
+    right: clamp(30px,7vw,110px);
+
+    width: clamp(190px,23vw,310px);
+    height: clamp(190px,23vw,310px);
+
+    background:
+        url("8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png")
+        center / contain
+        no-repeat;
+
+    opacity: .045;
+
+    pointer-events: none;
+}
+
+.content-inner {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(1180px,100%);
+
+    margin: 0 auto;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,.4);
+}
+
+.page-title {
+    max-width: 760px;
+
+    margin-top: 8px;
+
+    font-size:
+        clamp(48px,7vw,82px);
+
+    font-weight: 900;
+
+    letter-spacing: -3px;
+    line-height: .94;
+}
+
+.page-description {
+    max-width: 610px;
+
+    margin-top: 22px;
+
+    color:
+        rgba(255,255,255,.48);
+
+    font-size: 15px;
+
+    line-height: 1.65;
+}
+
+/* =====================================================
+   TEAM SECTION
+===================================================== */
+
+.team-section {
+    padding:
+        68px
+        70px
+        100px;
+
+    background: #0a0a0d;
+}
+
+.team-toolbar {
+    margin-bottom: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 22px;
+}
+
+.position-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.position-filter {
+    min-height: 40px;
+
+    padding:
+        0 16px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 100px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        color .2s ease,
+        background .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.position-filter:hover {
+    color: #fff;
+
+    border-color:
+        rgba(255,255,255,.18);
+
+    transform:
+        translateY(-1px);
+}
+
+.position-filter.active {
+    color: #fff;
+
+    background: #e50914;
+
+    border-color: #e50914;
+}
+
+.players-count {
+    flex: 0 0 auto;
+
+    color:
+        rgba(255,255,255,.34);
+
+    font-size: 12px;
+}
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.players-grid {
+    display: block;
+}
+
+.position-group {
+    margin-top: 64px;
+}
+
+.position-group:first-child {
+    margin-top: 0;
+}
+
+.position-group-heading {
+    margin-bottom: 18px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.position-group-title {
+    font-size: 29px;
+    font-weight: 900;
+
+    letter-spacing: -1px;
+
+    text-transform: uppercase;
+}
+
+.position-group-count {
+    color:
+        rgba(255,255,255,.32);
+
+    font-size: 11px;
+}
+
+.position-group-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,minmax(0,1fr));
+
+    gap: 12px;
+}
+
+.player-card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 195px;
+
+    padding:
+        24px
+        20px
+        18px;
+
+    border:
+        1px solid rgba(255,255,255,.065);
+
+    background:
+        linear-gradient(
+            145deg,
+            #121216,
+            #0e0e12
+        );
+
+    color: #fff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        transform .22s ease,
+        border-color .22s ease,
+        background .22s ease,
+        box-shadow .22s ease;
+}
+
+.player-card::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 2px;
+
+    background: #e50914;
+
+    transform:
+        scaleX(0);
+
+    transform-origin:
+        left center;
+
+    transition:
+        transform .22s ease;
+}
+
+.player-card:hover {
+    transform:
+        translateY(-4px);
+
+    border-color:
+        rgba(255,255,255,.14);
+
+    background:
+        linear-gradient(
+            145deg,
+            #15151a,
+            #101014
+        );
+
+    box-shadow:
+        0 18px 38px rgba(0,0,0,.25);
+}
+
+.player-card:hover::after {
+    transform:
+        scaleX(1);
+}
+
+.player-card-top {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+}
+
+.player-number {
+    flex: 0 0 auto;
+
+    margin-top: -3px;
+
+    color: #e50914;
+
+    font-size: 46px;
+    font-weight: 900;
+
+    letter-spacing: -3px;
+    line-height: .95;
+}
+
+.player-card-identity {
+    min-width: 0;
+
+    padding-top: 2px;
+}
+
+.player-first-name {
+    display: block;
+
+    color:
+        rgba(255,255,255,.46);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.1;
+}
+
+.player-last-name {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #fff;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: -.5px;
+
+    text-transform: uppercase;
+
+    word-break: break-word;
+}
+
+.player-position {
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 22px;
+
+    color:
+        rgba(255,255,255,.42);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1.3;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.player-card-bottom {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.player-nationality {
+    min-width: 0;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color:
+        rgba(255,255,255,.46);
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.country-flag {
+    position: relative;
+
+    width: 24px;
+    height: 17px;
+
+    flex: 0 0 24px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 2px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.08);
+}
+
+.country-flag img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.country-flag-fallback {
+    display: none;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: .3px;
+}
+
+.country-flag.failed img {
+    display: none;
+}
+
+.country-flag.failed
+.country-flag-fallback {
+    display: block;
+}
+
+.player-profile-link {
+    flex: 0 0 auto;
+
+    min-height: 30px;
+
+    padding:
+        0 11px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    border: 0;
+
+    border-radius: 100px;
+
+    background: #e50914;
+
+    color: #fff;
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: .4px;
+
+    text-transform: uppercase;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.player-card:hover
+.player-profile-link {
+    background: #ff1924;
+
+    transform:
+        translateX(2px);
+}
+
+.players-loading,
+.players-empty {
+    padding:
+        80px
+        20px;
+
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    background: #111115;
+
+    text-align: center;
+
+    color:
+        rgba(255,255,255,.38);
+}
+
+.players-empty {
+    display: none;
+}
+
+/* =====================================================
+   PLAYER MODAL
+===================================================== */
+
+.player-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 10000;
+
+    padding: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        rgba(0,0,0,.86);
+
+    backdrop-filter:
+        blur(16px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .25s ease,
+        visibility .25s ease;
+}
+
+.player-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.player-modal-window {
+    position: relative;
+
+    width: min(760px,100%);
+    max-height: 91vh;
+
+    overflow-y: auto;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111115,
+            #0b0b0e
+        );
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 35px 100px rgba(0,0,0,.55);
+}
+
+.player-modal-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 20;
+
+    width: 46px;
+    height: 46px;
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #fff;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.player-modal-close:hover {
+    background:
+        rgba(255,255,255,.1);
+}
+
+.player-modal-content {
+    padding:
+        48px
+        44px
+        44px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-player-heading {
+    padding-right: 58px;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 18px;
+}
+
+.modal-player-number {
+    flex: 0 0 auto;
+
+    color: #e50914;
+
+    font-size:
+        clamp(58px,8vw,88px);
+
+    font-weight: 900;
+
+    letter-spacing: -5px;
+
+    line-height: .82;
+}
+
+.modal-player-identity {
+    min-width: 0;
+
+    padding-top: 3px;
+}
+
+.modal-position {
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    color:
+        rgba(255,255,255,.4);
+}
+
+.modal-player-name {
+    margin-top: 9px;
+
+    font-size:
+        clamp(36px,5vw,58px);
+
+    font-weight: 900;
+
+    line-height: .98;
+
+    letter-spacing: -2px;
+}
+
+.modal-nationality-line {
+    margin-top: 14px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modal-nationality-line
+.country-flag {
+    width: 28px;
+    height: 20px;
+
+    flex-basis: 28px;
+}
+
+.player-details {
+    margin-top: 38px;
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+}
+
+.player-detail {
+    padding:
+        16px 0;
+
+    display: grid;
+
+    grid-template-columns:
+        145px
+        minmax(0,1fr);
+
+    gap: 18px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+}
+
+.player-detail-label {
+    color:
+        rgba(255,255,255,.34);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+
+    text-transform: uppercase;
+}
+
+.player-detail-value {
+    color:
+        rgba(255,255,255,.82);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-align: right;
+}
+
+.player-detail-value.nationality-value {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 9px;
+}
+
+.player-bio {
+    margin-top: 32px;
+
+    padding: 22px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size: 14px;
+
+    line-height: 1.75;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.site-footer {
+    padding:
+        58px
+        70px
+        26px;
+
+    background: #070709;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+}
+
+.footer-inner {
+    width: min(1180px,100%);
+
+    margin: 0 auto;
+}
+
+.footer-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 48px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-brand img {
+    width: auto;
+    height: 58px;
+
+    display: block;
+}
+
+.footer-brand-name {
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+.footer-links {
+    flex: 1;
+
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+.footer-link {
+    min-height: 38px;
+
+    padding:
+        0 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    color:
+        rgba(255,255,255,.7);
+
+    text-decoration: none;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: .7px;
+
+    text-transform: uppercase;
+}
+
+.footer-link:hover {
+    color: #fff;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.footer-link.privacy {
+    border-color:
+        rgba(229,9,20,.3);
+}
+
+.footer-bottom {
+    margin-top: 42px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid rgba(255,255,255,.05);
+
+    display: flex;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color:
+        rgba(255,255,255,.32);
+
+    font-size: 11px;
+}
+
+body.overlay-open {
+    overflow: hidden;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1080px) {
+
+    .position-group-grid {
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+
+}
+
+@media (max-width: 820px) {
+
+    .position-group-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    header {
+        height: 80px;
+
+        padding:
+            0 18px;
+    }
+
+    .logo img {
+        height: 45px;
+    }
+
+    .dropdown {
+        position: fixed;
+
+        top: 80px;
+        left: 15px;
+        right: 15px;
+
+        width: auto;
+    }
+
+    .team-hero {
+        padding:
+            130px
+            20px
+            45px;
+    }
+
+    .page-title {
+        font-size: 53px;
+        letter-spacing: -2px;
+    }
+
+    .team-section {
+        padding:
+            32px
+            20px
+            68px;
+    }
+
+    .team-toolbar {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .players-count {
+        order: -1;
+    }
+
+    .position-group {
+        margin-top: 38px;
+    }
+
+    .position-group-grid {
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap: 8px;
+    }
+
+    .position-group-title {
+        font-size: 22px;
+    }
+
+    .player-card {
+        min-height: 184px;
+
+        padding:
+            18px
+            14px
+            14px;
+    }
+
+    .player-number {
+        font-size: 38px;
+    }
+
+    .player-last-name {
+        font-size: 15px;
+    }
+
+    .player-card-bottom {
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 9px;
+    }
+
+    .player-profile-link {
+        align-self: stretch;
+
+        min-height: 32px;
+    }
+
+    .player-modal {
+        padding: 8px;
+    }
+
+    .player-modal-content {
+        padding:
+            34px
+            21px
+            36px;
+    }
+
+    .modal-player-heading {
+        padding-right: 44px;
+
+        gap: 12px;
+    }
+
+    .modal-player-number {
+        font-size: 56px;
+    }
+
+    .player-detail {
+        grid-template-columns:
+            1fr;
+
+        gap: 6px;
+    }
+
+    .player-detail-value {
+        text-align: left;
+    }
+
+    .site-footer {
+        padding:
+            46px
+            20px
+            24px;
+    }
+
+    .footer-main {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .footer-links {
+        justify-content: flex-start;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+
+}
+
+@media (max-width: 390px) {
+
+    .position-group-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =====================================================
+   CINEMATIC FIRST TEAM + MENU SYNC
+===================================================== */
+body{background:#050506;color:#fff;}
+body::before{content:"";position:fixed;inset:0;z-index:99999;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");mix-blend-mode:soft-light;}
+
+.header{position:fixed;inset:0 0 auto 0;z-index:10000;height:82px;padding:0;background:linear-gradient(180deg,rgba(0,0,0,.56),transparent);display:block;}
+.header-inner{height:100%;display:flex;align-items:center;gap:10px;padding-left:8px;}
+.menu-toggle{width:44px;height:44px;padding:0;border:1px solid rgba(255,255,255,.14);border-radius:50%;background:rgba(0,0,0,.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px);}
+.menu-toggle span{display:block;width:18px;height:2px;background:#fff;border-radius:10px;transition:.2s ease;}
+.menu-toggle span:nth-child(3){display:none;}
+.menu-toggle.active span:first-child{transform:translateY(3.5px) rotate(45deg);}
+.menu-toggle.active span:nth-child(2){transform:translateY(-3.5px) rotate(-45deg);}
+.header .logo{display:flex;align-items:center;}
+.header .logo img{display:block;height:54px;width:auto;object-fit:contain;filter:drop-shadow(0 7px 20px rgba(0,0,0,.5));}
+
+.dropdown{position:fixed;inset:0;width:auto;max-width:none;z-index:9990;padding:112px 18px 92px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;background:radial-gradient(circle at 80% 18%,rgba(229,9,20,.22),transparent 28%),#070709;opacity:0;visibility:hidden;transform:none;transition:opacity .26s ease,visibility .26s ease;}
+.dropdown.active{opacity:1;visibility:visible;}
+.dropdown::-webkit-scrollbar{display:none;}
+.menu-grid{width:min(980px,calc(100% - 2px));margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px;}
+.menu-main-link,.menu-group-btn{width:100%;min-height:86px;padding:0;border:0;border-bottom:1px solid rgba(255,255,255,.10);background:transparent;display:flex;align-items:center;justify-content:space-between;color:#fff;text-align:left;font-size:clamp(25px,4vw,48px);font-weight:900;letter-spacing:-1.5px;cursor:pointer;transition:.2s ease;}
+.menu-main-link:hover,.menu-group-btn:hover,.menu-group-btn.active{color:#ff3a43;padding-left:10px;}
+.menu-plus{margin-left:20px;color:rgba(255,255,255,.44);font-size:34px;font-weight:400;line-height:1;transition:.22s ease;}
+.menu-group-btn.active .menu-plus{color:#ff3a43;transform:rotate(45deg);}
+.submenu{display:grid!important;grid-template-rows:0fr;opacity:0;max-height:none!important;overflow:visible!important;transition:grid-template-rows .28s ease,opacity .22s ease;}
+.submenu.active{grid-template-rows:1fr;opacity:1;}
+.submenu-inner{overflow:hidden;}
+.submenu a{min-height:56px;padding:0 0 0 22px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;color:rgba(255,255,255,.58);font-size:15px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;transition:.2s ease;}
+.submenu a:hover{color:#fff;padding-left:32px;}
+.dropdown .language-wrapper{position:absolute;left:18px;bottom:24px;z-index:4;}
+.dropdown .language-toggle{min-width:58px;height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.035);display:flex;align-items:center;justify-content:center;gap:7px;color:#fff;font-size:11px;font-weight:900;letter-spacing:.6px;cursor:pointer;}
+.dropdown .language-chevron{font-size:9px;color:rgba(255,255,255,.45);transition:.2s;}
+.dropdown .language-toggle.active .language-chevron{transform:rotate(180deg);}
+.dropdown .language-menu{position:absolute;left:0;bottom:56px;top:auto;right:auto;width:min(270px,calc(100vw - 36px));max-height:60vh;padding:8px;border:1px solid rgba(255,255,255,.11);border-radius:16px;background:rgba(8,8,15,.96);backdrop-filter:blur(16px);box-shadow:0 22px 60px rgba(0,0,0,.42);overflow:auto;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;}
+.dropdown .language-menu.active{opacity:1;visibility:visible;transform:none;}
+.dropdown .language-option{width:100%;min-height:44px;padding:0 12px;border:0;border-radius:10px;background:transparent;color:rgba(255,255,255,.72);font-size:11px;font-weight:800;text-align:left;cursor:pointer;}
+.dropdown .language-option:hover,.dropdown .language-option.active{color:#fff;background:rgba(255,255,255,.07);}
+.menu-socials{position:absolute;left:50%;bottom:24px;z-index:4;transform:translateX(-50%);display:flex;gap:10px;}
+.menu-social{width:46px;height:46px;border:1px solid rgba(255,255,255,.14);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;transition:.2s ease;}
+.menu-social:hover{transform:translateY(-3px);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.30);}
+.menu-social svg{width:19px;height:19px;fill:currentColor;}
+body.lock{overflow:hidden;}
+
+.team-hero{min-height:58svh;padding:150px 70px 72px;background:#050506;overflow:hidden;}
+.team-hero::before{content:"";position:absolute;inset:-4%;z-index:0;background:radial-gradient(circle at 76% 22%,rgba(229,9,20,.22),transparent 28%),linear-gradient(135deg,#050506 0%,#0a070a 55%,#050506 100%);transform:scale(1.05);}
+.team-hero::after{content:"I TEAM";position:absolute;right:-16px;bottom:-42px;top:auto;width:auto;height:auto;border:0;border-radius:0;color:rgba(255,255,255,.025);font-size:clamp(120px,22vw,340px);font-weight:900;letter-spacing:-12px;line-height:.8;pointer-events:none;}
+.team-hero .content-inner{position:relative;z-index:2;margin:0;max-width:1180px;}
+.eyebrow{color:rgba(255,255,255,.48);letter-spacing:2.2px;}
+.page-title{font-size:clamp(64px,10vw,150px);line-height:.82;letter-spacing:-6px;background:linear-gradient(95deg,#ff3140 0%,#b46dff 52%,#4bb5ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.page-description{max-width:620px;margin-top:26px;color:rgba(255,255,255,.58);font-size:17px;line-height:1.72;}
+
+.team-section{padding:54px 70px 110px;background:#050506;}
+.team-section .content-inner{max-width:1180px;margin:0;}
+.team-toolbar{margin-bottom:54px;padding-bottom:22px;border-bottom:1px solid rgba(255,255,255,.08);align-items:center;}
+.position-filters{gap:8px;display:flex;flex-wrap:wrap;}
+.position-filter{min-height:42px;padding:0 17px;border:1px solid rgba(255,255,255,.11);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(255,255,255,.62);font-size:10px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;transition:.2s ease;}
+.position-filter:hover,.position-filter.active{color:#fff;border-color:rgba(229,9,20,.5);background:rgba(229,9,20,.11);transform:translateY(-1px);}
+.players-count{color:rgba(255,255,255,.34);font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;}
+.players-grid{display:block;}
+.position-group{margin:0 0 78px;}
+.position-group-heading{margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:end;justify-content:space-between;gap:20px;}
+.position-group-title{margin:0;font-size:clamp(32px,5vw,64px);line-height:.92;letter-spacing:-2.5px;text-transform:uppercase;}
+.position-group-count{color:rgba(255,255,255,.34);font-size:9px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;}
+.position-group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.player-card{position:relative;min-height:245px;padding:26px;border:1px solid rgba(255,255,255,.08);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));overflow:hidden;text-align:left;transition:transform .28s ease,border-color .28s ease,background .28s ease;}
+.player-card::before{content:"";position:absolute;inset:auto -30% -65% 25%;height:190px;background:radial-gradient(circle,rgba(229,9,20,.18),transparent 62%);pointer-events:none;}
+.player-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.18);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));}
+.player-card-top,.player-position,.player-card-bottom{position:relative;z-index:2;}
+.player-number{font-size:clamp(54px,6vw,82px);font-weight:900;line-height:.82;letter-spacing:-4px;color:rgba(255,255,255,.14);}
+.player-first-name{font-size:13px;letter-spacing:.6px;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.player-last-name{font-size:clamp(24px,3vw,36px);line-height:.94;letter-spacing:-1.2px;text-transform:uppercase;}
+.player-position{margin-top:28px;color:#ff4d5b;font-size:9px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;}
+.player-card-bottom{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);}
+.player-profile-link{color:rgba(255,255,255,.54);}
+
+@media(max-width:980px){.position-group-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:720px){
+    .header{height:74px}.header-inner{padding-left:5px}.header .logo img{height:46px}.menu-toggle{width:42px;height:42px}
+    .dropdown{left:0;right:0;width:auto;max-width:none;padding:104px 12px 82px}.menu-grid{grid-template-columns:1fr;width:100%}.menu-main-link,.menu-group-btn{min-height:70px}.submenu a{min-height:47px}.dropdown .language-wrapper{left:12px;bottom:14px}.menu-socials{bottom:14px;gap:7px}.menu-social{width:42px;height:42px}
+    .team-hero{min-height:52svh;padding:126px 20px 52px}.team-hero .content-inner{margin:0}.page-title{font-size:clamp(56px,18vw,88px);letter-spacing:-4px}.page-description{font-size:15px}
+    .team-section{padding:30px 20px 72px}.team-section .content-inner{margin:0}.team-toolbar{align-items:flex-start;gap:18px}.position-group{margin-bottom:58px}.position-group-heading{align-items:flex-start;flex-direction:column;gap:7px}.position-group-grid{grid-template-columns:1fr}.player-card{min-height:218px;border-radius:20px}.player-number{font-size:64px}
+}
+@media(prefers-reduced-motion:reduce){.player-card,.position-filter{transition:none!important}}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="supabase-api.js"></script>
+<script src="/clean-url.js" defer></script>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header" id="header">
+<div class="header-inner">
+    <button class="menu-toggle" id="toggle" type="button" aria-label="Menu">
+        <span></span><span></span>
+    </button>
+    <a class="logo" href="/" aria-label="Legion Białystok">
+        <img src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Legion Białystok">
+    </a>
+</div>
+</header>
+
+<nav class="dropdown" id="menu" aria-label="Menu główne">
+    <div class="menu-grid">
+        <a class="menu-main-link" href="/aktualnosci" data-i18n="news">Aktualności</a>
+        <a class="menu-main-link" href="/tabela" data-i18n="table">Tabela</a>
+
+        <div class="menu-group">
+            <button class="menu-group-btn" id="teamBtn" type="button">
+                <span data-i18n="team">Drużyna</span><span class="menu-plus">+</span>
+            </button>
+            <div class="submenu" id="teamMenu">
+                <div class="submenu-inner">
+                    <a href="/pierwszyzespol" data-i18n="firstTeam">I Drużyna</a>
+                    <a href="/drugadruzyna" data-i18n="secondTeam">II Drużyna</a>
+                    <a href="/akademia" data-i18n="academy">Akademia</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <button class="menu-group-btn" id="clubBtn" type="button">
+                <span data-i18n="club">Klub</span><span class="menu-plus">+</span>
+            </button>
+            <div class="submenu" id="clubMenu">
+                <div class="submenu-inner">
+                    <a href="/ludzie" data-i18n="people">Ludzie Legionu</a>
+                    <a href="/kontakt" data-i18n="contact">Kontakt</a>
+                    <a href="/dokumenty">Dokumenty</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="language-wrapper">
+        <button class="language-toggle" id="languageToggle" type="button" aria-label="Zmień język">
+            <span id="currentLanguage">PL</span><span class="language-chevron">▲</span>
+        </button>
+        <div class="language-menu" id="languageMenu">
+            <button class="language-option" data-lang="pl">Polski</button>
+            <button class="language-option" data-lang="en">English</button>
+            <button class="language-option" data-lang="de">Deutsch</button>
+            <button class="language-option" data-lang="es">Español</button>
+            <button class="language-option" data-lang="ru">Русский</button>
+        </div>
+    </div>
+
+    <div class="menu-socials">
+        <a class="menu-social" href="https://www.instagram.com/legionbialystok/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a>
+        <a class="menu-social" href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.7 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5H17V4.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V14h2.8v8h3.4Z"/></svg></a>
+        <a class="menu-social" href="https://www.tiktok.com/@kslegionbialystok?_r=1&_t=ZN-9APj9d7DECE" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M14.4 2h3.1c.2 1.6 1.1 3 2.5 3.9A6.7 6.7 0 0 0 23 7v3.2a9.6 9.6 0 0 1-5.5-1.8v7.1a6.5 6.5 0 1 1-5.6-6.4v3.2a3.3 3.3 0 1 0 2.5 3.2V2Z"/></svg></a>
+    </div>
+</nav>
+
+
+<main>
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="team-hero">
+
+<div class="content-inner">
+
+    <div
+        class="eyebrow"
+        data-i18n="clubName"
+    >
+        Legion Białystok
+    </div>
+
+    <h1
+        class="page-title"
+        data-i18n="academy"
+    >
+        Akademia
+    </h1>
+
+    <p
+        class="page-description"
+        data-i18n="teamDescription"
+    >
+        Poznaj zawodników Akademii Legionu Białystok.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PLAYERS
+===================================================== -->
+
+<section class="team-section">
+
+<div class="content-inner">
+
+    <div class="team-toolbar">
+
+        <div
+            class="position-filters"
+            id="positionFilters"
+        ></div>
+
+        <div
+            class="players-count"
+            id="playersCount"
+        ></div>
+
+    </div>
+
+
+    <div
+        class="players-loading"
+        id="playersLoading"
+        data-i18n="loadingPlayers"
+    >
+        Ładowanie zawodników...
+    </div>
+
+
+    <div
+        class="players-grid"
+        id="playersGrid"
+    ></div>
+
+
+    <div
+        class="players-empty"
+        id="playersEmpty"
+        data-i18n="noPlayers"
+    >
+        Brak zawodników w tej kategorii.
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="site-footer">
+
+<div class="footer-inner">
+
+    <div class="footer-main">
+
+        <a
+            class="footer-brand"
+            href="index.html"
+        >
+            <img
+                src="8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+                alt="Legion Białystok"
+            >
+
+            <span class="footer-brand-name">
+                Legion Białystok
+            </span>
+        </a>
+
+        <nav class="footer-links">
+
+            <a
+                class="footer-link"
+                href="aktualnosci.html"
+                data-i18n="news"
+            >
+                Aktualności
+            </a>
+
+            <a
+                class="footer-link"
+                href="tabela.html"
+                data-i18n="table"
+            >
+                Tabela
+            </a>
+
+            <a
+                class="footer-link"
+                href="pierwszyzespol.html"
+                data-i18n="firstTeam"
+            >
+                I Drużyna
+            </a>
+
+            <a
+                class="footer-link"
+                href="drugadruzyna.html"
+                data-i18n="secondTeam"
+            >
+                II Drużyna
+            </a>
+
+            <a
+                class="footer-link"
+                href="akademia.html"
+                data-i18n="academy"
+            >
+                Akademia
+            </a>
+
+            <a
+                class="footer-link"
+                href="ludzie.html"
+                data-i18n="people"
+            >
+                Ludzie Legionu
+            </a>
+
+            <a
+                class="footer-link"
+                href="kontakt.html"
+                data-i18n="contact"
+            >
+                Kontakt
+            </a>
+
+            <a
+                class="footer-link privacy"
+                href="polityka-prywatnosci.html"
+                data-i18n="privacyPolicy"
+            >
+                Polityka prywatności
+            </a>
+
+        </nav>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <span id="footerCopyright">
+            © Legion Białystok
+        </span>
+
+        <span data-i18n="officialWebsite">
+            Oficjalna strona klubu
+        </span>
+
+    </div>
+
+</div>
+
+</footer>
+
+
+<!-- =====================================================
+     PLAYER MODAL
+===================================================== -->
+
+<div
+    class="player-modal"
+    id="playerModal"
+>
+
+<div class="player-modal-window">
+
+    <button
+        class="player-modal-close"
+        id="playerModalClose"
+        type="button"
+        aria-label="Zamknij"
+    >
+        ×
+    </button>
+
+    <div class="player-modal-content">
+
+        <div class="modal-player-heading">
+
+            <div
+                class="modal-player-number"
+                id="modalPlayerNumber"
+            ></div>
+
+            <div class="modal-player-identity">
+
+                <div
+                    class="modal-position"
+                    id="modalPlayerPosition"
+                ></div>
+
+                <h2
+                    class="modal-player-name"
+                    id="modalPlayerName"
+                ></h2>
+
+                <div
+                    class="modal-nationality-line"
+                    id="modalNationalityHeader"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="player-details">
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="birthDate"
+                >
+                    Data urodzenia
+                </span>
+
+                <span
+                    class="player-detail-value"
+                    id="modalBirthDate"
+                ></span>
+
+            </div>
+
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="previousClub"
+                >
+                    Ostatni klub
+                </span>
+
+                <span
+                    class="player-detail-value"
+                    id="modalPreviousClub"
+                ></span>
+
+            </div>
+
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="nationality"
+                >
+                    Narodowość
+                </span>
+
+                <span
+                    class="player-detail-value nationality-value"
+                    id="modalNationality"
+                ></span>
+
+            </div>
+
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="shirtNumber"
+                >
+                    Numer
+                </span>
+
+                <span
+                    class="player-detail-value"
+                    id="modalShirtNumber"
+                ></span>
+
+            </div>
+
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="height"
+                >
+                    Wzrost
+                </span>
+
+                <span
+                    class="player-detail-value"
+                    id="modalHeight"
+                ></span>
+
+            </div>
+
+
+            <div class="player-detail">
+
+                <span
+                    class="player-detail-label"
+                    data-i18n="joinedClub"
+                >
+                    W Legionie od
+                </span>
+
+                <span
+                    class="player-detail-value"
+                    id="modalJoinedClub"
+                ></span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="player-bio"
+            id="modalPlayerBio"
+        ></div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+/* =====================================================
+   API
+===================================================== */
+
+/*
+    Strona pobiera zawodników z:
+
+    GET /api/players.php?team=academy&status=active
+
+    Przykładowy rekord:
+
+    {
+        "id": 1,
+        "first_name": "Jan",
+        "last_name": "Kowalski",
+        "shirt_number": 10,
+        "position": "midfielder",
+        "birth_date": "2003-05-14",
+        "previous_club": "Poprzedni Klub",
+        "nationality": "Polska",
+        "nationality_code": "PL",
+        "height_cm": 181,
+        "joined_at": "2025-07-01",
+        "team": "first",
+        "status": "active",
+        "translations": {
+            "pl": {
+                "bio": "Opis zawodnika..."
+            },
+            "en": {
+                "bio": "Player description..."
+            }
+        }
+    }
+
+    Panel administratora może edytować dokładnie te pola.
+
+    Pole nationality_code powinno być dwuliterowym kodem ISO,
+    np. PL, UA, LT, DE, ES, FR.
+
+    Na jego podstawie strona pobiera prawdziwą flagę.
+    W panelu wystarczy więc edytować:
+    nationality: "Polska"
+    nationality_code: "PL"
+*/
+
+const PLAYERS_API =
+    "/api/players.php";
+
+const CLUB_LOGO =
+    "8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png";
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+const toggle =
+    document.getElementById("toggle");
+
+const menu =
+    document.getElementById("menu");
+
+const teamBtn =
+    document.getElementById("teamBtn");
+
+const teamMenu =
+    document.getElementById("teamMenu");
+
+const clubBtn =
+    document.getElementById("clubBtn");
+
+const clubMenu =
+    document.getElementById("clubMenu");
+
+
+toggle.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        const open =
+            menu.classList.toggle(
+                "active"
+            );
+
+        toggle.classList.toggle(
+            "active",
+            open
+        );
+
+        document.body.classList.toggle(
+            "lock",
+            open
+        );
+
+    }
+);
+
+
+teamBtn.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        const open =
+            teamMenu.classList.toggle(
+                "active"
+            );
+
+        teamBtn.classList.toggle(
+            "active",
+            open
+        );
+
+    }
+);
+
+
+clubBtn.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        const open =
+            clubMenu.classList.toggle(
+                "active"
+            );
+
+        clubBtn.classList.toggle(
+            "active",
+            open
+        );
+
+    }
+);
+
+
+menu.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+    }
+);
+
+
+
+
+// Dodatkowe zachowanie pełnoekranowego menu
+document.addEventListener("keydown", function(event){
+    if(event.key === "Escape" && menu.classList.contains("active")){
+        menu.classList.remove("active");
+        toggle.classList.remove("active");
+        teamMenu.classList.remove("active");
+        clubMenu.classList.remove("active");
+        teamBtn.classList.remove("active");
+        clubBtn.classList.remove("active");
+        document.body.classList.remove("lock");
+    }
+});
+
+menu.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click", function(){
+        menu.classList.remove("active");
+        toggle.classList.remove("active");
+        document.body.classList.remove("lock");
+    });
+});
+
+
+/* =====================================================
+   TRANSLATIONS
+===================================================== */
+
+const translations = {
+
+    pl: {
+        news: "Aktualności",
+        table: "Tabela",
+        team: "Drużyna",
+        firstTeam: "I Drużyna",
+        secondTeam: "II Drużyna",
+        academy: "Akademia",
+        club: "Klub",
+        people: "Ludzie Legionu",
+        contact: "Kontakt",
+        privacyPolicy: "Polityka prywatności",
+
+        clubName: "Legion Białystok",
+
+        teamDescription:
+            "Poznaj zawodników Akademii Legionu Białystok.",
+
+        playerProfile: "Profil zawodnika",
+
+        allPlayers: "Wszyscy",
+        goalkeeper: "Bramkarze",
+        defender: "Obrońcy",
+        midfielder: "Pomocnicy",
+        forward: "Napastnicy",
+
+        loadingPlayers: "Ładowanie zawodników...",
+        noPlayers: "Brak zawodników w tej kategorii.",
+        playersLabel: "Zawodników",
+
+        birthDate: "Data urodzenia",
+        previousClub: "Ostatni klub",
+        nationality: "Narodowość",
+        shirtNumber: "Numer",
+        height: "Wzrost",
+        joinedClub: "W Legionie od",
+
+        officialWebsite: "Oficjalna strona klubu"
+    },
+
+    en: {
+        news: "News",
+        table: "Table",
+        team: "Team",
+        firstTeam: "First Team",
+        secondTeam: "Second Team",
+        academy: "Academy",
+        club: "Club",
+        people: "Club People",
+        contact: "Contact",
+        privacyPolicy: "Privacy Policy",
+
+        clubName: "Legion Białystok",
+
+        teamDescription:
+            "Meet the players of the Legion Białystok Academy.",
+
+        playerProfile: "Player profile",
+
+        allPlayers: "All",
+        goalkeeper: "Goalkeepers",
+        defender: "Defenders",
+        midfielder: "Midfielders",
+        forward: "Forwards",
+
+        loadingPlayers: "Loading players...",
+        noPlayers: "No players in this category.",
+        playersLabel: "Players",
+
+        birthDate: "Date of birth",
+        previousClub: "Previous club",
+        nationality: "Nationality",
+        shirtNumber: "Number",
+        height: "Height",
+        joinedClub: "At Legion since",
+
+        officialWebsite: "Official club website"
+    },
+
+    de: {
+        news: "Aktuelles",
+        table: "Tabelle",
+        team: "Mannschaft",
+        firstTeam: "Erste Mannschaft",
+        secondTeam: "Zweite Mannschaft",
+        academy: "Akademie",
+        club: "Verein",
+        people: "Vereinsmitglieder",
+        contact: "Kontakt",
+        privacyPolicy: "Datenschutz",
+
+        clubName: "Legion Białystok",
+
+        teamDescription:
+            "Lernen Sie die Spieler der Akademie von Legion Białystok kennen.",
+
+        playerProfile: "Spielerprofil",
+
+        allPlayers: "Alle",
+        goalkeeper: "Torhüter",
+        defender: "Verteidiger",
+        midfielder: "Mittelfeld",
+        forward: "Stürmer",
+
+        loadingPlayers: "Spieler werden geladen...",
+        noPlayers: "Keine Spieler in dieser Kategorie.",
+        playersLabel: "Spieler",
+
+        birthDate: "Geburtsdatum",
+        previousClub: "Vorheriger Verein",
+        nationality: "Nationalität",
+        shirtNumber: "Nummer",
+        height: "Größe",
+        joinedClub: "Bei Legion seit",
+
+        officialWebsite: "Offizielle Vereinswebsite"
+    },
+
+    es: {
+        news: "Noticias",
+        table: "Clasificación",
+        team: "Equipo",
+        firstTeam: "Primer Equipo",
+        secondTeam: "Segundo Equipo",
+        academy: "Academia",
+        club: "Club",
+        people: "Personas del Club",
+        contact: "Contacto",
+        privacyPolicy: "Política de privacidad",
+
+        clubName: "Legion Białystok",
+
+        teamDescription:
+            "Conoce a los jugadores de la Academia de Legion Białystok.",
+
+        playerProfile: "Perfil",
+
+        allPlayers: "Todos",
+        goalkeeper: "Porteros",
+        defender: "Defensas",
+        midfielder: "Centrocampistas",
+        forward: "Delanteros",
+
+        loadingPlayers: "Cargando jugadores...",
+        noPlayers: "No hay jugadores en esta categoría.",
+        playersLabel: "Jugadores",
+
+        birthDate: "Fecha de nacimiento",
+        previousClub: "Club anterior",
+        nationality: "Nacionalidad",
+        shirtNumber: "Número",
+        height: "Altura",
+        joinedClub: "En Legion desde",
+
+        officialWebsite: "Sitio oficial del club"
+    },
+
+    ru: {
+        news: "Новости",
+        table: "Таблица",
+        team: "Команда",
+        firstTeam: "Первая команда",
+        secondTeam: "Вторая команда",
+        academy: "Академия",
+        club: "Клуб",
+        people: "Люди клуба",
+        contact: "Контакты",
+        privacyPolicy: "Политика конфиденциальности",
+
+        clubName: "Legion Białystok",
+
+        teamDescription:
+            "Познакомьтесь с игроками Академии Legion Białystok.",
+
+        playerProfile: "Профиль",
+
+        allPlayers: "Все",
+        goalkeeper: "Вратари",
+        defender: "Защитники",
+        midfielder: "Полузащитники",
+        forward: "Нападающие",
+
+        loadingPlayers: "Загрузка игроков...",
+        noPlayers: "Нет игроков в этой категории.",
+        playersLabel: "Игроков",
+
+        birthDate: "Дата рождения",
+        previousClub: "Предыдущий клуб",
+        nationality: "Гражданство",
+        shirtNumber: "Номер",
+        height: "Рост",
+        joinedClub: "В Legion с",
+
+        officialWebsite: "Официальный сайт клуба"
+    }
+
+};
+
+
+const positionNames = {
+
+    goalkeeper: {
+        pl: "Bramkarz",
+        en: "Goalkeeper",
+        de: "Torhüter",
+        es: "Portero",
+        ru: "Вратарь"
+    },
+
+    defender: {
+        pl: "Obrońca",
+        en: "Defender",
+        de: "Verteidiger",
+        es: "Defensa",
+        ru: "Защитник"
+    },
+
+    midfielder: {
+        pl: "Pomocnik",
+        en: "Midfielder",
+        de: "Mittelfeldspieler",
+        es: "Centrocampista",
+        ru: "Полузащитник"
+    },
+
+    forward: {
+        pl: "Napastnik",
+        en: "Forward",
+        de: "Stürmer",
+        es: "Delantero",
+        ru: "Нападающий"
+    }
+
+};
+
+
+const languageCodes = {
+    pl: "PL",
+    en: "EN",
+    de: "DE",
+    es: "ES",
+    ru: "RU"
+};
+
+
+let selectedLanguage =
+    localStorage.getItem(
+        "legion_language"
+    ) || "pl";
+
+
+const languageToggle =
+    document.getElementById(
+        "languageToggle"
+    );
+
+const languageMenu =
+    document.getElementById(
+        "languageMenu"
+    );
+
+const currentLanguage =
+    document.getElementById(
+        "currentLanguage"
+    );
+
+const languageOptions =
+    document.querySelectorAll(
+        ".language-option"
+    );
+
+
+languageToggle.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        const open =
+            languageMenu.classList.toggle(
+                "active"
+            );
+
+        languageToggle.classList.toggle(
+            "active",
+            open
+        );
+
+    }
+);
+
+
+languageMenu.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+    }
+);
+
+
+languageOptions.forEach(
+    function(option) {
+
+        option.addEventListener(
+            "click",
+            function() {
+
+                changeLanguage(
+                    option.dataset.lang
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PLAYERS
+===================================================== */
+
+let players = [];
+
+let selectedPosition =
+    "all";
+
+let modalPlayer =
+    null;
+
+
+const fallbackPlayers = [];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function localized(
+    item,
+    field
+) {
+
+    if (
+        item &&
+        item.translations &&
+        item.translations[
+            selectedLanguage
+        ] &&
+        item.translations[
+            selectedLanguage
+        ][field]
+    ) {
+
+        return item
+            .translations[
+                selectedLanguage
+            ][field];
+
+    }
+
+
+    if (
+        item &&
+        item.translations &&
+        item.translations.pl &&
+        item.translations.pl[
+            field
+        ]
+    ) {
+
+        return item
+            .translations
+            .pl[field];
+
+    }
+
+
+    return (
+        item?.[
+            field +
+            "_" +
+            selectedLanguage
+        ]
+        ||
+        item?.[
+            field +
+            "_pl"
+        ]
+        ||
+        item?.[field]
+        ||
+        ""
+    );
+
+}
+
+
+function locale() {
+
+    const locales = {
+        pl: "pl-PL",
+        en: "en-GB",
+        de: "de-DE",
+        es: "es-ES",
+        ru: "ru-RU"
+    };
+
+    return (
+        locales[
+            selectedLanguage
+        ]
+        ||
+        "pl-PL"
+    );
+
+}
+
+
+function formatDate(
+    value
+) {
+
+    if (!value) {
+        return "—";
+    }
+
+
+    const date =
+        new Date(
+            value +
+            (
+                String(value)
+                .includes("T")
+                ? ""
+                : "T00:00:00"
+            )
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return String(value);
+
+    }
+
+
+    return date
+        .toLocaleDateString(
+            locale(),
+            {
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+}
+
+
+function normalizeCountryCode(
+    value
+) {
+
+    const code =
+        String(
+            value || ""
+        )
+        .trim()
+        .toUpperCase();
+
+
+    return (
+        /^[A-Z]{2}$/.test(code)
+        ? code
+        : ""
+    );
+
+}
+
+
+function inferNationalityCode(
+    nationality
+) {
+
+    const value =
+        String(
+            nationality || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    const map = {
+        "polska": "PL",
+        "poland": "PL",
+        "polen": "PL",
+        "polonia": "PL",
+        "польша": "PL",
+
+        "ukraina": "UA",
+        "ukraine": "UA",
+        "ucrania": "UA",
+        "украина": "UA",
+
+        "litwa": "LT",
+        "lithuania": "LT",
+        "litauen": "LT",
+        "lituania": "LT",
+        "литва": "LT",
+
+        "niemcy": "DE",
+        "germany": "DE",
+        "deutschland": "DE",
+        "alemania": "DE",
+        "германия": "DE",
+
+        "hiszpania": "ES",
+        "spain": "ES",
+        "spanien": "ES",
+        "españa": "ES",
+        "испания": "ES",
+
+        "francja": "FR",
+        "france": "FR",
+        "frankreich": "FR",
+        "francia": "FR",
+        "франция": "FR",
+
+        "białoruś": "BY",
+        "belarus": "BY",
+        "weißrussland": "BY",
+        "bielorrusia": "BY",
+        "беларусь": "BY",
+
+        "czechy": "CZ",
+        "czech republic": "CZ",
+        "czechia": "CZ",
+        "tschechien": "CZ",
+        "chequia": "CZ",
+        "чехия": "CZ",
+
+        "słowacja": "SK",
+        "slovakia": "SK",
+        "slowakei": "SK",
+        "eslovaquia": "SK",
+        "словакия": "SK"
+    };
+
+
+    return (
+        map[value]
+        ||
+        ""
+    );
+
+}
+
+
+function getNationalityCode(
+    player
+) {
+
+    return (
+        normalizeCountryCode(
+            player.nationality_code
+            ||
+            player.country_code
+        )
+        ||
+        inferNationalityCode(
+            player.nationality
+        )
+    );
+
+}
+
+
+function createFlagElement(
+    player
+) {
+
+    const wrapper =
+        document.createElement(
+            "span"
+        );
+
+
+    wrapper.className =
+        "country-flag";
+
+
+    const code =
+        getNationalityCode(
+            player
+        );
+
+
+    const fallback =
+        document.createElement(
+            "span"
+        );
+
+
+    fallback.className =
+        "country-flag-fallback";
+
+
+    fallback.textContent =
+        code || "—";
+
+
+    wrapper.appendChild(
+        fallback
+    );
+
+
+    if (!code) {
+
+        wrapper.classList.add(
+            "failed"
+        );
+
+        return wrapper;
+
+    }
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+
+    image.src =
+        "https://flagcdn.com/48x36/"
+        +
+        code.toLowerCase()
+        +
+        ".png";
+
+
+    image.alt =
+        player.nationality
+        ? "Flaga: " +
+          player.nationality
+        : "Flaga " + code;
+
+
+    image.loading =
+        "lazy";
+
+
+    image.addEventListener(
+        "error",
+        function() {
+
+            wrapper.classList.add(
+                "failed"
+            );
+
+        }
+    );
+
+
+    wrapper.insertBefore(
+        image,
+        fallback
+    );
+
+
+    return wrapper;
+
+}
+
+
+function getPosition(
+    player
+) {
+
+    const key =
+        player.position
+        ||
+        "midfielder";
+
+
+    return (
+        positionNames[key]?.[
+            selectedLanguage
+        ]
+        ||
+        positionNames[key]?.pl
+        ||
+        key
+    );
+
+}
+
+
+function getFullName(
+    player
+) {
+
+    return [
+        player.first_name,
+        player.last_name
+    ]
+    .filter(Boolean)
+    .join(" ");
+
+}
+
+
+/* =====================================================
+   LOAD
+===================================================== */
+
+async function loadPlayers() {
+
+    try {
+
+        const response =
+            await fetch(
+                PLAYERS_API +
+                "?team=academy&status=active",
+                {
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Players API"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        players =
+            Array.isArray(data)
+            ? data
+            : Array.isArray(data.players)
+                ? data.players
+                : Array.isArray(data.first)
+                    ? data.first
+                    : Array.isArray(data.first_team)
+                        ? data.first_team
+                        : [];
+
+
+        if (
+            !Array.isArray(players)
+            ||
+            !players.length
+        ) {
+
+            throw new Error(
+                "No players"
+            );
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.log(
+            "Nie udało się pobrać kadry z API.",
+            error
+        );
+
+
+        players =
+            [];
+
+    }
+
+
+    players =
+        players
+        .filter(
+            function(player) {
+
+                return (
+                    !player.status
+                    ||
+                    player.status ===
+                    "active"
+                );
+
+            }
+        )
+        .sort(
+            function(a,b) {
+
+                const order = {
+                    goalkeeper: 0,
+                    defender: 1,
+                    midfielder: 2,
+                    forward: 3
+                };
+
+
+                const positionDifference =
+                    (
+                        order[a.position] ?? 99
+                    )
+                    -
+                    (
+                        order[b.position] ?? 99
+                    );
+
+
+                if (
+                    positionDifference !== 0
+                ) {
+
+                    return positionDifference;
+
+                }
+
+
+                return (
+                    Number(
+                        a.shirt_number
+                    )
+                    -
+                    Number(
+                        b.shirt_number
+                    )
+                );
+
+            }
+        );
+
+
+    renderPositionFilters();
+
+    renderPlayers();
+
+
+    document
+        .getElementById(
+            "playersLoading"
+        )
+        .style
+        .display =
+            "none";
+
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+const positionFilters =
+    document.getElementById(
+        "positionFilters"
+    );
+
+
+function renderPositionFilters() {
+
+    positionFilters.innerHTML =
+        "";
+
+
+    const filters = [
+        {
+            key: "all",
+            label:
+                translations[
+                    selectedLanguage
+                ].allPlayers
+        },
+        {
+            key: "goalkeeper",
+            label:
+                translations[
+                    selectedLanguage
+                ].goalkeeper
+        },
+        {
+            key: "defender",
+            label:
+                translations[
+                    selectedLanguage
+                ].defender
+        },
+        {
+            key: "midfielder",
+            label:
+                translations[
+                    selectedLanguage
+                ].midfielder
+        },
+        {
+            key: "forward",
+            label:
+                translations[
+                    selectedLanguage
+                ].forward
+        }
+    ];
+
+
+    filters.forEach(
+        function(filter) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+            button.className =
+                "position-filter";
+
+
+            button.textContent =
+                filter.label;
+
+
+            button.classList.toggle(
+                "active",
+                selectedPosition ===
+                filter.key
+            );
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    selectedPosition =
+                        filter.key;
+
+
+                    renderPositionFilters();
+
+                    renderPlayers();
+
+                }
+            );
+
+
+            positionFilters
+                .appendChild(
+                    button
+                );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+const playersGrid =
+    document.getElementById(
+        "playersGrid"
+    );
+
+const playersEmpty =
+    document.getElementById(
+        "playersEmpty"
+    );
+
+const playersCount =
+    document.getElementById(
+        "playersCount"
+    );
+
+
+function getVisiblePlayers() {
+
+    if (
+        selectedPosition ===
+        "all"
+    ) {
+
+        return [
+            ...players
+        ];
+
+    }
+
+
+    return players.filter(
+        function(player) {
+
+            return (
+                player.position ===
+                selectedPosition
+            );
+
+        }
+    );
+
+}
+
+
+function createPlayerCard(
+    player
+) {
+
+    const card =
+        document.createElement(
+            "button"
+        );
+
+
+    card.type =
+        "button";
+
+    card.className =
+        "player-card";
+
+
+    const top =
+        document.createElement(
+            "div"
+        );
+
+
+    top.className =
+        "player-card-top";
+
+
+    const number =
+        document.createElement(
+            "span"
+        );
+
+
+    number.className =
+        "player-number";
+
+
+    number.textContent =
+        player.shirt_number
+        ??
+        "";
+
+
+    const identity =
+        document.createElement(
+            "div"
+        );
+
+
+    identity.className =
+        "player-card-identity";
+
+
+    const firstName =
+        document.createElement(
+            "span"
+        );
+
+
+    firstName.className =
+        "player-first-name";
+
+
+    firstName.textContent =
+        player.first_name
+        ||
+        "";
+
+
+    const lastName =
+        document.createElement(
+            "strong"
+        );
+
+
+    lastName.className =
+        "player-last-name";
+
+
+    lastName.textContent =
+        player.last_name
+        ||
+        "";
+
+
+    identity.append(
+        firstName,
+        lastName
+    );
+
+
+    top.append(
+        number,
+        identity
+    );
+
+
+    const position =
+        document.createElement(
+            "div"
+        );
+
+
+    position.className =
+        "player-position";
+
+
+    position.textContent =
+        getPosition(
+            player
+        );
+
+
+    const bottom =
+        document.createElement(
+            "div"
+        );
+
+
+    bottom.className =
+        "player-card-bottom";
+
+
+    const nationality =
+        document.createElement(
+            "div"
+        );
+
+
+    nationality.className =
+        "player-nationality";
+
+
+    const nationalityText =
+        document.createElement(
+            "span"
+        );
+
+
+    nationalityText.textContent =
+        player.nationality
+        ||
+        "—";
+
+
+    nationality.append(
+        createFlagElement(
+            player
+        ),
+        nationalityText
+    );
+
+
+    const profile =
+        document.createElement(
+            "span"
+        );
+
+
+    profile.className =
+        "player-profile-link";
+
+
+    profile.textContent =
+        translations[
+            selectedLanguage
+        ].playerProfile
+        +
+        " →";
+
+
+    bottom.append(
+        nationality,
+        profile
+    );
+
+
+    card.append(
+        top,
+        position,
+        bottom
+    );
+
+
+    card.addEventListener(
+        "click",
+        function() {
+
+            openPlayer(
+                player
+            );
+
+        }
+    );
+
+
+    return card;
+
+}
+
+
+function getGroupTitle(
+    position
+) {
+
+    const keys = {
+        goalkeeper: "goalkeeper",
+        defender: "defender",
+        midfielder: "midfielder",
+        forward: "forward"
+    };
+
+
+    return translations[
+        selectedLanguage
+    ][
+        keys[position]
+    ]
+    ||
+    position;
+
+}
+
+
+function renderPlayerGroup(
+    position,
+    groupPlayers
+) {
+
+    if (!groupPlayers.length) {
+        return;
+    }
+
+
+    const section =
+        document.createElement(
+            "section"
+        );
+
+
+    section.className =
+        "position-group";
+
+
+    const heading =
+        document.createElement(
+            "div"
+        );
+
+
+    heading.className =
+        "position-group-heading";
+
+
+    const title =
+        document.createElement(
+            "h2"
+        );
+
+
+    title.className =
+        "position-group-title";
+
+
+    title.textContent =
+        getGroupTitle(
+            position
+        );
+
+
+    const count =
+        document.createElement(
+            "span"
+        );
+
+
+    count.className =
+        "position-group-count";
+
+
+    count.textContent =
+        groupPlayers.length
+        +
+        " "
+        +
+        translations[
+            selectedLanguage
+        ].playersLabel;
+
+
+    heading.append(
+        title,
+        count
+    );
+
+
+    const grid =
+        document.createElement(
+            "div"
+        );
+
+
+    grid.className =
+        "position-group-grid";
+
+
+    groupPlayers.forEach(
+        function(player) {
+
+            grid.appendChild(
+                createPlayerCard(
+                    player
+                )
+            );
+
+        }
+    );
+
+
+    section.append(
+        heading,
+        grid
+    );
+
+
+    playersGrid.appendChild(
+        section
+    );
+
+}
+
+
+function renderPlayers() {
+
+    playersGrid.innerHTML =
+        "";
+
+
+    const visiblePlayers =
+        getVisiblePlayers();
+
+
+    playersCount.textContent =
+        visiblePlayers.length
+        +
+        " "
+        +
+        translations[
+            selectedLanguage
+        ].playersLabel;
+
+
+    playersEmpty.style.display =
+        visiblePlayers.length
+        ? "none"
+        : "block";
+
+
+    if (!visiblePlayers.length) {
+        return;
+    }
+
+
+    if (
+        selectedPosition ===
+        "all"
+    ) {
+
+        [
+            "goalkeeper",
+            "defender",
+            "midfielder",
+            "forward"
+        ]
+        .forEach(
+            function(position) {
+
+                const groupPlayers =
+                    players.filter(
+                        function(player) {
+
+                            return (
+                                player.position ===
+                                position
+                            );
+
+                        }
+                    );
+
+
+                renderPlayerGroup(
+                    position,
+                    groupPlayers
+                );
+
+            }
+        );
+
+
+        return;
+
+    }
+
+
+    renderPlayerGroup(
+        selectedPosition,
+        visiblePlayers
+    );
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+const playerModal =
+    document.getElementById(
+        "playerModal"
+    );
+
+const modalPlayerNumber =
+    document.getElementById(
+        "modalPlayerNumber"
+    );
+
+const modalNationalityHeader =
+    document.getElementById(
+        "modalNationalityHeader"
+    );
+
+const modalPlayerPosition =
+    document.getElementById(
+        "modalPlayerPosition"
+    );
+
+const modalPlayerName =
+    document.getElementById(
+        "modalPlayerName"
+    );
+
+const modalBirthDate =
+    document.getElementById(
+        "modalBirthDate"
+    );
+
+const modalPreviousClub =
+    document.getElementById(
+        "modalPreviousClub"
+    );
+
+const modalNationality =
+    document.getElementById(
+        "modalNationality"
+    );
+
+const modalShirtNumber =
+    document.getElementById(
+        "modalShirtNumber"
+    );
+
+const modalHeight =
+    document.getElementById(
+        "modalHeight"
+    );
+
+const modalJoinedClub =
+    document.getElementById(
+        "modalJoinedClub"
+    );
+
+const modalPlayerBio =
+    document.getElementById(
+        "modalPlayerBio"
+    );
+
+
+function openPlayer(
+    player
+) {
+
+    if (!player) {
+        return;
+    }
+
+
+    modalPlayer =
+        player;
+
+
+    modalPlayerNumber.textContent =
+        player.shirt_number
+        ??
+        "";
+
+
+    modalPlayerPosition.textContent =
+        getPosition(
+            player
+        );
+
+
+    modalPlayerName.textContent =
+        getFullName(
+            player
+        );
+
+
+    modalNationalityHeader.innerHTML =
+        "";
+
+
+    const headerNationalityText =
+        document.createElement(
+            "span"
+        );
+
+
+    headerNationalityText.textContent =
+        player.nationality
+        ||
+        "—";
+
+
+    modalNationalityHeader.append(
+        createFlagElement(
+            player
+        ),
+        headerNationalityText
+    );
+
+
+    modalBirthDate.textContent =
+        formatDate(
+            player.birth_date
+        );
+
+
+    modalPreviousClub.textContent =
+        player.previous_club
+        ||
+        "—";
+
+
+    modalNationality.innerHTML =
+        "";
+
+
+    const modalNationalityText =
+        document.createElement(
+            "span"
+        );
+
+
+    modalNationalityText.textContent =
+        player.nationality
+        ||
+        "—";
+
+
+    modalNationality.append(
+        createFlagElement(
+            player
+        ),
+        modalNationalityText
+    );
+
+
+    modalShirtNumber.textContent =
+        player.shirt_number
+        ??
+        "—";
+
+
+    modalHeight.textContent =
+        player.height_cm
+        ? player.height_cm +
+          " cm"
+        : "—";
+
+
+    modalJoinedClub.textContent =
+        formatDate(
+            player.joined_at
+        );
+
+
+    modalPlayerBio.textContent =
+        localized(
+            player,
+            "bio"
+        );
+
+
+    playerModal.classList.add(
+        "active"
+    );
+
+
+    document.body.classList.add(
+        "overlay-open"
+    );
+
+}
+
+
+function closePlayer() {
+
+    playerModal.classList.remove(
+        "active"
+    );
+
+
+    document.body.classList.remove(
+        "overlay-open"
+    );
+
+
+    modalPlayer =
+        null;
+
+}
+
+
+document
+    .getElementById(
+        "playerModalClose"
+    )
+    .addEventListener(
+        "click",
+        closePlayer
+    );
+
+
+playerModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            playerModal
+        ) {
+
+            closePlayer();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function changeLanguage(
+    language
+) {
+
+    if (
+        !translations[
+            language
+        ]
+    ) {
+
+        language =
+            "pl";
+
+    }
+
+
+    selectedLanguage =
+        language;
+
+
+    document.documentElement.lang =
+        language;
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n]"
+        )
+        .forEach(
+            function(element) {
+
+                const key =
+                    element.dataset.i18n;
+
+
+                if (
+                    translations[
+                        language
+                    ][key]
+                ) {
+
+                    element.textContent =
+                        translations[
+                            language
+                        ][key];
+
+                }
+
+            }
+        );
+
+
+    currentLanguage.textContent =
+        languageCodes[
+            language
+        ];
+
+
+    languageOptions.forEach(
+        function(option) {
+
+            option.classList.toggle(
+                "active",
+                option.dataset.lang ===
+                language
+            );
+
+        }
+    );
+
+
+    localStorage.setItem(
+        "legion_language",
+        language
+    );
+
+
+    languageMenu.classList.remove(
+        "active"
+    );
+
+
+    languageToggle.classList.remove(
+        "active"
+    );
+
+
+    if (players.length) {
+
+        renderPositionFilters();
+
+        renderPlayers();
+
+    }
+
+
+    if (
+        modalPlayer &&
+        playerModal
+            .classList
+            .contains(
+                "active"
+            )
+    ) {
+
+        openPlayer(
+            modalPlayer
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function() {
+
+        menu.classList.remove(
+            "active"
+        );
+
+        toggle.classList.remove(
+            "active"
+        );
+
+        teamMenu.classList.remove(
+            "active"
+        );
+
+        teamBtn.classList.remove(
+            "active"
+        );
+
+        clubMenu.classList.remove(
+            "active"
+        );
+
+        clubBtn.classList.remove(
+            "active"
+        );
+
+        languageMenu.classList.remove(
+            "active"
+        );
+
+        languageToggle.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closePlayer();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+changeLanguage(
+    selectedLanguage
+);
+
+
+document
+    .getElementById(
+        "footerCopyright"
+    )
+    .textContent =
+        "© "
+        +
+        new Date()
+        .getFullYear()
+        +
+        " Legion Białystok";
+
+
+loadPlayers();
+
+</script>
+
+</body>
+</html>
