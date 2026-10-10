@@ -1,0 +1,7972 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legion Białystok</title>
+
+<link rel="icon" type="image/png" href="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#070709;
+    --line:rgba(255,255,255,.12);
+    --muted:rgba(255,255,255,.62);
+    --muted2:rgba(255,255,255,.38);
+    --red:#e50914;
+    --red2:#ff3942;
+    --max:1360px;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,
+body{
+    min-height:100%;
+}
+
+body{
+    background:var(--bg);
+    color:#fff;
+    font-family:"Outfit",sans-serif;
+    overflow-x:hidden;
+}
+
+body.lock{
+    overflow:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    color:inherit;
+    font:inherit;
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+.shell{
+    width:min(var(--max),calc(100% - 44px));
+    margin:0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:fixed;
+    inset:0 0 auto 0;
+    z-index:10000;
+
+    height:82px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.54),
+            transparent
+        );
+}
+
+
+.header-inner{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+}
+
+.menu-btn{
+    width:44px;
+    height:44px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:rgba(0,0,0,.28);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(8px);
+}
+
+.menu-btn span{
+    width:18px;
+    height:2px;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    transition:.2s ease;
+}
+
+.menu-btn.active span:first-child{
+    transform:translateY(3.5px) rotate(45deg);
+}
+
+.menu-btn.active span:last-child{
+    transform:translateY(-3.5px) rotate(-45deg);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    height:54px;
+    width:auto;
+
+    filter:
+        drop-shadow(
+            0 7px 20px rgba(0,0,0,.50)
+        );
+}
+
+
+/* =====================================================
+   FULLSCREEN MENU
+===================================================== */
+
+.menu{
+    position:fixed;
+    inset:0;
+
+    z-index:9990;
+
+    padding:
+        115px
+        22px
+        100px;
+
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    background:
+        radial-gradient(
+            circle at 80% 18%,
+            rgba(229,9,20,.24),
+            transparent 27%
+        ),
+        #070709;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.26s ease;
+}
+
+.menu.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.menu::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.menu-grid{
+    width:min(980px,100%);
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        8px
+        28px;
+}
+
+.menu-main-link,
+.menu-group-btn{
+    width:100%;
+    min-height:86px;
+
+    padding:0;
+
+    border:0;
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-size:
+        clamp(25px,4vw,48px);
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.menu-main-link:hover,
+.menu-group-btn:hover,
+.menu-group-btn.active{
+    color:#ff3a43;
+
+    padding-left:10px;
+}
+
+.menu-plus{
+    margin-left:20px;
+
+    color:
+        rgba(255,255,255,.44);
+
+    font-size:34px;
+    font-weight:400;
+
+    line-height:1;
+
+    transition:.22s ease;
+}
+
+.menu-group-btn.active
+.menu-plus{
+    color:#ff3a43;
+
+    transform:
+        rotate(45deg);
+}
+
+.menu-sub{
+    display:grid;
+
+    grid-template-rows:0fr;
+
+    opacity:0;
+
+    transition:
+        grid-template-rows .28s ease,
+        opacity .22s ease;
+}
+
+.menu-sub.active{
+    grid-template-rows:1fr;
+    opacity:1;
+}
+
+.menu-sub-inner{
+    overflow:hidden;
+}
+
+.menu-sub a{
+    min-height:56px;
+
+    padding:
+        0
+        0
+        0
+        22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display:flex;
+    align-items:center;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:15px;
+    font-weight:800;
+
+    letter-spacing:.3px;
+
+    text-transform:uppercase;
+
+    transition:.2s ease;
+}
+
+.menu-sub a:hover{
+    color:#fff;
+
+    padding-left:32px;
+}
+
+
+/* =====================================================
+   ARTICLES HERO
+===================================================== */
+
+.articles-hero{
+    position:relative;
+
+    min-height:100svh;
+
+    overflow:hidden;
+
+    background:#111;
+
+    isolation:isolate;
+}
+
+.hero-bg{
+    position:absolute;
+    inset:0;
+
+    z-index:-3;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transform:scale(1.01);
+
+    transition:
+        opacity .30s ease,
+        transform .75s ease;
+}
+
+.articles-hero.changing
+.hero-bg{
+    opacity:.42;
+
+    transform:scale(1.04);
+}
+
+.hero-fallback{
+    position:absolute;
+    inset:0;
+
+    z-index:-4;
+
+    background:
+        radial-gradient(
+            circle at 75% 20%,
+            rgba(255,92,49,.75),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 55% 58%,
+            #1d3d63,
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            #101826,
+            #70243a 55%,
+            #f36531
+        );
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+
+    z-index:-2;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.16) 0%,
+            rgba(0,0,0,.08) 22%,
+            rgba(0,0,0,.26) 58%,
+            rgba(7,7,9,.96) 100%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.68),
+            rgba(0,0,0,.24) 48%,
+            transparent 75%
+        );
+}
+
+.hero-content{
+    min-height:100svh;
+
+    padding:
+        122px
+        0
+        175px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+}
+
+.hero-category{
+    color:#ff6971;
+
+    font-size:11px;
+    font-weight:900;
+
+    letter-spacing:2.3px;
+
+    text-transform:uppercase;
+}
+
+.hero-title{
+    max-width:1050px;
+
+    cursor:pointer;
+
+    margin-top:12px;
+
+    font-size:
+        clamp(55px,8.5vw,132px);
+
+    font-weight:900;
+
+    line-height:.84;
+
+    letter-spacing:-5px;
+
+    text-wrap:balance;
+}
+
+.hero-meta{
+    margin-top:19px;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:11px;
+    font-weight:700;
+}
+
+.hero-actions{
+    margin-top:27px;
+
+    display:flex;
+    align-items:center;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    min-height:48px;
+
+    padding:
+        0
+        20px;
+
+    border-radius:100px;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:.8px;
+
+    text-transform:uppercase;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.primary-btn{
+    border:0;
+
+    background:#fff;
+
+    color:#09090b;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+
+
+.article-previews{
+    position:absolute;
+
+    left:50%;
+    bottom:24px;
+
+    z-index:5;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            var(--max),
+            calc(100% - 44px)
+        );
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,minmax(0,1fr));
+
+    gap:10px;
+}
+
+.article-preview{
+    position:relative;
+
+    min-width:0;
+    height:156px;
+
+    padding:0;
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    background:#111;
+
+    color:#fff;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.22);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.article-preview:hover{
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255,255,255,.30);
+
+    box-shadow:
+        0 26px 60px rgba(0,0,0,.34);
+}
+
+.article-preview-image{
+    position:absolute;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:
+        transform .45s ease,
+        filter .45s ease;
+}
+
+.article-preview:hover
+.article-preview-image{
+    transform:
+        scale(1.055);
+
+    filter:
+        saturate(1.08)
+        contrast(1.04);
+}
+
+.article-preview-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.04) 10%,
+            rgba(0,0,0,.18) 42%,
+            rgba(0,0,0,.88) 100%
+        );
+}
+
+.article-preview-content{
+    position:absolute;
+
+    inset:
+        auto
+        13px
+        12px
+        13px;
+
+    z-index:2;
+}
+
+.preview-topline{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:8px;
+}
+
+.preview-category{
+    color:#ff7178;
+
+    font-size:8px;
+    font-weight:900;
+
+    letter-spacing:.9px;
+
+    text-transform:uppercase;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+}
+
+.preview-date{
+    flex:0 0 auto;
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size:8px;
+    font-weight:700;
+}
+
+.preview-title{
+    display:-webkit-box;
+
+    margin-top:7px;
+
+    overflow:hidden;
+
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+
+    font-size:14px;
+    font-weight:900;
+
+    line-height:1.05;
+
+    letter-spacing:-.25px;
+}
+
+.preview-open{
+    position:absolute;
+
+    top:10px;
+    right:10px;
+
+    z-index:3;
+
+    width:31px;
+    height:31px;
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.34);
+
+    backdrop-filter:
+        blur(8px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:14px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.article-preview:hover
+.preview-open{
+    background:
+        rgba(255,255,255,.15);
+
+    transform:
+        translate(2px,-2px);
+}
+
+.hero-loading{
+    position:absolute;
+    inset:0;
+
+    z-index:30;
+
+    background:#070709;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:
+        rgba(255,255,255,.52);
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    transition:.25s ease;
+}
+
+.hero-loading.hidden{
+    opacity:0;
+    pointer-events:none;
+}
+
+
+/* =====================================================
+   ARTICLE MODAL
+===================================================== */
+
+.article-modal{
+    position:fixed;
+    inset:0;
+
+    z-index:20000;
+
+    padding:18px;
+
+    background:
+        rgba(0,0,0,.90);
+
+    backdrop-filter:
+        blur(16px);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.24s ease;
+}
+
+.article-modal.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.article-window{
+    position:relative;
+
+    width:min(1040px,100%);
+
+    max-height:92vh;
+
+    overflow:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    border:
+        1px solid rgba(255,255,255,.11);
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #101014,
+            #09090c
+        );
+
+    box-shadow:
+        0 44px 120px rgba(0,0,0,.68);
+}
+
+.article-window::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.article-close{
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    z-index:5;
+
+    width:44px;
+    height:44px;
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    border-radius:50%;
+
+    background:
+        rgba(0,0,0,.68);
+
+    color:#fff;
+
+    font-size:25px;
+
+    cursor:pointer;
+}
+
+.article-image-wrap{
+    position:relative;
+
+    height:430px;
+
+    overflow:hidden;
+
+    background:#151515;
+}
+
+.article-image-wrap::after{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 54%,
+            rgba(9,9,12,.88) 100%
+        );
+}
+
+.article-image{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.article-body-wrap{
+    position:relative;
+
+    margin-top:-34px;
+
+    z-index:2;
+
+    padding:
+        0
+        44px
+        50px;
+}
+
+.article-category{
+    color:#ff4b55;
+
+    font-size:10px;
+    font-weight:900;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.article-title{
+    max-width:840px;
+
+    margin-top:10px;
+
+    padding-right:48px;
+
+    font-size:
+        clamp(36px,5.2vw,68px);
+
+    line-height:.93;
+
+    letter-spacing:-2.7px;
+
+    font-weight:900;
+}
+
+.article-date{
+    margin-top:14px;
+
+    color:
+        rgba(255,255,255,.38);
+
+    font-size:11px;
+}
+
+.article-excerpt{
+    max-width:780px;
+
+    margin-top:27px;
+
+    color:
+        rgba(255,255,255,.90);
+
+    font-size:19px;
+
+    font-weight:500;
+
+    line-height:1.55;
+}
+
+.article-content{
+    margin-top:25px;
+
+    color:
+        rgba(255,255,255,.72);
+
+    font-size:15px;
+
+    line-height:1.8;
+}
+
+.article-content p{
+    margin-bottom:17px;
+}
+
+.article-content h2,
+.article-content h3{
+    margin:
+        28px
+        0
+        12px;
+
+    color:#fff;
+
+    line-height:1.1;
+}
+
+.article-content ul,
+.article-content ol{
+    margin:
+        16px
+        0
+        20px
+        23px;
+}
+
+.article-content a{
+    color:#fff;
+
+    text-decoration:underline;
+
+    text-decoration-color:
+        var(--red);
+
+    text-underline-offset:3px;
+}
+
+
+
+
+
+/* =====================================================
+   MATCH CENTER
+===================================================== */
+
+.match-center{
+    position:relative;
+    padding:98px 0 118px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 12% 0%,rgba(229,9,20,.16),transparent 28%),
+        radial-gradient(circle at 90% 100%,rgba(35,163,255,.10),transparent 25%),
+        linear-gradient(180deg,#070709 0%,#0b0c11 100%);
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+.match-center::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.16;
+    background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:52px 52px;
+    pointer-events:none;
+}
+
+.match-center-inner{
+    position:relative;
+    z-index:2;
+}
+
+.match-center-head{
+    margin-bottom:34px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:26px;
+}
+
+.match-center-kicker{
+    color:#ff5b63;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2.6px;
+    text-transform:uppercase;
+}
+
+.match-center-title{
+    margin-top:8px;
+    font-size:clamp(52px,7vw,94px);
+    line-height:.84;
+    letter-spacing:-4.6px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.match-center-desc{
+    max-width:400px;
+    color:rgba(255,255,255,.46);
+    font-size:12px;
+    line-height:1.6;
+    text-align:right;
+}
+
+.match-board{
+    display:grid;
+    grid-template-columns:minmax(0,1.24fr) minmax(330px,.76fr);
+    gap:14px;
+}
+
+.next-match-panel,
+.standings-panel{
+    position:relative;
+    min-width:0;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:28px;
+    overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.014));
+    box-shadow:0 30px 85px rgba(0,0,0,.28);
+}
+
+.next-match-panel{
+    padding:26px 28px 24px;
+}
+
+.next-match-panel::before{
+    content:"";
+    position:absolute;
+    width:470px;
+    height:470px;
+    right:-175px;
+    top:-190px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(229,9,20,.25),rgba(229,9,20,.04) 46%,transparent 73%);
+    pointer-events:none;
+}
+
+.next-match-panel::after{
+    content:"LEGION";
+    position:absolute;
+    left:50%;
+    bottom:-27px;
+    transform:translateX(-50%);
+    color:rgba(255,255,255,.018);
+    font-size:clamp(108px,14vw,205px);
+    line-height:.78;
+    font-weight:900;
+    letter-spacing:-8px;
+    white-space:nowrap;
+    pointer-events:none;
+}
+
+.panel-head{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+}
+
+.panel-label{
+    min-height:30px;
+    padding:0 11px;
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    color:rgba(255,255,255,.72);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.panel-link{
+    color:rgba(255,255,255,.44);
+    font-size:10px;
+    font-weight:800;
+    text-decoration:none;
+    transition:.18s ease;
+}
+
+.panel-link:hover{ color:#fff; }
+
+.next-match-main{
+    position:relative;
+    z-index:2;
+    min-height:322px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+    align-items:center;
+    gap:24px;
+}
+
+.next-team{
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.next-team-logo-wrap{
+    width:126px;
+    height:126px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.08),rgba(255,255,255,.02) 65%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:inset 0 0 0 9px rgba(255,255,255,.01);
+}
+
+.next-team-logo{
+    width:88px;
+    height:88px;
+    object-fit:contain;
+    filter:drop-shadow(0 14px 28px rgba(0,0,0,.42));
+}
+
+.next-team-name{
+    margin-top:15px;
+    max-width:210px;
+    font-size:18px;
+    line-height:1.03;
+    font-weight:900;
+}
+
+.next-match-center{
+    min-width:150px;
+    text-align:center;
+}
+
+.next-match-day{
+    color:rgba(255,255,255,.45);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.next-match-time{
+    margin-top:8px;
+    font-size:clamp(48px,5.4vw,76px);
+    line-height:.9;
+    letter-spacing:-3.2px;
+    font-weight:900;
+}
+
+.next-match-comp{
+    margin-top:11px;
+    color:#ff626a;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+}
+
+.last-result{
+    position:relative;
+    z-index:2;
+    padding-top:19px;
+    border-top:1px solid rgba(255,255,255,.07);
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    align-items:center;
+    gap:16px;
+}
+
+.last-result-label{
+    color:rgba(255,255,255,.36);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1.1px;
+    text-transform:uppercase;
+}
+
+.last-result-date{
+    margin-top:5px;
+    color:rgba(255,255,255,.25);
+    font-size:8px;
+    font-weight:800;
+}
+
+.last-result-main{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.last-result-team{
+    min-width:0;
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.last-result-team img{
+    width:32px;
+    height:32px;
+    object-fit:contain;
+}
+
+.last-result-team span{
+    max-width:140px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:11px;
+    font-weight:800;
+}
+
+.last-result-score{
+    min-width:78px;
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:-1px;
+    text-align:center;
+}
+
+.last-result-meta{
+    min-width:140px;
+    color:rgba(255,255,255,.32);
+    font-size:9px;
+    font-weight:700;
+    text-align:right;
+}
+
+.standings-panel{
+    padding:26px 24px 22px;
+}
+
+
+.standings-season{
+    color:rgba(255,255,255,.42);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.standings-panel .panel-label{
+    color:#68bcff;
+    border-color:rgba(104,188,255,.22);
+    background:rgba(104,188,255,.05);
+}
+
+.standings-head{
+    margin-top:20px;
+    padding-bottom:11px;
+    display:grid;
+    grid-template-columns:28px minmax(0,1fr) 34px 42px 34px;
+    gap:8px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    color:rgba(255,255,255,.32);
+    font-size:8px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.standings-row{
+    min-height:48px;
+    display:grid;
+    grid-template-columns:28px minmax(0,1fr) 34px 42px 34px;
+    gap:8px;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.standings-row:last-child{ border-bottom:0; }
+.standings-row.is-highlight{ color:#68bcff; font-weight:900; }
+.standings-row.is-highlight .standings-team{ color:#68bcff; }
+
+.standings-pos,
+.standings-games,
+.standings-diff,
+.standings-points{
+    font-size:12px;
+    font-weight:800;
+}
+
+.standings-team{
+    min-width:0;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-size:12px;
+    font-weight:800;
+}
+
+.standings-games,
+.standings-diff,
+.standings-points{ text-align:right; }
+
+.standings-footer{
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.standings-button{
+    min-height:42px;
+    padding:0 17px;
+    border:1px solid rgba(104,188,255,.35);
+    border-radius:999px;
+    background:rgba(104,188,255,.08);
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    color:#86c8ff;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.8px;
+    text-decoration:none;
+    text-transform:uppercase;
+    transition:.18s ease;
+}
+
+.standings-button:hover{
+    background:rgba(104,188,255,.15);
+    color:#fff;
+}
+
+@media(max-width:980px){
+    .match-center-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .match-center-desc{ text-align:left; }
+    .match-board{ grid-template-columns:1fr; }
+}
+
+@media(max-width:640px){
+    .match-center{ padding:72px 0 90px; }
+    .match-center-title{ font-size:48px; letter-spacing:-2.8px; }
+    .next-match-panel,
+    .standings-panel{ border-radius:22px; }
+    .next-match-panel{ padding:21px 17px 19px; }
+    .next-match-main{ min-height:270px; gap:9px; }
+    .next-team-logo-wrap{ width:84px; height:84px; }
+    .next-team-logo{ width:58px; height:58px; }
+    .next-team-name{ font-size:12px; }
+    .next-match-center{ min-width:86px; }
+    .next-match-time{ font-size:44px; letter-spacing:-2px; }
+    .last-result{ grid-template-columns:1fr; text-align:center; }
+    .last-result-main{ flex-wrap:wrap; }
+    .last-result-meta{ min-width:0; text-align:center; }
+}
+
+
+/* =====================================================
+   LEGION STORIES
+===================================================== */
+
+.stories-section{
+    position:relative;
+    padding:72px 0 82px;
+    overflow:hidden;
+    background:#000;
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+.stories-head{
+    position:relative;
+    z-index:2;
+    margin-bottom:30px;
+    text-align:center;
+}
+
+.stories-kicker{
+    display:none;
+}
+
+.stories-title{
+    color:#080808;
+    font-size:clamp(38px,5vw,68px);
+    line-height:.92;
+    letter-spacing:-2.4px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.stories-desc{
+    margin:10px auto 0;
+    max-width:520px;
+    color:rgba(255,255,255,.64);
+    font-size:12px;
+    line-height:1.55;
+    text-align:center;
+}
+
+.stories-rail-wrap{
+    position:relative;
+    z-index:2;
+    max-width:1190px;
+    margin:0 auto;
+}
+
+.stories-rail{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    overflow-x:auto;
+    padding:5px 4px 14px;
+    scroll-behavior:smooth;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+}
+
+.stories-rail::-webkit-scrollbar{
+    display:none;
+}
+
+.story-card{
+    flex:0 0 132px;
+    width:132px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#fff;
+    text-align:left;
+    cursor:pointer;
+    scroll-snap-align:start;
+}
+
+.story-poster{
+    position:relative;
+    display:block;
+    width:132px;
+    height:232px;
+    overflow:hidden;
+    border-radius:15px;
+    background:#111;
+    box-shadow:0 10px 26px rgba(0,0,0,.15);
+    transition:transform .22s ease,box-shadow .22s ease;
+}
+
+.story-card:hover .story-poster{
+    transform:translateY(-5px);
+    box-shadow:0 18px 38px rgba(0,0,0,.22);
+}
+
+.story-thumb{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.story-poster::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.04) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,.80) 100%);
+}
+
+.story-badge{
+    position:absolute;
+    z-index:3;
+    top:8px;
+    left:8px;
+    min-height:21px;
+    padding:0 7px;
+    border-radius:999px;
+    background:#ffd523;
+    color:#111;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:9px;
+    font-weight:900;
+    line-height:1;
+    text-transform:uppercase;
+}
+
+.story-badge[hidden]{
+    display:none;
+}
+
+.story-caption{
+    position:absolute;
+    z-index:3;
+    left:10px;
+    right:10px;
+    bottom:11px;
+    display:-webkit-box;
+    overflow:hidden;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    color:#fff;
+    font-size:11px;
+    line-height:1.13;
+    font-weight:800;
+    text-shadow:0 2px 10px rgba(0,0,0,.55);
+}
+
+.story-date{
+    display:none;
+}
+
+.stories-rail-next{
+    position:absolute;
+    z-index:5;
+    top:50%;
+    right:-20px;
+    transform:translateY(-50%);
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    color:#111;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    line-height:1;
+    cursor:pointer;
+    transition:transform .18s ease,box-shadow .18s ease;
+}
+
+.stories-rail-next:hover{
+    transform:translateY(-50%) scale(1.05);
+    box-shadow:0 12px 30px rgba(0,0,0,.22);
+}
+
+@media(max-width:720px){
+    .stories-section{
+        padding:58px 0 68px;
+    }
+
+    .stories-title{
+        font-size:42px;
+        letter-spacing:-1.8px;
+    }
+
+    .stories-desc{
+        font-size:11px;
+    }
+
+    .story-card,
+    .story-poster{
+        width:118px;
+    }
+
+    .story-card{
+        flex-basis:118px;
+    }
+
+    .story-poster{
+        height:208px;
+        border-radius:13px;
+    }
+
+    .stories-rail-next{
+        display:none;
+    }
+}
+
+.story-viewer{
+    position:fixed;
+    inset:0;
+    z-index:20000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:linear-gradient(90deg,#203f72 0%,#2a315c 34%,#633049 66%,#6b1f3d 100%);
+}
+
+.story-viewer.active{
+    display:flex;
+}
+
+.story-viewer-bg{
+    position:absolute;
+    inset:-36px;
+    width:calc(100% + 72px);
+    height:calc(100% + 72px);
+    object-fit:cover;
+    filter:blur(38px) brightness(.42) saturate(.95);
+    transform:scale(1.08);
+    opacity:.48;
+}
+
+.story-viewer-shade{
+    position:absolute;
+    inset:0;
+    background:rgba(6,8,17,.12);
+    pointer-events:none;
+}
+
+.story-frame{
+    position:relative;
+    z-index:3;
+    width:min(340px,calc(100vw - 34px));
+    height:min(86vh,760px);
+    min-height:520px;
+    overflow:hidden;
+    background:#0b0b0e;
+    box-shadow:0 34px 110px rgba(0,0,0,.44);
+}
+
+.story-frame-image{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.story-frame-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(0,0,0,.46) 0%,rgba(0,0,0,.08) 23%,rgba(0,0,0,.02) 58%,rgba(0,0,0,.58) 100%);
+    pointer-events:none;
+}
+
+.story-progress{
+    position:absolute;
+    z-index:8;
+    top:8px;
+    left:12px;
+    right:12px;
+    display:flex;
+    gap:4px;
+}
+
+.story-progress-track{
+    flex:1;
+    height:3px;
+    overflow:hidden;
+    border-radius:999px;
+    background:rgba(255,255,255,.34);
+}
+
+.story-progress-fill{
+    width:0;
+    height:100%;
+    border-radius:inherit;
+    background:#fff;
+}
+
+.story-progress-track.done .story-progress-fill{
+    width:100%;
+}
+
+.story-progress-track.active .story-progress-fill{
+    animation:storyProgress 6s linear forwards;
+}
+
+.story-progress-track.active.paused .story-progress-fill{
+    animation-play-state:paused;
+}
+
+@keyframes storyProgress{
+    from{width:0}
+    to{width:100%}
+}
+
+.story-topbar{
+    position:absolute;
+    z-index:9;
+    top:20px;
+    left:14px;
+    right:10px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.story-topbar-copy{
+    min-width:0;
+    flex:1;
+    padding-top:2px;
+}
+
+.story-topbar-title{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#fff;
+    font-size:13px;
+    line-height:1.15;
+    font-weight:600;
+    text-shadow:0 2px 9px rgba(0,0,0,.55);
+}
+
+.story-topbar-meta{
+    margin-top:4px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    color:rgba(255,255,255,.70);
+    font-size:9px;
+    font-weight:600;
+}
+
+.story-frame-category,
+.story-frame-date{
+    color:inherit;
+    font-size:inherit;
+    font-weight:inherit;
+    letter-spacing:0;
+    text-transform:none;
+}
+
+.story-topbar-actions{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.story-icon-btn{
+    width:30px;
+    height:30px;
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    line-height:1;
+    cursor:pointer;
+    opacity:.96;
+    transition:transform .15s ease,opacity .15s ease;
+}
+
+.story-icon-btn:hover{
+    opacity:1;
+    transform:scale(1.08);
+}
+
+.story-icon-btn svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
+
+.story-nav-btn{
+    position:absolute;
+    z-index:7;
+    top:50%;
+    transform:translateY(-50%);
+    width:50px;
+    height:50px;
+    border:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.16);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:36px;
+    line-height:1;
+    cursor:pointer;
+    backdrop-filter:blur(8px);
+    transition:background .18s ease,color .18s ease,opacity .18s ease,transform .18s ease;
+}
+
+.story-nav-btn:hover:not(:disabled){
+    background:#fff;
+    color:#111;
+    transform:translateY(-50%) scale(1.04);
+}
+
+.story-nav-btn:disabled{
+    opacity:.16;
+    cursor:default;
+}
+
+.story-nav-left{
+    left:max(28px,calc(50% - 270px));
+}
+
+.story-nav-right{
+    right:max(28px,calc(50% - 270px));
+}
+
+.story-bottom-action{
+    position:absolute;
+    z-index:9;
+    left:50%;
+    bottom:18px;
+    transform:translateX(-50%);
+    min-height:40px;
+    padding:0 17px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;
+    background:rgba(0,0,0,.25);
+    backdrop-filter:blur(9px);
+    color:#fff;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.7px;
+    text-transform:uppercase;
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.story-bottom-action[hidden]{
+    display:none;
+}
+
+@media(max-width:760px){
+    .story-viewer{
+        background:#06070b;
+    }
+
+    .story-frame{
+        width:100%;
+        height:100%;
+        min-height:0;
+        max-width:none;
+        max-height:none;
+    }
+
+    .story-nav-btn{
+        width:42px;
+        height:42px;
+        font-size:30px;
+        background:rgba(0,0,0,.28);
+    }
+
+    .story-nav-left{
+        left:12px;
+    }
+
+    .story-nav-right{
+        right:12px;
+    }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px){
+
+    .article-previews{
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+
+    .article-preview:nth-child(n+4){
+        display:none;
+    }
+
+}
+
+@media(max-width:720px){
+
+    .shell{
+        width:
+            min(
+                var(--max),
+                calc(100% - 28px)
+            );
+    }
+
+    .header{
+        height:74px;
+    }
+
+    .logo img{
+        height:46px;
+    }
+
+    .menu{
+        padding:
+            104px
+            14px
+            24px;
+    }
+
+    .menu-grid{
+        grid-template-columns:1fr;
+    }
+
+    .menu-main-link,
+    .menu-group-btn{
+        min-height:70px;
+    }
+
+    .menu-sub a{
+        min-height:47px;
+    }
+
+    .hero-content{
+        padding:
+            112px
+            0
+            285px;
+    }
+
+    .hero-title{
+        font-size:52px;
+
+        line-height:.88;
+
+        letter-spacing:-2.2px;
+    }
+
+    .article-previews{
+        bottom:14px;
+
+        width:
+            calc(100% - 28px);
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:7px;
+    }
+
+    .article-preview{
+        height:112px;
+
+        border-radius:14px;
+    }
+
+    .article-preview:nth-child(n+5){
+        display:none;
+    }
+
+    .article-preview-content{
+        left:10px;
+        right:10px;
+        bottom:9px;
+    }
+
+    .preview-date{
+        display:none;
+    }
+
+    .preview-title{
+        font-size:11px;
+    }
+
+    .preview-open{
+        width:27px;
+        height:27px;
+
+        top:8px;
+        right:8px;
+
+        font-size:12px;
+    }
+
+    .article-modal{
+        padding:8px;
+    }
+
+    .article-image-wrap{
+        height:260px;
+    }
+
+    .article-body-wrap{
+        margin-top:-24px;
+
+        padding:
+            0
+            20px
+            38px;
+    }
+
+    .article-title{
+        font-size:36px;
+        letter-spacing:-1.5px;
+    }
+
+}
+
+
+
+
+/* =====================================================
+   LANGUAGE INSIDE MENU
+===================================================== */
+
+.language-corner{
+    position:absolute;
+    left:24px;
+    bottom:24px;
+    z-index:4;
+}
+
+.language-trigger{
+    min-width:58px;
+    height:46px;
+    padding:0 14px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    background:rgba(255,255,255,.035);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    color:#fff;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.6px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.language-trigger:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.30);
+    transform:translateY(-2px);
+}
+
+.language-trigger-arrow{
+    color:rgba(255,255,255,.45);
+    font-size:9px;
+    transition:transform .2s ease;
+}
+
+.language-corner.active .language-trigger-arrow{
+    transform:rotate(180deg);
+}
+
+.language-popup{
+    position:absolute;
+    left:0;
+    bottom:56px;
+    width:min(330px,calc(100vw - 48px));
+    max-height:60vh;
+    padding:8px;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:16px;
+    background:rgba(8,8,15,.94);
+    backdrop-filter:blur(16px);
+    box-shadow:0 22px 60px rgba(0,0,0,.42);
+    overflow:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:.2s ease;
+}
+
+.language-popup::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.language-corner.active .language-popup{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+}
+
+.language-popup-title{
+    padding:6px 8px 10px;
+    color:rgba(255,255,255,.42);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.language-popup-option{
+    width:100%;
+    min-height:44px;
+    padding:0 12px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    color:rgba(255,255,255,.68);
+    font-size:11px;
+    font-weight:800;
+    text-align:left;
+    cursor:pointer;
+    transition:.18s ease;
+}
+
+.language-popup-option:hover,
+.language-popup-option.active{
+    color:#fff;
+    background:rgba(255,255,255,.07);
+}
+
+.language-popup-dot{
+    position:relative;
+    flex:0 0 auto;
+    width:12px;
+    height:12px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:50%;
+}
+
+.language-popup-option.active .language-popup-dot{
+    border-color:#fff;
+}
+
+.language-popup-option.active .language-popup-dot::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:50%;
+    background:#fff;
+}
+
+.menu-socials{
+    position:absolute;
+    left:50%;
+    bottom:24px;
+    z-index:4;
+    transform:translateX(-50%);
+    margin:0;
+    padding:0;
+    border:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.menu-social{
+    width:46px;
+    height:46px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.menu-social:hover{
+    transform:translateY(-3px);
+
+    background:rgba(255,255,255,.08);
+
+    border-color:rgba(255,255,255,.30);
+}
+
+.menu-social svg{
+    width:19px;
+    height:19px;
+
+    fill:currentColor;
+}
+
+
+
+
+@media(max-width:720px){
+    .language-corner{
+        left:12px;
+        bottom:14px;
+    }
+
+    .language-trigger{
+        min-width:54px;
+        height:42px;
+        padding:0 12px;
+    }
+
+    .language-popup{
+        bottom:50px;
+        width:min(310px,calc(100vw - 24px));
+        max-height:58vh;
+    }
+
+    .menu-socials{
+        bottom:14px;
+        gap:7px;
+    }
+
+    .menu-social{
+        width:42px;
+        height:42px;
+    }
+}
+
+
+document.addEventListener("keydown",event=>{
+    if(event.key === "Escape" && storyViewer?.classList.contains("active")){
+        closeStory();
+    }
+});
+
+
+/* =====================================================
+   BLACK STORIES THEME
+===================================================== */
+
+.stories-section{
+    background:#000 !important;
+    border-top:1px solid rgba(255,255,255,.07);
+    color:#fff;
+}
+
+.stories-title{
+    color:#fff;
+    background:linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffffff 26%,
+        #ff3347 43%,
+        #9a63ff 55%,
+        #3db7ff 66%,
+        #ffffff 82%,
+        #ffffff 100%
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+}
+
+.stories-desc{
+    color:rgba(255,255,255,.64);
+}
+
+.story-caption{
+    color:#fff;
+}
+
+.story-poster{
+    background:#09090b;
+    box-shadow:
+        0 14px 38px rgba(0,0,0,.62),
+        0 0 0 1px rgba(255,255,255,.06);
+}
+
+.story-card:hover .story-poster{
+    box-shadow:
+        0 24px 58px rgba(0,0,0,.78),
+        0 0 0 1px rgba(255,255,255,.12);
+}
+
+.stories-rail-wrap::after{
+    background:linear-gradient(90deg,transparent,rgba(0,0,0,.88) 58%,#000 100%);
+}
+
+.stories-rail-next{
+    background:#fff;
+    color:#000;
+    box-shadow:0 10px 30px rgba(0,0,0,.55);
+}
+
+.story-viewer{
+    background:
+        radial-gradient(circle at 36% 48%,rgba(46,120,255,.11),transparent 33%),
+        radial-gradient(circle at 64% 48%,rgba(229,9,20,.10),transparent 34%),
+        #000;
+}
+
+.story-viewer-bg{
+    opacity:.15;
+    filter:blur(46px) brightness(.20) saturate(.72);
+}
+
+.story-viewer-shade{
+    background:rgba(0,0,0,.42);
+}
+
+.story-topbar-title{
+    color:#fff;
+    background:linear-gradient(
+        90deg,
+        #ffffff 0%,
+        #ffffff 24%,
+        #ff4051 44%,
+        #9568ff 56%,
+        #45b2ff 68%,
+        #ffffff 84%,
+        #ffffff 100%
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+}
+
+.story-frame-category,
+.story-frame-date,
+.story-topbar-meta,
+.story-frame-excerpt{
+    color:rgba(255,255,255,.82);
+}
+
+@media(max-width:720px){
+    .stories-section{background:#000;}
+}
+
+
+
+/* =====================================================
+   LEGION PHOTO GRID
+===================================================== */
+
+.instagram-section{
+    position:relative;
+    padding:96px 0 118px;
+    overflow:hidden;
+    background:#000;
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+.instagram-section::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 16% 18%,rgba(229,9,20,.10),transparent 26%),
+        radial-gradient(circle at 84% 72%,rgba(69,178,255,.07),transparent 28%);
+}
+
+.instagram-section::after{
+    content:"LEGION";
+    position:absolute;
+    right:-2vw;
+    bottom:-5vw;
+    color:rgba(255,255,255,.018);
+    font-size:clamp(120px,22vw,330px);
+    font-weight:900;
+    line-height:.75;
+    letter-spacing:-.08em;
+    pointer-events:none;
+}
+
+.instagram-head{
+    position:relative;
+    z-index:2;
+    margin-bottom:34px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.instagram-kicker{
+    color:rgba(255,255,255,.42);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2.4px;
+    text-transform:uppercase;
+}
+
+.instagram-title{
+    margin-top:8px;
+    color:#fff;
+    font-size:clamp(46px,6.2vw,84px);
+    line-height:.86;
+    letter-spacing:-4px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.instagram-title-gradient{
+    background:linear-gradient(90deg,#fff 0%,#ff4051 20%,#a065ff 52%,#45b2ff 78%,#fff 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+}
+
+.instagram-head-right{
+    max-width:430px;
+}
+
+.instagram-desc{
+    color:rgba(255,255,255,.50);
+    font-size:12px;
+    line-height:1.65;
+    text-align:right;
+}
+
+.instagram-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:repeat(12,minmax(0,1fr));
+    grid-auto-rows:170px;
+    gap:10px;
+}
+
+.instagram-card{
+    position:relative;
+    min-width:0;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    background:#0b0b0d;
+    color:#fff;
+    cursor:pointer;
+    padding:0;
+    box-shadow:0 18px 42px rgba(0,0,0,.30);
+}
+
+.instagram-card:nth-child(1){grid-column:span 5;grid-row:span 2;}
+.instagram-card:nth-child(2){grid-column:span 4;grid-row:span 1;}
+.instagram-card:nth-child(3){grid-column:span 3;grid-row:span 1;}
+.instagram-card:nth-child(4){grid-column:span 3;grid-row:span 1;}
+.instagram-card:nth-child(5){grid-column:span 4;grid-row:span 1;}
+.instagram-card:nth-child(6){grid-column:span 5;grid-row:span 2;}
+.instagram-card:nth-child(7){grid-column:span 3;grid-row:span 1;}
+.instagram-card:nth-child(8){grid-column:span 4;grid-row:span 1;}
+
+.instagram-card-media{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .35s ease;
+}
+
+.instagram-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    background:linear-gradient(180deg,rgba(0,0,0,.04) 28%,rgba(0,0,0,.72) 100%);
+}
+
+.instagram-card::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+}
+
+.instagram-card:hover .instagram-card-media{
+    transform:scale(1.055);
+    filter:saturate(1.08) contrast(1.03);
+}
+
+.instagram-card-copy{
+    position:absolute;
+    z-index:4;
+    left:16px;
+    right:16px;
+    bottom:14px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:14px;
+}
+
+.instagram-card-caption{
+    display:-webkit-box;
+    overflow:hidden;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    font-size:12px;
+    line-height:1.24;
+    font-weight:800;
+    text-align:left;
+    text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+
+.instagram-card-date{
+    flex:0 0 auto;
+    color:rgba(255,255,255,.52);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+.instagram-empty{
+    display:none;
+    position:relative;
+    z-index:2;
+    min-height:160px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:18px;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    color:rgba(255,255,255,.42);
+    font-size:11px;
+    font-weight:800;
+    text-align:center;
+}
+
+.instagram-empty.active{display:flex;}
+
+.photo-lightbox{
+    position:fixed;
+    inset:0;
+    z-index:24000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    background:rgba(0,0,0,.94);
+    backdrop-filter:blur(18px);
+}
+
+.photo-lightbox.active{display:flex;}
+
+.photo-lightbox-image{
+    max-width:min(1180px,92vw);
+    max-height:88vh;
+    width:auto;
+    height:auto;
+    object-fit:contain;
+    border-radius:18px;
+    box-shadow:0 34px 120px rgba(0,0,0,.65);
+}
+
+.photo-lightbox-close{
+    position:absolute;
+    top:22px;
+    right:22px;
+    width:46px;
+    height:46px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    font-size:26px;
+    cursor:pointer;
+}
+
+.photo-lightbox-caption{
+    position:absolute;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%);
+    width:min(760px,82vw);
+    color:rgba(255,255,255,.72);
+    font-size:11px;
+    line-height:1.5;
+    text-align:center;
+}
+
+@media(max-width:900px){
+    .instagram-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+    .instagram-desc{text-align:left;}
+    .instagram-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        grid-auto-rows:210px;
+    }
+    .instagram-card:nth-child(n){grid-column:span 1;grid-row:span 1;}
+    .instagram-card:nth-child(1),
+    .instagram-card:nth-child(6){grid-column:span 2;grid-row:span 2;}
+}
+
+@media(max-width:560px){
+    .instagram-section{padding:70px 0 86px;}
+    .instagram-title{font-size:44px;letter-spacing:-2.4px;}
+    .instagram-grid{grid-auto-rows:150px;gap:8px;}
+    .instagram-card{border-radius:14px;}
+    .instagram-card:nth-child(1),
+    .instagram-card:nth-child(6){grid-row:span 2;}
+    .photo-lightbox{padding:12px;}
+    .photo-lightbox-close{top:14px;right:14px;}
+}
+
+/* =====================================================
+   PREMIUM FOOTER
+===================================================== */
+.site-footer{
+    position:relative;
+    overflow:hidden;
+    background:#050506;
+    border-top:1px solid rgba(255,255,255,.07);
+}
+
+.site-footer::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:2px;
+    background:linear-gradient(90deg,#e50914 0%,#ff4d67 24%,#9c68ff 52%,#3aa8ff 76%,#e50914 100%);
+}
+
+.site-footer::after{
+    content:"LEGION";
+    position:absolute;
+    left:-18px;
+    bottom:-44px;
+    color:rgba(255,255,255,.018);
+    font-size:clamp(130px,24vw,360px);
+    font-weight:900;
+    line-height:.72;
+    letter-spacing:-16px;
+    pointer-events:none;
+    user-select:none;
+}
+
+.footer-shell{
+    position:relative;
+    z-index:2;
+    width:min(1180px,calc(100% - 40px));
+    margin:0 auto;
+    padding:76px 0 28px;
+}
+
+.footer-top{
+    display:grid;
+    grid-template-columns:minmax(280px,1.45fr) .75fr .75fr .9fr;
+    gap:54px;
+    align-items:start;
+}
+
+.footer-brand-block{
+    max-width:450px;
+}
+
+.footer-logo-link{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:#fff;
+}
+
+.footer-logo-link img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+}
+
+.footer-brand-name{
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+}
+
+.footer-statement{
+    margin-top:28px;
+    max-width:430px;
+    font-size:clamp(36px,4.8vw,64px);
+    line-height:.92;
+    letter-spacing:-2.8px;
+    font-weight:900;
+    text-transform:uppercase;
+    color:#fff;
+}
+
+.footer-statement .footer-gradient{
+    background:linear-gradient(90deg,#fff 0%,#fff 16%,#ff4257 37%,#9e70ff 56%,#48b4ff 73%,#fff 94%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+}
+
+.footer-column-title{
+    margin-bottom:17px;
+    color:rgba(255,255,255,.36);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.9px;
+    text-transform:uppercase;
+}
+
+.footer-links-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.footer-links-list a{
+    width:max-content;
+    max-width:100%;
+    color:rgba(255,255,255,.78);
+    text-decoration:none;
+    font-size:13px;
+    font-weight:750;
+    transition:color .18s ease,transform .18s ease;
+}
+
+.footer-links-list a:hover{
+    color:#fff;
+    transform:translateX(3px);
+}
+
+.footer-socials{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+}
+
+.footer-social{
+    width:44px;
+    height:44px;
+    border:1px solid rgba(255,255,255,.10);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,.025);
+    color:#fff;
+    text-decoration:none;
+    transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+
+.footer-social:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,255,255,.26);
+    background:rgba(255,255,255,.07);
+}
+
+.footer-social svg{
+    width:18px;
+    height:18px;
+    fill:currentColor;
+}
+
+.footer-cta{
+    margin-top:22px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:42px;
+    padding:0 15px;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:999px;
+    color:#fff;
+    text-decoration:none;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    transition:.18s ease;
+}
+
+.footer-cta:hover{
+    background:#fff;
+    color:#050506;
+}
+
+.footer-bottom{
+    margin-top:66px;
+    padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.07);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    color:rgba(255,255,255,.34);
+    font-size:10px;
+    font-weight:700;
+}
+
+.footer-bottom-links{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+}
+
+.footer-bottom a{
+    color:rgba(255,255,255,.48);
+    text-decoration:none;
+}
+
+.footer-bottom a:hover{color:#fff;}
+
+@media(max-width:980px){
+    .footer-top{
+        grid-template-columns:1.3fr 1fr 1fr;
+    }
+
+    .footer-brand-block{
+        grid-column:1 / -1;
+        max-width:700px;
+    }
+}
+
+@media(max-width:680px){
+    .footer-shell{
+        width:min(100% - 28px,1180px);
+        padding-top:56px;
+    }
+
+    .footer-top{
+        grid-template-columns:1fr 1fr;
+        gap:38px 24px;
+    }
+
+    .footer-brand-block{
+        grid-column:1 / -1;
+    }
+
+    .footer-social-column{
+        grid-column:1 / -1;
+    }
+
+    .footer-statement{
+        font-size:clamp(38px,13vw,58px);
+        letter-spacing:-2.4px;
+    }
+
+    .footer-bottom{
+        margin-top:46px;
+        align-items:flex-start;
+        flex-direction:column;
+    }
+}
+
+
+
+/* =====================================================
+   CINEMATIC / FILM LOOK
+===================================================== */
+html{
+    background:#000;
+}
+
+body{
+    background:#000;
+    color:#fff;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    pointer-events:none;
+    opacity:.035;
+    mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+}
+
+main{
+    background:#000;
+}
+
+.articles-hero{
+    min-height:100svh;
+    background:#000;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.articles-hero::after{
+    content:"";
+    position:absolute;
+    inset:18px;
+    z-index:8;
+    border:1px solid rgba(255,255,255,.055);
+    pointer-events:none;
+    box-shadow:inset 0 0 90px rgba(0,0,0,.42);
+}
+
+.hero-bg{
+    transform:scale(1.055);
+    filter:saturate(.88) contrast(1.08) brightness(.88);
+    animation:filmHeroDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes filmHeroDrift{
+    from{transform:scale(1.055) translate3d(0,0,0)}
+    to{transform:scale(1.105) translate3d(-.8%,.45%,0)}
+}
+
+.hero-overlay{
+    background:
+        radial-gradient(circle at 68% 40%,transparent 0 24%,rgba(0,0,0,.18) 55%,rgba(0,0,0,.72) 100%),
+        linear-gradient(180deg,rgba(0,0,0,.38) 0%,rgba(0,0,0,.10) 26%,rgba(0,0,0,.28) 55%,#000 100%),
+        linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.42) 42%,rgba(0,0,0,.08) 75%,rgba(0,0,0,.24) 100%);
+}
+
+.hero-content{
+    padding-bottom:clamp(120px,14vh,190px);
+}
+
+.hero-category{
+    color:#fff;
+    letter-spacing:3.2px;
+    opacity:.78;
+}
+
+.hero-title{
+    max-width:1120px;
+    font-size:clamp(62px,9.2vw,148px);
+    line-height:.80;
+    letter-spacing:clamp(-7px,-.48vw,-4px);
+    text-shadow:0 18px 44px rgba(0,0,0,.50);
+}
+
+.hero-title::selection{
+    background:#fff;
+    color:#000;
+}
+
+.primary-btn{
+    border:1px solid rgba(255,255,255,.20);
+    background:rgba(255,255,255,.96);
+    box-shadow:0 12px 36px rgba(0,0,0,.28);
+}
+
+.match-center{
+    background:
+        radial-gradient(circle at 8% 12%,rgba(229,9,20,.11),transparent 24%),
+        radial-gradient(circle at 88% 78%,rgba(81,96,255,.08),transparent 28%),
+        #030304;
+}
+
+.match-center::before{
+    opacity:.07;
+    background-size:72px 72px;
+}
+
+.match-center-title,
+.stories-title,
+.instagram-title-gradient,
+.footer-gradient{
+    background:linear-gradient(90deg,#fff 0%,#fff 28%,#ff4051 45%,#9c6dff 58%,#48b6ff 69%,#fff 88%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+}
+
+.next-match-panel,
+.standings-panel{
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    border-color:rgba(255,255,255,.105);
+    box-shadow:0 35px 110px rgba(0,0,0,.48);
+    backdrop-filter:blur(12px);
+}
+
+.stories-section{
+    background:
+        radial-gradient(circle at 50% -15%,rgba(255,255,255,.055),transparent 34%),
+        #000;
+    padding-top:94px;
+    padding-bottom:102px;
+}
+
+.stories-title{
+    font-size:clamp(46px,6.4vw,88px);
+    letter-spacing:-4px;
+}
+
+.story-poster{
+    box-shadow:0 22px 48px rgba(0,0,0,.46),0 0 0 1px rgba(255,255,255,.05);
+}
+
+.story-thumb{
+    filter:saturate(.90) contrast(1.07);
+    transition:transform .55s ease,filter .35s ease;
+}
+
+.story-card:hover .story-thumb{
+    transform:scale(1.06);
+    filter:saturate(1.02) contrast(1.09);
+}
+
+.instagram-section{
+    background:
+        radial-gradient(circle at 74% 10%,rgba(112,76,255,.08),transparent 24%),
+        radial-gradient(circle at 24% 85%,rgba(229,9,20,.07),transparent 22%),
+        #000;
+    padding-top:102px;
+    padding-bottom:118px;
+}
+
+.instagram-title{
+    font-size:clamp(50px,6.8vw,94px);
+    letter-spacing:-4.7px;
+}
+
+.instagram-grid{
+    gap:12px;
+}
+
+.instagram-card{
+    border-radius:6px;
+    border-color:rgba(255,255,255,.09);
+    box-shadow:0 28px 70px rgba(0,0,0,.42);
+}
+
+.instagram-card:nth-child(1),
+.instagram-card:nth-child(5){
+    grid-row:span 2;
+    aspect-ratio:auto;
+    min-height:540px;
+}
+
+.instagram-card-media{
+    filter:saturate(.88) contrast(1.08);
+}
+
+.instagram-card::after{
+    background:
+        linear-gradient(180deg,rgba(0,0,0,.03) 28%,rgba(0,0,0,.86) 100%),
+        radial-gradient(circle at 50% 50%,transparent 35%,rgba(0,0,0,.28) 100%);
+}
+
+.site-footer{
+    background:#000;
+}
+
+.film-reveal{
+    opacity:0;
+    transform:translateY(36px);
+    transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);
+}
+
+.film-reveal.film-visible{
+    opacity:1;
+    transform:none;
+}
+
+@media(max-width:860px){
+    .instagram-card:nth-child(1),
+    .instagram-card:nth-child(5){
+        grid-row:auto;
+        min-height:0;
+        aspect-ratio:1/1;
+    }
+}
+
+@media(max-width:720px){
+    .articles-hero::after{inset:8px;}
+    .hero-title{font-size:clamp(52px,16vw,86px);letter-spacing:-4px;}
+    .stories-title,.instagram-title{font-size:clamp(42px,13vw,68px);letter-spacing:-3px;}
+    body::before{opacity:.022;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    .hero-bg{animation:none!important;}
+    .film-reveal{opacity:1!important;transform:none!important;transition:none!important;}
+}
+
+
+
+/* =====================================================
+   CINEMATIC V2 — FULL FILM LOOK
+===================================================== */
+:root{
+    --film-scroll:0px;
+    --film-accent-a:#ff3f51;
+    --film-accent-b:#9a6cff;
+    --film-accent-c:#45b5ff;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:99998;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 50% 42%,transparent 0 46%,rgba(0,0,0,.18) 72%,rgba(0,0,0,.52) 100%);
+    opacity:.72;
+}
+
+header{
+    background:linear-gradient(180deg,rgba(0,0,0,.58),rgba(0,0,0,.08) 72%,transparent);
+    border-bottom:0!important;
+}
+
+.articles-hero{
+    isolation:isolate;
+}
+
+.articles-hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:7;
+    pointer-events:none;
+    background:
+        linear-gradient(180deg,#000 0 2.4vh,transparent 2.4vh calc(100% - 4.2vh),#000 calc(100% - 4.2vh) 100%);
+    opacity:.96;
+}
+
+.articles-hero::after{
+    inset:clamp(12px,1.5vw,24px);
+    border:1px solid rgba(255,255,255,.075);
+    box-shadow:
+        inset 0 0 120px rgba(0,0,0,.46),
+        0 0 0 1px rgba(0,0,0,.32);
+}
+
+.hero-bg{
+    animation:none!important;
+    transform:scale(1.10) translate3d(0,calc(var(--film-scroll) * .09),0)!important;
+    filter:saturate(.72) contrast(1.13) brightness(.76);
+    will-change:transform;
+}
+
+.hero-overlay{
+    background:
+        radial-gradient(circle at 72% 38%,rgba(69,181,255,.10),transparent 21%),
+        radial-gradient(circle at 48% 70%,rgba(255,63,81,.11),transparent 25%),
+        linear-gradient(180deg,rgba(0,0,0,.52) 0%,rgba(0,0,0,.12) 30%,rgba(0,0,0,.30) 57%,rgba(0,0,0,.96) 94%,#000 100%),
+        linear-gradient(90deg,rgba(0,0,0,.90) 0%,rgba(0,0,0,.54) 38%,rgba(0,0,0,.12) 72%,rgba(0,0,0,.34) 100%);
+}
+
+.hero-content{
+    position:relative;
+    z-index:10;
+    padding-bottom:clamp(145px,17vh,220px);
+    transform:translate3d(0,calc(var(--film-scroll) * -.045),0);
+    will-change:transform;
+}
+
+.hero-category{
+    display:inline-flex;
+    width:max-content;
+    align-items:center;
+    gap:10px;
+    color:rgba(255,255,255,.88);
+    font-size:10px;
+    letter-spacing:4.6px;
+}
+
+.hero-category::before{
+    content:"";
+    width:38px;
+    height:1px;
+    background:linear-gradient(90deg,var(--film-accent-a),var(--film-accent-b),var(--film-accent-c));
+}
+
+.hero-title{
+    margin-top:18px;
+    max-width:1180px;
+    font-size:clamp(66px,9.7vw,158px);
+    line-height:.77;
+    letter-spacing:clamp(-8px,-.52vw,-4px);
+    text-transform:uppercase;
+    color:#fff;
+    background:linear-gradient(98deg,#fff 0%,#fff 38%,#ffd4d9 48%,#b694ff 58%,#79c9ff 66%,#fff 79%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:none;
+    filter:drop-shadow(0 24px 34px rgba(0,0,0,.38));
+}
+
+.hero-meta{
+    color:rgba(255,255,255,.64);
+    letter-spacing:.8px;
+}
+
+.hero-actions{
+    margin-top:32px;
+}
+
+.primary-btn{
+    min-height:52px;
+    padding:0 24px;
+    border-radius:0;
+    border:1px solid rgba(255,255,255,.80);
+    background:#fff;
+    color:#050505;
+    letter-spacing:1.25px;
+    box-shadow:0 20px 55px rgba(0,0,0,.36);
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+    background:transparent;
+    color:#fff;
+}
+
+.match-center,
+.stories-section,
+.instagram-section{
+    position:relative;
+    overflow:hidden;
+}
+
+.match-center::after,
+.stories-section::after,
+.instagram-section::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    width:min(1180px,88vw);
+    height:1px;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);
+    pointer-events:none;
+}
+
+.match-center{
+    padding-top:118px;
+    padding-bottom:122px;
+    background:
+        linear-gradient(115deg,rgba(255,63,81,.055),transparent 25%),
+        linear-gradient(245deg,rgba(69,181,255,.05),transparent 28%),
+        #020203;
+}
+
+.match-center-title,
+.stories-title,
+.instagram-title{
+    text-transform:uppercase;
+    line-height:.82;
+}
+
+.match-center-title{
+    font-size:clamp(58px,7.4vw,106px);
+    letter-spacing:-5px;
+}
+
+.next-match-panel,
+.standings-panel{
+    border-radius:0!important;
+    border:1px solid rgba(255,255,255,.09)!important;
+    background:
+        linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012))!important;
+    box-shadow:0 38px 100px rgba(0,0,0,.48)!important;
+}
+
+.stories-section{
+    min-height:690px;
+    padding-top:118px;
+    padding-bottom:126px;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(154,108,255,.085),transparent 28%),
+        #000;
+}
+
+.stories-title{
+    font-size:clamp(58px,7.5vw,110px)!important;
+    letter-spacing:-5px!important;
+}
+
+.stories-desc{
+    max-width:620px;
+    font-size:13px;
+    color:rgba(255,255,255,.56);
+}
+
+.story-poster{
+    border-radius:2px!important;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 28px 70px rgba(0,0,0,.58)!important;
+}
+
+.story-card:nth-child(even){
+    transform:translateY(24px);
+}
+
+.story-card:hover .story-poster{
+    transform:translateY(-8px) scale(1.025);
+}
+
+.instagram-section{
+    padding-top:124px;
+    padding-bottom:132px;
+    background:
+        radial-gradient(circle at 82% 16%,rgba(69,181,255,.07),transparent 23%),
+        radial-gradient(circle at 14% 82%,rgba(255,63,81,.065),transparent 22%),
+        #000;
+}
+
+.instagram-title{
+    font-size:clamp(58px,7.8vw,112px)!important;
+    letter-spacing:-5.5px!important;
+}
+
+.instagram-head{
+    margin-bottom:46px;
+}
+
+.instagram-follow{
+    border-radius:0;
+    background:transparent;
+    border-color:rgba(255,255,255,.18);
+}
+
+.instagram-grid{
+    grid-template-columns:1.28fr .86fr .86fr;
+    grid-auto-rows:minmax(210px,1fr);
+    gap:8px;
+}
+
+.instagram-card{
+    border-radius:0!important;
+    min-height:280px;
+    box-shadow:0 35px 90px rgba(0,0,0,.46)!important;
+}
+
+.instagram-card:nth-child(1){
+    grid-row:span 2;
+    min-height:620px;
+}
+
+.instagram-card:nth-child(4){
+    grid-column:2 / 4;
+    min-height:340px;
+}
+
+.instagram-card:nth-child(5),
+.instagram-card:nth-child(6){
+    min-height:290px;
+}
+
+.instagram-card-media{
+    filter:saturate(.78) contrast(1.12) brightness(.92)!important;
+    transition:transform .8s cubic-bezier(.22,1,.36,1),filter .45s ease!important;
+}
+
+.instagram-card:hover .instagram-card-media{
+    transform:scale(1.065)!important;
+    filter:saturate(.95) contrast(1.13) brightness(.96)!important;
+}
+
+.instagram-card-caption{
+    font-size:clamp(16px,1.45vw,22px);
+    line-height:1.02;
+    letter-spacing:-.45px;
+}
+
+.instagram-empty{
+    min-height:180px;
+    align-items:center;
+    justify-content:center;
+    color:rgba(255,255,255,.48);
+    border-top:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.instagram-empty-link{
+    display:none!important;
+}
+
+.site-footer{
+    position:relative;
+    overflow:hidden;
+    border-top:0!important;
+    background:
+        linear-gradient(180deg,#000 0%,#030304 100%)!important;
+}
+
+.footer-statement{
+    font-size:clamp(42px,5.6vw,82px)!important;
+    line-height:.88!important;
+    letter-spacing:-4px!important;
+}
+
+.film-reveal{
+    transform:translateY(52px) scale(.992);
+    filter:blur(5px);
+    transition:
+        opacity 1.05s cubic-bezier(.22,1,.36,1),
+        transform 1.05s cubic-bezier(.22,1,.36,1),
+        filter 1.05s cubic-bezier(.22,1,.36,1);
+}
+
+.film-reveal.film-visible{
+    opacity:1;
+    transform:none;
+    filter:none;
+}
+
+@media(max-width:900px){
+    .instagram-grid{
+        grid-template-columns:repeat(2,minmax(0,1fr));
+        grid-auto-rows:auto;
+    }
+    .instagram-card:nth-child(n){
+        grid-row:auto;
+        grid-column:auto;
+        min-height:0;
+        aspect-ratio:1/1;
+    }
+    .story-card:nth-child(even){transform:none;}
+}
+
+@media(max-width:620px){
+    .articles-hero::before{
+        background:linear-gradient(180deg,#000 0 12px,transparent 12px calc(100% - 20px),#000 calc(100% - 20px) 100%);
+    }
+    .hero-title{
+        font-size:clamp(54px,17.5vw,92px)!important;
+        line-height:.80;
+        letter-spacing:-4.5px!important;
+    }
+    .match-center-title,
+    .stories-title,
+    .instagram-title{
+        font-size:clamp(44px,13.5vw,70px)!important;
+        letter-spacing:-3.2px!important;
+    }
+    .instagram-grid{
+        display:flex!important;
+        overflow-x:auto;
+        gap:10px;
+        scroll-snap-type:x mandatory;
+        scrollbar-width:none;
+    }
+    .instagram-grid::-webkit-scrollbar{display:none;}
+    .instagram-card:nth-child(n){
+        flex:0 0 82vw;
+        width:82vw;
+        aspect-ratio:4/5;
+        scroll-snap-align:center;
+    }
+    body::after{opacity:.5;}
+}
+
+
+
+/* =====================================================
+   CINEMATIC V3 — DIRECTOR'S CUT
+===================================================== */
+:root{
+    --cine-red:#ff3547;
+    --cine-violet:#8f6bff;
+    --cine-blue:#4cbcff;
+    --cine-line:rgba(255,255,255,.10);
+}
+
+body{
+    background:#000!important;
+}
+
+/* subtelna linia ekspozycji jak na taśmie filmowej */
+body::before{
+    opacity:.028!important;
+    animation:cineGrain .22s steps(2,end) infinite;
+}
+
+@keyframes cineGrain{
+    0%{transform:translate(0,0)}
+    25%{transform:translate(-.35%,.2%)}
+    50%{transform:translate(.25%,-.25%)}
+    75%{transform:translate(.15%,.3%)}
+    100%{transform:translate(0,0)}
+}
+
+header{
+    backdrop-filter:none!important;
+    box-shadow:none!important;
+}
+
+/* HERO — pełny kadr filmowy */
+.articles-hero{
+    min-height:100svh!important;
+    background:#000!important;
+}
+
+.articles-hero::before{
+    background:
+        linear-gradient(180deg,#000 0 3.2vh,transparent 3.2vh calc(100% - 5.4vh),#000 calc(100% - 5.4vh) 100%)!important;
+}
+
+.articles-hero::after{
+    inset:clamp(10px,1.2vw,20px)!important;
+    border-color:rgba(255,255,255,.085)!important;
+    box-shadow:
+        inset 0 0 150px rgba(0,0,0,.48),
+        inset 0 -120px 170px rgba(0,0,0,.36)!important;
+}
+
+.hero-bg{
+    filter:saturate(.62) contrast(1.18) brightness(.72) sepia(.035)!important;
+}
+
+.hero-overlay{
+    background:
+        radial-gradient(circle at 76% 40%,rgba(76,188,255,.11),transparent 18%),
+        radial-gradient(circle at 44% 72%,rgba(255,53,71,.13),transparent 24%),
+        linear-gradient(180deg,rgba(0,0,0,.58) 0%,rgba(0,0,0,.12) 28%,rgba(0,0,0,.30) 57%,rgba(0,0,0,.98) 96%,#000 100%),
+        linear-gradient(90deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.55) 36%,rgba(0,0,0,.08) 72%,rgba(0,0,0,.42) 100%)!important;
+}
+
+.hero-content{
+    max-width:1400px;
+    padding-bottom:clamp(155px,18vh,235px)!important;
+}
+
+.hero-content::after{
+    content:"LEGION BIAŁYSTOK  /  OFFICIAL";
+    position:absolute;
+    left:0;
+    bottom:clamp(92px,10vh,125px);
+    color:rgba(255,255,255,.34);
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:4.2px;
+    text-transform:uppercase;
+}
+
+.hero-category{
+    animation:cineFadeUp .9s .12s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero-title{
+    max-width:1250px!important;
+    font-size:clamp(70px,10vw,166px)!important;
+    line-height:.755!important;
+    letter-spacing:clamp(-9px,-.58vw,-4px)!important;
+    background:
+        linear-gradient(100deg,#fff 0%,#fff 34%,#ffd5da 46%,#a987ff 57%,#76ccff 68%,#fff 84%)!important;
+    background-size:180% 100%!important;
+    -webkit-background-clip:text!important;
+    background-clip:text!important;
+    -webkit-text-fill-color:transparent!important;
+    animation:cineTitleIn 1.15s .18s cubic-bezier(.16,1,.3,1) both,cineTextSweep 12s 1.6s ease-in-out infinite alternate;
+}
+
+.hero-meta{
+    animation:cineFadeUp .9s .38s cubic-bezier(.22,1,.36,1) both;
+}
+
+.hero-actions{
+    animation:cineFadeUp .9s .48s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes cineTitleIn{
+    from{opacity:0;transform:translateY(48px) scale(.985);filter:blur(11px)}
+    to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes cineFadeUp{
+    from{opacity:0;transform:translateY(20px);filter:blur(4px)}
+    to{opacity:1;transform:none;filter:none}
+}
+@keyframes cineTextSweep{
+    from{background-position:0% 50%}
+    to{background-position:100% 50%}
+}
+
+.primary-btn{
+    position:relative;
+    overflow:hidden;
+    border-radius:0!important;
+    min-height:54px!important;
+    padding:0 28px!important;
+}
+
+.primary-btn::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,transparent,rgba(143,107,255,.14),transparent);
+    transform:translateX(-120%);
+    transition:transform .55s ease;
+}
+.primary-btn:hover::after{transform:translateX(120%)}
+
+/* SCENES — numerowane rozdziały strony */
+.match-center-head,
+.stories-head,
+.instagram-head{
+    position:relative;
+}
+
+.match-center-head::before,
+.stories-head::before,
+.instagram-head::before{
+    position:absolute;
+    top:-36px;
+    left:0;
+    color:rgba(255,255,255,.28);
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:4px;
+    text-transform:uppercase;
+}
+
+.match-center-head::before{content:"SCENE 01  /  MATCH"}
+.stories-head::before{content:"SCENE 02  /  STORIES"}
+.instagram-head::before{content:"SCENE 03  /  FRAMES"}
+
+.match-center::before,
+.stories-section::before,
+.instagram-section::before{
+    pointer-events:none;
+}
+
+.match-center{
+    padding-top:136px!important;
+    background:
+        radial-gradient(circle at 14% 8%,rgba(255,53,71,.08),transparent 22%),
+        radial-gradient(circle at 88% 72%,rgba(76,188,255,.07),transparent 25%),
+        linear-gradient(180deg,#000 0%,#030304 28%,#010102 100%)!important;
+}
+
+.match-center-title,
+.stories-title,
+.instagram-title,
+.footer-statement{
+    background-size:180% 100%!important;
+    animation:cineTextSweep 14s ease-in-out infinite alternate;
+}
+
+.match-center-title{
+    font-size:clamp(64px,8.2vw,118px)!important;
+    letter-spacing:-5.7px!important;
+}
+
+.next-match-panel,
+.standings-panel{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.042),rgba(255,255,255,.008))!important;
+    border:1px solid rgba(255,255,255,.085)!important;
+}
+.next-match-panel::after,
+.standings-panel::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(120deg,rgba(255,255,255,.035),transparent 28% 75%,rgba(255,255,255,.02));
+}
+
+/* STORIES — plakaty zamiast kart */
+.stories-section{
+    padding-top:138px!important;
+    padding-bottom:138px!important;
+    background:
+        radial-gradient(circle at 50% -8%,rgba(143,107,255,.095),transparent 29%),
+        linear-gradient(180deg,#000,#010102 72%,#000)!important;
+}
+
+.stories-title{
+    font-size:clamp(64px,8.2vw,118px)!important;
+    line-height:.78!important;
+}
+
+.stories-rail{
+    padding-top:18px!important;
+    padding-bottom:34px!important;
+}
+
+.story-poster{
+    border-radius:0!important;
+    filter:drop-shadow(0 30px 42px rgba(0,0,0,.48));
+}
+.story-poster::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    border:1px solid rgba(255,255,255,.07);
+    box-shadow:inset 0 0 60px rgba(0,0,0,.22);
+}
+.story-thumb{
+    filter:saturate(.72) contrast(1.16) brightness(.90)!important;
+}
+.story-card:hover .story-thumb{
+    filter:saturate(.92) contrast(1.17) brightness(.97)!important;
+}
+
+/* GALERIA / W KADRZE — filmowa plansza zdjęć */
+.instagram-section{
+    padding-top:142px!important;
+    padding-bottom:148px!important;
+    background:
+        radial-gradient(circle at 82% 12%,rgba(76,188,255,.065),transparent 22%),
+        radial-gradient(circle at 10% 90%,rgba(255,53,71,.06),transparent 21%),
+        #000!important;
+}
+
+.instagram-title{
+    font-size:clamp(64px,8.4vw,122px)!important;
+    line-height:.79!important;
+    letter-spacing:-6px!important;
+}
+
+.instagram-grid{
+    gap:6px!important;
+}
+
+.instagram-card{
+    position:relative;
+    border:0!important;
+    border-radius:0!important;
+    background:#050506!important;
+    overflow:hidden;
+}
+.instagram-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+    border:1px solid rgba(255,255,255,.055);
+    box-shadow:inset 0 0 90px rgba(0,0,0,.26);
+}
+.instagram-card-media{
+    filter:saturate(.68) contrast(1.18) brightness(.86)!important;
+    transform:scale(1.015);
+}
+.instagram-card:hover .instagram-card-media{
+    transform:scale(1.075)!important;
+    filter:saturate(.90) contrast(1.16) brightness(.95)!important;
+}
+.instagram-card-copy{
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,.78))!important;
+}
+.instagram-card-caption{
+    text-transform:uppercase;
+    font-weight:900!important;
+    letter-spacing:-.5px!important;
+}
+
+.photo-lightbox{
+    background:rgba(0,0,0,.95)!important;
+    backdrop-filter:blur(18px)!important;
+}
+.photo-lightbox-image{
+    max-width:min(1240px,92vw)!important;
+    max-height:84vh!important;
+    border:1px solid rgba(255,255,255,.10);
+    box-shadow:0 45px 140px rgba(0,0,0,.70);
+}
+
+/* STOPKA jak końcowe napisy */
+.site-footer{
+    padding-top:110px!important;
+    background:
+        linear-gradient(180deg,#000 0%,#030304 100%)!important;
+}
+.footer-statement{
+    max-width:860px!important;
+    font-size:clamp(48px,6.5vw,96px)!important;
+    line-height:.82!important;
+    letter-spacing:-5px!important;
+}
+.footer-column-title{
+    letter-spacing:2.4px!important;
+}
+.footer-bottom{
+    border-top:1px solid rgba(255,255,255,.07)!important;
+}
+
+/* sekcje wchodzą jak kolejne ujęcia */
+.film-reveal{
+    opacity:0;
+    transform:translateY(64px) scale(.988)!important;
+    filter:blur(10px) brightness(.82)!important;
+    transition:
+        opacity 1.15s cubic-bezier(.16,1,.3,1),
+        transform 1.15s cubic-bezier(.16,1,.3,1),
+        filter 1.15s cubic-bezier(.16,1,.3,1)!important;
+}
+.film-reveal.film-visible{
+    opacity:1;
+    transform:none!important;
+    filter:none!important;
+}
+
+@media(max-width:720px){
+    .articles-hero::before{
+        background:linear-gradient(180deg,#000 0 13px,transparent 13px calc(100% - 22px),#000 calc(100% - 22px) 100%)!important;
+    }
+    .hero-content::after{
+        bottom:88px;
+        font-size:7px;
+        letter-spacing:3px;
+    }
+    .hero-title{
+        font-size:clamp(58px,18vw,98px)!important;
+        letter-spacing:-4.8px!important;
+    }
+    .match-center,
+    .stories-section,
+    .instagram-section{
+        padding-top:112px!important;
+        padding-bottom:100px!important;
+    }
+    .match-center-head::before,
+    .stories-head::before,
+    .instagram-head::before{
+        top:-30px;
+        font-size:7px;
+        letter-spacing:3px;
+    }
+    .match-center-title,
+    .stories-title,
+    .instagram-title{
+        font-size:clamp(48px,14.5vw,76px)!important;
+        letter-spacing:-3.8px!important;
+    }
+    .site-footer{padding-top:82px!important;}
+}
+
+@media(prefers-reduced-motion:reduce){
+    body::before,
+    .hero-title,
+    .match-center-title,
+    .stories-title,
+    .instagram-title,
+    .footer-statement{
+        animation:none!important;
+    }
+}
+
+
+
+/* =====================================================
+   CINEMATIC FLOW TRANSITIONS — SUBTLE, NO TITLE CARDS
+===================================================== */
+.film-reveal{
+    position:relative;
+    opacity:.94!important;
+    transform:translate3d(0,18px,0) scale(.997)!important;
+    filter:blur(3px) brightness(.94)!important;
+    transition:
+        opacity .92s cubic-bezier(.16,1,.3,1),
+        transform .92s cubic-bezier(.16,1,.3,1),
+        filter .92s cubic-bezier(.16,1,.3,1)!important;
+    will-change:opacity,transform,filter;
+}
+
+.film-reveal.film-visible{
+    opacity:var(--film-section-opacity,1)!important;
+    transform:translate3d(0,var(--film-section-shift,0px),0) scale(var(--film-section-scale,1))!important;
+    filter:blur(var(--film-section-blur,0px)) brightness(var(--film-section-brightness,1))!important;
+}
+
+.film-transition-edge{
+    position:absolute;
+    z-index:1;
+    top:0;
+    left:0;
+    width:100%;
+    height:clamp(72px,9vw,132px);
+    pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.30) 44%,transparent 100%);
+    opacity:.42;
+}
+
+.film-transition-light{
+    position:absolute;
+    z-index:8;
+    top:-12%;
+    left:-42%;
+    width:36%;
+    height:124%;
+    pointer-events:none;
+    opacity:0;
+    filter:blur(32px);
+    mix-blend-mode:screen;
+    background:linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,45,66,.05) 24%,
+        rgba(255,45,66,.13) 45%,
+        rgba(147,101,255,.08) 59%,
+        rgba(70,182,255,.04) 72%,
+        transparent 100%
+    );
+    transform:translate3d(-30%,0,0) skewX(-10deg);
+}
+
+.film-reveal.film-visible > .film-transition-light{
+    animation:filmLightPass 1.35s .06s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes filmLightPass{
+    0%{
+        opacity:0;
+        transform:translate3d(-40%,0,0) skewX(-10deg);
+    }
+    24%{opacity:.72;}
+    62%{opacity:.34;}
+    100%{
+        opacity:0;
+        transform:translate3d(430%,0,0) skewX(-10deg);
+    }
+}
+
+.stories-section{
+    --film-media-shift:0px;
+}
+
+.instagram-section{
+    --film-media-shift:0px;
+}
+
+.stories-section .story-thumb{
+    transform:translate3d(0,var(--film-media-shift),0) scale(1.035)!important;
+    transition:transform .55s ease,filter .35s ease!important;
+    will-change:transform;
+}
+
+.stories-section .story-card:hover .story-thumb{
+    transform:translate3d(0,var(--film-media-shift),0) scale(1.065)!important;
+}
+
+.instagram-section .instagram-card-media{
+    transform:translate3d(0,var(--film-media-shift),0) scale(1.035)!important;
+    transition:transform .65s cubic-bezier(.22,1,.36,1),filter .4s ease!important;
+    will-change:transform;
+}
+
+.instagram-section .instagram-card:hover .instagram-card-media{
+    transform:translate3d(0,var(--film-media-shift),0) scale(1.075)!important;
+}
+
+@media(max-width:720px){
+    .film-reveal{
+        transform:translate3d(0,12px,0) scale(.998)!important;
+        filter:blur(2px) brightness(.96)!important;
+    }
+
+    .film-transition-light{
+        width:50%;
+        filter:blur(26px);
+    }
+
+    .film-transition-edge{
+        height:74px;
+        opacity:.30;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    .film-reveal,
+    .film-reveal.film-visible{
+        opacity:1!important;
+        transform:none!important;
+        filter:none!important;
+        transition:none!important;
+    }
+
+    .film-transition-light{
+        display:none!important;
+    }
+
+    .stories-section .story-thumb,
+    .instagram-section .instagram-card-media{
+        transform:none!important;
+        transition:none!important;
+    }
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script src="/supabase-api.js"></script>
+<script src="/clean-url.js" defer></script>
+</head>
+
+<body>
+
+
+<header class="header" id="header">
+
+<div class="shell header-inner">
+
+    <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Menu"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <a
+        class="logo"
+        href="/"
+    >
+        <img
+            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+            alt="Legion Białystok"
+        >
+    </a>
+
+</div>
+
+</header>
+
+
+<nav
+    class="menu"
+    id="menu"
+>
+
+<div class="menu-grid">
+
+    <a
+        class="menu-main-link"
+        href="/aktualnosci"
+        data-i18n="news"
+    >
+        Aktualności
+    </a>
+
+
+    <a
+        class="menu-main-link"
+        href="/tabela"
+        data-i18n="table"
+    >
+        Tabela
+    </a>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="teamMenuBtn"
+            type="button"
+        >
+            <span data-i18n="team">
+                Drużyna
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="teamMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/pierwszyzespol" data-i18n="firstTeam">
+                    I Drużyna
+                </a>
+
+                <a href="/drugadruzyna" data-i18n="secondTeam">
+                    II Drużyna
+                </a>
+
+                <a href="/akademia" data-i18n="academy">
+                    Akademia
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="clubMenuBtn"
+            type="button"
+        >
+            <span data-i18n="club">
+                Klub
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="clubMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/ludzie" data-i18n="people">
+                    Ludzie Legionu
+                </a>
+
+                <a href="/kontakt" data-i18n="contact">
+                    Kontakt
+                </a>
+
+                <a href="/dokumenty" data-i18n="documents">
+                    Dokumenty
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="language-corner"
+        id="languageCorner"
+    >
+
+        <button
+            class="language-trigger"
+            id="languageTrigger"
+            type="button"
+            aria-label="Zmień język"
+        >
+            <span id="languageCode">PL</span>
+            <span class="language-trigger-arrow">▲</span>
+        </button>
+
+        <div
+            class="language-popup"
+            id="languagePopup"
+        >
+
+            <div
+                class="language-popup-title"
+                data-i18n="chooseLanguage"
+            >
+                Wybierz język
+            </div>
+
+            <button class="language-popup-option" type="button" data-lang="pl">
+                <span>Polski</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="en">
+                <span>English</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="de">
+                <span>Deutsch</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="es">
+                <span>Español</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="ru">
+                <span>Русский</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="it">
+                <span>Italiano</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="zh">
+                <span>中文（简体）</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-socials">
+
+        <a
+            class="menu-social"
+            href="https://www.instagram.com/legionbialystok/"
+            aria-label="Instagram"
+            title="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.facebook.com/profile.php?id=61594618042996"
+            aria-label="Facebook"
+            title="Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13.7 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5H17V4.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V14h2.8v8h3.4Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.tiktok.com/@kslegionbialystok?_r=1&_t=ZN-9APj9d7DECE"
+            aria-label="TikTok"
+            title="TikTok"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.4 2h3.1c.2 1.6 1.1 3 2.5 3.9A6.7 6.7 0 0 0 23 7v3.2a9.6 9.6 0 0 1-5.5-1.8v7.1a6.5 6.5 0 1 1-5.6-6.4v3.2a3.3 3.3 0 1 0 2.5 3.2V2Z"/>
+            </svg>
+        </a>
+
+    </div>
+
+</div>
+
+</nav>
+
+
+<main>
+
+<section
+    class="articles-hero"
+    id="articlesHero"
+>
+
+    <div class="hero-fallback"></div>
+
+    <img
+        class="hero-bg"
+        id="heroImage"
+        src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+        alt=""
+    >
+
+    <div class="hero-overlay"></div>
+
+
+    <div class="shell hero-content">
+
+        <div
+            class="hero-category"
+            id="heroCategory"
+        >
+            Legion Białystok
+        </div>
+
+
+        <h1
+            class="hero-title"
+            id="heroTitle"
+        >
+            Legion Białystok
+        </h1>
+
+
+        <div
+            class="hero-meta"
+            id="heroDate"
+        ></div>
+
+
+        <div class="hero-actions">
+
+            <button
+                class="primary-btn"
+                id="heroRead"
+                type="button"
+                data-i18n="readArticle"
+            >
+                Czytaj artykuł
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="article-previews"
+        id="articlePreviews"
+    ></div>
+
+
+    <div
+        class="hero-loading"
+        id="heroLoading"
+        data-i18n="loadingNews"
+    >
+        Ładowanie aktualności...
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MATCH CENTER
+===================================================== -->
+
+<section class="match-center">
+
+<div class="shell match-center-inner">
+
+    <div class="match-center-head">
+
+        <div>
+            <div class="match-center-kicker" data-i18n="matches">Mecze</div>
+            <h2 class="match-center-title" data-i18n="matchCenter">Match Center</h2>
+        </div>
+
+        <div class="match-center-desc" data-i18n="matchCenterDescription">
+            Ostatni wynik i najbliższy mecz Legionu Białystok.
+        </div>
+
+    </div>
+
+
+    <div class="match-board">
+
+        <article class="next-match-panel">
+
+            <div class="panel-head">
+                <div class="panel-label" data-i18n="nextGame">Następny mecz</div>
+                <a class="panel-link" href="/tabela" data-i18n="viewAll">Zobacz więcej</a>
+            </div>
+
+
+            <div class="next-match-main">
+
+                <div class="next-team">
+                    <div class="next-team-logo-wrap">
+                        <img class="next-team-logo" id="nextHomeLogo" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="">
+                    </div>
+                    <div class="next-team-name" id="nextHomeName">—</div>
+                </div>
+
+                <div class="next-match-center">
+                    <div class="next-match-day" id="nextMatchDate">—</div>
+                    <div class="next-match-time" id="nextKickoffTime">—</div>
+                    <div class="next-match-comp" id="nextMatchMeta">—</div>
+                </div>
+
+                <div class="next-team">
+                    <div class="next-team-logo-wrap">
+                        <img class="next-team-logo" id="nextAwayLogo" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="">
+                    </div>
+                    <div class="next-team-name" id="nextAwayName">—</div>
+                </div>
+
+            </div>
+
+
+            <div class="last-result">
+
+                <div>
+                    <div class="last-result-label" data-i18n="lastResult">Ostatni wynik</div>
+                    <div class="last-result-date" id="lastMatchDate">—</div>
+                </div>
+
+                <div class="last-result-main">
+                    <div class="last-result-team">
+                        <img id="lastHomeLogo" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="">
+                        <span id="lastHomeName">—</span>
+                    </div>
+
+                    <div class="last-result-score" id="lastScore">— : —</div>
+
+                    <div class="last-result-team">
+                        <img id="lastAwayLogo" src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="">
+                        <span id="lastAwayName">—</span>
+                    </div>
+                </div>
+
+                <div class="last-result-meta" id="lastMatchMeta"></div>
+
+            </div>
+
+        </article>
+
+
+        <aside class="standings-panel">
+
+            <div class="panel-head">
+                <div class="panel-label" data-i18n="classification">Klasyfikacja</div>
+                <div class="standings-season" id="standingsSeasonLabel"></div>
+            </div>
+
+            <div class="standings-head">
+                <div>#</div>
+                <div data-i18n="club">Klub</div>
+                <div data-i18n="gamesPlayedShort">M</div>
+                <div data-i18n="goalDiffShort">+/-</div>
+                <div data-i18n="pointsShort">Pkt</div>
+            </div>
+
+            <div id="matchTableRows"></div>
+
+            <div class="standings-footer">
+                <a class="standings-button" href="/tabela" data-i18n="seeClassification">Zobacz tabelę</a>
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- =====================================================
+     LEGION STORIES
+===================================================== -->
+
+<section class="stories-section" id="storiesSection">
+
+<div class="shell">
+
+    <div class="stories-head">
+        <div class="stories-kicker" data-i18n="storiesKicker">Z życia klubu</div>
+        <h2 class="stories-title" data-i18n="storiesTitle">Legion Stories</h2>
+        <div class="stories-desc" data-i18n="storiesDesc">
+            Krótkie historie, kulisy i najważniejsze momenty Legionu.
+        </div>
+    </div>
+
+    <div class="stories-rail-wrap">
+        <div class="stories-rail" id="storiesRail"></div>
+        <button class="stories-rail-next" id="storiesRailNext" type="button" aria-label="Przewiń stories">›</button>
+    </div>
+
+</div>
+
+</section>
+
+<!-- =====================================================
+     INSTAGRAM
+===================================================== -->
+
+<section class="instagram-section" id="instagramSection">
+
+<div class="shell">
+
+    <div class="instagram-head">
+        <div>
+            <div class="instagram-kicker" data-i18n="instagramKicker">Galeria</div>
+            <h2 class="instagram-title">
+                LEGION <span class="instagram-title-gradient" data-i18n="instagramOn">W KADRZE</span>
+            </h2>
+        </div>
+
+        <div class="instagram-head-right">
+            <div class="instagram-desc" data-i18n="instagramDesc">
+                Mecze, treningi i najważniejsze chwile z życia Legionu Białystok.
+            </div>
+        </div>
+    </div>
+
+    <div class="instagram-grid" id="instagramGrid"></div>
+
+    <div class="instagram-empty" id="instagramEmpty">
+        <span data-i18n="instagramEmpty">Zdjęcia dodane w panelu pojawią się tutaj automatycznie.</span>
+    </div>
+
+</div>
+
+</section>
+
+<div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+    <button class="photo-lightbox-close" id="photoLightboxClose" type="button" aria-label="Zamknij">×</button>
+    <img class="photo-lightbox-image" id="photoLightboxImage" src="" alt="">
+    <div class="photo-lightbox-caption" id="photoLightboxCaption"></div>
+</div>
+
+
+
+</main>
+
+
+<footer class="site-footer">
+    <div class="footer-shell">
+        <div class="footer-top">
+            <div class="footer-brand-block">
+                <a class="footer-logo-link" href="/" aria-label="Legion Białystok — strona główna">
+                    <img src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png" alt="Legion Białystok">
+                    <span class="footer-brand-name">Legion Białystok</span>
+                </a>
+            </div>
+
+            <div class="footer-column">
+                <div class="footer-column-title" data-i18n="team">Drużyna</div>
+                <nav class="footer-links-list" aria-label="Drużyna">
+                    <a href="/pierwszyzespol" data-i18n="firstTeam">I Drużyna</a>
+                    <a href="/drugadruzyna" data-i18n="secondTeam">II Drużyna</a>
+                    <a href="/akademia" data-i18n="academy">Akademia</a>
+                    <a href="/tabela" data-i18n="table">Tabela</a>
+                </nav>
+            </div>
+
+            <div class="footer-column">
+                <div class="footer-column-title" data-i18n="club">Klub</div>
+                <nav class="footer-links-list" aria-label="Klub">
+                    <a href="/aktualnosci" data-i18n="news">Aktualności</a>
+                    <a href="/ludzie" data-i18n="people">Ludzie Legionu</a>
+                    <a href="/kontakt" data-i18n="contact">Kontakt</a>
+                    <a href="/dokumenty" data-i18n="documents">Dokumenty</a>
+                </nav>
+            </div>
+
+            <div class="footer-column footer-social-column">
+                <div class="footer-column-title">Social media</div>
+                <div class="footer-socials">
+                    <a class="footer-social" href="https://www.instagram.com/legionbialystok/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                    </a>
+                    <a class="footer-social" href="https://www.facebook.com/profile.php?id=61594618042996" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 22v-9h3l.45-3.5H13.6V7.3c0-1 .28-1.7 1.73-1.7H17.2V2.48c-.32-.04-1.43-.14-2.72-.14-2.69 0-4.53 1.64-4.53 4.66v2.5H6.9V13h3.05v9h3.65Z"/></svg>
+                    </a>
+                    <a class="footer-social" href="https://www.tiktok.com/@kslegionbialystok?_r=1&_t=ZN-9APj9d7DECE" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.6 2c.35 1.85 1.4 3.18 3.4 3.65v3.13c-1.35.04-2.58-.39-3.63-1.1v6.47A6.15 6.15 0 1 1 10.1 8.1v3.2a3.04 3.04 0 1 0 2.15 2.91V2h3.35Z"/></svg>
+                    </a>
+                </div>
+
+                <a class="footer-cta" href="/kontakt">
+                    <span data-i18n="contact">Kontakt</span>
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 Legion Białystok · Oficjalna strona klubu</div>
+            <div class="footer-bottom-links">
+                <a href="/polityka-prywatnosci">Polityka prywatności</a>
+                <a href="/dokumenty" data-i18n="documents">Dokumenty</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!-- =====================================================
+     STORY VIEWER
+===================================================== -->
+
+<div class="story-viewer" id="storyViewer" aria-hidden="true">
+    <img class="story-viewer-bg" id="storyViewerBg" src="" alt="">
+    <div class="story-viewer-shade"></div>
+
+    <button class="story-nav-btn story-nav-left" id="storyPrev" type="button" aria-label="Poprzednia historia">‹</button>
+    <button class="story-nav-btn story-nav-right" id="storyNext" type="button" aria-label="Następna historia">›</button>
+
+    <div class="story-frame">
+        <img class="story-frame-image" id="storyFrameImage" src="" alt="">
+        <div class="story-frame-overlay"></div>
+        <div class="story-progress" id="storyProgress"></div>
+
+        <div class="story-topbar">
+            <div class="story-topbar-copy">
+                <div class="story-topbar-title" id="storyFrameTitle"></div>
+                <div class="story-topbar-meta">
+                    <span class="story-frame-category" id="storyFrameCategory"></span>
+                    <span>•</span>
+                    <span class="story-frame-date" id="storyFrameDate"></span>
+                </div>
+            </div>
+
+            <div class="story-topbar-actions">
+                <button class="story-icon-btn" id="storyPauseBtn" type="button" aria-label="Pauza">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+                </button>
+
+                <button class="story-icon-btn" id="storyShareBtn" type="button" aria-label="Udostępnij">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z"/></svg>
+                </button>
+
+                <button class="story-icon-btn" id="storyViewerClose" type="button" aria-label="Zamknij">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <button class="story-bottom-action" id="storyReadArticle" type="button" data-i18n="readArticle" hidden>Czytaj artykuł</button>
+    </div>
+</div>
+
+<div
+    class="article-modal"
+    id="articleModal"
+>
+
+    <article class="article-window">
+
+        <button
+            class="article-close"
+            id="articleClose"
+            type="button"
+            aria-label="Zamknij"
+        >
+            ×
+        </button>
+
+
+        <div class="article-image-wrap">
+
+            <img
+                class="article-image"
+                id="modalImage"
+                src=""
+                alt=""
+            >
+
+        </div>
+
+
+        <div class="article-body-wrap">
+
+            <div
+                class="article-category"
+                id="modalCategory"
+            ></div>
+
+
+            <h2
+                class="article-title"
+                id="modalTitle"
+            ></h2>
+
+
+            <div
+                class="article-date"
+                id="modalDate"
+            ></div>
+
+
+            <p
+                class="article-excerpt"
+                id="modalExcerpt"
+            ></p>
+
+
+            <div
+                class="article-content"
+                id="modalContent"
+            ></div>
+
+        </div>
+
+    </article>
+
+</div>
+
+
+<script>
+"use strict";
+
+
+const ARTICLES_API =
+    "/api/articles.php";
+
+
+const MATCHES_API =
+    "/api/matches.php";
+
+
+const STORIES_API =
+    "/api/stories.php";
+
+
+const GALLERY_API =
+    "/api/gallery.php";
+
+
+const TABLE_API =
+    "/api/table.php";
+
+
+
+
+let galleryItems = [];
+let instagramPosts = [];
+
+const instagramGrid = document.getElementById("instagramGrid");
+const instagramEmpty = document.getElementById("instagramEmpty");
+const photoLightbox = document.getElementById("photoLightbox");
+const photoLightboxImage = document.getElementById("photoLightboxImage");
+const photoLightboxCaption = document.getElementById("photoLightboxCaption");
+const photoLightboxClose = document.getElementById("photoLightboxClose");
+
+function normalizeGalleryItem(item,index=0){
+    return {
+        id:item?.id ?? index,
+        image:item?.image || item?.url || item?.src || "",
+        caption:localized(item,"caption") || item?.caption || item?.title || "Legion Białystok",
+        alt:item?.alt || localized(item,"caption") || item?.caption || item?.title || "Legion Białystok",
+        sort_order:Number(item?.sort_order ?? item?.order ?? index+1) || index+1,
+        status:item?.status || "active",
+        date:item?.published_at || item?.date || item?.created_at || ""
+    };
+}
+
+function buildPhotoGridItems(){
+    return galleryItems
+        .map(normalizeGalleryItem)
+        .filter(item=>item.status !== "inactive" && item.image && item.image !== CLUB_LOGO)
+        .sort((a,b)=>Number(a.sort_order)-Number(b.sort_order))
+        .slice(0,8);
+}
+
+function openPhotoLightbox(item){
+    if(!photoLightbox || !photoLightboxImage){ return; }
+    photoLightboxImage.src = item.image;
+    photoLightboxImage.alt = item.alt || item.caption || "Legion Białystok";
+    if(photoLightboxCaption){ photoLightboxCaption.textContent = item.caption || ""; }
+    photoLightbox.classList.add("active");
+    photoLightbox.setAttribute("aria-hidden","false");
+    document.body.classList.add("lock");
+}
+
+function closePhotoLightbox(){
+    if(!photoLightbox){ return; }
+    photoLightbox.classList.remove("active");
+    photoLightbox.setAttribute("aria-hidden","true");
+    if(photoLightboxImage){ photoLightboxImage.src = ""; }
+    document.body.classList.remove("lock");
+}
+
+function renderInstagram(){
+    if(!instagramGrid){ return; }
+
+    instagramPosts = buildPhotoGridItems();
+    instagramGrid.innerHTML = "";
+
+    if(!instagramPosts.length){
+        instagramGrid.style.display = "none";
+        instagramEmpty?.classList.add("active");
+        return;
+    }
+
+    instagramGrid.style.display = "grid";
+    instagramEmpty?.classList.remove("active");
+
+    instagramPosts.forEach((post,index)=>{
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "instagram-card film-card";
+        card.setAttribute("aria-label", post.caption || "Otwórz zdjęcie");
+
+        const image = document.createElement("img");
+        image.className = "instagram-card-media";
+        image.src = post.image;
+        image.alt = post.alt || post.caption || "Legion Białystok";
+        image.loading = index < 2 ? "eager" : "lazy";
+        image.decoding = "async";
+
+        const copy = document.createElement("div");
+        copy.className = "instagram-card-copy";
+
+        const caption = document.createElement("div");
+        caption.className = "instagram-card-caption";
+        caption.textContent = post.caption || "Legion Białystok";
+
+        const date = document.createElement("div");
+        date.className = "instagram-card-date";
+        date.textContent = post.date ? formatDate(post.date) : "";
+
+        copy.append(caption,date);
+        card.append(image,copy);
+        card.addEventListener("click",()=>openPhotoLightbox(post));
+        instagramGrid.appendChild(card);
+    });
+}
+
+async function loadInstagram(){
+    let loaded = false;
+
+    try{
+        const response = await fetch(
+            GALLERY_API + "?status=active&limit=8",
+            {cache:"no-store",credentials:"same-origin"}
+        );
+
+        if(!response.ok){
+            throw new Error("Gallery HTTP " + response.status);
+        }
+
+        const data = await response.json();
+        const list = Array.isArray(data)
+            ? data
+            : (
+                Array.isArray(data?.gallery) ? data.gallery :
+                Array.isArray(data?.images) ? data.images :
+                Array.isArray(data?.photos) ? data.photos : []
+            );
+
+        if(Array.isArray(list)){
+            galleryItems = list.map(normalizeGalleryItem);
+            localStorage.setItem("legion_gallery_data_v2",JSON.stringify(galleryItems));
+            loaded = true;
+        }
+    }catch(error){
+        console.log("Gallery API:",error);
+    }
+
+    if(!loaded){
+        try{
+            const local = JSON.parse(localStorage.getItem("legion_gallery_data_v2") || "[]");
+            if(Array.isArray(local)){
+                galleryItems = local.map(normalizeGalleryItem);
+            }
+        }catch(error){
+            galleryItems = [];
+        }
+    }
+
+    renderInstagram();
+}
+
+photoLightboxClose?.addEventListener("click",closePhotoLightbox);
+photoLightbox?.addEventListener("click",event=>{
+    if(event.target === photoLightbox){ closePhotoLightbox(); }
+});
+
+let standingsPreview = [];
+let standingsSeason = "";
+
+const CLUB_LOGO =
+    "/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png";
+
+
+let articles =
+    [];
+
+
+let stories =
+    [];
+
+
+let activeArticle =
+    0;
+
+
+const TRANSLATIONS = {
+    pl:{
+        news:"Aktualności",
+        table:"Tabela",
+        team:"Drużyna",
+        firstTeam:"I Drużyna",
+        secondTeam:"II Drużyna",
+        academy:"Akademia",
+        club:"Klub",
+        people:"Ludzie Legionu",
+        contact:"Kontakt",
+        documents:"Dokumenty",
+        storiesKicker:'Z życia klubu',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Krótkie historie, kulisy i najważniejsze momenty Legionu.',
+        instagramKicker:"Galeria",
+        instagramOn:"W KADRZE",
+        instagramDesc:"Mecze, treningi i najważniejsze chwile z życia Legionu Białystok.",
+        instagramFollow:"Obserwuj @legionbialystok",
+        instagramLoading:"Ładowanie galerii...",
+        instagramEmpty:"Zdjęcia dodane w panelu pojawią się tutaj automatycznie.",
+        readArticle:"Czytaj artykuł",
+        allNews:"Wszystkie aktualności",
+        loadingNews:"Ładowanie aktualności...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Aktualności z życia klubu.",
+        fallbackContent:"<p>Aktualności pojawią się tutaj po dodaniu ich w panelu.</p>",chooseLanguage:"Wybierz język",
+        matches:"Mecze",
+        matchCenter:"Match Center",
+        matchCenterDescription:"Ostatni wynik i najbliższy mecz Legionu Białystok.",
+        lastMatch:"Ostatni mecz",
+        nextMatch:"Następny mecz",
+        kickoffIn:"Do pierwszego gwizdka",
+        days:"Dni",
+        hours:"Godz.",
+        minutes:"Min.",
+        seconds:"Sek.",
+        noMatchData:"Brak danych meczowych",
+        noTableData:"Brak danych tabeli",
+        nextGame:"Następny mecz",
+        viewAll:"Zobacz więcej",
+        classification:"Klasyfikacja",
+        gamesPlayedShort:"M",
+        goalDiffShort:"+/-",
+        pointsShort:"Pkt",
+        seeClassification:"Zobacz tabelę",
+        lastResult:"Ostatni wynik",
+    },
+
+    en:{
+        news:"News",
+        table:"Table",
+        team:"Team",
+        firstTeam:"First Team",
+        secondTeam:"Second Team",
+        academy:"Academy",
+        club:"Club",
+        people:"Club People",
+        contact:"Contact",
+        documents:"Documents",
+        storiesKicker:'Inside the club',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Short stories, behind-the-scenes moments and highlights from Legion.',
+        instagramKicker:"Gallery",
+        instagramOn:"IN FRAME",
+        instagramDesc:"Matches, training sessions and the most important moments from Legion Białystok.",
+        instagramFollow:"Follow @legionbialystok",
+        instagramLoading:"Loading gallery...",
+        instagramEmpty:"Photos added in the admin panel will appear here automatically.",
+        readArticle:"Read article",
+        allNews:"All news",
+        loadingNews:"Loading news...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Latest news from the club.",
+        fallbackContent:"<p>News will appear here after it is added in the admin panel.</p>",chooseLanguage:"Choose language",
+        matches:"Matches",
+        matchCenter:"Match Center",
+        matchCenterDescription:"The latest result and the next Legion Białystok match.",
+        lastMatch:"Last match",
+        nextMatch:"Next match",
+        kickoffIn:"Kick-off in",
+        days:"Days",
+        hours:"Hrs",
+        minutes:"Min",
+        seconds:"Sec",
+        noMatchData:"No match data",
+        noTableData:"No table data",
+        nextGame:"Next Game",
+        viewAll:"View all",
+        classification:"Classification",
+        gamesPlayedShort:"P",
+        goalDiffShort:"+/-",
+        pointsShort:"Pts",
+        seeClassification:"See classification",
+        lastResult:"Last result",
+    },
+
+    de:{
+        news:"Aktuelles",
+        table:"Tabelle",
+        team:"Mannschaft",
+        firstTeam:"Erste Mannschaft",
+        secondTeam:"Zweite Mannschaft",
+        academy:"Akademie",
+        club:"Verein",
+        people:"Menschen im Verein",
+        contact:"Kontakt",
+        documents:"Dokumente",
+        storiesKicker:'Aus dem Vereinsleben',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Kurze Geschichten, Einblicke hinter die Kulissen und besondere Momente von Legion.',
+        instagramKicker:"Social Media",
+        instagramOn:"IM BILD",
+        instagramDesc:"Spiele, Training und die wichtigsten Momente von Legion Białystok.",
+        instagramFollow:"@legionbialystok folgen",
+        instagramLoading:"Galerie wird geladen...",
+        instagramEmpty:"Fotos aus dem Admin-Panel erscheinen hier automatisch.",
+        readArticle:"Artikel lesen",
+        allNews:"Alle Meldungen",
+        loadingNews:"Aktuelles wird geladen...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Aktuelles aus dem Vereinsleben.",
+        fallbackContent:"<p>Aktuelles erscheint hier, sobald es im Admin-Panel hinzugefügt wurde.</p>",chooseLanguage:"Sprache wählen",
+        matches:"Spiele",
+        matchCenter:"Match Center",
+        matchCenterDescription:"Das letzte Ergebnis und das nächste Spiel von Legion Białystok.",
+        lastMatch:"Letztes Spiel",
+        nextMatch:"Nächstes Spiel",
+        kickoffIn:"Anpfiff in",
+        days:"Tage",
+        hours:"Std.",
+        minutes:"Min.",
+        seconds:"Sek.",
+        noMatchData:"Keine Spieldaten",
+        noTableData:"Keine Tabellendaten",
+        nextGame:"Nächstes Spiel",
+        viewAll:"Alle ansehen",
+        classification:"Tabelle",
+        gamesPlayedShort:"Sp",
+        goalDiffShort:"+/-",
+        pointsShort:"Pkt",
+        seeClassification:"Tabelle ansehen",
+        lastResult:"Letztes Ergebnis",
+    },
+
+    es:{
+        news:"Noticias",
+        table:"Clasificación",
+        team:"Equipo",
+        firstTeam:"Primer Equipo",
+        secondTeam:"Segundo Equipo",
+        academy:"Academia",
+        club:"Club",
+        people:"Personas del club",
+        contact:"Contacto",
+        documents:"Documentos",
+        storiesKicker:'Dentro del club',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Historias breves, momentos entre bastidores y lo mejor de Legion.',
+        instagramKicker:"Redes sociales",
+        instagramOn:"EN IMÁGENES",
+        instagramDesc:"Partidos, entrenamientos y los momentos más importantes de Legion Białystok.",
+        instagramFollow:"Seguir a @legionbialystok",
+        instagramLoading:"Cargando galería...",
+        instagramEmpty:"Las fotos aparecerán aquí con nuevas Stories y noticias.",
+        readArticle:"Leer artículo",
+        allNews:"Todas las noticias",
+        loadingNews:"Cargando noticias...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Noticias de la vida del club.",
+        fallbackContent:"<p>Las noticias aparecerán aquí después de añadirlas en el panel de administración.</p>",chooseLanguage:"Elegir idioma",
+        matches:"Partidos",
+        matchCenter:"Match Center",
+        matchCenterDescription:"El último resultado y el próximo partido de Legion Białystok.",
+        lastMatch:"Último partido",
+        nextMatch:"Próximo partido",
+        kickoffIn:"Comienza en",
+        days:"Días",
+        hours:"Hrs.",
+        minutes:"Min.",
+        seconds:"Seg.",
+        noMatchData:"Sin datos del partido",
+        noTableData:"Sin datos de clasificación",
+        nextGame:"Próximo partido",
+        viewAll:"Ver todo",
+        classification:"Clasificación",
+        gamesPlayedShort:"PJ",
+        goalDiffShort:"+/-",
+        pointsShort:"Pts",
+        seeClassification:"Ver clasificación",
+        lastResult:"Último resultado",
+    },
+
+    ru:{
+        news:"Новости",
+        table:"Таблица",
+        team:"Команда",
+        firstTeam:"Первая команда",
+        secondTeam:"Вторая команда",
+        academy:"Академия",
+        club:"Клуб",
+        people:"Люди клуба",
+        contact:"Контакты",
+        documents:"Документы",
+        storiesKicker:'Жизнь клуба',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Короткие истории, закулисье и главные моменты Legion.',
+        instagramKicker:"Социальные сети",
+        instagramOn:"В КАДРЕ",
+        instagramDesc:"Последние публикации официального профиля Legion Białystok.",
+        instagramFollow:"Подписаться @legionbialystok",
+        instagramLoading:"Загрузка галереи...",
+        instagramEmpty:"Фотографии из панели управления появятся здесь автоматически.",
+        readArticle:"Читать статью",
+        allNews:"Все новости",
+        loadingNews:"Загрузка новостей...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Новости из жизни клуба.",
+        fallbackContent:"<p>Новости появятся здесь после добавления в панели администратора.</p>",chooseLanguage:"Выберите язык",
+        matches:"Матчи",
+        matchCenter:"Матч-центр",
+        matchCenterDescription:"Последний результат и ближайший матч Legion Białystok.",
+        lastMatch:"Последний матч",
+        nextMatch:"Следующий матч",
+        kickoffIn:"До начала матча",
+        days:"Дни",
+        hours:"Часы",
+        minutes:"Мин.",
+        seconds:"Сек.",
+        noMatchData:"Нет данных о матче",
+        noTableData:"Нет данных таблицы",
+        nextGame:"Следующий матч",
+        viewAll:"Смотреть всё",
+        classification:"Таблица",
+        gamesPlayedShort:"И",
+        goalDiffShort:"+/-",
+        pointsShort:"О",
+        seeClassification:"Смотреть таблицу",
+        lastResult:"Последний результат",
+    },
+
+    it:{
+        news:"Notizie",
+        table:"Classifica",
+        team:"Squadra",
+        firstTeam:"Prima Squadra",
+        secondTeam:"Seconda Squadra",
+        academy:"Accademia",
+        club:"Club",
+        people:"Persone del club",
+        contact:"Contatti",
+        documents:"Documenti",
+        storiesKicker:'Dentro il club',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Storie brevi, dietro le quinte e i momenti più importanti del Legion.',
+        instagramKicker:"Social media",
+        instagramOn:"IN FOTO",
+        instagramDesc:"Gli ultimi post del profilo ufficiale del Legion Białystok.",
+        instagramFollow:"Segui @legionbialystok",
+        instagramLoading:"Caricamento galleria...",
+        instagramEmpty:"Le foto aggiunte nel pannello appariranno qui automaticamente.",
+        readArticle:"Leggi articolo",
+        allNews:"Tutte le notizie",
+        loadingNews:"Caricamento notizie...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"Notizie dalla vita del club.",
+        fallbackContent:"<p>Le notizie appariranno qui dopo essere state aggiunte nel pannello di amministrazione.</p>",
+        chooseLanguage:"Scegli la lingua",
+        matches:"Partite",
+        matchCenter:"Match Center",
+        matchCenterDescription:"L'ultimo risultato e la prossima partita del Legion Białystok.",
+        lastMatch:"Ultima partita",
+        nextMatch:"Prossima partita",
+        kickoffIn:"Calcio d'inizio tra",
+        days:"Giorni",
+        hours:"Ore",
+        minutes:"Min.",
+        seconds:"Sec.",
+        noMatchData:"Nessun dato sulla partita",
+        noTableData:"Nessun dato di classifica",
+        nextGame:"Prossima partita",
+        viewAll:"Vedi tutto",
+        classification:"Classifica",
+        gamesPlayedShort:"PG",
+        goalDiffShort:"+/-",
+        pointsShort:"Pt",
+        seeClassification:"Vedi classifica",
+        lastResult:"Ultimo risultato",
+    },
+
+    zh:{
+        news:"新闻",
+        table:"积分榜",
+        team:"球队",
+        firstTeam:"一线队",
+        secondTeam:"二队",
+        academy:"青训学院",
+        club:"俱乐部",
+        people:"俱乐部成员",
+        contact:"联系我们",
+        documents:"文件",
+        storiesKicker:'俱乐部动态',
+        storiesTitle:'Legion Stories',
+        storiesDesc:'Legion 的短故事、幕后花絮和精彩时刻。',
+        instagramKicker:"社交媒体",
+        instagramOn:"镜头中的军团",
+        instagramDesc:"Legion Białystok 官方账号的最新帖子。",
+        instagramFollow:"关注 @legionbialystok",
+        instagramLoading:"正在加载图库...",
+        instagramEmpty:"新 Stories 和新闻发布后，照片会显示在这里。",
+        readArticle:"阅读文章",
+        allNews:"全部新闻",
+        loadingNews:"正在加载新闻...",
+        fallbackCategory:"Legion Białystok",
+        fallbackTitle:"Legion Białystok",
+        fallbackExcerpt:"俱乐部最新动态。",
+        fallbackContent:"<p>在管理面板中添加新闻后，内容将显示在这里。</p>",
+        chooseLanguage:"选择语言",
+        matches:"比赛",
+        matchCenter:"比赛中心",
+        matchCenterDescription:"Legion Białystok 的最近赛果和下一场比赛。",
+        lastMatch:"上一场比赛",
+        nextMatch:"下一场比赛",
+        kickoffIn:"距离开球",
+        days:"天",
+        hours:"小时",
+        minutes:"分钟",
+        seconds:"秒",
+        noMatchData:"暂无比赛数据",
+        noTableData:"暂无积分榜数据",
+        nextGame:"下一场比赛",
+        viewAll:"查看全部",
+        classification:"积分榜",
+        gamesPlayedShort:"场",
+        goalDiffShort:"+/-",
+        pointsShort:"分",
+        seeClassification:"查看积分榜",
+        lastResult:"上一场结果",
+    }
+};
+
+const LANGUAGE_CODES = {
+    pl:"PL",
+    en:"EN",
+    de:"DE",
+    es:"ES",
+    ru:"RU",
+    it:"IT",
+    zh:"中文"
+};
+
+let selectedLanguage =
+    localStorage.getItem("legion_language")
+    ||
+    "pl";
+
+if(!TRANSLATIONS[selectedLanguage]){
+    selectedLanguage="pl";
+}
+
+function uiText(key){
+    return TRANSLATIONS[selectedLanguage]?.[key]
+        || TRANSLATIONS.pl[key]
+        || key;
+}
+
+function applyStaticTranslations(){
+
+    document.documentElement.lang =
+        selectedLanguage;
+
+    document.querySelectorAll("[data-i18n]").forEach(element=>{
+
+        const key =
+            element.dataset.i18n;
+
+        const value =
+            uiText(key);
+
+        if(value){
+            element.textContent =
+                value;
+        }
+
+    });
+
+    document.querySelectorAll("[data-i18n-html]").forEach(element=>{
+        const key = element.dataset.i18nHtml;
+        const value = uiText(key);
+        if(value){
+            element.innerHTML = value;
+        }
+    });
+
+    const languageCodeElement =
+        document.getElementById(
+            "languageCode"
+        );
+
+    if(languageCodeElement){
+
+        languageCodeElement.textContent =
+            LANGUAGE_CODES[selectedLanguage];
+
+    }
+
+    document.querySelectorAll(".language-popup-option").forEach(button=>{
+
+        button.classList.toggle(
+            "active",
+            button.dataset.lang === selectedLanguage
+        );
+
+    });
+
+}
+
+
+function changeLanguage(language){
+
+    if(!TRANSLATIONS[language]){
+        return;
+    }
+
+    selectedLanguage =
+        language;
+
+    localStorage.setItem(
+        "legion_language",
+        language
+    );
+
+    applyStaticTranslations();
+
+    if(articles.length){
+
+        renderArticle(
+            activeArticle,
+            false
+        );
+
+        renderStories();
+    renderInstagram();
+
+    }
+
+    if(
+        typeof articleModal !== "undefined"
+        &&
+        articleModal
+        &&
+        articleModal.classList.contains("active")
+        &&
+        typeof currentModalArticle !== "undefined"
+        &&
+        currentModalArticle
+    ){
+
+        fillArticleModal(
+            currentModalArticle
+        );
+
+    }
+
+    if(
+        typeof matchData !== "undefined"
+        &&
+        matchData
+    ){
+
+        renderMatches();
+
+    }
+
+    renderStandings();
+
+}
+
+
+applyStaticTranslations();
+
+
+const languageCorner =
+    document.getElementById(
+        "languageCorner"
+    );
+
+const languageTrigger =
+    document.getElementById(
+        "languageTrigger"
+    );
+
+
+languageTrigger.addEventListener(
+    "click",
+    event=>{
+
+        event.stopPropagation();
+
+        languageCorner.classList.toggle(
+            "active"
+        );
+
+    }
+);
+
+
+document.querySelectorAll(".language-popup-option").forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        event=>{
+
+            event.stopPropagation();
+
+            changeLanguage(
+                button.dataset.lang
+            );
+
+            languageCorner.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+});
+
+
+document.addEventListener(
+    "click",
+    event=>{
+
+        if(
+            languageCorner
+            &&
+            !languageCorner.contains(
+                event.target
+            )
+        ){
+
+            languageCorner.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   MENU
+===================================================== */
+
+const menuBtn =
+    document.getElementById(
+        "menuBtn"
+    );
+
+const menu =
+    document.getElementById(
+        "menu"
+    );
+
+const header =
+    document.getElementById(
+        "header"
+    );
+
+const teamMenuBtn =
+    document.getElementById(
+        "teamMenuBtn"
+    );
+
+const teamMenuSub =
+    document.getElementById(
+        "teamMenuSub"
+    );
+
+const clubMenuBtn =
+    document.getElementById(
+        "clubMenuBtn"
+    );
+
+const clubMenuSub =
+    document.getElementById(
+        "clubMenuSub"
+    );
+
+
+function closeSubmenus() {
+
+    teamMenuBtn
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    teamMenuSub
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    clubMenuBtn
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    clubMenuSub
+        .classList
+        .remove(
+            "active"
+        );
+
+}
+
+
+menuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            menu
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        menuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        document.body
+            .classList
+            .toggle(
+                "lock",
+                open
+            );
+
+
+        if (!open) {
+
+            closeSubmenus();
+
+        }
+
+    }
+);
+
+
+teamMenuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            teamMenuSub
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        teamMenuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        clubMenuBtn
+            .classList
+            .remove(
+                "active"
+            );
+
+
+        clubMenuSub
+            .classList
+            .remove(
+                "active"
+            );
+
+    }
+);
+
+
+clubMenuBtn.addEventListener(
+    "click",
+    function() {
+
+        const open =
+            clubMenuSub
+                .classList
+                .toggle(
+                    "active"
+                );
+
+
+        clubMenuBtn
+            .classList
+            .toggle(
+                "active",
+                open
+            );
+
+
+        teamMenuBtn
+            .classList
+            .remove(
+                "active"
+            );
+
+
+        teamMenuSub
+            .classList
+            .remove(
+                "active"
+            );
+
+    }
+);
+
+
+menu
+    .querySelectorAll(
+        "a"
+    )
+    .forEach(
+        function(link) {
+
+            link.addEventListener(
+                "click",
+                function() {
+
+                    menu
+                        .classList
+                        .remove(
+                            "active"
+                        );
+
+
+                    menuBtn
+                        .classList
+                        .remove(
+                            "active"
+                        );
+
+
+                    document.body
+                        .classList
+                        .remove(
+                            "lock"
+                        );
+
+
+                    closeSubmenus();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function localized(
+    item,
+    field
+) {
+
+    if (!item) {
+        return "";
+    }
+
+    return (
+        item.translations
+            ?.[selectedLanguage]
+            ?.[field]
+        ||
+        item.translations
+            ?.pl
+            ?.[field]
+        ||
+        item[
+            field + "_pl"
+        ]
+        ||
+        item[field]
+        ||
+        ""
+    );
+
+}
+
+
+function formatDate(
+    value
+) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const date =
+        new Date(
+            value
+        );
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    return new Intl.DateTimeFormat(
+        ({
+            pl:"pl-PL",
+            en:"en-GB",
+            de:"de-DE",
+            es:"es-ES",
+            ru:"ru-RU",
+            it:"it-IT",
+            zh:"zh-CN"
+        }[selectedLanguage] || "pl-PL"),
+        {
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    return String(
+        value
+        ||
+        ""
+    )
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
+
+}
+
+
+/* =====================================================
+   ARTICLES
+===================================================== */
+
+const articlesHero =
+    document.getElementById(
+        "articlesHero"
+    );
+
+const heroImage =
+    document.getElementById(
+        "heroImage"
+    );
+
+const heroCategory =
+    document.getElementById(
+        "heroCategory"
+    );
+
+const heroTitle =
+    document.getElementById(
+        "heroTitle"
+    );
+
+const heroDate =
+    document.getElementById(
+        "heroDate"
+    );
+
+const previews =
+    document.getElementById(
+        "articlePreviews"
+    );
+
+
+
+async function fetchWithTimeout(
+    url,
+    options = {},
+    timeoutMs = 8000
+) {
+
+    const controller =
+        new AbortController();
+
+    const timer =
+        setTimeout(
+            ()=>controller.abort(),
+            timeoutMs
+        );
+
+    try {
+
+        return await fetch(
+            url,
+            {
+                ...options,
+                signal:controller.signal
+            }
+        );
+
+    }
+    finally {
+
+        clearTimeout(
+            timer
+        );
+
+    }
+
+}
+
+
+async function loadArticles(
+    preserve = false
+) {
+
+    const oldId =
+        preserve
+        &&
+        articles[
+            activeArticle
+        ]
+        ? articles[
+            activeArticle
+        ].id
+        : null;
+
+
+    try {
+
+        const response =
+            await fetchWithTimeout(
+                ARTICLES_API
+                +
+                "?status=published&limit=12",
+                {
+                    cache:
+                        "no-store"
+                },
+                8000
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error();
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const list =
+            Array.isArray(
+                data
+            )
+            ? data
+            : data.articles;
+
+
+        if (
+            Array.isArray(
+                list
+            )
+            &&
+            list.length
+        ) {
+
+            articles =
+                list
+                .sort(
+                    function(a,b) {
+
+                        return (
+                            new Date(
+                                b.published_at
+                                ||
+                                b.date
+                                ||
+                                0
+                            )
+                            -
+                            new Date(
+                                a.published_at
+                                ||
+                                a.date
+                                ||
+                                0
+                            )
+                        );
+
+                    }
+                )
+                .slice(
+                    0,
+                    6
+                );
+
+        }
+
+    }
+    catch(error) {
+
+        console.log(
+            "Articles:",
+            error
+        );
+
+    }
+
+
+    if (
+        !articles.length
+    ) {
+
+        articles = [
+            {
+                id:
+                    "fallback",
+
+                image:
+                    CLUB_LOGO,
+
+                published_at:
+                    new Date()
+                    .toISOString(),
+
+                translations:{
+                    pl:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Aktualności z życia klubu.",
+                        content:"<p>Aktualności pojawią się tutaj po dodaniu ich w panelu.</p>"
+                    },
+                    en:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Latest news from the club.",
+                        content:"<p>News will appear here after it is added in the admin panel.</p>"
+                    },
+                    de:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Aktuelles aus dem Vereinsleben.",
+                        content:"<p>Aktuelles erscheint hier, sobald es im Admin-Panel hinzugefügt wurde.</p>"
+                    },
+                    es:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Noticias de la vida del club.",
+                        content:"<p>Las noticias aparecerán aquí después de añadirlas en el panel de administración.</p>"
+                    },
+                    ru:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Новости из жизни клуба.",
+                        content:"<p>Новости появятся здесь после добавления в панели администратора.</p>"
+                    },
+                    it:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"Notizie dalla vita del club.",
+                        content:"<p>Le notizie appariranno qui dopo essere state aggiunte nel pannello di amministrazione.</p>"
+                    },
+                    zh:{
+                        category:"Legion Białystok",
+                        title:"Legion Białystok",
+                        excerpt:"俱乐部最新动态。",
+                        content:"<p>在管理面板中添加新闻后，内容将显示在这里。</p>"
+                    }
+                }
+            }
+        ];
+
+    }
+
+
+    let nextIndex =
+        0;
+
+
+    if (
+        oldId !== null
+    ) {
+
+        const found =
+            articles
+                .findIndex(
+                    function(article) {
+
+                        return (
+                            String(
+                                article.id
+                            )
+                            ===
+                            String(
+                                oldId
+                            )
+                        );
+
+                    }
+                );
+
+
+        if (
+            found >= 0
+        ) {
+
+            nextIndex =
+                found;
+
+        }
+
+    }
+
+
+    renderArticle(
+        nextIndex,
+        false
+    );
+
+    renderStories();
+
+    const heroLoading =
+        document.getElementById(
+            "heroLoading"
+        );
+
+    if(heroLoading){
+        heroLoading
+            .classList
+            .add(
+                "hidden"
+            );
+    }
+
+}
+
+
+function renderArticle(
+    index,
+    animate = true
+) {
+
+    if (
+        !articles.length
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        index < 0
+    ) {
+
+        index =
+            articles.length - 1;
+
+    }
+
+
+    if (
+        index >=
+        articles.length
+    ) {
+
+        index = 0;
+
+    }
+
+
+    activeArticle =
+        index;
+
+
+    const article =
+        articles[index];
+
+
+    const update =
+        function() {
+
+            heroImage.src =
+                article.image
+                ||
+                article.thumbnail
+                ||
+                CLUB_LOGO;
+
+
+            heroImage.alt =
+                localized(
+                    article,
+                    "title"
+                );
+
+
+            heroCategory.textContent =
+                localized(
+                    article,
+                    "category"
+                )
+                ||
+                uiText("fallbackCategory");
+
+
+            heroTitle.textContent =
+                localized(
+                    article,
+                    "title"
+                )
+                ||
+                uiText("fallbackTitle");
+
+
+            heroDate.textContent =
+                formatDate(
+                    article.published_at
+                    ||
+                    article.date
+                );
+
+
+            renderPreviews();
+
+
+            articlesHero
+                .classList
+                .remove(
+                    "changing"
+                );
+
+        };
+
+
+    if (
+        animate
+    ) {
+
+        articlesHero
+            .classList
+            .add(
+                "changing"
+            );
+
+
+        setTimeout(
+            update,
+            130
+        );
+
+    }
+    else {
+
+        update();
+
+    }
+
+}
+
+
+function renderPreviews() {
+
+    previews.innerHTML =
+        "";
+
+
+    articles
+        .map(
+            function(
+                article,
+                index
+            ) {
+
+                return {
+                    article,
+                    index
+                };
+
+            }
+        )
+        .filter(
+            function(item) {
+
+                return (
+                    item.index
+                    !==
+                    activeArticle
+                );
+
+            }
+        )
+        .slice(
+            0,
+            5
+        )
+        .forEach(
+            function(item) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "article-preview";
+
+
+                const image =
+                    item.article.image
+                    ||
+                    item.article.thumbnail
+                    ||
+                    CLUB_LOGO;
+
+
+                const category =
+                    localized(
+                        item.article,
+                        "category"
+                    )
+                    ||
+                    uiText(
+                        "fallbackCategory"
+                    );
+
+
+                const title =
+                    localized(
+                        item.article,
+                        "title"
+                    )
+                    ||
+                    uiText(
+                        "fallbackTitle"
+                    );
+
+
+                const date =
+                    formatDate(
+                        item.article.published_at
+                        ||
+                        item.article.date
+                    );
+
+
+                button.innerHTML =
+                    `
+                        <img
+                            class="article-preview-image"
+                            src="${escapeHtml(image)}"
+                            alt=""
+                        >
+
+                        <span class="article-preview-overlay"></span>
+
+                        <span class="preview-open">
+                            ↗
+                        </span>
+
+                        <span class="article-preview-content">
+
+                            <span class="preview-topline">
+
+                                <span class="preview-category">
+                                    ${escapeHtml(category)}
+                                </span>
+
+                                <span class="preview-date">
+                                    ${escapeHtml(date)}
+                                </span>
+
+                            </span>
+
+                            <span class="preview-title">
+                                ${escapeHtml(title)}
+                            </span>
+
+                        </span>
+                    `;
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        openArticle(
+                            item.article
+                        );
+
+                    }
+                );
+
+
+                previews.appendChild(
+                    button
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =====================================================
+   STORIES
+===================================================== */
+
+/*
+    Frontend pobiera stories z:
+
+    GET /api/stories.php?status=published&limit=12
+
+    Panel administratora może później używać tego samego źródła:
+
+    POST   /api/stories.php              -> dodanie story
+    PUT    /api/stories.php?id=123       -> edycja story
+    DELETE /api/stories.php?id=123       -> usunięcie story
+
+    Obsługiwane pola story:
+    {
+        id,
+        image,
+        title,
+        excerpt,
+        category,
+        published_at,
+        starts_at,
+        expires_at,
+        status,
+        sort_order,
+        badge,
+        is_new,
+        link,
+        article_id,
+        translations: {
+            pl: { title, excerpt, category },
+            en: { title, excerpt, category }
+        }
+    }
+
+    Jeżeli /api/stories.php jeszcze nie istnieje, frontend tymczasowo
+    pokazuje najnowsze artykuły jako stories. Dzięki temu sekcja działa
+    od razu, a po podpięciu panelu nie trzeba zmieniać index.html.
+*/
+
+let storyIndex = 0;
+let storyTimer = null;
+let storyPaused = false;
+let storyRemaining = 6000;
+let storyStartedAt = 0;
+const STORY_DURATION = 6000;
+
+const storiesRail = document.getElementById("storiesRail");
+const storiesRailNext = document.getElementById("storiesRailNext");
+const storyViewer = document.getElementById("storyViewer");
+const storyViewerBg = document.getElementById("storyViewerBg");
+const storyFrameImage = document.getElementById("storyFrameImage");
+const storyFrameCategory = document.getElementById("storyFrameCategory");
+const storyFrameDate = document.getElementById("storyFrameDate");
+const storyFrameTitle = document.getElementById("storyFrameTitle");
+const storyProgress = document.getElementById("storyProgress");
+const storyViewerClose = document.getElementById("storyViewerClose");
+const storyPrev = document.getElementById("storyPrev");
+const storyNext = document.getElementById("storyNext");
+const storyPauseBtn = document.getElementById("storyPauseBtn");
+const storyShareBtn = document.getElementById("storyShareBtn");
+const storyReadArticle = document.getElementById("storyReadArticle");
+
+function normalizeStory(item,index){
+    const source = item && typeof item === "object" ? item : {};
+
+    return {
+        ...source,
+        id: source.id ?? `story-${index}`,
+        image: source.image || source.image_url || source.thumbnail || CLUB_LOGO,
+        title: source.title || source.name || "",
+        excerpt: source.excerpt || source.description || "",
+        category: source.category || "Legion Białystok",
+        published_at: source.published_at || source.date || source.created_at || "",
+        starts_at: source.starts_at || null,
+        expires_at: source.expires_at || null,
+        status: source.status || "published",
+        sort_order: Number.isFinite(Number(source.sort_order)) ? Number(source.sort_order) : index,
+        badge: source.badge || "NEW",
+        is_new: source.is_new !== false,
+        link: source.link || source.url || "",
+        article_id: source.article_id ?? null,
+        translations: source.translations && typeof source.translations === "object"
+            ? source.translations
+            : {}
+    };
+}
+
+function storyIsVisible(item){
+    const status = String(item?.status || "published").toLowerCase();
+
+    if(["draft","hidden","archived","deleted"].includes(status)){
+        return false;
+    }
+
+    const now = Date.now();
+    const starts = item?.starts_at ? new Date(item.starts_at).getTime() : null;
+    const expires = item?.expires_at ? new Date(item.expires_at).getTime() : null;
+
+    if(Number.isFinite(starts) && starts > now){
+        return false;
+    }
+
+    if(Number.isFinite(expires) && expires <= now){
+        return false;
+    }
+
+    return true;
+}
+
+function articleFallbackStories(){
+    return articles.slice(0,12).map((article,index)=>normalizeStory({
+        ...article,
+        id:`article-${article.id ?? index}`,
+        article_id:article.id ?? null,
+        source_type:"article",
+        sort_order:index,
+        badge:"NEW",
+        is_new:true
+    },index));
+}
+
+function getStoryItems(){
+    const source = stories.length ? stories : articleFallbackStories();
+    return source.filter(storyIsVisible).slice(0,12);
+}
+
+async function loadStories(){
+    try{
+        const response = await fetchWithTimeout(
+            STORIES_API + "?status=published&limit=12",
+            {cache:"no-store"},
+            8000
+        );
+
+        if(!response.ok){
+            throw new Error("Stories API");
+        }
+
+        const data = await response.json();
+        const list = Array.isArray(data)
+            ? data
+            : Array.isArray(data?.stories)
+                ? data.stories
+                : [];
+
+        stories = list
+            .map(normalizeStory)
+            .filter(storyIsVisible)
+            .sort((a,b)=>{
+                const order = (a.sort_order ?? 0) - (b.sort_order ?? 0);
+                if(order !== 0){ return order; }
+                const aDate = new Date(a.published_at || 0).getTime() || 0;
+                const bDate = new Date(b.published_at || 0).getTime() || 0;
+                return bDate - aDate;
+            })
+            .slice(0,12);
+    }
+    catch(error){
+        console.log("Stories:",error);
+        stories = [];
+    }
+
+    renderStories();
+}
+
+function renderStories(){
+    if(!storiesRail){
+        return;
+    }
+
+    const list = getStoryItems();
+    storiesRail.innerHTML = "";
+
+    list.forEach((story,index)=>{
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "story-card";
+
+        const image = story.image || CLUB_LOGO;
+        const title = localized(story,"title") || uiText("fallbackTitle");
+        const date = formatDate(story.published_at);
+        const badge = story.is_new === false ? "" : (story.badge || "NEW");
+
+        button.innerHTML = `
+            <span class="story-poster">
+                <img class="story-thumb" src="${escapeHtml(image)}" alt="">
+                <span class="story-badge" ${badge ? "" : "hidden"}>${escapeHtml(badge)}</span>
+                <span class="story-caption">${escapeHtml(title)}</span>
+            </span>
+            <span class="story-date">${escapeHtml(date)}</span>
+        `;
+
+        button.setAttribute("aria-label",title);
+        button.addEventListener("click",()=>openStory(index));
+        storiesRail.appendChild(button);
+    });
+
+    if(storiesRailNext){
+        storiesRailNext.hidden = list.length < 7;
+    }
+}
+
+function renderStoryProgress(){
+    if(!storyProgress){
+        return;
+    }
+
+    const list = getStoryItems();
+
+    storyProgress.innerHTML = list.map((_,index)=>`
+        <div class="story-progress-track ${index < storyIndex ? "done" : ""} ${index === storyIndex ? "active" : ""}">
+            <div class="story-progress-fill"></div>
+        </div>
+    `).join("");
+}
+
+function activeStoryProgressTrack(){
+    return storyProgress?.querySelector(".story-progress-track.active") || null;
+}
+
+function updateStoryControls(){
+    const list = getStoryItems();
+
+    if(storyPrev){
+        storyPrev.disabled = storyIndex <= 0;
+    }
+
+    if(storyNext){
+        storyNext.disabled = storyIndex >= list.length - 1;
+    }
+}
+
+function scheduleStoryAdvance(duration = STORY_DURATION){
+    clearTimeout(storyTimer);
+
+    storyRemaining = Math.max(0,duration);
+    storyStartedAt = Date.now();
+    storyPaused = false;
+
+    const track = activeStoryProgressTrack();
+    if(track){
+        track.classList.remove("paused");
+        const fill = track.querySelector(".story-progress-fill");
+        if(fill){
+            fill.style.animation = "none";
+            void fill.offsetWidth;
+            fill.style.animation = `storyProgress ${storyRemaining}ms linear forwards`;
+        }
+    }
+
+    storyTimer = setTimeout(()=>{
+        const list = getStoryItems();
+        if(storyIndex < list.length - 1){
+            showStory(storyIndex + 1);
+        }
+        else{
+            closeStory();
+        }
+    },storyRemaining);
+}
+
+function pauseStory(){
+    if(storyPaused){
+        return;
+    }
+
+    storyPaused = true;
+    clearTimeout(storyTimer);
+
+    const elapsed = Date.now() - storyStartedAt;
+    storyRemaining = Math.max(0,storyRemaining - elapsed);
+
+    const track = activeStoryProgressTrack();
+    track?.classList.add("paused");
+
+    if(storyPauseBtn){
+        storyPauseBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"/></svg>';
+        storyPauseBtn.setAttribute("aria-label","Wznów");
+    }
+}
+
+function resumeStory(){
+    if(!storyPaused){
+        return;
+    }
+
+    storyPaused = false;
+    storyStartedAt = Date.now();
+
+    const track = activeStoryProgressTrack();
+    track?.classList.remove("paused");
+
+    storyTimer = setTimeout(()=>{
+        const list = getStoryItems();
+        if(storyIndex < list.length - 1){
+            showStory(storyIndex + 1);
+        }
+        else{
+            closeStory();
+        }
+    },storyRemaining);
+
+    if(storyPauseBtn){
+        storyPauseBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+        storyPauseBtn.setAttribute("aria-label","Pauza");
+    }
+}
+
+function toggleStoryPause(){
+    if(storyPaused){
+        resumeStory();
+    }
+    else{
+        pauseStory();
+    }
+}
+
+function storyDestination(story){
+    if(story?.link){
+        return story.link;
+    }
+
+    if(story?.article_id != null){
+        const article = articles.find(item=>String(item.id) === String(story.article_id));
+        if(article){
+            return {article};
+        }
+    }
+
+    if(story?.source_type === "article"){
+        const sourceId = String(story.id || "").replace(/^article-/,"");
+        const article = articles.find(item=>String(item.id) === sourceId);
+        if(article){
+            return {article};
+        }
+    }
+
+    return null;
+}
+
+function showStory(index){
+    const list = getStoryItems();
+    if(!list.length || !storyViewer){
+        return;
+    }
+
+    storyIndex = Math.max(0,Math.min(index,list.length - 1));
+    const story = list[storyIndex];
+    const image = story.image || CLUB_LOGO;
+
+    storyViewerBg.src = image;
+    storyFrameImage.src = image;
+    storyFrameCategory.textContent = localized(story,"category") || "Legion Białystok";
+    storyFrameDate.textContent = formatDate(story.published_at);
+    storyFrameTitle.textContent = localized(story,"title") || uiText("fallbackTitle");
+
+    const destination = storyDestination(story);
+    if(storyReadArticle){
+        storyReadArticle.hidden = !destination;
+        storyReadArticle.dataset.storyIndex = String(storyIndex);
+    }
+
+    if(storyPauseBtn){
+        storyPauseBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+        storyPauseBtn.setAttribute("aria-label","Pauza");
+    }
+
+    renderStoryProgress();
+    updateStoryControls();
+    scheduleStoryAdvance();
+}
+
+function openStory(index){
+    const list = getStoryItems();
+    if(!storyViewer || !list.length){
+        return;
+    }
+
+    storyViewer.classList.add("active");
+    storyViewer.setAttribute("aria-hidden","false");
+    document.body.classList.add("lock");
+    showStory(index);
+}
+
+function closeStory(){
+    clearTimeout(storyTimer);
+    storyPaused = false;
+
+    if(!storyViewer){
+        return;
+    }
+
+    storyViewer.classList.remove("active");
+    storyViewer.setAttribute("aria-hidden","true");
+
+    if(!menu?.classList.contains("active") && !articleModal?.classList.contains("active")){
+        document.body.classList.remove("lock");
+    }
+}
+
+async function shareCurrentStory(){
+    const list = getStoryItems();
+    const story = list[storyIndex];
+    if(!story){
+        return;
+    }
+
+    const title = localized(story,"title") || "Legion Białystok";
+    const destination = storyDestination(story);
+    const url = typeof destination === "string"
+        ? new URL(destination,location.origin).href
+        : location.href;
+
+    try{
+        if(navigator.share){
+            await navigator.share({title,url});
+        }
+        else if(navigator.clipboard){
+            await navigator.clipboard.writeText(url);
+        }
+    }
+    catch(error){
+        console.log("Share story:",error);
+    }
+}
+
+storiesRailNext?.addEventListener("click",()=>{
+    storiesRail?.scrollBy({left:Math.max(420,storiesRail.clientWidth * .7),behavior:"smooth"});
+});
+
+storyViewerClose?.addEventListener("click",event=>{
+    event.stopPropagation();
+    closeStory();
+});
+
+storyPrev?.addEventListener("click",event=>{
+    event.stopPropagation();
+    if(storyIndex > 0){
+        showStory(storyIndex - 1);
+    }
+});
+
+storyNext?.addEventListener("click",event=>{
+    event.stopPropagation();
+    const list = getStoryItems();
+    if(storyIndex < list.length - 1){
+        showStory(storyIndex + 1);
+    }
+});
+
+storyPauseBtn?.addEventListener("click",event=>{
+    event.stopPropagation();
+    toggleStoryPause();
+});
+
+storyShareBtn?.addEventListener("click",async event=>{
+    event.stopPropagation();
+    await shareCurrentStory();
+});
+
+storyReadArticle?.addEventListener("click",event=>{
+    event.stopPropagation();
+
+    const list = getStoryItems();
+    const story = list[storyIndex];
+    const destination = storyDestination(story);
+
+    if(!destination){
+        return;
+    }
+
+    closeStory();
+
+    if(typeof destination === "object" && destination.article){
+        openArticle(destination.article);
+        return;
+    }
+
+    location.href = destination;
+});
+
+storyViewer?.addEventListener("click",event=>{
+    if(event.target === storyViewer || event.target?.classList?.contains("story-viewer-shade")){
+        closeStory();
+    }
+});
+
+/* =====================================================
+   ARTICLE MODAL
+===================================================== */
+
+const articleModal =
+    document.getElementById(
+        "articleModal"
+    );
+
+let currentModalArticle = null;
+
+
+function fillArticleModal(
+    article
+) {
+
+    if (!article) {
+        return;
+    }
+
+    document
+        .getElementById(
+            "modalImage"
+        )
+        .src =
+            article.image
+            ||
+            article.thumbnail
+            ||
+            CLUB_LOGO;
+
+    document
+        .getElementById(
+            "modalCategory"
+        )
+        .textContent =
+            localized(
+                article,
+                "category"
+            )
+            ||
+            uiText("fallbackCategory");
+
+    document
+        .getElementById(
+            "modalTitle"
+        )
+        .textContent =
+            localized(
+                article,
+                "title"
+            )
+            ||
+            uiText("fallbackTitle");
+
+    document
+        .getElementById(
+            "modalDate"
+        )
+        .textContent =
+            formatDate(
+                article.published_at
+                ||
+                article.date
+            );
+
+    document
+        .getElementById(
+            "modalExcerpt"
+        )
+        .textContent =
+            localized(
+                article,
+                "excerpt"
+            )
+            ||
+            "";
+
+    const content =
+        localized(
+            article,
+            "content"
+        )
+        ||
+        "";
+
+    document
+        .getElementById(
+            "modalContent"
+        )
+        .innerHTML =
+            window.LegionSupabase
+                ?.sanitizeRichHtml
+            ? window.LegionSupabase
+                .sanitizeRichHtml(
+                    content
+                )
+            : content;
+
+}
+
+
+function openArticle(
+    article
+) {
+
+    if (!article) {
+        return;
+    }
+
+    currentModalArticle =
+        article;
+
+    fillArticleModal(
+        article
+    );
+
+    articleModal
+        .classList
+        .add(
+            "active"
+        );
+
+    document.body
+        .classList
+        .add(
+            "lock"
+        );
+
+}
+
+
+function closeArticle() {
+
+    currentModalArticle = null;
+
+    articleModal
+        .classList
+        .remove(
+            "active"
+        );
+
+
+    document.body
+        .classList
+        .remove(
+            "lock"
+        );
+
+}
+
+
+document
+    .getElementById(
+        "heroRead"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            openArticle(
+                articles[
+                    activeArticle
+                ]
+            );
+
+        }
+    );
+
+heroTitle.addEventListener(
+    "click",
+    function() {
+
+        openArticle(
+            articles[
+                activeArticle
+            ]
+        );
+
+    }
+);
+
+
+document
+    .getElementById(
+        "articleClose"
+    )
+    .addEventListener(
+        "click",
+        closeArticle
+    );
+
+
+articleModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            articleModal
+        ) {
+
+            closeArticle();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            if (
+                articleModal
+                    .classList
+                    .contains(
+                        "active"
+                    )
+            ) {
+
+                closeArticle();
+
+            }
+            else if (
+                menu
+                    .classList
+                    .contains(
+                        "active"
+                    )
+            ) {
+
+                menu
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+
+                menuBtn
+                    .classList
+                    .remove(
+                        "active"
+                    );
+
+
+                document.body
+                    .classList
+                    .remove(
+                        "lock"
+                    );
+
+
+                closeSubmenus();
+
+            }
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   MATCH CENTER
+===================================================== */
+
+let matchData =
+    null;
+
+let countdownTimer =
+    null;
+
+
+function matchLocale() {
+
+    return ({
+        pl:"pl-PL",
+        en:"en-GB",
+        de:"de-DE",
+        es:"es-ES",
+        ru:"ru-RU",
+        it:"it-IT",
+        zh:"zh-CN"
+    }[selectedLanguage] || "pl-PL");
+
+}
+
+
+function formatMatchDate(
+    value
+) {
+
+    if (!value) {
+        return "—";
+    }
+
+    const date =
+        new Date(
+            value
+        );
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return "—";
+    }
+
+    return new Intl.DateTimeFormat(
+        matchLocale(),
+        {
+            day:"2-digit",
+            month:"2-digit",
+            year:"numeric",
+            hour:"2-digit",
+            minute:"2-digit"
+        }
+    ).format(
+        date
+    );
+
+}
+
+
+function matchMetaText(
+    match
+) {
+
+    return [
+        match?.competition,
+        match?.venue
+    ]
+    .filter(Boolean)
+    .join(" • ");
+
+}
+
+
+function resetCountdown() {
+
+    document.getElementById("countdownDays").textContent =
+        "00";
+
+    document.getElementById("countdownHours").textContent =
+        "00";
+
+    document.getElementById("countdownMinutes").textContent =
+        "00";
+
+    document.getElementById("countdownSeconds").textContent =
+        "00";
+
+}
+
+
+function startCountdown(
+    value
+) {
+
+    clearInterval(
+        countdownTimer
+    );
+
+    resetCountdown();
+
+    const target =
+        new Date(
+            value
+        )
+        .getTime();
+
+    if (
+        !Number.isFinite(
+            target
+        )
+    ) {
+        return;
+    }
+
+    function update() {
+
+        const difference =
+            Math.max(
+                0,
+                target - Date.now()
+            );
+
+        const days =
+            Math.floor(
+                difference / 86400000
+            );
+
+        const hours =
+            Math.floor(
+                (
+                    difference % 86400000
+                )
+                /
+                3600000
+            );
+
+        const minutes =
+            Math.floor(
+                (
+                    difference % 3600000
+                )
+                /
+                60000
+            );
+
+        const seconds =
+            Math.floor(
+                (
+                    difference % 60000
+                )
+                /
+                1000
+            );
+
+        document.getElementById("countdownDays").textContent =
+            String(days).padStart(2,"0");
+
+        document.getElementById("countdownHours").textContent =
+            String(hours).padStart(2,"0");
+
+        document.getElementById("countdownMinutes").textContent =
+            String(minutes).padStart(2,"0");
+
+        document.getElementById("countdownSeconds").textContent =
+            String(seconds).padStart(2,"0");
+
+        if (
+            difference <= 0
+        ) {
+
+            clearInterval(
+                countdownTimer
+            );
+
+        }
+
+    }
+
+    update();
+
+    countdownTimer =
+        setInterval(
+            update,
+            1000
+        );
+
+}
+
+
+function formatMatchDay(value) {
+
+    if (!value) {
+        return "—";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return new Intl.DateTimeFormat(
+        matchLocale(),
+        {
+            weekday:"short",
+            day:"2-digit",
+            month:"2-digit"
+        }
+    )
+    .format(date)
+    .replace(/\./g, "")
+    .toUpperCase();
+}
+
+
+function formatMatchTime(value) {
+
+    if (!value) {
+        return "—";
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return "—";
+    }
+
+    return new Intl.DateTimeFormat(
+        matchLocale(),
+        {
+            hour:"numeric",
+            minute:"2-digit"
+        }
+    ).format(date);
+}
+
+
+function normalizeStandingRow(row,index=0) {
+
+    const goalsFor = Number(row?.goals_for ?? row?.gf ?? 0) || 0;
+    const goalsAgainst = Number(row?.goals_against ?? row?.ga ?? 0) || 0;
+    const difference = Number.isFinite(Number(row?.goal_difference))
+        ? Number(row.goal_difference)
+        : goalsFor - goalsAgainst;
+
+    return {
+        pos:Number(row?.position ?? row?.pos ?? index + 1) || index + 1,
+        team:String(row?.team ?? row?.name ?? "—"),
+        g:Number(row?.played ?? row?.games ?? row?.g ?? 0) || 0,
+        diff:difference > 0 ? `+${difference}` : String(difference),
+        pts:Number(row?.points ?? row?.pts ?? 0) || 0,
+        highlight:String(row?.team ?? row?.name ?? "")
+            .toLocaleLowerCase("pl-PL")
+            .includes("legion białystok")
+    };
+}
+
+
+function sortStandingsRows(rows) {
+
+    return rows
+        .map(normalizeStandingRow)
+        .sort((a,b)=>a.pos-b.pos)
+        .slice(0,5);
+}
+
+
+function renderStandings() {
+
+    const wrap = document.getElementById("matchTableRows");
+    const seasonLabel = document.getElementById("standingsSeasonLabel");
+
+    if (!wrap) {
+        return;
+    }
+
+    if (seasonLabel) {
+        seasonLabel.textContent = standingsSeason || "";
+    }
+
+    if (!standingsPreview.length) {
+        wrap.innerHTML = `
+            <div class="standings-row">
+                <div class="standings-pos">—</div>
+                <div class="standings-team">${escapeHtml(uiText("noTableData") || "Brak danych tabeli")}</div>
+                <div class="standings-games">—</div>
+                <div class="standings-diff">—</div>
+                <div class="standings-points">—</div>
+            </div>
+        `;
+        return;
+    }
+
+    wrap.innerHTML = standingsPreview.map(row=>`
+        <div class="standings-row ${row.highlight ? "is-highlight" : ""}">
+            <div class="standings-pos">${escapeHtml(row.pos)}</div>
+            <div class="standings-team">${escapeHtml(row.team)}</div>
+            <div class="standings-games">${escapeHtml(row.g)}</div>
+            <div class="standings-diff">${escapeHtml(row.diff)}</div>
+            <div class="standings-points">${escapeHtml(row.pts)}</div>
+        </div>
+    `).join("");
+}
+
+
+async function loadStandings() {
+
+    try {
+        const response = await fetch(TABLE_API,{cache:"no-store"});
+
+        if (!response.ok) {
+            throw new Error("Table API");
+        }
+
+        const data = await response.json();
+        const seasons = Array.isArray(data?.seasons) ? data.seasons.map(String) : [];
+        const currentSeason = String(data?.current_season || seasons[0] || "");
+
+        let rows = [];
+
+        if (
+            data?.tables &&
+            typeof data.tables === "object" &&
+            Array.isArray(data.tables[currentSeason])
+        ) {
+            rows = data.tables[currentSeason];
+        }
+        else if (Array.isArray(data?.standings)) {
+            rows = data.standings;
+        }
+
+        standingsSeason = currentSeason;
+        standingsPreview = sortStandingsRows(rows);
+    }
+    catch(error) {
+        console.log("Table API:",error);
+        standingsSeason = "";
+        standingsPreview = [];
+    }
+
+    renderStandings();
+}
+
+
+function renderEmptyLastMatch() {
+
+    document.getElementById("lastMatchDate").textContent =
+        "—";
+
+    document.getElementById("lastHomeName").textContent =
+        uiText("noMatchData");
+
+    document.getElementById("lastAwayName").textContent =
+        "—";
+
+    document.getElementById("lastHomeLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("lastAwayLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("lastScore").textContent =
+        "— : —";
+
+    document.getElementById("lastMatchMeta").textContent =
+        "";
+
+}
+
+
+function renderEmptyNextMatch() {
+
+    document.getElementById("nextMatchDate").textContent =
+        "—";
+
+    document.getElementById("nextHomeName").textContent =
+        uiText("noMatchData");
+
+    document.getElementById("nextAwayName").textContent =
+        "—";
+
+    document.getElementById("nextHomeLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("nextAwayLogo").src =
+        CLUB_LOGO;
+
+    document.getElementById("nextMatchMeta").textContent =
+        "";
+
+    const kickoffTimeElement =
+        document.getElementById("nextKickoffTime");
+
+    if (kickoffTimeElement) {
+        kickoffTimeElement.textContent =
+            "—";
+    }
+
+    clearInterval(
+        countdownTimer
+    );
+
+    resetCountdown();
+
+}
+
+
+function renderMatches() {
+
+    const last =
+        matchData
+        ?.last_match
+        ||
+        null;
+
+    const next =
+        matchData
+        ?.next_match
+        ||
+        null;
+
+
+    if (last) {
+
+        document.getElementById("lastMatchDate").textContent =
+            formatMatchDate(
+                last.date
+            );
+
+        document.getElementById("lastHomeName").textContent =
+            last.home_team
+            ||
+            "—";
+
+        document.getElementById("lastAwayName").textContent =
+            last.away_team
+            ||
+            "—";
+
+        document.getElementById("lastHomeLogo").src =
+            last.home_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("lastAwayLogo").src =
+            last.away_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("lastScore").textContent =
+            `${
+                last.home_score
+                ??
+                "—"
+            } : ${
+                last.away_score
+                ??
+                "—"
+            }`;
+
+        document.getElementById("lastMatchMeta").textContent =
+            matchMetaText(
+                last
+            );
+
+    }
+    else {
+
+        renderEmptyLastMatch();
+
+    }
+
+
+    if (next) {
+
+        document.getElementById("nextMatchDate").textContent =
+            formatMatchDay(
+                next.date
+            );
+
+        const kickoffTimeElement =
+            document.getElementById("nextKickoffTime");
+
+        if (kickoffTimeElement) {
+            kickoffTimeElement.textContent =
+                formatMatchTime(
+                    next.date
+                );
+        }
+
+        document.getElementById("nextHomeName").textContent =
+            next.home_team
+            ||
+            "—";
+
+        document.getElementById("nextAwayName").textContent =
+            next.away_team
+            ||
+            "—";
+
+        document.getElementById("nextHomeLogo").src =
+            next.home_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("nextAwayLogo").src =
+            next.away_logo
+            ||
+            CLUB_LOGO;
+
+        document.getElementById("nextMatchMeta").textContent =
+            matchMetaText(
+                next
+            );
+
+        startCountdown(
+            next.date
+        );
+
+    }
+    else {
+
+        renderEmptyNextMatch();
+
+    }
+
+}
+
+
+async function loadMatches() {
+
+    try {
+
+        const response =
+            await fetchWithTimeout(
+                MATCHES_API,
+                {
+                    cache:"no-store"
+                },
+                8000
+            );
+
+        if (
+            !response.ok
+        ) {
+            throw new Error();
+        }
+
+        const data =
+            await response.json();
+
+        matchData = {
+            last_match:
+                data.last_match
+                ||
+                data.last
+                ||
+                null,
+
+            next_match:
+                data.next_match
+                ||
+                data.next
+                ||
+                null
+        };
+
+    }
+    catch(error) {
+
+        console.log(
+            "Matches:",
+            error
+        );
+
+        matchData = {
+            last_match:null,
+            next_match:null
+        };
+
+    }
+
+    renderMatches();
+
+}
+
+
+
+
+
+/* =====================================================
+   CINEMATIC REVEALS
+===================================================== */
+const filmSections = document.querySelectorAll(
+    ".match-center,.stories-section,.instagram-section,.site-footer"
+);
+
+filmSections.forEach(section=>section.classList.add("film-reveal"));
+
+if("IntersectionObserver" in window){
+    const filmObserver = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+            if(entry.isIntersecting){
+                entry.target.classList.add("film-visible");
+                filmObserver.unobserve(entry.target);
+            }
+        });
+    },{threshold:.10,rootMargin:"0px 0px -8% 0px"});
+
+    filmSections.forEach(section=>filmObserver.observe(section));
+}else{
+    filmSections.forEach(section=>section.classList.add("film-visible"));
+}
+
+document.addEventListener("keydown",event=>{
+    if(event.key === "Escape" && photoLightbox?.classList.contains("active")){
+        closePhotoLightbox();
+    }
+});
+
+/* =====================================================
+   START
+===================================================== */
+
+
+setTimeout(()=>{
+    const loading =
+        document.getElementById("heroLoading");
+
+    if(loading){
+        loading.classList.add("hidden");
+    }
+},9000);
+
+loadArticles();
+loadStories();
+loadInstagram();
+loadStandings();
+loadMatches();
+
+
+setInterval(
+    function() {
+
+        loadArticles(
+            true
+        );
+
+    },
+    60000
+);
+
+
+setInterval(
+    loadMatches,
+    60000
+);
+
+
+setInterval(
+    loadStories,
+    60000
+);
+
+
+setInterval(
+    loadInstagram,
+    600000
+);
+
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.visibilityState
+            ===
+            "visible"
+        ) {
+
+            loadArticles(
+                true
+            );
+
+            loadStories();
+
+            loadInstagram();
+
+            loadMatches();
+
+        }
+
+    }
+);
+
+</script>
+
+
+<script>
+
+/* =====================================================
+   CINEMATIC SCROLL
+===================================================== */
+(function(){
+    const root = document.documentElement;
+    let ticking = false;
+
+    function updateFilmScroll(){
+        const y = Math.min(window.scrollY || 0, 1400);
+        root.style.setProperty("--film-scroll", `${y}px`);
+        ticking = false;
+    }
+
+    window.addEventListener("scroll",()=>{
+        if(!ticking){
+            ticking = true;
+            requestAnimationFrame(updateFilmScroll);
+        }
+    },{passive:true});
+
+    updateFilmScroll();
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   CINEMATIC SECTION FLOW — SUBTLE SCROLL TRANSITIONS
+===================================================== */
+(function(){
+    const sections = Array.from(document.querySelectorAll(
+        ".match-center,.stories-section,.instagram-section,.site-footer"
+    ));
+
+    if(!sections.length) return;
+
+    sections.forEach(section=>{
+        if(!section.querySelector(":scope > .film-transition-edge")){
+            const edge = document.createElement("div");
+            edge.className = "film-transition-edge";
+            edge.setAttribute("aria-hidden","true");
+            section.prepend(edge);
+        }
+
+        if(!section.querySelector(":scope > .film-transition-light")){
+            const light = document.createElement("div");
+            light.className = "film-transition-light";
+            light.setAttribute("aria-hidden","true");
+            section.prepend(light);
+        }
+    });
+
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+        return;
+    }
+
+    let ticking = false;
+
+    const clamp = (value,min,max)=>Math.min(max,Math.max(min,value));
+
+    function updateSectionFlow(){
+        const vh = Math.max(window.innerHeight || 0,1);
+
+        sections.forEach(section=>{
+            const rect = section.getBoundingClientRect();
+
+            /* Przygaszenie dopiero przy samym końcu sekcji. */
+            const exitStart = vh * .62;
+            const exitEnd = vh * .10;
+            const exit = clamp((exitStart - rect.bottom) / (exitStart - exitEnd),0,1);
+
+            section.style.setProperty("--film-section-opacity",(1 - exit * .075).toFixed(3));
+            section.style.setProperty("--film-section-brightness",(1 - exit * .11).toFixed(3));
+            section.style.setProperty("--film-section-blur",`${(exit * .75).toFixed(2)}px`);
+            section.style.setProperty("--film-section-shift",`${(-exit * 7).toFixed(2)}px`);
+            section.style.setProperty("--film-section-scale",(1 - exit * .003).toFixed(4));
+
+            /* Bardzo mały parallax zdjęć, bez efektu „pływania”. */
+            if(section.classList.contains("stories-section") || section.classList.contains("instagram-section")){
+                const progress = clamp((vh - rect.top) / (vh + Math.max(rect.height,1)),0,1);
+                const shift = (progress - .5) * 12;
+                section.style.setProperty("--film-media-shift",`${shift.toFixed(2)}px`);
+            }
+        });
+
+        ticking = false;
+    }
+
+    function requestFlowUpdate(){
+        if(ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateSectionFlow);
+    }
+
+    window.addEventListener("scroll",requestFlowUpdate,{passive:true});
+    window.addEventListener("resize",requestFlowUpdate,{passive:true});
+    updateSectionFlow();
+})();
+</script>
+</body>
+</html>
