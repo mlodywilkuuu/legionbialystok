@@ -1,0 +1,6356 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administracyjny | Legion Białystok</title>
+
+<link rel="icon" type="image/png" href="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #070709;
+    --surface: #111115;
+    --surface-2: #17171e;
+    --surface-3: #0c0c10;
+    --border: rgba(255,255,255,.08);
+    --border-strong: rgba(255,255,255,.15);
+    --red: #e50914;
+    --red-hover: #ff1e2a;
+    --text: #fff;
+    --muted: #8b8b99;
+    --green: #35a853;
+    --yellow: #d8a629;
+    --danger: #c62828;
+    --radius: 16px;
+    --transition: .2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", sans-serif;
+}
+
+html {
+    background: var(--bg);
+    color-scheme: dark;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 80% -10%, rgba(229,9,20,.07), transparent 28%),
+        var(--bg);
+    color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a34;
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--red);
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    height: 78px;
+    padding: 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: rgba(10,10,13,.91);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(18px);
+}
+
+.brand {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    color: #fff;
+    text-decoration: none;
+}
+
+.brand img {
+    width: auto;
+    height: 43px;
+    object-fit: contain;
+}
+
+.brand-copy {
+    min-width: 0;
+}
+
+.brand-title {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+}
+
+.brand-subtitle {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.status-chip {
+    min-height: 34px;
+    padding: 0 12px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    background: rgba(255,255,255,.025);
+
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+}
+
+.status-chip.api .status-dot {
+    background: var(--green);
+}
+
+.btn {
+    min-height: 40px;
+    padding: 0 15px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+
+    background: var(--surface);
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+
+    transition:
+        transform var(--transition),
+        border-color var(--transition),
+        background var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    border-color: var(--border-strong);
+}
+
+.btn-primary {
+    border-color: var(--red);
+    background: var(--red);
+}
+
+.btn-primary:hover {
+    background: var(--red-hover);
+}
+
+.btn-success {
+    border-color: rgba(53,168,83,.4);
+    background: rgba(53,168,83,.16);
+    color: #8ce4a1;
+}
+
+.btn-danger {
+    border-color: rgba(198,40,40,.38);
+    background: rgba(198,40,40,.14);
+    color: #ff8c86;
+}
+
+.btn-ghost {
+    background: transparent;
+}
+
+.main {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 30px 24px 70px;
+}
+
+.login {
+    width: min(440px, 100%);
+    margin: 78px auto 0;
+    padding: 38px;
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    background: var(--surface);
+    box-shadow: 0 30px 80px rgba(0,0,0,.45);
+}
+
+.login h1 {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.login p {
+    margin-top: 7px;
+    margin-bottom: 26px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.form-group {
+    min-width: 0;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+}
+
+.input,
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 13px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: 0;
+
+    background: var(--surface-3);
+    color: #fff;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.form-group textarea {
+    min-height: 112px;
+    resize: vertical;
+    line-height: 1.55;
+}
+
+.input:focus,
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: rgba(229,9,20,.75);
+    box-shadow: 0 0 0 3px rgba(229,9,20,.08);
+}
+
+#dashboard {
+    display: none;
+}
+
+.dashboard-head {
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.dashboard-title {
+    font-size: clamp(30px,4vw,48px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+}
+
+.dashboard-desc {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.stats {
+    margin-bottom: 26px;
+
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0,1fr));
+    gap: 10px;
+}
+
+.stat {
+    min-height: 112px;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    border: 1px solid var(--border);
+    border-radius: 15px;
+
+    background: var(--surface);
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .9px;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    margin-top: 10px;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.tabs-wrap {
+    margin-bottom: 22px;
+    padding-bottom: 8px;
+    overflow-x: auto;
+}
+
+.tabs {
+    width: max-content;
+    display: flex;
+    gap: 7px;
+}
+
+.tab {
+    min-height: 42px;
+    padding: 0 17px;
+
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    background: var(--surface);
+    color: var(--muted);
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+
+.tab:hover {
+    color: #fff;
+    border-color: var(--border-strong);
+}
+
+.tab.active {
+    border-color: var(--red);
+    background: var(--red);
+    color: #fff;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.panel {
+    margin-bottom: 22px;
+    padding: 26px;
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    background: var(--surface);
+}
+
+.panel-head {
+    margin-bottom: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.panel-title {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -.5px;
+}
+
+.panel-subtitle {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.panel-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.notice {
+    margin-bottom: 18px;
+    padding: 13px 15px;
+
+    border: 1px solid rgba(216,166,41,.22);
+    border-radius: 11px;
+
+    background: rgba(216,166,41,.07);
+    color: #d9c178;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.notice.good {
+    border-color: rgba(53,168,83,.25);
+    background: rgba(53,168,83,.08);
+    color: #8ce4a1;
+}
+
+.builder {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    padding: 19px;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    background: var(--surface-2);
+}
+
+.card-head {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.card-title {
+    min-width: 0;
+
+    font-size: 14px;
+    font-weight: 900;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-meta {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.grid-2,
+.grid-3,
+.grid-4,
+.grid-5 {
+    display: grid;
+    gap: 12px;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+}
+
+.grid-5 {
+    grid-template-columns: repeat(5,minmax(0,1fr));
+}
+
+.field-span-2 {
+    grid-column: span 2;
+}
+
+.field-span-3 {
+    grid-column: span 3;
+}
+
+.field-span-4 {
+    grid-column: span 4;
+}
+
+.field-span-5 {
+    grid-column: span 5;
+}
+
+.row-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.inline-check {
+    min-height: 45px;
+    padding: 0 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: var(--surface-3);
+
+    color: #fff;
+    font-size: 12px;
+}
+
+.inline-check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--red);
+}
+
+.table-tools {
+    margin-bottom: 16px;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.table-tools .form-group {
+    margin: 0;
+    min-width: 210px;
+}
+
+.table-editor {
+    overflow-x: auto;
+}
+
+.table-grid {
+    min-width: 1100px;
+}
+
+.table-row,
+.table-header {
+    display: grid;
+    grid-template-columns:
+        62px
+        minmax(190px,2fr)
+        70px
+        70px
+        70px
+        70px
+        80px
+        80px
+        80px
+        110px
+        minmax(170px,1.5fr)
+        74px;
+    gap: 8px;
+    align-items: center;
+}
+
+.table-header {
+    padding: 0 10px 8px;
+
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.table-row {
+    margin-bottom: 8px;
+    padding: 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: var(--surface-2);
+}
+
+.table-row input {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 8px 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: 0;
+
+    background: var(--surface-3);
+    color: #fff;
+}
+
+.lang-note {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.empty {
+    padding: 38px 20px;
+
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+
+    color: var(--muted);
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.editor-toolbar {
+    margin-bottom: 0;
+    padding: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    border: 1px solid var(--border);
+    border-bottom: 0;
+    border-radius: 10px 10px 0 0;
+
+    background: #1b1b23;
+}
+
+.editor-btn {
+    min-width: 34px;
+    min-height: 30px;
+    padding: 0 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.04);
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.editor-btn:hover {
+    border-color: var(--red);
+    background: var(--red);
+}
+
+.rich-editor {
+    border-radius: 0 0 10px 10px !important;
+    min-height: 210px !important;
+}
+
+.admin-card-summary {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.admin-card-thumb {
+    width: 68px;
+    height: 52px;
+
+    flex: 0 0 68px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    background: var(--surface-3);
+
+    object-fit: cover;
+}
+
+.admin-card-thumb.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: .7px;
+    text-transform: uppercase;
+}
+
+.admin-card-copy {
+    min-width: 0;
+}
+
+.card-editor {
+    margin-top: 16px;
+    padding-top: 16px;
+
+    border-top: 1px solid var(--border);
+}
+
+.card-editor.collapsed {
+    display: none;
+}
+
+.person-chip,
+.article-chip {
+    margin-top: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.mini-chip {
+    min-height: 22px;
+    padding: 0 8px;
+
+    display: inline-flex;
+    align-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    background: rgba(255,255,255,.025);
+
+    color: var(--muted);
+
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.gallery-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 12px;
+}
+
+.gallery-card {
+    min-width: 0;
+}
+
+.gallery-preview {
+    position: relative;
+
+    aspect-ratio: 16 / 10;
+    margin-bottom: 15px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+
+    background: var(--surface-3);
+}
+
+.gallery-preview img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+}
+
+.gallery-preview-empty {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.gallery-order {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 100px;
+
+    background: rgba(0,0,0,.72);
+    color: #fff;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+@media (max-width: 1050px) {
+    .gallery-admin-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+}
+
+@media (max-width: 620px) {
+    .gallery-admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-card-thumb {
+        width: 56px;
+        height: 46px;
+        flex-basis: 56px;
+    }
+}
+
+#toast {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9999;
+
+    max-width: min(430px, calc(100vw - 30px));
+    padding: 13px 17px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: #1b1b22;
+    color: #fff;
+
+    box-shadow: 0 22px 60px rgba(0,0,0,.45);
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(18px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 1150px) {
+    .stats {
+        grid-template-columns: repeat(3,minmax(0,1fr));
+    }
+
+    .grid-4,
+    .grid-5 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .field-span-3,
+    .field-span-4,
+    .field-span-5 {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 720px) {
+    header {
+        height: auto;
+        min-height: 74px;
+        padding: 12px 16px;
+    }
+
+    .brand-title {
+        font-size: 12px;
+    }
+
+    .brand-subtitle {
+        display: none;
+    }
+
+    .status-chip {
+        display: none;
+    }
+
+    .main {
+        padding: 22px 14px 60px;
+    }
+
+    .login {
+        margin-top: 35px;
+        padding: 25px 20px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .panel {
+        padding: 18px 14px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+        grid-template-columns: 1fr;
+    }
+
+    .field-span-2,
+    .field-span-3,
+    .field-span-4,
+    .field-span-5 {
+        grid-column: auto;
+    }
+
+    .dashboard-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+
+/* =====================================================
+   PANEL 2026 — ORDER / USERS / DOCUMENTS
+===================================================== */
+.order-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.order-btn{width:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center}
+.user-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.user-admin-card{padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.025)}
+.user-admin-email{font-size:15px;font-weight:900;word-break:break-word}
+.user-admin-meta{margin-top:7px;color:rgba(255,255,255,.5);font-size:11px;line-height:1.55}
+.user-admin-perms{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.user-admin-actions{margin-top:15px;display:flex;gap:8px;flex-wrap:wrap}
+.security-note{margin:0 0 18px;padding:14px 16px;border:1px solid rgba(104,188,255,.16);border-radius:14px;background:rgba(104,188,255,.05);color:rgba(255,255,255,.68);font-size:12px;line-height:1.65}
+@media(max-width:760px){.user-admin-grid{grid-template-columns:1fr}}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase-config.js"></script>
+<script src="/supabase-api.js"></script>
+</head>
+
+<body>
+
+<div id="toast"></div>
+
+<header>
+    <a class="brand" href="/">
+        <img
+            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+            alt="Legion Białystok"
+        >
+        <div class="brand-copy">
+            <div class="brand-title">Legion Białystok</div>
+            <div class="brand-subtitle">Panel zarządzania</div>
+        </div>
+    </a>
+
+    <div class="header-actions">
+        <div class="status-chip" id="dataModeChip">
+            <span class="status-dot"></span>
+            <span id="dataModeText">Tryb lokalny</span>
+        </div>
+
+        <button
+            class="btn btn-ghost"
+            id="syncButton"
+            type="button"
+            onclick="syncFromApi()"
+            style="display:none"
+        >
+            ↻ Pobierz z API
+        </button>
+
+        <button
+            class="btn btn-danger"
+            id="logoutButton"
+            type="button"
+            onclick="logout()"
+            style="display:none"
+        >
+            Wyloguj
+        </button>
+    </div>
+</header>
+
+<main class="main">
+
+    <section class="login" id="loginScreen">
+        <h1>Panel Administratora</h1>
+        <p>
+            Zaloguj się kontem administratora Legionu Białystok.
+            Dostęp do poszczególnych sekcji zależy od nadanych uprawnień.
+        </p>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>E-mail administratora</label>
+                <input id="loginInput" type="email" required autocomplete="username" placeholder="admin@twojadomena.pl">
+            </div>
+
+            <div class="form-group">
+                <label>Hasło</label>
+                <input id="passInput" type="password" required autocomplete="current-password">
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="width:100%;">
+                Zaloguj
+            </button>
+        </form>
+    </section>
+
+
+    <section id="dashboard">
+
+        <div class="dashboard-head">
+            <div>
+                <h1 class="dashboard-title">Panel Zarządzania</h1>
+                <p class="dashboard-desc" id="loggedUserDesc">
+                    Zarządzaj treściami strony Legionu Białystok.
+                </p>
+            </div>
+
+            <div class="panel-actions">
+                <button
+                    class="btn"
+                    type="button"
+                    onclick="exportBackup()"
+                >
+                    Eksport kopii JSON
+                </button>
+
+                <label class="btn" style="cursor:pointer;">
+                    Import kopii
+                    <input
+                        id="backupImportInput"
+                        type="file"
+                        accept=".json,application/json"
+                        hidden
+                        onchange="importBackup(event)"
+                    >
+                </label>
+            </div>
+        </div>
+
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-label">Artykuły</span>
+                <span class="stat-value" id="statArticles">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">I Drużyna</span>
+                <span class="stat-value" id="statTeam1">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">II Drużyna</span>
+                <span class="stat-value" id="statTeam2">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Akademia</span>
+                <span class="stat-value" id="statAcademy">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Ludzie Legionu</span>
+                <span class="stat-value" id="statPeople">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Kadry</span>
+                <span class="stat-value" id="statGallery">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Sezony</span>
+                <span class="stat-value" id="statSeasons">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Stories</span>
+                <span class="stat-value" id="statStories">0</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Dokumenty</span>
+                <span class="stat-value" id="statDocuments">0</span>
+            </div>
+        </div>
+
+
+        <div class="tabs-wrap">
+            <div class="tabs">
+                <button class="tab active" data-perm="articles" onclick="switchTab('articlesTab',this)">Artykuły</button>
+                <button class="tab" data-perm="stories" onclick="switchTab('storiesTab',this)">Stories</button>
+                <button class="tab" data-perm="team1" onclick="switchTab('team1Tab',this)">I Drużyna</button>
+                <button class="tab" data-perm="team2" onclick="switchTab('team2Tab',this)">II Drużyna</button>
+                <button class="tab" data-perm="academy" onclick="switchTab('academyTab',this)">Akademia</button>
+                <button class="tab" data-perm="people" onclick="switchTab('peopleTab',this)">Ludzie Legionu</button>
+                <button class="tab" data-perm="gallery" onclick="switchTab('galleryTab',this)">Kadry / Galeria</button>
+                <button class="tab" data-perm="table" onclick="switchTab('tableTab',this)">Tabela</button>
+                <button class="tab" data-perm="seasons" onclick="switchTab('seasonsTab',this)">Sezony</button>
+                <button class="tab" data-perm="matches" onclick="switchTab('matchesTab',this)">Match Center</button>
+                <button class="tab" data-perm="documents" onclick="switchTab('documentsTab',this)">Dokumenty</button>
+                <button class="tab" data-perm="contact" onclick="switchTab('contactTab',this)">Kontakt</button>
+                <button class="tab" data-perm="users" onclick="switchTab('usersTab',this)">Konta i uprawnienia</button>
+                <button class="tab" onclick="switchTab('passwordTab',this)">Moje hasło</button>
+            </div>
+        </div>
+
+
+        <!-- ARTICLES -->
+        <section id="articlesTab" class="tab-content active" data-perm="articles">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Artykuły</h2>
+                        <p class="panel-subtitle">
+                            Dane zgodne z /api/articles.php używanym przez aktualności i stronę główną.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addArticle()">+ Dodaj artykuł</button>
+                        <button class="btn btn-success" onclick="saveArticles()">Zapisz artykuły</button>
+                    </div>
+                </div>
+
+                <div class="notice">
+                    Tagi <strong>mecz</strong>, <strong>klub</strong> i <strong>wyniki</strong>
+                    są ukrywane na stronie Aktualności. Wpisuj tagi po przecinku, np.
+                    <strong>Aktualności, Akademia</strong>.
+                </div>
+
+                <div class="builder" id="articlesContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- STORIES -->
+        <section id="storiesTab" class="tab-content" data-perm="stories">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Legion Stories</h2>
+                        <p class="panel-subtitle">Karty Stories na stronie głównej. Kolejność kontroluje pole „Kolejność”.</p>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addStory()">+ Dodaj Story</button>
+                        <button class="btn btn-success" onclick="saveStories()">Zapisz Stories</button>
+                    </div>
+                </div>
+                <div class="builder" id="storiesContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- TEAM 1 -->
+        <section id="team1Tab" class="tab-content" data-perm="team1">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">I Drużyna</h2>
+                        <p class="panel-subtitle">Zawodnicy wyświetlani na /pierwszyzespol.</p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addPlayer('first')">+ Dodaj zawodnika</button>
+                        <button class="btn btn-success" onclick="savePlayers('first')">Zapisz I Drużynę</button>
+                    </div>
+                </div>
+
+                <div class="builder" id="firstPlayersContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- TEAM 2 -->
+        <section id="team2Tab" class="tab-content" data-perm="team2">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">II Drużyna</h2>
+                        <p class="panel-subtitle">Zawodnicy wyświetlani na /drugadruzyna.</p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addPlayer('second')">+ Dodaj zawodnika</button>
+                        <button class="btn btn-success" onclick="savePlayers('second')">Zapisz II Drużynę</button>
+                    </div>
+                </div>
+
+                <div class="builder" id="secondPlayersContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- ACADEMY -->
+        <section id="academyTab" class="tab-content" data-perm="academy">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Akademia</h2>
+                        <p class="panel-subtitle">
+                            Zawodnicy Akademii z grupami U19 / U17 / U15 / U13.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addPlayer('academy')">+ Dodaj zawodnika</button>
+                        <button class="btn btn-success" onclick="savePlayers('academy')">Zapisz Akademię</button>
+                    </div>
+                </div>
+
+                <div class="builder" id="academyPlayersContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- PEOPLE -->
+        <section id="peopleTab" class="tab-content" data-perm="people">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Sztab / Ludzie Legionu</h2>
+                        <p class="panel-subtitle">
+                            Zarząd, sztab, Akademia i administracja strony /ludzie.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addPerson()">+ Dodaj osobę</button>
+                        <button class="btn btn-success" onclick="savePeople()">Zapisz osoby</button>
+                    </div>
+                </div>
+
+                <div class="builder" id="peopleContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- GALLERY -->
+        <section id="galleryTab" class="tab-content" data-perm="gallery">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Legion w kadrze</h2>
+                        <p class="panel-subtitle">
+                            Dodawaj, edytuj, ukrywaj, ustawiaj kolejność i usuwaj zdjęcia z sekcji „Legion w kadrze” na stronie głównej.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addGalleryItem()">+ Dodaj zdjęcie</button>
+                        <button class="btn btn-success" onclick="saveGallery()">Zapisz galerię</button>
+                    </div>
+                </div>
+
+                <div class="notice">
+                    Kolejność ustalasz polem <strong>Kolejność</strong>. Najmniejsza liczba pojawia się pierwsza. Status <strong>Ukryte</strong> usuwa zdjęcie z publicznej siatki bez kasowania go z panelu. Strona główna pobiera dane z <strong>/api/gallery.php</strong>.
+                </div>
+
+                <div class="gallery-admin-grid" id="galleryContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- TABLE -->
+        <section id="tableTab" class="tab-content" data-perm="table">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Tabela ligowa</h2>
+                        <p class="panel-subtitle">
+                            Wybierz sezon i edytuj kompletną tabelę.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addTableRow()">+ Dodaj klub</button>
+                        <button class="btn btn-success" onclick="saveTable()">Zapisz tabelę</button>
+                    </div>
+                </div>
+
+                <div class="table-tools">
+                    <div class="form-group">
+                        <label>Edytowany sezon</label>
+                        <select id="tableSeasonSelect" onchange="changeTableSeason(this.value)"></select>
+                    </div>
+                </div>
+
+                <div class="table-editor">
+                    <div class="table-grid">
+                        <div class="table-header">
+                            <span>Poz.</span>
+                            <span>Klub</span>
+                            <span>M</span>
+                            <span>Z</span>
+                            <span>R</span>
+                            <span>P</span>
+                            <span>GF</span>
+                            <span>GA</span>
+                            <span>Pkt</span>
+                            <span>Forma</span>
+                            <span>Logo URL</span>
+                            <span></span>
+                        </div>
+
+                        <div id="tableRowsContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SEASONS -->
+        <section id="seasonsTab" class="tab-content" data-perm="seasons">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Sezony</h2>
+                        <p class="panel-subtitle">
+                            Lista sezonów wyświetlana w wyborze sezonu na stronie tabeli.
+                        </p>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addSeason()">+ Dodaj sezon</button>
+                        <button class="btn btn-success" onclick="saveSeasons()">Zapisz sezony</button>
+                    </div>
+                </div>
+
+                <div class="builder" id="seasonsContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- MATCHES -->
+        <section id="matchesTab" class="tab-content" data-perm="matches">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Match Center</h2>
+                        <p class="panel-subtitle">
+                            Ostatni i następny mecz strony głównej.
+                        </p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveMatches()">Zapisz mecze</button>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-head">
+                            <strong>Ostatni mecz</strong>
+                        </div>
+                        <div id="lastMatchContainer"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <strong>Następny mecz</strong>
+                        </div>
+                        <div id="nextMatchContainer"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- DOCUMENTS -->
+        <section id="documentsTab" class="tab-content" data-perm="documents">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Dokumenty</h2>
+                        <p class="panel-subtitle">Dokumenty wyświetlane na /dokumenty. Możesz zmieniać kolejność, kategorię i widoczność.</p>
+                    </div>
+                    <div class="panel-actions">
+                        <button class="btn btn-primary" onclick="addDocument()">+ Dodaj dokument</button>
+                        <button class="btn btn-success" onclick="saveDocuments()">Zapisz dokumenty</button>
+                    </div>
+                </div>
+                <div class="builder" id="documentsContainer"></div>
+            </div>
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contactTab" class="tab-content" data-perm="contact">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Kontakt</h2>
+                        <p class="panel-subtitle">
+                            Adres e-mail wyświetlany na stronie /kontakt.
+                        </p>
+                    </div>
+
+                    <button class="btn btn-success" onclick="saveContact()">Zapisz kontakt</button>
+                </div>
+
+                <div class="form-group" style="max-width:620px;">
+                    <label>E-mail kontaktowy</label>
+                    <input id="contactEmailInput" type="email">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PASSWORD -->
+        <section id="passwordTab" class="tab-content">
+            <div class="panel" style="max-width:560px;">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Zmiana hasła</h2>
+                    </div>
+                </div>
+
+                <form onsubmit="handlePasswordChange(event)">
+                    <div class="form-group">
+                        <label>Nowe hasło</label>
+                        <input id="newPasswordInput" type="password" required>
+                    </div>
+
+                    <button class="btn btn-success" type="submit">
+                        Zmień hasło
+                    </button>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- USERS -->
+        <section id="usersTab" class="tab-content" data-perm="users">
+            <div class="panel">
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Konta i uprawnienia</h2>
+                        <p class="panel-subtitle">Tworzenie kont odbywa się po stronie serwera przez Supabase Auth. Hasła nie są zapisywane w HTML ani localStorage.</p>
+                    </div>
+                </div>
+
+                <div class="security-note">
+                    Tylko pełny administrator może tworzyć i usuwać konta. Przy edycji zostaw pole hasła puste, jeżeli nie chcesz go zmieniać.
+                </div>
+
+                <form class="card" onsubmit="saveUser(event)">
+                    <input type="hidden" id="editUserId">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>E-mail / login</label>
+                            <input id="manageUserLogin" type="email" required autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label>Hasło</label>
+                            <input id="manageUserPass" type="password" minlength="8" autocomplete="new-password" placeholder="Wymagane przy nowym koncie">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="inline-check"><input id="manageUserFullAdmin" type="checkbox"> Pełny administrator</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Uprawnienia</label>
+                        <div class="grid-4" id="permissionGrid">
+                            <label class="inline-check"><input class="permChk" value="articles" type="checkbox"> Artykuły</label>
+                            <label class="inline-check"><input class="permChk" value="stories" type="checkbox"> Stories</label>
+                            <label class="inline-check"><input class="permChk" value="team1" type="checkbox"> I Drużyna</label>
+                            <label class="inline-check"><input class="permChk" value="team2" type="checkbox"> II Drużyna</label>
+                            <label class="inline-check"><input class="permChk" value="academy" type="checkbox"> Akademia</label>
+                            <label class="inline-check"><input class="permChk" value="people" type="checkbox"> Ludzie Legionu</label>
+                            <label class="inline-check"><input class="permChk" value="gallery" type="checkbox"> Galeria</label>
+                            <label class="inline-check"><input class="permChk" value="table" type="checkbox"> Tabela</label>
+                            <label class="inline-check"><input class="permChk" value="seasons" type="checkbox"> Sezony</label>
+                            <label class="inline-check"><input class="permChk" value="matches" type="checkbox"> Match Center</label>
+                            <label class="inline-check"><input class="permChk" value="documents" type="checkbox"> Dokumenty</label>
+                            <label class="inline-check"><input class="permChk" value="contact" type="checkbox"> Kontakt</label>
+                        </div>
+                    </div>
+                    <div class="row-actions">
+                        <button class="btn" type="button" onclick="resetUserForm()">Anuluj</button>
+                        <button class="btn btn-primary" type="submit">Zapisz użytkownika</button>
+                    </div>
+                </form>
+                <div class="user-admin-grid" id="usersContainer" style="margin-top:16px;"></div>
+            </div>
+        </section>
+
+    </section>
+
+</main>
+
+
+<script>
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const API = {
+    articles: "/api/articles.php",
+    stories: "/api/stories.php",
+    players: "/api/players.php",
+    people: "/api/people.php",
+    gallery: "/api/gallery.php",
+    table: "/api/table.php",
+    matches: "/api/matches.php",
+    documents: "/api/documents.php",
+    contact: "/api/contact.php",
+    adminUsers: "/api/admin-users.php"
+};
+
+const LANGS = ["pl","en","de","es","ru"];
+
+const POSITION_OPTIONS = [
+    ["goalkeeper","Bramkarz"],
+    ["defender","Obrońca"],
+    ["midfielder","Pomocnik"],
+    ["forward","Napastnik"]
+];
+
+const PEOPLE_CATEGORIES = [
+    ["board","Zarząd"],
+    ["staff","Sztab"],
+    ["academy","Akademia"],
+    ["office","Administracja"]
+];
+
+const ACADEMY_GROUPS = ["u19","u17","u15","u13"];
+
+const ALL_PERMISSIONS = [
+    "articles","stories","team1","team2","academy","people",
+    "gallery","table","seasons","matches","documents","contact"
+];
+
+let dataMode = "local";
+
+
+/* =====================================================
+   STORAGE KEYS
+===================================================== */
+
+const KEYS = {
+    users: "legion_users_data_v2",
+    logged: "legion_logged_user_v2",
+    articles: "legion_articles_data_v2",
+    stories: "legion_stories_data_v2",
+    players: "legion_players_data_v2",
+    people: "legion_people_data_v2",
+    gallery: "legion_gallery_data_v2",
+    seasons: "legion_seasons_data_v2",
+    tables: "legion_tables_data_v2",
+    matches: "legion_matches_data_v2",
+    documents: "legion_documents_data_v2",
+    contact: "legion_contact_data_v2"
+};
+
+
+/* =====================================================
+   DEFAULT DATA
+===================================================== */
+
+let usersData = [];
+
+let loggedUser = null;
+
+let articlesData =
+    loadLocal(KEYS.articles, []);
+
+let storiesData =
+    loadLocal(KEYS.stories, []);
+
+let playersData =
+    loadLocal(
+        KEYS.players,
+        {
+            first: [],
+            second: [],
+            academy: []
+        }
+    );
+
+let peopleData =
+    loadLocal(KEYS.people, []);
+
+let seasonsData =
+    loadLocal(
+        KEYS.seasons,
+        [
+            {
+                id: Date.now(),
+                name: "2026/2027",
+                active: true
+            }
+        ]
+    );
+
+let tablesData =
+    loadLocal(
+        KEYS.tables,
+        {
+            "2026/2027": []
+        }
+    );
+
+let matchesData =
+    loadLocal(
+        KEYS.matches,
+        {
+            last_match: {
+                date: "",
+                home_team: "Legion Białystok",
+                away_team: "",
+                home_logo: "/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
+                away_logo: "",
+                home_score: "",
+                away_score: "",
+                competition: "Liga",
+                venue: ""
+            },
+            next_match: {
+                date: "",
+                home_team: "Legion Białystok",
+                away_team: "",
+                home_logo: "/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png",
+                away_logo: "",
+                competition: "Liga",
+                venue: ""
+            }
+        }
+    );
+
+let documentsData =
+    loadLocal(KEYS.documents, []);
+
+let contactData =
+    loadLocal(
+        KEYS.contact,
+        {
+            email: "kontakt@legionbialystok.pl"
+        }
+    );
+
+let galleryData =
+    loadLocal(
+        KEYS.gallery,
+        []
+    );
+
+let currentTableSeason =
+    getActiveSeasonName();
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function safeParse(value, fallback) {
+    try {
+        return value
+            ? JSON.parse(value)
+            : fallback;
+    }
+    catch(error) {
+        return fallback;
+    }
+}
+
+function loadLocal(key, fallback) {
+    return safeParse(
+        localStorage.getItem(key),
+        fallback
+    );
+}
+
+function saveLocal(key, value) {
+    localStorage.setItem(
+        key,
+        JSON.stringify(value)
+    );
+}
+
+function esc(value) {
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+function uid() {
+    return Date.now()
+        + Math.floor(
+            Math.random() * 10000
+        );
+}
+
+function toast(message, type = "ok") {
+    const element =
+        document.getElementById("toast");
+
+    element.textContent =
+        (type === "error" ? "⚠ " : "✓ ")
+        + message;
+
+    element.style.borderColor =
+        type === "error"
+        ? "rgba(198,40,40,.55)"
+        : "rgba(53,168,83,.4)";
+
+    element.classList.add("show");
+
+    clearTimeout(
+        window.__toastTimer
+    );
+
+    window.__toastTimer =
+        setTimeout(
+            function() {
+                element.classList.remove("show");
+            },
+            2800
+        );
+}
+
+function getActiveSeasonName() {
+    const active =
+        seasonsData.find(
+            function(season) {
+                return season.active;
+            }
+        );
+
+    return (
+        active?.name
+        ||
+        seasonsData[0]?.name
+        ||
+        "2026/2027"
+    );
+}
+
+function normalizeArticle(article) {
+    return {
+        id: article.id ?? uid(),
+        image: article.image || "",
+        published_at:
+            article.published_at
+            ||
+            article.date
+            ||
+            "",
+        status:
+            article.status
+            ||
+            "published",
+        tags:
+            Array.isArray(article.tags)
+            ? article.tags
+            : (
+                typeof article.tags === "string"
+                ? article.tags
+                    .split(",")
+                    .map(v => v.trim())
+                    .filter(Boolean)
+                : []
+            ),
+        translations:
+            article.translations
+            ||
+            {
+                pl: {
+                    title: "",
+                    category: "Aktualności",
+                    excerpt: article.description || "",
+                    content: ""
+                }
+            }
+    };
+}
+
+function normalizePlayer(player, team) {
+    const fullName =
+        String(player.name || "")
+            .trim()
+            .split(/\s+/);
+
+    return {
+        id: player.id ?? uid(),
+        first_name:
+            player.first_name
+            ||
+            fullName.shift()
+            ||
+            "",
+        last_name:
+            player.last_name
+            ||
+            fullName.join(" ")
+            ||
+            "",
+        shirt_number:
+            player.shirt_number
+            ??
+            player.number
+            ??
+            "",
+        position:
+            player.position
+            ||
+            "midfielder",
+        academy_group:
+            player.academy_group
+            ||
+            (
+                team === "academy"
+                ? "u19"
+                : ""
+            ),
+        birth_date:
+            player.birth_date
+            ||
+            "",
+        previous_club:
+            player.previous_club
+            ||
+            "",
+        nationality:
+            player.nationality
+            ||
+            "Polska",
+        nationality_code:
+            player.nationality_code
+            ||
+            "PL",
+        height_cm:
+            player.height_cm
+            ||
+            "",
+        joined_at:
+            player.joined_at
+            ||
+            "",
+        team: team,
+        status:
+            player.status
+            ||
+            "active",
+        translations:
+            player.translations
+            ||
+            {
+                pl: {
+                    bio: ""
+                }
+            }
+    };
+}
+
+function normalizePerson(person) {
+    const fullName =
+        String(person.name || "")
+            .trim()
+            .split(/\s+/);
+
+    return {
+        id: person.id ?? uid(),
+        first_name:
+            person.first_name
+            ||
+            fullName.shift()
+            ||
+            "",
+        last_name:
+            person.last_name
+            ||
+            fullName.join(" ")
+            ||
+            "",
+        category:
+            person.category
+            ||
+            "staff",
+        role:
+            person.role
+            ||
+            person.position
+            ||
+            "",
+        department:
+            person.department
+            ||
+            "",
+        email:
+            person.email
+            ||
+            "",
+        phone:
+            person.phone
+            ||
+            "",
+        status:
+            person.status
+            ||
+            "active",
+        sort_order:
+            Number.isFinite(Number(person.sort_order))
+            ? Number(person.sort_order)
+            : 9999,
+        translations:
+            person.translations
+            ||
+            {
+                pl: {
+                    bio: ""
+                }
+            }
+    };
+}
+
+
+function normalizeStory(item,index = 0) {
+    return {
+        id: item?.id ?? uid(),
+        title: String(item?.title || item?.translations?.pl?.title || ""),
+        image: String(item?.image || ""),
+        article_url: String(item?.article_url || item?.url || ""),
+        status: String(item?.status || "active"),
+        sort_order: Number.isFinite(Number(item?.sort_order)) ? Number(item.sort_order) : index + 1
+    };
+}
+
+function normalizeDocument(item,index = 0) {
+    return {
+        id: item?.id ?? uid(),
+        title: String(item?.title || ""),
+        category: String(item?.category || "Klub"),
+        description: String(item?.description || ""),
+        file_url: String(item?.file_url || item?.url || ""),
+        file_name: String(item?.file_name || ""),
+        published_at: String(item?.published_at || item?.date || ""),
+        status: String(item?.status || "active"),
+        sort_order: Number.isFinite(Number(item?.sort_order)) ? Number(item.sort_order) : index + 1
+    };
+}
+
+
+function normalizeGalleryItem(item,index = 0) {
+
+    return {
+        id:
+            item?.id
+            ??
+            uid(),
+
+        image:
+            item?.image
+            ||
+            item?.url
+            ||
+            item?.src
+            ||
+            "",
+
+        alt:
+            item?.alt
+            ||
+            "",
+
+        caption:
+            item?.caption
+            ||
+            item?.title
+            ||
+            "",
+
+        sort_order:
+            Number(
+                item?.sort_order
+                ??
+                item?.order
+                ??
+                index + 1
+            )
+            || index + 1,
+
+        status:
+            item?.status
+            ||
+            "active"
+    };
+
+}
+
+
+async function authHeaders(extra = {}) {
+    const headers = {...extra};
+    try {
+        const client = window.LegionSupabase?.client;
+        if (client) {
+            const {data} = await client.auth.getSession();
+            const token = data?.session?.access_token;
+            if (token) headers.Authorization = "Bearer " + token;
+        }
+    }
+    catch(error) {
+        console.log("Auth header:", error);
+    }
+    return headers;
+}
+
+async function apiGet(url) {
+    const response = await fetch(url, {
+        cache: "no-store",
+        credentials: "same-origin",
+        headers: await authHeaders()
+    });
+    if (!response.ok) {
+        const message = await response.text().catch(()=>"");
+        throw new Error((message || response.status) + " " + url);
+    }
+    return response.json();
+}
+
+async function apiPost(url, payload) {
+    const response = await fetch(url, {
+        method: "POST",
+        credentials: "same-origin",
+        headers: await authHeaders({"Content-Type":"application/json"}),
+        body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+        const message = await response.text().catch(()=>"");
+        throw new Error((message || response.status) + " " + url);
+    }
+    const contentType = response.headers.get("content-type") || "";
+    return contentType.includes("application/json") ? response.json() : response.text();
+}
+
+function setDataMode(mode) {
+    dataMode = mode;
+
+    const chip =
+        document.getElementById(
+            "dataModeChip"
+        );
+
+    const text =
+        document.getElementById(
+            "dataModeText"
+        );
+
+    if (mode === "api") {
+        chip.classList.add("api");
+        text.textContent =
+            "Supabase połączone";
+    }
+    else {
+        chip.classList.remove("api");
+        text.textContent =
+            "Brak Supabase";
+    }
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+async function checkAuthState() {
+    const login = document.getElementById("loginScreen");
+    const dashboard = document.getElementById("dashboard");
+    const logoutButton = document.getElementById("logoutButton");
+    const syncButton = document.getElementById("syncButton");
+    const client = window.LegionSupabase?.client;
+
+    if (!window.LegionSupabase?.configured || !client) {
+        loggedUser = null;
+        login.style.display = "block";
+        dashboard.style.display = "none";
+        logoutButton.style.display = "none";
+        syncButton.style.display = "none";
+        setDataMode("local");
+        return;
+    }
+
+    const {data,error} = await client.auth.getSession();
+    if (error || !data?.session) {
+        loggedUser = null;
+        login.style.display = "block";
+        dashboard.style.display = "none";
+        logoutButton.style.display = "none";
+        syncButton.style.display = "none";
+        return;
+    }
+
+    const authUser = data.session.user;
+    let permissions = Array.isArray(authUser.app_metadata?.permissions)
+        ? authUser.app_metadata.permissions
+        : [];
+    let isFullAdmin = authUser.app_metadata?.is_full_admin === true;
+
+    try {
+        const { data: profile, error: profileError } = await client
+            .from("admin_profiles")
+            .select("email, permissions, is_full_admin")
+            .eq("user_id", authUser.id)
+            .maybeSingle();
+
+        if (profileError) {
+            throw profileError;
+        }
+
+        if (profile) {
+            permissions = Array.isArray(profile.permissions)
+                ? profile.permissions
+                : permissions;
+
+            isFullAdmin =
+                profile.is_full_admin === true
+                || isFullAdmin;
+        }
+    }
+    catch(error) {
+        console.log("Admin profile:", error);
+
+        try {
+            const me = await apiGet(API.adminUsers + "?action=me");
+            permissions = Array.isArray(me.permissions)
+                ? me.permissions
+                : permissions;
+            isFullAdmin =
+                me.is_full_admin === true
+                || isFullAdmin;
+        }
+        catch(endpointError) {
+            console.log("Panel permissions endpoint:", endpointError);
+        }
+    }
+
+    if (!isFullAdmin && permissions.length === 0) {
+        await client.auth.signOut();
+        toast("To konto nie ma uprawnień do panelu.", "error");
+        loggedUser = null;
+        login.style.display = "block";
+        dashboard.style.display = "none";
+        logoutButton.style.display = "none";
+        syncButton.style.display = "none";
+        return;
+    }
+
+    loggedUser = {
+        id: authUser.id,
+        username: authUser.email || "administrator",
+        permissions,
+        isFullAdmin
+    };
+
+    login.style.display = "none";
+    dashboard.style.display = "block";
+    logoutButton.style.display = "inline-flex";
+    syncButton.style.display = "inline-flex";
+    document.getElementById("loggedUserDesc").textContent = "Zalogowano jako: " + loggedUser.username;
+    applyPermissions();
+    setDataMode("api");
+    renderAll();
+}
+
+function hasPermission(permission) {
+    return !!loggedUser && (loggedUser.isFullAdmin || loggedUser.permissions?.includes(permission));
+}
+
+function applyPermissions() {
+    document.querySelectorAll("[data-perm]").forEach(element => {
+        const permission = element.dataset.perm;
+        element.style.display = hasPermission(permission) ? "" : "none";
+    });
+
+    const activeTab = document.querySelector(".tab.active");
+    if (activeTab && activeTab.style.display === "none") activeTab.classList.remove("active");
+    const activeContent = document.querySelector(".tab-content.active");
+    if (activeContent && activeContent.dataset.perm && !hasPermission(activeContent.dataset.perm)) {
+        activeContent.classList.remove("active");
+    }
+    if (!document.querySelector(".tab.active")) {
+        const first = Array.from(document.querySelectorAll(".tab")).find(b => b.style.display !== "none");
+        if (first) first.click();
+    }
+}
+
+
+async function handleLogin(
+    event
+) {
+
+    event.preventDefault();
+
+
+    if (
+        !window.LegionSupabase
+        ||
+        !window.LegionSupabase.configured
+        ||
+        !window.LegionSupabase.client
+    ) {
+
+        toast(
+            "Najpierw uzupełnij supabase-config.js.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const email =
+        document
+        .getElementById(
+            "loginInput"
+        )
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById(
+            "passInput"
+        )
+        .value;
+
+
+    const {
+        data,
+        error
+    } =
+        await window
+        .LegionSupabase
+        .client
+        .auth
+        .signInWithPassword(
+            {
+                email,
+                password
+            }
+        );
+
+
+    if (
+        error
+        ||
+        !data.session
+    ) {
+
+        toast(
+            error?.message
+            ||
+            "Nie udało się zalogować.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    await checkAuthState();
+
+
+    toast(
+        "Zalogowano do Supabase."
+    );
+
+
+    await syncFromApi();
+
+}
+
+
+async function logout() {
+
+    if (
+        window.LegionSupabase
+        &&
+        window.LegionSupabase.client
+    ) {
+
+        await window
+            .LegionSupabase
+            .client
+            .auth
+            .signOut();
+
+    }
+
+
+    loggedUser =
+        null;
+
+
+    await checkAuthState();
+
+}
+
+
+async function handlePasswordChange(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const input =
+        document.getElementById(
+            "newPasswordInput"
+        );
+
+
+    const newPassword =
+        input.value;
+
+
+    if (
+        !newPassword
+        ||
+        !window.LegionSupabase?.client
+    ) {
+        return;
+    }
+
+
+    const {
+        error
+    } =
+        await window
+        .LegionSupabase
+        .client
+        .auth
+        .updateUser(
+            {
+                password:
+                    newPassword
+            }
+        );
+
+
+    if (error) {
+
+        toast(
+            error.message,
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    input.value =
+        "";
+
+
+    toast(
+        "Hasło zostało zmienione."
+    );
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function switchTab(id, button) {
+    document
+        .querySelectorAll(
+            ".tab-content"
+        )
+        .forEach(
+            function(element) {
+                element.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+    document
+        .querySelectorAll(
+            ".tab"
+        )
+        .forEach(
+            function(element) {
+                element.classList.remove(
+                    "active"
+                );
+            }
+        );
+
+    document
+        .getElementById(id)
+        .classList
+        .add("active");
+
+    button.classList.add(
+        "active"
+    );
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats() {
+    document.getElementById("statArticles").textContent =
+        articlesData.length;
+
+    document.getElementById("statTeam1").textContent =
+        playersData.first?.length || 0;
+
+    document.getElementById("statTeam2").textContent =
+        playersData.second?.length || 0;
+
+    document.getElementById("statAcademy").textContent =
+        playersData.academy?.length || 0;
+
+    document.getElementById("statPeople").textContent =
+        peopleData.length;
+
+    document.getElementById("statGallery").textContent =
+        galleryData.length;
+
+    document.getElementById("statSeasons").textContent =
+        seasonsData.length;
+
+    const storyStat = document.getElementById("statStories");
+    if (storyStat) storyStat.textContent = storiesData.length;
+
+    const docStat = document.getElementById("statDocuments");
+    if (docStat) docStat.textContent = documentsData.length;
+}
+
+
+/* =====================================================
+   ARTICLES
+===================================================== */
+
+function articlePl(article) {
+    article.translations =
+        article.translations || {};
+
+    article.translations.pl =
+        article.translations.pl
+        || {};
+
+    return article.translations.pl;
+}
+
+function renderArticles() {
+
+    const container =
+        document.getElementById(
+            "articlesContainer"
+        );
+
+
+    if (!articlesData.length) {
+
+        container.innerHTML =
+            '<div class="empty">Brak artykułów. Dodaj pierwszy artykuł.</div>';
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        articlesData
+        .map(
+            function(article,index) {
+
+                const t =
+                    articlePl(
+                        article
+                    );
+
+
+                const imagePreview =
+                    article.image
+                    ? `
+                        <img
+                            class="admin-card-thumb"
+                            src="${esc(article.image)}"
+                            alt=""
+                            onerror="this.style.display='none'"
+                        >
+                    `
+                    : `
+                        <div class="admin-card-thumb placeholder">
+                            News
+                        </div>
+                    `;
+
+
+                return `
+                    <article
+                        class="card articleRow"
+                        data-index="${index}"
+                    >
+
+                        <div class="card-head">
+
+                            <div class="admin-card-summary">
+
+                                ${imagePreview}
+
+                                <div class="admin-card-copy">
+
+                                    <div class="card-title">
+                                        ${esc(t.title || "Nowy artykuł")}
+                                    </div>
+
+                                    <div class="article-chip">
+
+                                        <span class="mini-chip">
+                                            ${esc(t.category || "Aktualności")}
+                                        </span>
+
+                                        <span class="mini-chip">
+                                            ${article.status === "published" ? "Opublikowany" : "Szkic"}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="panel-actions">
+
+                                <div class="order-controls">
+                                    <button class="btn order-btn" type="button" onclick="movePerson(${index},-1)" title="Przesuń wyżej">↑</button>
+                                    <button class="btn order-btn" type="button" onclick="movePerson(${index},1)" title="Przesuń niżej">↓</button>
+                                </div>
+
+                                <button
+                                    class="btn"
+                                    type="button"
+                                    onclick="toggleCardEditor('articleEditor-${index}',this)"
+                                >
+                                    Edytuj
+                                </button>
+
+                                <button
+                                    class="btn btn-danger"
+                                    type="button"
+                                    onclick="deleteArticle(${index})"
+                                >
+                                    Usuń
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="card-editor collapsed"
+                            id="articleEditor-${index}"
+                        >
+
+                            <div class="grid-4">
+
+                                <div class="form-group field-span-2">
+                                    <label>Tytuł PL</label>
+                                    <input
+                                        class="aTitle"
+                                        value="${esc(t.title)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Kategoria PL</label>
+                                    <input
+                                        class="aCategory"
+                                        value="${esc(t.category || "Aktualności")}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Status</label>
+
+                                    <select class="aStatus">
+                                        <option
+                                            value="published"
+                                            ${article.status === "published" ? "selected" : ""}
+                                        >
+                                            Opublikowany
+                                        </option>
+
+                                        <option
+                                            value="draft"
+                                            ${article.status === "draft" ? "selected" : ""}
+                                        >
+                                            Szkic
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Data publikacji</label>
+
+                                    <input
+                                        class="aDate"
+                                        type="datetime-local"
+                                        value="${esc(toDatetimeLocal(article.published_at))}"
+                                    >
+                                </div>
+
+                                <div class="form-group field-span-2">
+                                    <label>Zdjęcie URL</label>
+                                    <input
+                                        class="aImage"
+                                        value="${esc(article.image)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tagi</label>
+
+                                    <input
+                                        class="aTags"
+                                        value="${esc((article.tags || []).join(", "))}"
+                                        placeholder="Aktualności, Akademia"
+                                    >
+                                </div>
+
+                                <div class="form-group field-span-4">
+                                    <label>Krótki opis PL</label>
+
+                                    <textarea class="aExcerpt">${esc(t.excerpt || t.description || "")}</textarea>
+                                </div>
+
+                                <div class="form-group field-span-4">
+
+                                    <label>Treść PL</label>
+
+                                    <div class="editor-toolbar">
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'bold')"
+                                            title="Pogrubienie"
+                                        >
+                                            <b>B</b>
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'italic')"
+                                            title="Kursywa"
+                                        >
+                                            <i>I</i>
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'h2')"
+                                        >
+                                            H2
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'h3')"
+                                        >
+                                            H3
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'paragraph')"
+                                        >
+                                            P
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'quote')"
+                                        >
+                                            Cytat
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'list')"
+                                        >
+                                            Lista
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'link')"
+                                        >
+                                            Link
+                                        </button>
+
+                                        <button
+                                            class="editor-btn"
+                                            type="button"
+                                            onclick="formatArticle(${index},'br')"
+                                        >
+                                            ↵
+                                        </button>
+
+                                    </div>
+
+                                    <textarea
+                                        class="aContent rich-editor"
+                                        id="articleContent-${index}"
+                                    >${esc(t.content)}</textarea>
+
+                                    <div class="lang-note">
+                                        Formatowanie zapisuje znaczniki HTML w treści artykułu.
+                                        Inne wersje językowe pozostają zachowane.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+function toggleCardEditor(
+    id,
+    button
+) {
+
+    const editor =
+        document.getElementById(
+            id
+        );
+
+
+    if (!editor) {
+        return;
+    }
+
+
+    const closed =
+        editor.classList.toggle(
+            "collapsed"
+        );
+
+
+    if (button) {
+
+        button.textContent =
+            closed
+            ? "Edytuj"
+            : "Zwiń";
+
+    }
+
+}
+
+
+function wrapTextareaSelection(
+    textarea,
+    before,
+    after = ""
+) {
+
+    if (!textarea) {
+        return;
+    }
+
+
+    const start =
+        textarea.selectionStart
+        ?? 0;
+
+    const end =
+        textarea.selectionEnd
+        ?? start;
+
+    const selected =
+        textarea.value
+        .slice(
+            start,
+            end
+        );
+
+
+    textarea.value =
+        textarea.value.slice(
+            0,
+            start
+        )
+        +
+        before
+        +
+        selected
+        +
+        after
+        +
+        textarea.value.slice(
+            end
+        );
+
+
+    const cursorStart =
+        start
+        +
+        before.length;
+
+
+    const cursorEnd =
+        cursorStart
+        +
+        selected.length;
+
+
+    textarea.focus();
+
+
+    textarea.setSelectionRange(
+        cursorStart,
+        cursorEnd
+    );
+
+}
+
+
+function formatArticle(
+    index,
+    type
+) {
+
+    const textarea =
+        document.getElementById(
+            "articleContent-"
+            +
+            index
+        );
+
+
+    if (!textarea) {
+        return;
+    }
+
+
+    if (type === "bold") {
+
+        wrapTextareaSelection(
+            textarea,
+            "<strong>",
+            "</strong>"
+        );
+
+    }
+
+    else if (
+        type === "italic"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<em>",
+            "</em>"
+        );
+
+    }
+
+    else if (
+        type === "h2"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<h2>",
+            "</h2>"
+        );
+
+    }
+
+    else if (
+        type === "h3"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<h3>",
+            "</h3>"
+        );
+
+    }
+
+    else if (
+        type === "paragraph"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<p>",
+            "</p>"
+        );
+
+    }
+
+    else if (
+        type === "quote"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<blockquote>",
+            "</blockquote>"
+        );
+
+    }
+
+    else if (
+        type === "list"
+    ) {
+
+        const start =
+            textarea.selectionStart
+            ??
+            0;
+
+        const end =
+            textarea.selectionEnd
+            ??
+            start;
+
+        const selected =
+            textarea.value.slice(
+                start,
+                end
+            )
+            ||
+            "Element listy";
+
+
+        const items =
+            selected
+            .split(/\r?\n/)
+            .filter(Boolean)
+            .map(
+                line =>
+                    "<li>"
+                    +
+                    line
+                    +
+                    "</li>"
+            )
+            .join("\n");
+
+
+        const block =
+            "<ul>\n"
+            +
+            items
+            +
+            "\n</ul>";
+
+
+        textarea.setRangeText(
+            block,
+            start,
+            end,
+            "end"
+        );
+
+
+        textarea.focus();
+
+    }
+
+    else if (
+        type === "link"
+    ) {
+
+        const url =
+            prompt(
+                "Wklej adres linku:"
+            );
+
+
+        if (!url) {
+            return;
+        }
+
+
+        wrapTextareaSelection(
+            textarea,
+            '<a href="'
+            +
+            url.replace(
+                /"/g,
+                "&quot;"
+            )
+            +
+            '">',
+            "</a>"
+        );
+
+    }
+
+    else if (
+        type === "br"
+    ) {
+
+        wrapTextareaSelection(
+            textarea,
+            "<br>\n"
+        );
+
+    }
+
+}
+
+
+function addArticle() {
+
+    articlesData.unshift(
+        normalizeArticle(
+            {
+                id: uid(),
+                image: "",
+                published_at:
+                    new Date()
+                    .toISOString(),
+                status: "draft",
+                tags: [
+                    "Aktualności"
+                ],
+                translations: {
+                    pl: {
+                        title:
+                            "Nowy artykuł",
+                        category:
+                            "Aktualności",
+                        excerpt:
+                            "",
+                        content:
+                            ""
+                    }
+                }
+            }
+        )
+    );
+
+
+    renderArticles();
+
+    updateStats();
+
+
+    setTimeout(
+        function() {
+
+            const button =
+                document.querySelector(
+                    '.articleRow[data-index="0"] .panel-actions .btn'
+                );
+
+
+            toggleCardEditor(
+                "articleEditor-0",
+                button
+            );
+
+        },
+        0
+    );
+
+}
+
+
+function deleteArticle(
+    index
+) {
+
+    if (
+        !confirm(
+            "Usunąć ten artykuł?"
+        )
+    ) {
+        return;
+    }
+
+
+    articlesData.splice(
+        index,
+        1
+    );
+
+
+    saveLocal(
+        KEYS.articles,
+        articlesData
+    );
+
+
+    renderArticles();
+
+    updateStats();
+
+
+    toast(
+        "Artykuł usunięty."
+    );
+
+}
+
+
+function collectArticles() {
+
+    const rows =
+        document.querySelectorAll(
+            ".articleRow"
+        );
+
+
+    rows.forEach(
+        function(row) {
+
+            const index =
+                Number(
+                    row.dataset.index
+                );
+
+
+            const article =
+                articlesData[
+                    index
+                ];
+
+
+            if (!article) {
+                return;
+            }
+
+
+            const t =
+                articlePl(
+                    article
+                );
+
+
+            t.title =
+                row.querySelector(
+                    ".aTitle"
+                ).value.trim();
+
+
+            t.category =
+                row.querySelector(
+                    ".aCategory"
+                ).value.trim();
+
+
+            t.excerpt =
+                row.querySelector(
+                    ".aExcerpt"
+                ).value;
+
+
+            t.content =
+                row.querySelector(
+                    ".aContent"
+                ).value;
+
+
+            article.status =
+                row.querySelector(
+                    ".aStatus"
+                ).value;
+
+
+            article.image =
+                row.querySelector(
+                    ".aImage"
+                ).value.trim();
+
+
+            article.tags =
+                row.querySelector(
+                    ".aTags"
+                ).value
+                .split(",")
+                .map(
+                    function(tag) {
+
+                        return tag.trim();
+
+                    }
+                )
+                .filter(Boolean);
+
+
+            const dateValue =
+                row.querySelector(
+                    ".aDate"
+                ).value;
+
+
+            article.published_at =
+                dateValue
+                ? new Date(
+                    dateValue
+                )
+                .toISOString()
+                : "";
+
+        }
+    );
+
+}
+
+
+async function saveArticles() {
+
+    collectArticles();
+
+
+    saveLocal(
+        KEYS.articles,
+        articlesData
+    );
+
+
+    await tryApiSave(
+        API.articles,
+        {
+            action:
+                "replace_all",
+            articles:
+                articlesData
+        },
+        "Artykuły"
+    );
+
+
+    renderArticles();
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   STORIES
+===================================================== */
+function renderStories() {
+    const container = document.getElementById("storiesContainer");
+    if (!container) return;
+    storiesData = storiesData.map(normalizeStory).sort((a,b)=>a.sort_order-b.sort_order);
+    if (!storiesData.length) {
+        container.innerHTML = '<div class="empty">Brak Stories. Dodaj pierwsze Story.</div>';
+        return;
+    }
+    container.innerHTML = storiesData.map((story,index)=>`
+        <article class="card storyRow" data-index="${index}">
+            <div class="card-head">
+                <div><div class="card-title">${esc(story.title || "Nowe Story")}</div><div class="card-meta">Kolejność: ${story.sort_order} · ${story.status === "active" ? "Aktywne" : "Ukryte"}</div></div>
+                <div class="panel-actions"><button class="btn" type="button" onclick="toggleCardEditor('storyEditor-${index}',this)">Edytuj</button><button class="btn btn-danger" type="button" onclick="deleteStory(${index})">Usuń</button></div>
+            </div>
+            <div class="card-editor collapsed" id="storyEditor-${index}"><div class="grid-4">
+                <div class="form-group field-span-2"><label>Tytuł</label><input class="sTitle" value="${esc(story.title)}"></div>
+                <div class="form-group"><label>Kolejność</label><input class="sOrder" type="number" value="${story.sort_order}"></div>
+                <div class="form-group"><label>Status</label><select class="sStatus"><option value="active" ${story.status==='active'?'selected':''}>Aktywne</option><option value="inactive" ${story.status==='inactive'?'selected':''}>Ukryte</option></select></div>
+                <div class="form-group field-span-2"><label>Zdjęcie URL</label><input class="sImage" value="${esc(story.image)}"></div>
+                <div class="form-group field-span-2"><label>Link do artykułu</label><input class="sUrl" value="${esc(story.article_url)}" placeholder="/aktualnosci#..."></div>
+            </div></div>
+        </article>`).join("");
+}
+function addStory(){storiesData.push(normalizeStory({id:uid(),title:"Nowe Story",status:"active",sort_order:storiesData.length+1}));renderStories();updateStats();}
+function deleteStory(index){if(!confirm("Usunąć Story?"))return;storiesData.splice(index,1);storiesData.forEach((x,i)=>x.sort_order=i+1);renderStories();updateStats();}
+function collectStories(){document.querySelectorAll('.storyRow').forEach(row=>{const i=Number(row.dataset.index),s=storiesData[i];if(!s)return;s.title=row.querySelector('.sTitle').value.trim();s.image=row.querySelector('.sImage').value.trim();s.article_url=row.querySelector('.sUrl').value.trim();s.status=row.querySelector('.sStatus').value;s.sort_order=Number(row.querySelector('.sOrder').value)||i+1;});storiesData.sort((a,b)=>a.sort_order-b.sort_order);}
+async function saveStories(){collectStories();saveLocal(KEYS.stories,storiesData);await tryApiSave(API.stories,{action:"replace_all",stories:storiesData},"Stories");renderStories();updateStats();}
+
+
+/* =====================================================
+   PLAYERS
+===================================================== */
+
+function playerContainer(team) {
+    return document.getElementById(
+        team === "first"
+        ? "firstPlayersContainer"
+        : (
+            team === "second"
+            ? "secondPlayersContainer"
+            : "academyPlayersContainer"
+        )
+    );
+}
+
+function renderPlayers(team) {
+    const container =
+        playerContainer(team);
+
+    const list =
+        playersData[team]
+        || [];
+
+    if (!list.length) {
+        container.innerHTML =
+            '<div class="empty">Brak zawodników. Dodaj pierwszego zawodnika.</div>';
+        return;
+    }
+
+    container.innerHTML =
+        list
+        .map(
+            function(player,index) {
+                player =
+                    normalizePlayer(
+                        player,
+                        team
+                    );
+
+                list[index] =
+                    player;
+
+                const bio =
+                    player.translations?.pl?.bio
+                    || "";
+
+                return `
+                    <article class="card playerRow" data-team="${team}" data-index="${index}">
+                        <div class="card-head">
+                            <div>
+                                <div class="card-title">
+                                    ${esc(player.first_name)} ${esc(player.last_name)}
+                                </div>
+                                <div class="card-meta">
+                                    ${esc(teamLabel(team))} · #${esc(player.shirt_number || "—")}
+                                </div>
+                            </div>
+
+                            <button
+                                class="btn btn-danger"
+                                type="button"
+                                onclick="deletePlayer('${team}',${index})"
+                            >
+                                Usuń
+                            </button>
+                        </div>
+
+                        <div class="grid-5">
+                            <div class="form-group">
+                                <label>Imię</label>
+                                <input class="pFirst" value="${esc(player.first_name)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Nazwisko</label>
+                                <input class="pLast" value="${esc(player.last_name)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Numer</label>
+                                <input class="pNumber" type="number" min="0" value="${esc(player.shirt_number)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Pozycja</label>
+                                <select class="pPosition">
+                                    ${POSITION_OPTIONS.map(
+                                        function(option) {
+                                            return `
+                                                <option
+                                                    value="${option[0]}"
+                                                    ${player.position === option[0] ? "selected" : ""}
+                                                >
+                                                    ${option[1]}
+                                                </option>
+                                            `;
+                                        }
+                                    ).join("")}
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="pStatus">
+                                    <option value="active" ${player.status === "active" ? "selected" : ""}>Aktywny</option>
+                                    <option value="inactive" ${player.status === "inactive" ? "selected" : ""}>Nieaktywny</option>
+                                </select>
+                            </div>
+
+                            ${
+                                team === "academy"
+                                ? `
+                                    <div class="form-group">
+                                        <label>Grupa Akademii</label>
+                                        <select class="pAcademyGroup">
+                                            ${ACADEMY_GROUPS.map(
+                                                function(group) {
+                                                    return `
+                                                        <option
+                                                            value="${group}"
+                                                            ${player.academy_group === group ? "selected" : ""}
+                                                        >
+                                                            ${group.toUpperCase()}
+                                                        </option>
+                                                    `;
+                                                }
+                                            ).join("")}
+                                        </select>
+                                    </div>
+                                `
+                                : ""
+                            }
+
+                            <div class="form-group">
+                                <label>Data urodzenia</label>
+                                <input class="pBirth" type="date" value="${esc(player.birth_date)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Poprzedni klub</label>
+                                <input class="pPrevious" value="${esc(player.previous_club)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Narodowość</label>
+                                <input class="pNationality" value="${esc(player.nationality)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Kod kraju</label>
+                                <input
+                                    class="pCountryCode"
+                                    maxlength="2"
+                                    value="${esc(player.nationality_code)}"
+                                    placeholder="PL"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label>Wzrost (cm)</label>
+                                <input class="pHeight" type="number" min="0" value="${esc(player.height_cm)}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>W Legionie od</label>
+                                <input class="pJoined" type="date" value="${esc(player.joined_at)}">
+                            </div>
+
+                            <div class="form-group ${team === "academy" ? "field-span-5" : "field-span-4"}">
+                                <label>Opis zawodnika PL</label>
+                                <textarea class="pBio">${esc(bio)}</textarea>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+        )
+        .join("");
+}
+
+function teamLabel(team) {
+    if (team === "first") {
+        return "I Drużyna";
+    }
+
+    if (team === "second") {
+        return "II Drużyna";
+    }
+
+    return "Akademia";
+}
+
+function addPlayer(team) {
+    playersData[team] =
+        playersData[team]
+        || [];
+
+    playersData[team].push(
+        normalizePlayer(
+            {
+                id: uid(),
+                first_name: "",
+                last_name: "",
+                shirt_number: "",
+                position: "midfielder",
+                academy_group:
+                    team === "academy"
+                    ? "u19"
+                    : "",
+                birth_date: "",
+                previous_club: "",
+                nationality: "Polska",
+                nationality_code: "PL",
+                height_cm: "",
+                joined_at: "",
+                status: "active",
+                translations: {
+                    pl: {
+                        bio: ""
+                    }
+                }
+            },
+            team
+        )
+    );
+
+    renderPlayers(team);
+    updateStats();
+}
+
+function deletePlayer(team,index) {
+    if (
+        !confirm(
+            "Usunąć zawodnika?"
+        )
+    ) {
+        return;
+    }
+
+    playersData[team].splice(
+        index,
+        1
+    );
+
+    saveLocal(
+        KEYS.stories,
+        storiesData
+    );
+
+    saveLocal(
+        KEYS.players,
+        playersData
+    );
+
+    renderPlayers(team);
+    updateStats();
+
+    toast(
+        "Zawodnik usunięty."
+    );
+}
+
+function collectPlayers(team) {
+    document
+        .querySelectorAll(
+            `.playerRow[data-team="${team}"]`
+        )
+        .forEach(
+            function(row) {
+                const index =
+                    Number(
+                        row.dataset.index
+                    );
+
+                const player =
+                    playersData[team][index];
+
+                if (!player) {
+                    return;
+                }
+
+                player.first_name =
+                    row.querySelector(
+                        ".pFirst"
+                    ).value.trim();
+
+                player.last_name =
+                    row.querySelector(
+                        ".pLast"
+                    ).value.trim();
+
+                player.shirt_number =
+                    row.querySelector(
+                        ".pNumber"
+                    ).value;
+
+                player.position =
+                    row.querySelector(
+                        ".pPosition"
+                    ).value;
+
+                player.status =
+                    row.querySelector(
+                        ".pStatus"
+                    ).value;
+
+                const academyInput =
+                    row.querySelector(
+                        ".pAcademyGroup"
+                    );
+
+                if (academyInput) {
+                    player.academy_group =
+                        academyInput.value;
+                }
+
+                player.birth_date =
+                    row.querySelector(
+                        ".pBirth"
+                    ).value;
+
+                player.previous_club =
+                    row.querySelector(
+                        ".pPrevious"
+                    ).value.trim();
+
+                player.nationality =
+                    row.querySelector(
+                        ".pNationality"
+                    ).value.trim();
+
+                player.nationality_code =
+                    row.querySelector(
+                        ".pCountryCode"
+                    ).value
+                    .trim()
+                    .toUpperCase();
+
+                player.height_cm =
+                    row.querySelector(
+                        ".pHeight"
+                    ).value;
+
+                player.joined_at =
+                    row.querySelector(
+                        ".pJoined"
+                    ).value;
+
+                player.team =
+                    team;
+
+                player.translations =
+                    player.translations
+                    || {};
+
+                player.translations.pl =
+                    player.translations.pl
+                    || {};
+
+                player.translations.pl.bio =
+                    row.querySelector(
+                        ".pBio"
+                    ).value;
+            }
+        );
+}
+
+async function savePlayers(team) {
+    collectPlayers(team);
+
+    saveLocal(
+        KEYS.players,
+        playersData
+    );
+
+    await tryApiSave(
+        API.players,
+        {
+            action: "replace_team",
+            team: team,
+            players:
+                playersData[team]
+        },
+        teamLabel(team)
+    );
+
+    renderPlayers(team);
+    updateStats();
+}
+
+
+/* =====================================================
+   PEOPLE
+===================================================== */
+
+function renderPeople() {
+
+    const container =
+        document.getElementById(
+            "peopleContainer"
+        );
+
+
+    if (!peopleData.length) {
+
+        container.innerHTML =
+            '<div class="empty">Brak osób. Dodaj pierwszą osobę.</div>';
+
+        return;
+
+    }
+
+
+    peopleData = peopleData
+        .map(normalizePerson)
+        .sort((a,b)=>a.sort_order-b.sort_order);
+
+    container.innerHTML =
+        peopleData
+        .map(
+            function(person,index) {
+
+                person =
+                    normalizePerson(
+                        person
+                    );
+
+
+                peopleData[index] =
+                    person;
+
+
+                const bio =
+                    person.translations?.pl?.bio
+                    ||
+                    "";
+
+
+                const categoryText =
+                    PEOPLE_CATEGORIES
+                    .find(
+                        item =>
+                            item[0]
+                            ===
+                            person.category
+                    )?.[1]
+                    ||
+                    person.category;
+
+
+                return `
+                    <article
+                        class="card personRow"
+                        data-index="${index}"
+                    >
+
+                        <div class="card-head">
+
+                            <div class="admin-card-summary">
+
+                                <div class="admin-card-thumb placeholder">
+                                    ${esc(
+                                        (
+                                            person.first_name?.[0]
+                                            ||
+                                            ""
+                                        )
+                                        +
+                                        (
+                                            person.last_name?.[0]
+                                            ||
+                                            ""
+                                        )
+                                    )}
+                                </div>
+
+                                <div class="admin-card-copy">
+
+                                    <div class="card-title">
+                                        ${esc(person.first_name)} ${esc(person.last_name)}
+                                    </div>
+
+                                    <div class="person-chip">
+
+                                        <span class="mini-chip">
+                                            ${esc(person.role || "Bez stanowiska")}
+                                        </span>
+
+                                        <span class="mini-chip">
+                                            ${esc(categoryText)}
+                                        </span>
+
+                                        ${
+                                            person.department
+                                            ? `
+                                                <span class="mini-chip">
+                                                    ${esc(person.department)}
+                                                </span>
+                                            `
+                                            : ""
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="panel-actions">
+
+                                <button
+                                    class="btn"
+                                    type="button"
+                                    onclick="toggleCardEditor('personEditor-${index}',this)"
+                                >
+                                    Edytuj
+                                </button>
+
+                                <button
+                                    class="btn btn-danger"
+                                    type="button"
+                                    onclick="deletePerson(${index})"
+                                >
+                                    Usuń
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="card-editor collapsed"
+                            id="personEditor-${index}"
+                        >
+
+                            <div class="grid-4">
+
+                                <div class="form-group">
+                                    <label>Imię</label>
+
+                                    <input
+                                        class="personFirst"
+                                        value="${esc(person.first_name)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nazwisko</label>
+
+                                    <input
+                                        class="personLast"
+                                        value="${esc(person.last_name)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Kategoria</label>
+
+                                    <select class="personCategory">
+
+                                        ${PEOPLE_CATEGORIES.map(
+                                            function(option) {
+
+                                                return `
+                                                    <option
+                                                        value="${option[0]}"
+                                                        ${person.category === option[0] ? "selected" : ""}
+                                                    >
+                                                        ${option[1]}
+                                                    </option>
+                                                `;
+
+                                            }
+                                        ).join("")}
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Status</label>
+
+                                    <select class="personStatus">
+                                        <option
+                                            value="active"
+                                            ${person.status === "active" ? "selected" : ""}
+                                        >
+                                            Aktywna
+                                        </option>
+
+                                        <option
+                                            value="inactive"
+                                            ${person.status === "inactive" ? "selected" : ""}
+                                        >
+                                            Ukryta
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Kolejność</label>
+                                    <input class="personOrder" type="number" value="${esc(person.sort_order)}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Stanowisko</label>
+
+                                    <input
+                                        class="personRole"
+                                        value="${esc(person.role)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Dział</label>
+
+                                    <input
+                                        class="personDepartment"
+                                        value="${esc(person.department)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>E-mail</label>
+
+                                    <input
+                                        class="personEmail"
+                                        type="email"
+                                        value="${esc(person.email)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Telefon</label>
+
+                                    <input
+                                        class="personPhone"
+                                        value="${esc(person.phone)}"
+                                    >
+                                </div>
+
+                                <div class="form-group field-span-4">
+                                    <label>Opis PL</label>
+
+                                    <textarea class="personBio">${esc(bio)}</textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+function addPerson() {
+
+    peopleData.push(
+        normalizePerson(
+            {
+                id:
+                    uid(),
+                first_name:
+                    "",
+                last_name:
+                    "",
+                category:
+                    "staff",
+                role:
+                    "",
+                department:
+                    "",
+                email:
+                    "",
+                phone:
+                    "",
+                status:
+                    "active",
+                sort_order:
+                    peopleData.length + 1,
+                translations: {
+                    pl: {
+                        bio:
+                            ""
+                    }
+                }
+            }
+        )
+    );
+
+
+    renderPeople();
+
+    updateStats();
+
+
+    const index =
+        peopleData.length
+        -
+        1;
+
+
+    setTimeout(
+        function() {
+
+            const button =
+                document.querySelector(
+                    `.personRow[data-index="${index}"] .panel-actions .btn`
+                );
+
+
+            toggleCardEditor(
+                "personEditor-"
+                +
+                index,
+                button
+            );
+
+        },
+        0
+    );
+
+}
+
+
+
+function movePerson(index,direction) {
+    collectPeople();
+    const target = index + direction;
+    if (target < 0 || target >= peopleData.length) return;
+    const temp = peopleData[index];
+    peopleData[index] = peopleData[target];
+    peopleData[target] = temp;
+    peopleData.forEach((person,i)=>person.sort_order=i+1);
+    renderPeople();
+}
+
+function deletePerson(
+    index
+) {
+
+    if (
+        !confirm(
+            "Usunąć tę osobę?"
+        )
+    ) {
+        return;
+    }
+
+
+    peopleData.splice(
+        index,
+        1
+    );
+
+
+    peopleData.sort((a,b)=>a.sort_order-b.sort_order);
+
+    saveLocal(
+        KEYS.people,
+        peopleData
+    );
+
+
+    renderPeople();
+
+    updateStats();
+
+
+    toast(
+        "Osoba usunięta."
+    );
+
+}
+
+
+function collectPeople() {
+
+    document
+        .querySelectorAll(
+            ".personRow"
+        )
+        .forEach(
+            function(row) {
+
+                const index =
+                    Number(
+                        row.dataset.index
+                    );
+
+
+                const person =
+                    peopleData[
+                        index
+                    ];
+
+
+                if (!person) {
+                    return;
+                }
+
+
+                person.first_name =
+                    row.querySelector(
+                        ".personFirst"
+                    ).value.trim();
+
+
+                person.last_name =
+                    row.querySelector(
+                        ".personLast"
+                    ).value.trim();
+
+
+                person.category =
+                    row.querySelector(
+                        ".personCategory"
+                    ).value;
+
+
+                person.status =
+                    row.querySelector(
+                        ".personStatus"
+                    ).value;
+
+
+                person.sort_order =
+                    Number(row.querySelector(".personOrder")?.value) || index + 1;
+
+                person.role =
+                    row.querySelector(
+                        ".personRole"
+                    ).value.trim();
+
+
+                person.department =
+                    row.querySelector(
+                        ".personDepartment"
+                    ).value.trim();
+
+
+                person.email =
+                    row.querySelector(
+                        ".personEmail"
+                    ).value.trim();
+
+
+                person.phone =
+                    row.querySelector(
+                        ".personPhone"
+                    ).value.trim();
+
+
+                person.translations =
+                    person.translations
+                    ||
+                    {};
+
+
+                person.translations.pl =
+                    person.translations.pl
+                    ||
+                    {};
+
+
+                person.translations.pl.bio =
+                    row.querySelector(
+                        ".personBio"
+                    ).value;
+
+            }
+        );
+
+}
+
+
+async function savePeople() {
+
+    collectPeople();
+
+
+    saveLocal(
+        KEYS.people,
+        peopleData
+    );
+
+
+    await tryApiSave(
+        API.people,
+        {
+            action:
+                "replace_all",
+            people:
+                peopleData
+        },
+        "Ludzie Legionu"
+    );
+
+
+    renderPeople();
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   DOCUMENTS
+===================================================== */
+function renderDocuments(){
+    const container=document.getElementById('documentsContainer'); if(!container)return;
+    documentsData=documentsData.map(normalizeDocument).sort((a,b)=>a.sort_order-b.sort_order);
+    if(!documentsData.length){container.innerHTML='<div class="empty">Brak dokumentów. Dodaj pierwszy dokument.</div>';return;}
+    container.innerHTML=documentsData.map((doc,index)=>`
+      <article class="card documentRow" data-index="${index}">
+        <div class="card-head"><div><div class="card-title">${esc(doc.title||'Nowy dokument')}</div><div class="card-meta">${esc(doc.category)} · kolejność ${doc.sort_order} · ${doc.status==='active'?'Aktywny':'Ukryty'}</div></div><div class="panel-actions"><button class="btn" type="button" onclick="toggleCardEditor('documentEditor-${index}',this)">Edytuj</button><button class="btn btn-danger" type="button" onclick="deleteDocument(${index})">Usuń</button></div></div>
+        <div class="card-editor collapsed" id="documentEditor-${index}"><div class="grid-4">
+          <div class="form-group field-span-2"><label>Tytuł</label><input class="dTitle" value="${esc(doc.title)}"></div>
+          <div class="form-group"><label>Kategoria</label><input class="dCategory" value="${esc(doc.category)}"></div>
+          <div class="form-group"><label>Kolejność</label><input class="dOrder" type="number" value="${doc.sort_order}"></div>
+          <div class="form-group field-span-2"><label>Adres pliku</label><input class="dUrl" value="${esc(doc.file_url)}" placeholder="/uploads/dokument.pdf"></div>
+          <div class="form-group"><label>Nazwa pliku</label><input class="dFileName" value="${esc(doc.file_name)}"></div>
+          <div class="form-group"><label>Data</label><input class="dDate" type="date" value="${esc((doc.published_at||'').slice(0,10))}"></div>
+          <div class="form-group"><label>Status</label><select class="dStatus"><option value="active" ${doc.status==='active'?'selected':''}>Aktywny</option><option value="inactive" ${doc.status==='inactive'?'selected':''}>Ukryty</option></select></div>
+          <div class="form-group field-span-4"><label>Opis</label><textarea class="dDescription">${esc(doc.description)}</textarea></div>
+        </div></div>
+      </article>`).join('');
+}
+function addDocument(){documentsData.push(normalizeDocument({id:uid(),title:'Nowy dokument',category:'Klub',status:'active',sort_order:documentsData.length+1}));renderDocuments();updateStats();}
+function deleteDocument(index){if(!confirm('Usunąć dokument?'))return;documentsData.splice(index,1);documentsData.forEach((x,i)=>x.sort_order=i+1);renderDocuments();updateStats();}
+function collectDocuments(){document.querySelectorAll('.documentRow').forEach(row=>{const i=Number(row.dataset.index),d=documentsData[i];if(!d)return;d.title=row.querySelector('.dTitle').value.trim();d.category=row.querySelector('.dCategory').value.trim();d.file_url=row.querySelector('.dUrl').value.trim();d.file_name=row.querySelector('.dFileName').value.trim();d.description=row.querySelector('.dDescription').value;d.published_at=row.querySelector('.dDate').value;d.status=row.querySelector('.dStatus').value;d.sort_order=Number(row.querySelector('.dOrder').value)||i+1;});documentsData.sort((a,b)=>a.sort_order-b.sort_order);}
+async function saveDocuments(){collectDocuments();saveLocal(KEYS.documents,documentsData);await tryApiSave(API.documents,{action:'replace_all',documents:documentsData},'Dokumenty');renderDocuments();updateStats();}
+
+
+/* =====================================================
+   GALLERY
+===================================================== */
+
+function renderGallery() {
+
+    const container =
+        document.getElementById(
+            "galleryContainer"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    galleryData =
+        galleryData
+        .map(
+            normalizeGalleryItem
+        )
+        .sort(
+            function(a,b) {
+
+                return (
+                    Number(
+                        a.sort_order
+                    )
+                    -
+                    Number(
+                        b.sort_order
+                    )
+                );
+
+            }
+        );
+
+
+    if (!galleryData.length) {
+
+        container.innerHTML =
+            '<div class="empty" style="grid-column:1/-1;">Brak zdjęć w galerii.</div>';
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        galleryData
+        .map(
+            function(item,index) {
+
+                const preview =
+                    item.image
+                    ? `
+                        <img
+                            src="${esc(item.image)}"
+                            alt="${esc(item.alt)}"
+                            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                        >
+
+                        <div
+                            class="gallery-preview-empty"
+                            style="display:none;"
+                        >
+                            Brak podglądu
+                        </div>
+                    `
+                    : `
+                        <div class="gallery-preview-empty">
+                            Brak zdjęcia
+                        </div>
+                    `;
+
+
+                return `
+                    <article
+                        class="card gallery-card galleryRow"
+                        data-index="${index}"
+                    >
+
+                        <div class="gallery-preview">
+
+                            ${preview}
+
+                            <span class="gallery-order">
+                                ${esc(item.sort_order)}
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-head">
+
+                            <div>
+
+                                <div class="card-title">
+                                    ${esc(item.caption || item.alt || "Zdjęcie galerii")}
+                                </div>
+
+                                <div class="card-meta">
+                                    ${item.status === "active" ? "Widoczne" : "Ukryte"}
+                                </div>
+
+                            </div>
+
+
+                            <div class="panel-actions">
+
+                                <button
+                                    class="btn"
+                                    type="button"
+                                    onclick="toggleCardEditor('galleryEditor-${index}',this)"
+                                >
+                                    Edytuj
+                                </button>
+
+                                <button
+                                    class="btn btn-danger"
+                                    type="button"
+                                    onclick="deleteGalleryItem(${index})"
+                                >
+                                    Usuń
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="card-editor collapsed"
+                            id="galleryEditor-${index}"
+                        >
+
+                            <div class="form-group">
+                                <label>Zdjęcie URL</label>
+
+                                <input
+                                    class="gImage"
+                                    value="${esc(item.image)}"
+                                >
+                            </div>
+
+                            <div class="grid-2">
+
+                                <div class="form-group">
+                                    <label>Podpis</label>
+
+                                    <input
+                                        class="gCaption"
+                                        value="${esc(item.caption)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tekst ALT</label>
+
+                                    <input
+                                        class="gAlt"
+                                        value="${esc(item.alt)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Kolejność</label>
+
+                                    <input
+                                        class="gOrder"
+                                        type="number"
+                                        min="1"
+                                        value="${esc(item.sort_order)}"
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Status</label>
+
+                                    <select class="gStatus">
+                                        <option
+                                            value="active"
+                                            ${item.status === "active" ? "selected" : ""}
+                                        >
+                                            Widoczne
+                                        </option>
+
+                                        <option
+                                            value="inactive"
+                                            ${item.status === "inactive" ? "selected" : ""}
+                                        >
+                                            Ukryte
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+function addGalleryItem() {
+
+    galleryData.push(
+        normalizeGalleryItem(
+            {
+                id:
+                    uid(),
+                image:
+                    "",
+                alt:
+                    "",
+                caption:
+                    "",
+                sort_order:
+                    galleryData.length
+                    +
+                    1,
+                status:
+                    "active"
+            },
+            galleryData.length
+        )
+    );
+
+
+    renderGallery();
+
+    updateStats();
+
+
+    const index =
+        galleryData.length
+        -
+        1;
+
+
+    setTimeout(
+        function() {
+
+            const button =
+                document.querySelector(
+                    `.galleryRow[data-index="${index}"] .panel-actions .btn`
+                );
+
+
+            toggleCardEditor(
+                "galleryEditor-"
+                +
+                index,
+                button
+            );
+
+        },
+        0
+    );
+
+}
+
+
+function deleteGalleryItem(
+    index
+) {
+
+    if (
+        !confirm(
+            "Usunąć to zdjęcie z galerii?"
+        )
+    ) {
+        return;
+    }
+
+
+    galleryData.splice(
+        index,
+        1
+    );
+
+
+    saveLocal(
+        KEYS.gallery,
+        galleryData
+    );
+
+
+    renderGallery();
+
+    updateStats();
+
+
+    toast(
+        "Zdjęcie usunięte."
+    );
+
+}
+
+
+function collectGallery() {
+
+    document
+        .querySelectorAll(
+            ".galleryRow"
+        )
+        .forEach(
+            function(row) {
+
+                const index =
+                    Number(
+                        row.dataset.index
+                    );
+
+
+                const item =
+                    galleryData[
+                        index
+                    ];
+
+
+                if (!item) {
+                    return;
+                }
+
+
+                item.image =
+                    row.querySelector(
+                        ".gImage"
+                    ).value.trim();
+
+
+                item.caption =
+                    row.querySelector(
+                        ".gCaption"
+                    ).value.trim();
+
+
+                item.alt =
+                    row.querySelector(
+                        ".gAlt"
+                    ).value.trim();
+
+
+                item.sort_order =
+                    Number(
+                        row.querySelector(
+                            ".gOrder"
+                        ).value
+                    )
+                    ||
+                    index + 1;
+
+
+                item.status =
+                    row.querySelector(
+                        ".gStatus"
+                    ).value;
+
+            }
+        );
+
+}
+
+
+async function saveGallery() {
+
+    collectGallery();
+
+
+    galleryData.sort(
+        function(a,b) {
+
+            return (
+                Number(
+                    a.sort_order
+                )
+                -
+                Number(
+                    b.sort_order
+                )
+            );
+
+        }
+    );
+
+
+    saveLocal(
+        KEYS.gallery,
+        galleryData
+    );
+
+
+    await tryApiSave(
+        API.gallery,
+        {
+            action:
+                "replace_all",
+            gallery:
+                galleryData
+        },
+        "Galeria"
+    );
+
+
+    renderGallery();
+
+    updateStats();
+
+}
+
+
+/* =====================================================
+   SEASONS
+===================================================== */
+
+function renderSeasons() {
+    const container =
+        document.getElementById(
+            "seasonsContainer"
+        );
+
+    container.innerHTML =
+        seasonsData
+        .map(
+            function(season,index) {
+                return `
+                    <article class="card seasonRow" data-index="${index}">
+                        <div class="grid-3">
+                            <div class="form-group field-span-2">
+                                <label>Sezon</label>
+                                <input
+                                    class="seasonName"
+                                    value="${esc(season.name)}"
+                                    placeholder="2026/2027"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label>Aktualny sezon</label>
+                                <label class="inline-check">
+                                    <input
+                                        class="seasonActive"
+                                        type="radio"
+                                        name="activeSeason"
+                                        ${season.active ? "checked" : ""}
+                                    >
+                                    Ustaw jako aktualny
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row-actions">
+                            <button
+                                class="btn btn-danger"
+                                type="button"
+                                onclick="deleteSeason(${index})"
+                            >
+                                Usuń sezon
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }
+        )
+        .join("");
+
+    renderTableSeasonOptions();
+}
+
+function addSeason() {
+    let year =
+        new Date()
+        .getFullYear();
+
+    let name =
+        `${year}/${year + 1}`;
+
+    let suffix =
+        2;
+
+    while (
+        seasonsData.some(
+            s => s.name === name
+        )
+    ) {
+        name =
+            `${year + suffix - 1}/${year + suffix}`;
+        suffix++;
+    }
+
+    seasonsData.push(
+        {
+            id: uid(),
+            name: name,
+            active: false
+        }
+    );
+
+    if (!tablesData[name]) {
+        tablesData[name] = [];
+    }
+
+    renderSeasons();
+    updateStats();
+}
+
+function deleteSeason(index) {
+    if (seasonsData.length <= 1) {
+        toast(
+            "Musi zostać przynajmniej jeden sezon.",
+            "error"
+        );
+        return;
+    }
+
+    const season =
+        seasonsData[index];
+
+    if (
+        !confirm(
+            `Usunąć sezon ${season.name}?`
+        )
+    ) {
+        return;
+    }
+
+    delete tablesData[
+        season.name
+    ];
+
+    seasonsData.splice(
+        index,
+        1
+    );
+
+    if (
+        !seasonsData.some(
+            season => season.active
+        )
+    ) {
+        seasonsData[0].active =
+            true;
+    }
+
+    currentTableSeason =
+        getActiveSeasonName();
+
+    saveLocal(
+        KEYS.seasons,
+        seasonsData
+    );
+
+    saveLocal(
+        KEYS.tables,
+        tablesData
+    );
+
+    renderSeasons();
+    renderTable();
+    updateStats();
+}
+
+function collectSeasons() {
+    const oldNames =
+        seasonsData.map(
+            season => season.name
+        );
+
+    document
+        .querySelectorAll(
+            ".seasonRow"
+        )
+        .forEach(
+            function(row) {
+                const index =
+                    Number(
+                        row.dataset.index
+                    );
+
+                seasonsData[index].name =
+                    row.querySelector(
+                        ".seasonName"
+                    )
+                    .value
+                    .trim();
+
+                seasonsData[index].active =
+                    row.querySelector(
+                        ".seasonActive"
+                    )
+                    .checked;
+            }
+        );
+
+    seasonsData.forEach(
+        function(season,index) {
+            const oldName =
+                oldNames[index];
+
+            if (
+                oldName
+                &&
+                oldName !== season.name
+                &&
+                tablesData[oldName]
+                &&
+                !tablesData[season.name]
+            ) {
+                tablesData[season.name] =
+                    tablesData[oldName];
+
+                delete tablesData[
+                    oldName
+                ];
+            }
+
+            if (!tablesData[season.name]) {
+                tablesData[season.name] = [];
+            }
+        }
+    );
+
+    currentTableSeason =
+        getActiveSeasonName();
+}
+
+async function saveSeasons() {
+    collectSeasons();
+
+    saveLocal(
+        KEYS.seasons,
+        seasonsData
+    );
+
+    saveLocal(
+        KEYS.tables,
+        tablesData
+    );
+
+    await tryApiSave(
+        API.table,
+        {
+            action: "save_seasons",
+            current_season:
+                getActiveSeasonName(),
+            seasons:
+                seasonsData.map(
+                    season => season.name
+                ),
+            tables:
+                tablesData
+        },
+        "Sezony"
+    );
+
+    renderSeasons();
+    renderTable();
+    updateStats();
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+function renderTableSeasonOptions() {
+    const select =
+        document.getElementById(
+            "tableSeasonSelect"
+        );
+
+    if (!select) {
+        return;
+    }
+
+    if (
+        !seasonsData.some(
+            season =>
+                season.name ===
+                currentTableSeason
+        )
+    ) {
+        currentTableSeason =
+            getActiveSeasonName();
+    }
+
+    select.innerHTML =
+        seasonsData
+        .map(
+            function(season) {
+                return `
+                    <option
+                        value="${esc(season.name)}"
+                        ${season.name === currentTableSeason ? "selected" : ""}
+                    >
+                        ${esc(season.name)}
+                    </option>
+                `;
+            }
+        )
+        .join("");
+}
+
+function changeTableSeason(season) {
+    collectTable();
+
+    currentTableSeason =
+        season;
+
+    renderTable();
+}
+
+function renderTable() {
+    renderTableSeasonOptions();
+
+    const container =
+        document.getElementById(
+            "tableRowsContainer"
+        );
+
+    const rows =
+        tablesData[
+            currentTableSeason
+        ]
+        || [];
+
+    if (!rows.length) {
+        container.innerHTML =
+            '<div class="empty">Brak klubów w tym sezonie.</div>';
+        return;
+    }
+
+    container.innerHTML =
+        rows
+        .map(
+            function(row,index) {
+                return `
+                    <div class="table-row tableDataRow" data-index="${index}">
+                        <input class="tPosition" type="number" value="${esc(row.position ?? index + 1)}">
+                        <input class="tTeam" value="${esc(row.team || row.name || "")}">
+                        <input class="tPlayed" type="number" value="${esc(row.played ?? 0)}">
+                        <input class="tWins" type="number" value="${esc(row.wins ?? 0)}">
+                        <input class="tDraws" type="number" value="${esc(row.draws ?? 0)}">
+                        <input class="tLosses" type="number" value="${esc(row.losses ?? 0)}">
+                        <input class="tGF" type="number" value="${esc(row.goals_for ?? 0)}">
+                        <input class="tGA" type="number" value="${esc(row.goals_against ?? 0)}">
+                        <input class="tPoints" type="number" value="${esc(row.points ?? 0)}">
+                        <input class="tForm" value="${esc(Array.isArray(row.form) ? row.form.join(",") : (row.form || ""))}" placeholder="W,W,D,L,W">
+                        <input class="tLogo" value="${esc(row.logo || "")}">
+                        <button class="btn btn-danger" type="button" onclick="deleteTableRow(${index})">Usuń</button>
+                    </div>
+                `;
+            }
+        )
+        .join("");
+}
+
+function addTableRow() {
+    collectTable();
+
+    tablesData[
+        currentTableSeason
+    ] =
+        tablesData[
+            currentTableSeason
+        ]
+        || [];
+
+    const list =
+        tablesData[
+            currentTableSeason
+        ];
+
+    list.push(
+        {
+            position:
+                list.length + 1,
+            team: "",
+            logo: "",
+            played: 0,
+            wins: 0,
+            draws: 0,
+            losses: 0,
+            goals_for: 0,
+            goals_against: 0,
+            points: 0,
+            form: []
+        }
+    );
+
+    renderTable();
+}
+
+function deleteTableRow(index) {
+    if (
+        !confirm(
+            "Usunąć klub z tabeli?"
+        )
+    ) {
+        return;
+    }
+
+    tablesData[
+        currentTableSeason
+    ].splice(
+        index,
+        1
+    );
+
+    renderTable();
+}
+
+function collectTable() {
+    const container =
+        document.getElementById(
+            "tableRowsContainer"
+        );
+
+    if (!container) {
+        return;
+    }
+
+    const rows =
+        container.querySelectorAll(
+            ".tableDataRow"
+        );
+
+    if (!rows.length) {
+        return;
+    }
+
+    tablesData[
+        currentTableSeason
+    ] =
+        Array.from(rows)
+        .map(
+            function(row) {
+                return {
+                    position:
+                        Number(
+                            row.querySelector(
+                                ".tPosition"
+                            ).value
+                        )
+                        || 0,
+                    team:
+                        row.querySelector(
+                            ".tTeam"
+                        ).value.trim(),
+                    played:
+                        Number(
+                            row.querySelector(
+                                ".tPlayed"
+                            ).value
+                        )
+                        || 0,
+                    wins:
+                        Number(
+                            row.querySelector(
+                                ".tWins"
+                            ).value
+                        )
+                        || 0,
+                    draws:
+                        Number(
+                            row.querySelector(
+                                ".tDraws"
+                            ).value
+                        )
+                        || 0,
+                    losses:
+                        Number(
+                            row.querySelector(
+                                ".tLosses"
+                            ).value
+                        )
+                        || 0,
+                    goals_for:
+                        Number(
+                            row.querySelector(
+                                ".tGF"
+                            ).value
+                        )
+                        || 0,
+                    goals_against:
+                        Number(
+                            row.querySelector(
+                                ".tGA"
+                            ).value
+                        )
+                        || 0,
+                    points:
+                        Number(
+                            row.querySelector(
+                                ".tPoints"
+                            ).value
+                        )
+                        || 0,
+                    form:
+                        row.querySelector(
+                            ".tForm"
+                        ).value
+                        .split(",")
+                        .map(
+                            item => item
+                                .trim()
+                                .toUpperCase()
+                        )
+                        .filter(Boolean),
+                    logo:
+                        row.querySelector(
+                            ".tLogo"
+                        ).value.trim()
+                };
+            }
+        );
+}
+
+async function saveTable() {
+    collectTable();
+
+    saveLocal(
+        KEYS.tables,
+        tablesData
+    );
+
+    await tryApiSave(
+        API.table,
+        {
+            action: "replace_season",
+            season:
+                currentTableSeason,
+            current_season:
+                getActiveSeasonName(),
+            seasons:
+                seasonsData.map(
+                    season =>
+                        season.name
+                ),
+            standings:
+                tablesData[
+                    currentTableSeason
+                ]
+                || []
+        },
+        "Tabela"
+    );
+
+    renderTable();
+}
+
+
+/* =====================================================
+   MATCHES
+===================================================== */
+
+function renderMatches() {
+    document
+        .getElementById(
+            "lastMatchContainer"
+        )
+        .innerHTML =
+            matchEditorHtml(
+                matchesData.last_match,
+                "last"
+            );
+
+    document
+        .getElementById(
+            "nextMatchContainer"
+        )
+        .innerHTML =
+            matchEditorHtml(
+                matchesData.next_match,
+                "next"
+            );
+}
+
+function matchEditorHtml(match,prefix) {
+    const hasScore =
+        prefix === "last";
+
+    return `
+        <div class="grid-2">
+            <div class="form-group">
+                <label>Data i godzina</label>
+                <input
+                    id="${prefix}Date"
+                    type="datetime-local"
+                    value="${esc(toDatetimeLocal(match.date))}"
+                >
+            </div>
+
+            <div class="form-group">
+                <label>Rozgrywki</label>
+                <input id="${prefix}Competition" value="${esc(match.competition || "Liga")}">
+            </div>
+
+            <div class="form-group">
+                <label>Gospodarz</label>
+                <input id="${prefix}HomeTeam" value="${esc(match.home_team || "")}">
+            </div>
+
+            <div class="form-group">
+                <label>Gość</label>
+                <input id="${prefix}AwayTeam" value="${esc(match.away_team || "")}">
+            </div>
+
+            <div class="form-group">
+                <label>Logo gospodarza</label>
+                <input id="${prefix}HomeLogo" value="${esc(match.home_logo || "")}">
+            </div>
+
+            <div class="form-group">
+                <label>Logo gościa</label>
+                <input id="${prefix}AwayLogo" value="${esc(match.away_logo || "")}">
+            </div>
+
+            ${
+                hasScore
+                ? `
+                    <div class="form-group">
+                        <label>Gole gospodarza</label>
+                        <input id="${prefix}HomeScore" type="number" value="${esc(match.home_score ?? "")}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gole gościa</label>
+                        <input id="${prefix}AwayScore" type="number" value="${esc(match.away_score ?? "")}">
+                    </div>
+                `
+                : ""
+            }
+
+            <div class="form-group field-span-2">
+                <label>Miejsce</label>
+                <input id="${prefix}Venue" value="${esc(match.venue || "")}">
+            </div>
+        </div>
+    `;
+}
+
+function collectMatch(prefix) {
+    const result = {
+        date:
+            fromDatetimeLocal(
+                document
+                .getElementById(
+                    prefix + "Date"
+                )
+                .value
+            ),
+        competition:
+            document
+            .getElementById(
+                prefix + "Competition"
+            )
+            .value
+            .trim(),
+        home_team:
+            document
+            .getElementById(
+                prefix + "HomeTeam"
+            )
+            .value
+            .trim(),
+        away_team:
+            document
+            .getElementById(
+                prefix + "AwayTeam"
+            )
+            .value
+            .trim(),
+        home_logo:
+            document
+            .getElementById(
+                prefix + "HomeLogo"
+            )
+            .value
+            .trim(),
+        away_logo:
+            document
+            .getElementById(
+                prefix + "AwayLogo"
+            )
+            .value
+            .trim(),
+        venue:
+            document
+            .getElementById(
+                prefix + "Venue"
+            )
+            .value
+            .trim()
+    };
+
+    if (
+        prefix === "last"
+    ) {
+        result.home_score =
+            Number(
+                document
+                .getElementById(
+                    prefix + "HomeScore"
+                )
+                .value
+            );
+
+        result.away_score =
+            Number(
+                document
+                .getElementById(
+                    prefix + "AwayScore"
+                )
+                .value
+            );
+    }
+
+    return result;
+}
+
+async function saveMatches() {
+    matchesData = {
+        last_match:
+            collectMatch("last"),
+        next_match:
+            collectMatch("next")
+    };
+
+    saveLocal(
+        KEYS.matches,
+        matchesData
+    );
+
+    await tryApiSave(
+        API.matches,
+        matchesData,
+        "Match Center"
+    );
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+function renderContact() {
+    document
+        .getElementById(
+            "contactEmailInput"
+        )
+        .value =
+            contactData.email
+            || "";
+}
+
+async function saveContact() {
+    contactData.email =
+        document
+        .getElementById(
+            "contactEmailInput"
+        )
+        .value
+        .trim();
+
+    saveLocal(
+        KEYS.contact,
+        contactData
+    );
+
+    await tryApiSave(
+        API.contact,
+        contactData,
+        "Kontakt"
+    );
+}
+
+
+/* =====================================================
+   USERS
+===================================================== */
+function renderUsers() {
+    const container = document.getElementById("usersContainer");
+    if (!container) return;
+    if (!loggedUser?.isFullAdmin) {
+        container.innerHTML = '<div class="notice">Tylko pełny administrator może zarządzać kontami.</div>';
+        return;
+    }
+    if (!usersData.length) {
+        container.innerHTML = '<div class="empty">Brak kont do wyświetlenia.</div>';
+        return;
+    }
+    container.innerHTML = usersData.map(user=>{
+        const perms = Array.isArray(user.permissions) ? user.permissions : [];
+        return `<article class="user-admin-card">
+            <div class="user-admin-email">${esc(user.email || "—")}</div>
+            <div class="user-admin-meta">${user.is_full_admin ? "Pełny administrator" : "Administrator z ograniczonym dostępem"}</div>
+            <div class="user-admin-perms">${(user.is_full_admin ? ALL_PERMISSIONS : perms).map(p=>`<span class="mini-chip">${esc(p)}</span>`).join("")}</div>
+            <div class="user-admin-actions"><button class="btn" type="button" onclick="editUser('${esc(user.id)}')">Edytuj</button>${String(user.id)===String(loggedUser.id)?'':`<button class="btn btn-danger" type="button" onclick="deleteUser('${esc(user.id)}')">Usuń</button>`}</div>
+        </article>`;
+    }).join("");
+}
+
+async function saveUser(event) {
+    event.preventDefault();
+    if (!loggedUser?.isFullAdmin) { toast("Brak uprawnień do zarządzania kontami.","error"); return; }
+    const id = document.getElementById("editUserId").value;
+    const email = document.getElementById("manageUserLogin").value.trim();
+    const password = document.getElementById("manageUserPass").value;
+    const isFullAdmin = document.getElementById("manageUserFullAdmin").checked;
+    const permissions = Array.from(document.querySelectorAll(".permChk:checked")).map(x=>x.value);
+    if (!id && password.length < 8) { toast("Nowe konto wymaga hasła minimum 8 znaków.","error"); return; }
+    try {
+        await apiPost(API.adminUsers, {action:id?"update":"create", id:id||undefined, email, password:password||undefined, permissions, is_full_admin:isFullAdmin});
+        resetUserForm();
+        await loadUsers();
+        toast(id ? "Konto zaktualizowane." : "Konto utworzone.");
+    }
+    catch(error) { console.log(error); toast("Nie udało się zapisać konta: " + error.message,"error"); }
+}
+
+function editUser(id) {
+    const user = usersData.find(item=>String(item.id)===String(id));
+    if (!user) return;
+    document.getElementById("editUserId").value = user.id;
+    document.getElementById("manageUserLogin").value = user.email || "";
+    document.getElementById("manageUserPass").value = "";
+    document.getElementById("manageUserFullAdmin").checked = user.is_full_admin === true;
+    document.querySelectorAll(".permChk").forEach(box=>{box.checked=(user.permissions||[]).includes(box.value);});
+    document.getElementById("manageUserLogin").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function resetUserForm() {
+    document.getElementById("editUserId").value = "";
+    document.getElementById("manageUserLogin").value = "";
+    document.getElementById("manageUserPass").value = "";
+    document.getElementById("manageUserFullAdmin").checked = false;
+    document.querySelectorAll(".permChk").forEach(box=>box.checked=false);
+}
+
+async function deleteUser(id) {
+    if (!loggedUser?.isFullAdmin || !confirm("Usunąć to konto administratora?")) return;
+    try {
+        await apiPost(API.adminUsers,{action:"delete",id});
+        await loadUsers();
+        toast("Konto usunięte.");
+    }
+    catch(error){toast("Nie udało się usunąć konta: "+error.message,"error");}
+}
+
+async function loadUsers() {
+    if (!loggedUser?.isFullAdmin) { usersData=[]; renderUsers(); return; }
+    try {
+        const data = await apiGet(API.adminUsers + "?action=list");
+        usersData = Array.isArray(data) ? data : (data.users || []);
+    }
+    catch(error) { console.log("Users API:",error); usersData=[]; }
+    renderUsers();
+}
+
+
+/* =====================================================
+   API SYNC
+===================================================== */
+
+async function syncFromApi() {
+    toast(
+        "Pobieram dane z API..."
+    );
+
+    let successCount = 0;
+
+    try {
+        const data =
+            await apiGet(
+                API.articles
+                + "?status=all"
+            );
+
+        const list =
+            Array.isArray(data)
+            ? data
+            : data.articles;
+
+        if (
+            Array.isArray(list)
+        ) {
+            articlesData =
+                list.map(
+                    normalizeArticle
+                );
+
+            saveLocal(
+                KEYS.articles,
+                articlesData
+            );
+
+            successCount++;
+        }
+    }
+    catch(error) {
+        console.log(
+            "Articles API:",
+            error
+        );
+    }
+
+    try {
+        const data = await apiGet(API.stories + "?status=all");
+        const list = Array.isArray(data) ? data : (data.stories || []);
+        if (Array.isArray(list)) {
+            storiesData = list.map(normalizeStory);
+            saveLocal(KEYS.stories, storiesData);
+            successCount++;
+        }
+    }
+    catch(error) { console.log("Stories API:", error); }
+
+    for (
+        const team of
+        ["first","second","academy"]
+    ) {
+        try {
+            const data =
+                await apiGet(
+                    API.players
+                    + "?team="
+                    + encodeURIComponent(team)
+                    + "&status=all"
+                );
+
+            const list =
+                Array.isArray(data)
+                ? data
+                : data.players;
+
+            if (
+                Array.isArray(list)
+            ) {
+                playersData[team] =
+                    list.map(
+                        player =>
+                            normalizePlayer(
+                                player,
+                                team
+                            )
+                    );
+
+                successCount++;
+            }
+        }
+        catch(error) {
+            console.log(
+                "Players API:",
+                team,
+                error
+            );
+        }
+    }
+
+    try {
+        const data =
+            await apiGet(
+                API.people
+                + "?status=all"
+            );
+
+        const list =
+            Array.isArray(data)
+            ? data
+            : data.people;
+
+        if (
+            Array.isArray(list)
+        ) {
+            peopleData =
+                list.map(
+                    normalizePerson
+                );
+
+            saveLocal(
+                KEYS.people,
+                peopleData
+            );
+
+            successCount++;
+        }
+    }
+    catch(error) {
+        console.log(
+            "People API:",
+            error
+        );
+    }
+
+    try {
+
+        const data =
+            await apiGet(
+                API.gallery
+                + "?status=all"
+            );
+
+
+        const list =
+            Array.isArray(
+                data
+            )
+            ? data
+            : (
+                data.gallery
+                ||
+                data.images
+            );
+
+
+        if (
+            Array.isArray(
+                list
+            )
+        ) {
+
+            galleryData =
+                list.map(
+                    normalizeGalleryItem
+                );
+
+
+            saveLocal(
+                KEYS.gallery,
+                galleryData
+            );
+
+
+            successCount++;
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.log(
+            "Gallery API:",
+            error
+        );
+
+    }
+
+
+    try {
+        const data =
+            await apiGet(
+                API.table
+            );
+
+        if (
+            Array.isArray(
+                data.seasons
+            )
+        ) {
+            seasonsData =
+                data.seasons.map(
+                    function(name,index) {
+                        return {
+                            id:
+                                uid()
+                                + index,
+                            name:
+                                String(name),
+                            active:
+                                String(name) ===
+                                String(
+                                    data.current_season
+                                )
+                        };
+                    }
+                );
+
+            currentTableSeason =
+                data.current_season
+                ||
+                seasonsData[0]?.name
+                ||
+                "";
+
+            if (
+                data.tables
+                &&
+                typeof data.tables ===
+                "object"
+            ) {
+
+                tablesData =
+                    data.tables;
+
+            }
+
+            else if (
+                Array.isArray(
+                    data.standings
+                )
+            ) {
+
+                tablesData[
+                    currentTableSeason
+                ] =
+                    data.standings;
+
+            }
+
+            saveLocal(
+                KEYS.seasons,
+                seasonsData
+            );
+
+            saveLocal(
+                KEYS.tables,
+                tablesData
+            );
+
+            successCount++;
+        }
+    }
+    catch(error) {
+        console.log(
+            "Table API:",
+            error
+        );
+    }
+
+    try {
+        const data =
+            await apiGet(
+                API.matches
+            );
+
+        if (data) {
+            matchesData = {
+                last_match:
+                    data.last_match
+                    ||
+                    data.last
+                    ||
+                    matchesData.last_match,
+                next_match:
+                    data.next_match
+                    ||
+                    data.next
+                    ||
+                    matchesData.next_match
+            };
+
+            saveLocal(
+                KEYS.matches,
+                matchesData
+            );
+
+            successCount++;
+        }
+    }
+    catch(error) {
+        console.log(
+            "Matches API:",
+            error
+        );
+    }
+
+    try {
+        const data =
+            await apiGet(
+                API.contact
+            );
+
+        if (
+            data?.email
+        ) {
+            contactData =
+                {
+                    email:
+                        data.email
+                };
+
+            saveLocal(
+                KEYS.contact,
+                contactData
+            );
+
+            successCount++;
+        }
+    }
+    catch(error) {
+        console.log(
+            "Contact API:",
+            error
+        );
+    }
+
+    try {
+        const data = await apiGet(API.documents + "?status=all");
+        const list = Array.isArray(data) ? data : (data.documents || []);
+        if (Array.isArray(list)) {
+            documentsData = list.map(normalizeDocument);
+            saveLocal(KEYS.documents, documentsData);
+            successCount++;
+        }
+    }
+    catch(error) { console.log("Documents API:", error); }
+
+    if (loggedUser?.isFullAdmin) await loadUsers();
+
+    saveLocal(
+        KEYS.players,
+        playersData
+    );
+
+    if (successCount > 0) {
+        setDataMode("api");
+
+        toast(
+            "Pobrano dostępne dane z API."
+        );
+    }
+    else {
+        setDataMode("local");
+
+        toast(
+            "API nie zwróciło danych. Panel działa lokalnie.",
+            "error"
+        );
+    }
+
+    renderAll();
+}
+
+async function tryApiSave(
+    url,
+    payload,
+    label
+) {
+    try {
+        await apiPost(
+            url,
+            payload
+        );
+
+        setDataMode("api");
+
+        toast(
+            label
+            + " zapisane w API."
+        );
+
+        return true;
+    }
+    catch(error) {
+        console.log(
+            "API save failed:",
+            url,
+            error
+        );
+
+        setDataMode("local");
+
+        toast(
+            label
+            + " zapisane w panelu lokalnie. Backend "
+            + url
+            + " nie obsługuje jeszcze zapisu POST, więc strona publiczna nie dostała tej zmiany.",
+            "error"
+        );
+
+        return false;
+    }
+}
+
+
+/* =====================================================
+   BACKUP
+===================================================== */
+
+function exportBackup() {
+    collectArticles();
+    collectStories();
+    collectPlayers("first");
+    collectPlayers("second");
+    collectPlayers("academy");
+    collectPeople();
+    collectDocuments();
+    collectSeasons();
+    collectTable();
+
+    const data = {
+        exported_at:
+            new Date()
+            .toISOString(),
+        articles:
+            articlesData,
+        stories:
+            storiesData,
+        players:
+            playersData,
+        people:
+            peopleData,
+        gallery:
+            galleryData,
+        seasons:
+            seasonsData,
+        tables:
+            tablesData,
+        matches:
+            matchesData,
+        documents:
+            documentsData,
+        contact:
+            contactData
+    };
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href =
+        url;
+
+    link.download =
+        "legion-panel-backup.json";
+
+    link.click();
+
+    URL.revokeObjectURL(
+        url
+    );
+}
+
+function importBackup(event) {
+    const file =
+        event.target.files?.[0];
+
+    if (!file) {
+        return;
+    }
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function() {
+            const data =
+                safeParse(
+                    reader.result,
+                    null
+                );
+
+            if (!data) {
+                toast(
+                    "Nieprawidłowy plik kopii.",
+                    "error"
+                );
+                return;
+            }
+
+            if (
+                Array.isArray(
+                    data.articles
+                )
+            ) {
+                articlesData =
+                    data.articles
+                    .map(
+                        normalizeArticle
+                    );
+            }
+
+            if (Array.isArray(data.stories)) {
+                storiesData = data.stories.map(normalizeStory);
+            }
+
+            if (
+                data.players
+            ) {
+                playersData =
+                    data.players;
+            }
+
+            if (
+                Array.isArray(
+                    data.people
+                )
+            ) {
+                peopleData =
+                    data.people
+                    .map(
+                        normalizePerson
+                    );
+            }
+
+            if (
+                Array.isArray(
+                    data.gallery
+                )
+            ) {
+
+                galleryData =
+                    data.gallery
+                    .map(
+                        normalizeGalleryItem
+                    );
+
+            }
+
+
+            if (
+                Array.isArray(
+                    data.seasons
+                )
+            ) {
+                seasonsData =
+                    data.seasons;
+            }
+
+            if (data.tables) {
+                tablesData =
+                    data.tables;
+            }
+
+            if (data.matches) {
+                matchesData =
+                    data.matches;
+            }
+
+            if (Array.isArray(data.documents)) {
+                documentsData = data.documents.map(normalizeDocument);
+            }
+
+            if (data.contact) {
+                contactData =
+                    data.contact;
+            }
+
+            persistAll();
+            renderAll();
+
+            toast(
+                "Kopia zaimportowana."
+            );
+        };
+
+    reader.readAsText(
+        file
+    );
+
+    event.target.value =
+        "";
+}
+
+
+/* =====================================================
+   GENERAL
+===================================================== */
+
+function toDatetimeLocal(value) {
+    if (!value) {
+        return "";
+    }
+
+    const normalized =
+        String(value)
+        .includes("T")
+        ? String(value)
+        : String(value)
+            .replace(
+                " ",
+                "T"
+            );
+
+    const date =
+        new Date(
+            normalized
+        );
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+        return normalized
+            .slice(0,16);
+    }
+
+    const local =
+        new Date(
+            date.getTime()
+            -
+            date.getTimezoneOffset()
+            * 60000
+        );
+
+    return local
+        .toISOString()
+        .slice(0,16);
+}
+
+function fromDatetimeLocal(value) {
+    if (!value) {
+        return "";
+    }
+
+    return new Date(
+        value
+    )
+    .toISOString();
+}
+
+function persistAll() {
+    saveLocal(
+        KEYS.articles,
+        articlesData
+    );
+
+    saveLocal(
+        KEYS.stories,
+        storiesData
+    );
+
+    saveLocal(
+        KEYS.players,
+        playersData
+    );
+
+    saveLocal(
+        KEYS.people,
+        peopleData
+    );
+
+    saveLocal(
+        KEYS.gallery,
+        galleryData
+    );
+
+    saveLocal(
+        KEYS.seasons,
+        seasonsData
+    );
+
+    saveLocal(
+        KEYS.tables,
+        tablesData
+    );
+
+    saveLocal(
+        KEYS.matches,
+        matchesData
+    );
+
+    saveLocal(
+        KEYS.documents,
+        documentsData
+    );
+
+    saveLocal(
+        KEYS.contact,
+        contactData
+    );
+}
+
+function renderAll() {
+    renderArticles();
+    renderStories();
+    renderPlayers("first");
+    renderPlayers("second");
+    renderPlayers("academy");
+    renderPeople();
+    renderGallery();
+    renderSeasons();
+    renderTable();
+    renderMatches();
+    renderDocuments();
+    renderContact();
+    renderUsers();
+    updateStats();
+}
+
+window.addEventListener(
+    "DOMContentLoaded",
+    async function() {
+
+        await checkAuthState();
+
+        if (loggedUser) {
+            await syncFromApi();
+        }
+
+    }
+);
+</script>
+
+</body>
+</html>
