@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galeria | Legion Białystok</title><meta name="description" content="Zdjęcia z meczów, treningów i życia Legionu Białystok.">
+<link rel="icon" type="image/png" href="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;font-family:Outfit,Arial,sans-serif;background:#08090d;color:#fff;min-height:100vh;background-image:radial-gradient(circle at 80% 0%,rgba(220,14,36,.18),transparent 35%),radial-gradient(circle at 0% 80%,rgba(60,44,130,.15),transparent 35%)}a{color:inherit}header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px max(20px,calc((100vw - 1200px)/2));background:rgba(9,9,13,.9);border-bottom:1px solid #ffffff16;backdrop-filter:blur(16px)}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-size:14px;font-weight:900;letter-spacing:.08em}.brand img{height:46px;width:46px;object-fit:contain}.back{border:1px solid #ffffff30;border-radius:100px;padding:12px 17px;text-decoration:none;font-size:12px;font-weight:800}.back:hover{border-color:#e50914}main{max-width:1240px;margin:auto;padding:70px 20px 110px}.eyebrow{font-size:12px;font-weight:900;color:#ff4a59;letter-spacing:.22em;text-transform:uppercase}.hero h1{font-size:clamp(48px,9vw,106px);line-height:.95;letter-spacing:-.065em;margin:15px 0 20px;font-weight:900}.hero h1 span{background:linear-gradient(110deg,#ff3448,#ad55e9);background-clip:text;-webkit-background-clip:text;color:transparent}.hero p{max-width:650px;color:#a9aab6;line-height:1.6}.meta{margin:32px 0 20px;color:#a9aab6;font-size:13px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.photo{position:relative;display:block;width:100%;aspect-ratio:1;border:1px solid #ffffff16;border-radius:16px;padding:0;overflow:hidden;background:#16161c;cursor:pointer;text-align:left}.photo img{width:100%;height:100%;object-fit:cover;transition:transform .45s;display:block}.photo:hover img{transform:scale(1.055)}.photo .overlay{position:absolute;inset:auto 0 0;padding:40px 16px 15px;background:linear-gradient(transparent,rgba(0,0,0,.78));font-weight:700;font-size:13px;opacity:0;transition:opacity .2s}.photo:hover .overlay,.photo:focus-visible .overlay{opacity:1}.status{padding:38px;border:1px dashed #ffffff28;border-radius:16px;color:#b3b3bf;text-align:center}.hidden{display:none!important}.viewer{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.95);display:flex;align-items:center;justify-content:center;padding:70px 50px 90px}.viewer img{max-width:100%;max-height:100%;object-fit:contain}.viewer button{position:absolute;background:#24242e;border:1px solid #ffffff30;border-radius:100px;color:#fff;cursor:pointer;font-size:25px;width:46px;height:46px}.viewer .close{top:20px;right:20px}.viewer .prev{left:12px;top:50%}.viewer .next{right:12px;top:50%}.viewer .caption{position:absolute;bottom:22px;left:20px;right:20px;text-align:center;color:#ddd;font-size:14px}.viewer .count{position:absolute;top:30px;left:24px;font-size:12px;color:#bbb}footer{padding:30px 20px;text-align:center;color:#777;border-top:1px solid #ffffff12;font-size:12px}@media(max-width:720px){main{padding-top:45px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.photo{border-radius:10px}.back{font-size:11px;padding:10px 12px}.brand{font-size:11px}.brand img{height:36px;width:36px}.viewer{padding:75px 10px 90px}.viewer .prev{left:7px}.viewer .next{right:7px}}
+@media(prefers-reduced-motion:reduce){.photo img{transition:none}}
+
+
+/* Nagłówek i menu przeniesione ze strony głównej Legionu */
+.shell{width:min(1360px,calc(100% - 44px));margin:0 auto}
+body.lock{overflow:hidden}
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+    position:fixed;
+    inset:0 0 auto 0;
+    z-index:10000;
+
+    height:82px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,.54),
+            transparent
+        );
+}
+
+
+.header-inner{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:11px;
+}
+
+.menu-btn{
+    width:44px;
+    height:44px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:rgba(0,0,0,.28);
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(8px);
+}
+
+.menu-btn span{
+    width:18px;
+    height:2px;
+
+    background:#fff;
+
+    border-radius:10px;
+
+    transition:.2s ease;
+}
+
+.menu-btn.active span:first-child{
+    transform:translateY(3.5px) rotate(45deg);
+}
+
+.menu-btn.active span:last-child{
+    transform:translateY(-3.5px) rotate(-45deg);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    height:54px;
+    width:auto;
+
+    filter:
+        drop-shadow(
+            0 7px 20px rgba(0,0,0,.50)
+        );
+}
+
+
+/* =====================================================
+   FULLSCREEN MENU
+===================================================== */
+
+.menu{
+    position:fixed;
+    inset:0;
+
+    z-index:9990;
+
+    padding:
+        115px
+        22px
+        100px;
+
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+
+    background:
+        radial-gradient(
+            circle at 80% 18%,
+            rgba(229,9,20,.24),
+            transparent 27%
+        ),
+        #070709;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.26s ease;
+}
+
+.menu.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.menu::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.menu-grid{
+    width:min(980px,100%);
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        8px
+        28px;
+}
+
+.menu-main-link,
+.menu-group-btn{
+    width:100%;
+    min-height:86px;
+
+    padding:0;
+
+    border:0;
+    border-bottom:
+        1px solid rgba(255,255,255,.10);
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    color:#fff;
+
+    text-align:left;
+
+    font-size:
+        clamp(25px,4vw,48px);
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+.menu-main-link:hover,
+.menu-group-btn:hover,
+.menu-group-btn.active{
+    color:#ff3a43;
+
+    padding-left:10px;
+}
+
+.menu-plus{
+    margin-left:20px;
+
+    color:
+        rgba(255,255,255,.44);
+
+    font-size:34px;
+    font-weight:400;
+
+    line-height:1;
+
+    transition:.22s ease;
+}
+
+.menu-group-btn.active
+.menu-plus{
+    color:#ff3a43;
+
+    transform:
+        rotate(45deg);
+}
+
+.menu-sub{
+    display:grid;
+
+    grid-template-rows:0fr;
+
+    opacity:0;
+
+    transition:
+        grid-template-rows .28s ease,
+        opacity .22s ease;
+}
+
+.menu-sub.active{
+    grid-template-rows:1fr;
+    opacity:1;
+}
+
+.menu-sub-inner{
+    overflow:hidden;
+}
+
+.menu-sub a{
+    min-height:56px;
+
+    padding:
+        0
+        0
+        0
+        22px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    display:flex;
+    align-items:center;
+
+    color:
+        rgba(255,255,255,.58);
+
+    font-size:15px;
+    font-weight:800;
+
+    letter-spacing:.3px;
+
+    text-transform:uppercase;
+
+    transition:.2s ease;
+}
+
+.menu-sub a:hover{
+    color:#fff;
+
+    padding-left:32px;
+}
+
+
+
+/* =====================================================
+   LANGUAGE INSIDE MENU
+===================================================== */
+
+.language-corner{
+    position:absolute;
+    left:24px;
+    bottom:24px;
+    z-index:4;
+}
+
+.language-trigger{
+    min-width:58px;
+    height:46px;
+    padding:0 14px;
+    border:1px solid rgba(255,255,255,.16);
+    border-radius:999px;
+    background:rgba(255,255,255,.035);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    color:#fff;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.6px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.language-trigger:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.30);
+    transform:translateY(-2px);
+}
+
+.language-trigger-arrow{
+    color:rgba(255,255,255,.45);
+    font-size:9px;
+    transition:transform .2s ease;
+}
+
+.language-corner.active .language-trigger-arrow{
+    transform:rotate(180deg);
+}
+
+.language-popup{
+    position:absolute;
+    left:0;
+    bottom:56px;
+    width:min(330px,calc(100vw - 48px));
+    max-height:60vh;
+    padding:8px;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:16px;
+    background:rgba(8,8,15,.94);
+    backdrop-filter:blur(16px);
+    box-shadow:0 22px 60px rgba(0,0,0,.42);
+    overflow:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:.2s ease;
+}
+
+.language-popup::-webkit-scrollbar{
+    display:none;
+    width:0;
+    height:0;
+}
+
+.language-corner.active .language-popup{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+}
+
+.language-popup-title{
+    padding:6px 8px 10px;
+    color:rgba(255,255,255,.42);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.language-popup-option{
+    width:100%;
+    min-height:44px;
+    padding:0 12px;
+    border:0;
+    border-radius:10px;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    color:rgba(255,255,255,.68);
+    font-size:11px;
+    font-weight:800;
+    text-align:left;
+    cursor:pointer;
+    transition:.18s ease;
+}
+
+.language-popup-option:hover,
+.language-popup-option.active{
+    color:#fff;
+    background:rgba(255,255,255,.07);
+}
+
+.language-popup-dot{
+    position:relative;
+    flex:0 0 auto;
+    width:12px;
+    height:12px;
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:50%;
+}
+
+.language-popup-option.active .language-popup-dot{
+    border-color:#fff;
+}
+
+.language-popup-option.active .language-popup-dot::after{
+    content:"";
+    position:absolute;
+    inset:3px;
+    border-radius:50%;
+    background:#fff;
+}
+
+.menu-socials{
+    position:absolute;
+    left:50%;
+    bottom:24px;
+    z-index:4;
+    transform:translateX(-50%);
+    margin:0;
+    padding:0;
+    border:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.menu-social{
+    width:46px;
+    height:46px;
+
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:50%;
+
+    background:transparent;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+}
+
+.menu-social:hover{
+    transform:translateY(-3px);
+
+    background:rgba(255,255,255,.08);
+
+    border-color:rgba(255,255,255,.30);
+}
+
+.menu-social svg{
+    width:19px;
+    height:19px;
+
+    fill:currentColor;
+}
+
+
+
+
+@media(max-width:720px){
+    .language-corner{
+        left:12px;
+        bottom:14px;
+    }
+
+    .language-trigger{
+        min-width:54px;
+        height:42px;
+        padding:0 12px;
+    }
+
+    .language-popup{
+        bottom:50px;
+        width:min(310px,calc(100vw - 24px));
+        max-height:58vh;
+    }
+
+    .menu-socials{
+        bottom:14px;
+        gap:7px;
+    }
+
+    .menu-social{
+        width:42px;
+        height:42px;
+    }
+}
+.header{position:fixed;inset:0 0 auto;z-index:10000;height:82px;background:linear-gradient(180deg,rgba(0,0,0,.7),transparent)}
+.header-inner{height:100%;display:flex;align-items:center;gap:11px}
+.menu{z-index:9990}
+.menu a{text-decoration:none}
+.menu button{font-family:inherit}
+.menu-social svg{display:block}
+main{padding-top:125px}
+@media(max-width:720px){.shell{width:calc(100% - 28px)}.header{height:74px}.logo img{height:46px}.menu{padding:104px 14px 24px}.menu-grid{grid-template-columns:1fr}.menu-main-link,.menu-group-btn{min-height:70px}.menu-sub a{min-height:47px}main{padding-top:105px}}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/supabase-config.js"></script><script src="/supabase-api.js"></script>
+</head><body>
+<header class="header" id="header">
+
+<div class="shell header-inner">
+
+    <button
+        class="menu-btn"
+        id="menuBtn"
+        type="button"
+        aria-label="Menu"
+    >
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <a
+        class="logo"
+        href="/"
+    >
+        <img
+            src="/8216b4e4-580b-47c1-956b-318888b98a1f-removebg-preview.png"
+            alt="Legion Białystok"
+        >
+    </a>
+
+</div>
+
+</header>
+
+
+<nav
+    class="menu"
+    id="menu"
+>
+
+<div class="menu-grid">
+
+    <a
+        class="menu-main-link"
+        href="/aktualnosci"
+        data-i18n="news"
+    >
+        Aktualności
+    </a>
+
+
+    <a
+        class="menu-main-link"
+        href="/tabela"
+        data-i18n="table"
+    >
+        Tabela
+    </a>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="teamMenuBtn"
+            type="button"
+        >
+            <span data-i18n="team">
+                Drużyna
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="teamMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/pierwszyzespol" data-i18n="firstTeam">
+                    I Drużyna
+                </a>
+
+                <a href="/drugadruzyna" data-i18n="secondTeam">
+                    II Drużyna
+                </a>
+
+                <a href="/akademia" data-i18n="academy">
+                    Akademia
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-group">
+
+        <button
+            class="menu-group-btn"
+            id="clubMenuBtn"
+            type="button"
+        >
+            <span data-i18n="club">
+                Klub
+            </span>
+
+            <span class="menu-plus">
+                +
+            </span>
+        </button>
+
+
+        <div
+            class="menu-sub"
+            id="clubMenuSub"
+        >
+
+            <div class="menu-sub-inner">
+
+                <a href="/ludzie" data-i18n="people">
+                    Ludzie Legionu
+                </a>
+
+                <a href="/kontakt" data-i18n="contact">
+                    Kontakt
+                </a>
+
+                <a href="/dokumenty" data-i18n="documents">
+                    Dokumenty
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="language-corner"
+        id="languageCorner"
+    >
+
+        <button
+            class="language-trigger"
+            id="languageTrigger"
+            type="button"
+            aria-label="Zmień język"
+        >
+            <span id="languageCode">PL</span>
+            <span class="language-trigger-arrow">▲</span>
+        </button>
+
+        <div
+            class="language-popup"
+            id="languagePopup"
+        >
+
+            <div
+                class="language-popup-title"
+                data-i18n="chooseLanguage"
+            >
+                Wybierz język
+            </div>
+
+            <button class="language-popup-option" type="button" data-lang="pl">
+                <span>Polski</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="en">
+                <span>English</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="de">
+                <span>Deutsch</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="es">
+                <span>Español</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="ru">
+                <span>Русский</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="it">
+                <span>Italiano</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+            <button class="language-popup-option" type="button" data-lang="zh">
+                <span>中文（简体）</span>
+                <span class="language-popup-dot"></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-socials">
+
+        <a
+            class="menu-social"
+            href="https://www.instagram.com/legionbialystok/"
+            aria-label="Instagram"
+            title="Instagram"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6Zm9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.facebook.com/profile.php?id=61594618042996"
+            aria-label="Facebook"
+            title="Facebook"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M13.7 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5H17V4.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.5V14h2.8v8h3.4Z"/>
+            </svg>
+        </a>
+
+        <a
+            class="menu-social"
+            href="https://www.tiktok.com/@kslegionbialystok?_r=1&_t=ZN-9APj9d7DECE"
+            aria-label="TikTok"
+            title="TikTok"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M14.4 2h3.1c.2 1.6 1.1 3 2.5 3.9A6.7 6.7 0 0 0 23 7v3.2a9.6 9.6 0 0 1-5.5-1.8v7.1a6.5 6.5 0 1 1-5.6-6.4v3.2a3.3 3.3 0 1 0 2.5 3.2V2Z"/>
+            </svg>
+        </a>
+
+    </div>
+
+</div>
+
+</nav>
+<main><section class="hero"><div class="eyebrow">Z życia klubu</div><h1>LEGION <span>W KADRZE</span></h1><p>Wszystkie chwile z boiska i zza kulis. Zdjęcia aktualizują się na podstawie galerii w panelu administratora.</p></section>
+<div class="meta" id="meta" aria-live="polite">Wczytywanie zdjęć…</div><div class="grid" id="grid"></div><div class="status hidden" id="status" role="status"></div>
+</main><div class="viewer hidden" id="viewer" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia"><span class="count" id="count"></span><button class="close" id="close" aria-label="Zamknij">×</button><button class="prev" id="prev" aria-label="Poprzednie zdjęcie">‹</button><img id="large" alt=""><button class="next" id="next" aria-label="Następne zdjęcie">›</button><div class="caption" id="caption"></div></div><footer>© Legion Białystok · Galeria klubowa</footer>
+<script>
+'use strict';
+const grid=document.getElementById('grid'), meta=document.getElementById('meta'),statusEl=document.getElementById('status');
+const viewer=document.getElementById('viewer'),large=document.getElementById('large'),caption=document.getElementById('caption'),count=document.getElementById('count');
+let photos=[],current=0;
+function normalize(item,i){const translations=item?.translations||{};const pl=translations.pl||{};return {id:item.id??i,image:item.image||item.url||item.src||'',caption:pl.caption||item.caption||item.title||'Legion Białystok',alt:item.alt||pl.caption||item.caption||'Zdjęcie Legionu',sort_order:Number(item.sort_order??item.order??i+1)||i+1,status:String(item.status||'active').toLowerCase()}}
+function extract(data){return Array.isArray(data)?data:Array.isArray(data?.gallery)?data.gallery:Array.isArray(data?.images)?data.images:Array.isArray(data?.photos)?data.photos:[]}
+function show(i){if(!photos.length)return;current=(i+photos.length)%photos.length;const p=photos[current];large.src=p.image;large.alt=p.alt;caption.textContent=p.caption;count.textContent=(current+1)+' / '+photos.length;viewer.classList.remove('hidden');document.body.style.overflow='hidden'}
+function close(){viewer.classList.add('hidden');large.removeAttribute('src');document.body.style.overflow=''}
+document.getElementById('close').onclick=close;document.getElementById('prev').onclick=()=>show(current-1);document.getElementById('next').onclick=()=>show(current+1);
+viewer.addEventListener('click',e=>{if(e.target===viewer)close()});document.addEventListener('keydown',e=>{if(viewer.classList.contains('hidden'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)});
+function render(){grid.replaceChildren();photos.forEach((p,i)=>{const b=document.createElement('button');b.className='photo';b.type='button';b.setAttribute('aria-label','Otwórz zdjęcie '+(i+1));const img=document.createElement('img');img.src=p.image;img.alt=p.alt;img.loading=i<6?'eager':'lazy';img.decoding='async';const text=document.createElement('span');text.className='overlay';text.textContent=p.caption;b.append(img,text);b.onclick=()=>show(i);grid.appendChild(b)});meta.textContent=photos.length+' zdjęć';if(!photos.length){statusEl.textContent='Na razie nie ma opublikowanych zdjęć.';statusEl.classList.remove('hidden')}}
+async function load(){let list=null;let apiError=null;try{const response=await fetch('/api/gallery.php?status=active&limit=1000',{cache:'no-store',credentials:'same-origin'});if(!response.ok)throw Error('HTTP '+response.status);const payload=await response.json();if(payload?.success===false||payload?.error)throw Error(payload.message||payload.error||'Błąd API');list=extract(payload)}catch(e){apiError=e;console.warn('Galeria API:',e)}
+if(list===null&&window.LegionSupabase?.client){try{const {data,error}=await window.LegionSupabase.client.from('gallery').select('*').order('sort_order',{ascending:true}).limit(1000);if(error)throw error;list=data||[]}catch(e){console.warn('Galeria Supabase:',e)}}
+if(list===null){meta.textContent='Nie udało się pobrać zdjęć';statusEl.textContent='Nie można połączyć się z galerią. Spróbuj odświeżyć stronę.';statusEl.classList.remove('hidden');return}
+photos=list.map(normalize).filter(p=>p.image&&!['inactive','hidden','draft','deleted'].includes(p.status)).sort((a,b)=>a.sort_order-b.sort_order);render()}
+load();
+</script><script>
+(function(){
+const btn=document.getElementById('menuBtn'),menu=document.getElementById('menu');
+const pairs=[['teamMenuBtn','teamMenuSub'],['clubMenuBtn','clubMenuSub']];
+function reset(){for(const [a,b] of pairs){document.getElementById(a).classList.remove('active');document.getElementById(b).classList.remove('active')}}
+function toggle(force){const open=force??!menu.classList.contains('active');menu.classList.toggle('active',open);btn.classList.toggle('active',open);btn.setAttribute('aria-expanded',String(open));document.body.classList.toggle('lock',open);if(!open)reset()}
+btn.setAttribute('aria-expanded','false');btn.setAttribute('aria-controls','menu');btn.onclick=()=>toggle();
+for(const [a,b] of pairs){document.getElementById(a).onclick=()=>{const button=document.getElementById(a),sub=document.getElementById(b);const open=!sub.classList.contains('active');reset();button.classList.toggle('active',open);sub.classList.toggle('active',open)}}
+menu.querySelectorAll('a[href]').forEach(a=>a.addEventListener('click',()=>toggle(false)));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.classList.contains('active'))toggle(false)});
+const corner=document.getElementById('languageCorner'),trigger=document.getElementById('languageTrigger');
+trigger.onclick=()=>corner.classList.toggle('active');
+document.addEventListener('click',e=>{if(!corner.contains(e.target))corner.classList.remove('active')});
+const labels={pl:['Aktualności','Tabela','Drużyna','Klub','I Drużyna','II Drużyna','Akademia','Ludzie Legionu','Kontakt','Dokumenty','Wybierz język'],en:['News','Table','Team','Club','First Team','Second Team','Academy','Club People','Contact','Documents','Choose language'],de:['Aktuelles','Tabelle','Mannschaft','Verein','Erste Mannschaft','Zweite Mannschaft','Akademie','Vereinsmitglieder','Kontakt','Dokumente','Sprache wählen']};
+const selectors=['[data-i18n="news"]','[data-i18n="table"]','[data-i18n="team"]','[data-i18n="club"]','[data-i18n="firstTeam"]','[data-i18n="secondTeam"]','[data-i18n="academy"]','[data-i18n="people"]','[data-i18n="contact"]','[data-i18n="documents"]','[data-i18n="chooseLanguage"]'];
+corner.querySelectorAll('[data-lang]').forEach(option=>option.onclick=()=>{const lang=option.dataset.lang;document.getElementById('languageCode').textContent=lang.toUpperCase();corner.querySelectorAll('[data-lang]').forEach(x=>x.classList.toggle('active',x===option));(labels[lang]||labels.en).forEach((v,i)=>{const node=menu.querySelector(selectors[i]);if(node)node.textContent=v});corner.classList.remove('active')});
+corner.querySelector('[data-lang="pl"]').classList.add('active');
+})();
+</script>
+</body></html>
